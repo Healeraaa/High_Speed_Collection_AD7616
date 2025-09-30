@@ -1,0 +1,12 @@
+project\stm32h7xx_ll_gpio.o: ../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_gpio.c
+project\stm32h7xx_ll_gpio.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_gpio.h
+project\stm32h7xx_ll_gpio.o: ../Drivers/CMSIS/Device/ST/STM32H7xx/Include/stm32h7xx.h
+project\stm32h7xx_ll_gpio.o: ../Drivers/CMSIS/Device/ST/STM32H7xx/Include/stm32h743xx.h
+project\stm32h7xx_ll_gpio.o: ../Drivers/CMSIS/Include/core_cm7.h
+project\stm32h7xx_ll_gpio.o: D:\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+project\stm32h7xx_ll_gpio.o: ../Drivers/CMSIS/Include/cmsis_version.h
+project\stm32h7xx_ll_gpio.o: ../Drivers/CMSIS/Include/cmsis_compiler.h
+project\stm32h7xx_ll_gpio.o: ../Drivers/CMSIS/Include/cmsis_armcc.h
+project\stm32h7xx_ll_gpio.o: ../Drivers/CMSIS/Include/mpu_armv7.h
+project\stm32h7xx_ll_gpio.o: ../Drivers/CMSIS/Device/ST/STM32H7xx/Include/system_stm32h7xx.h
+project\stm32h7xx_ll_gpio.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_bus.h

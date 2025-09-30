@@ -1,0 +1,199 @@
+Dependencies for Project 'Project', Target 'Project': (DO NOT MODIFY !)
+CompilerVersion: 5060061::V5.06 update 1 (build 61)::.\ARMCC
+F (startup_stm32h743xx.s)(0x68D28325)(--cpu Cortex-M7.fp.dp -g --apcs=interwork -I.\RTE\_Project-ID:\Keil\Packs\ARM\CMSIS\6.1.0\CMSIS\Core\Include--pd "__UVISION_VERSION SETA 540" --pd "STM32H743xx SETA 1" --pd "_RTE_ SETA 1"--list startup_stm32h743xx.lst --xref -o project\startup_stm32h743xx.o --depend project\startup_stm32h743xx.d)
+F (../Core/Src/main.c)(0x68D2A01F)(--c99 --gnu -c --cpu Cortex-M7.fp.dp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc -I ../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I ../Drivers/CMSIS/Include -I ..\BSP -I ..\Application -I ..\Modules -I ..\SYSTEM-I.\RTE\_Project-ID:\Keil\Packs\ARM\CMSIS\6.1.0\CMSIS\Core\Include-D__UVISION_VERSION="540" -DSTM32H743xx -D_RTE_ -DUSE_FULL_LL_DRIVER -DHSE_VALUE="25000000" -DHSE_STARTUP_TIMEOUT="100" -DLSE_STARTUP_TIMEOUT="5000" -DLSE_VALUE="32768" -DEXTERNAL_CLOCK_VALUE="12288000" -DHSI_VALUE="64000000" -DLSI_VALUE="32000" -DVDD_VALUE="3300" -DSTM32H743xx-o project\main.o --omf_browse project\main.crf --depend project\main.d)
+I (../Core/Inc/main.h)(0x68D28317)
+I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_rcc.h)(0x68D282F6)
+I (../Drivers/CMSIS/Device/ST/STM32H7xx/Include/stm32h7xx.h)(0x68D282F5)
+I (../Drivers/CMSIS/Device/ST/STM32H7xx/Include/stm32h743xx.h)(0x68D282F5)
+I (../Drivers/CMSIS/Include/core_cm7.h)(0x68D28275)
+I (D:\Keil\Keil_v5\ARM\ARMCC\include\stdint.h)(0x569DEA3A)
+I (../Drivers/CMSIS/Include/cmsis_version.h)(0x68D28275)
+I (../Drivers/CMSIS/Include/cmsis_compiler.h)(0x68D28275)
+I (../Drivers/CMSIS/Include/cmsis_armcc.h)(0x68D28275)
+I (../Drivers/CMSIS/Include/mpu_armv7.h)(0x68D28275)
+I (../Drivers/CMSIS/Device/ST/STM32H7xx/Include/system_stm32h7xx.h)(0x68D282F5)
+I (D:\Keil\Keil_v5\ARM\ARMCC\include\math.h)(0x569DEA3A)
+I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_crs.h)(0x68D282F6)
+I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_bus.h)(0x68D282F6)
+I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_system.h)(0x68D282F6)
+I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_exti.h)(0x68D282F6)
+I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_cortex.h)(0x68D282F6)
+I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_utils.h)(0x68D282F6)
+I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_pwr.h)(0x68D282F6)
+I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_dma.h)(0x68D282F6)
+I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_dmamux.h)(0x68D282F6)
+I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_gpio.h)(0x68D282F6)
+I (../Core/Inc/memorymap.h)(0x68D28317)
+I (../Core/Inc/gpio.h)(0x68D28316)
+I (..\SYSTEM\sys.h)(0x68D29F84)
+F (../Core/Src/gpio.c)(0x68D28316)(--c99 --gnu -c --cpu Cortex-M7.fp.dp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc -I ../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I ../Drivers/CMSIS/Include -I ..\BSP -I ..\Application -I ..\Modules -I ..\SYSTEM-I.\RTE\_Project-ID:\Keil\Packs\ARM\CMSIS\6.1.0\CMSIS\Core\Include-D__UVISION_VERSION="540" -DSTM32H743xx -D_RTE_ -DUSE_FULL_LL_DRIVER -DHSE_VALUE="25000000" -DHSE_STARTUP_TIMEOUT="100" -DLSE_STARTUP_TIMEOUT="5000" -DLSE_VALUE="32768" -DEXTERNAL_CLOCK_VALUE="12288000" -DHSI_VALUE="64000000" -DLSI_VALUE="32000" -DVDD_VALUE="3300" -DSTM32H743xx-o project\gpio.o --omf_browse project\gpio.crf --depend project\gpio.d)
+I (../Core/Inc/gpio.h)(0x68D28316)
+I (../Core/Inc/main.h)(0x68D28317)
+I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_rcc.h)(0x68D282F6)
+I (../Drivers/CMSIS/Device/ST/STM32H7xx/Include/stm32h7xx.h)(0x68D282F5)
+I (../Drivers/CMSIS/Device/ST/STM32H7xx/Include/stm32h743xx.h)(0x68D282F5)
+I (../Drivers/CMSIS/Include/core_cm7.h)(0x68D28275)
+I (D:\Keil\Keil_v5\ARM\ARMCC\include\stdint.h)(0x569DEA3A)
+I (../Drivers/CMSIS/Include/cmsis_version.h)(0x68D28275)
+I (../Drivers/CMSIS/Include/cmsis_compiler.h)(0x68D28275)
+I (../Drivers/CMSIS/Include/cmsis_armcc.h)(0x68D28275)
+I (../Drivers/CMSIS/Include/mpu_armv7.h)(0x68D28275)
+I (../Drivers/CMSIS/Device/ST/STM32H7xx/Include/system_stm32h7xx.h)(0x68D282F5)
+I (D:\Keil\Keil_v5\ARM\ARMCC\include\math.h)(0x569DEA3A)
+I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_crs.h)(0x68D282F6)
+I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_bus.h)(0x68D282F6)
+I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_system.h)(0x68D282F6)
+I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_exti.h)(0x68D282F6)
+I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_cortex.h)(0x68D282F6)
+I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_utils.h)(0x68D282F6)
+I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_pwr.h)(0x68D282F6)
+I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_dma.h)(0x68D282F6)
+I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_dmamux.h)(0x68D282F6)
+I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_gpio.h)(0x68D282F6)
+F (../Core/Src/memorymap.c)(0x68D28317)(--c99 --gnu -c --cpu Cortex-M7.fp.dp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc -I ../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I ../Drivers/CMSIS/Include -I ..\BSP -I ..\Application -I ..\Modules -I ..\SYSTEM-I.\RTE\_Project-ID:\Keil\Packs\ARM\CMSIS\6.1.0\CMSIS\Core\Include-D__UVISION_VERSION="540" -DSTM32H743xx -D_RTE_ -DUSE_FULL_LL_DRIVER -DHSE_VALUE="25000000" -DHSE_STARTUP_TIMEOUT="100" -DLSE_STARTUP_TIMEOUT="5000" -DLSE_VALUE="32768" -DEXTERNAL_CLOCK_VALUE="12288000" -DHSI_VALUE="64000000" -DLSI_VALUE="32000" -DVDD_VALUE="3300" -DSTM32H743xx-o project\memorymap.o --omf_browse project\memorymap.crf --depend project\memorymap.d)
+I (../Core/Inc/memorymap.h)(0x68D28317)
+I (../Core/Inc/main.h)(0x68D28317)
+I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_rcc.h)(0x68D282F6)
+I (../Drivers/CMSIS/Device/ST/STM32H7xx/Include/stm32h7xx.h)(0x68D282F5)
+I (../Drivers/CMSIS/Device/ST/STM32H7xx/Include/stm32h743xx.h)(0x68D282F5)
+I (../Drivers/CMSIS/Include/core_cm7.h)(0x68D28275)
+I (D:\Keil\Keil_v5\ARM\ARMCC\include\stdint.h)(0x569DEA3A)
+I (../Drivers/CMSIS/Include/cmsis_version.h)(0x68D28275)
+I (../Drivers/CMSIS/Include/cmsis_compiler.h)(0x68D28275)
+I (../Drivers/CMSIS/Include/cmsis_armcc.h)(0x68D28275)
+I (../Drivers/CMSIS/Include/mpu_armv7.h)(0x68D28275)
+I (../Drivers/CMSIS/Device/ST/STM32H7xx/Include/system_stm32h7xx.h)(0x68D282F5)
+I (D:\Keil\Keil_v5\ARM\ARMCC\include\math.h)(0x569DEA3A)
+I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_crs.h)(0x68D282F6)
+I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_bus.h)(0x68D282F6)
+I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_system.h)(0x68D282F6)
+I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_exti.h)(0x68D282F6)
+I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_cortex.h)(0x68D282F6)
+I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_utils.h)(0x68D282F6)
+I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_pwr.h)(0x68D282F6)
+I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_dma.h)(0x68D282F6)
+I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_dmamux.h)(0x68D282F6)
+I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_gpio.h)(0x68D282F6)
+F (../Core/Src/stm32h7xx_it.c)(0x68D28317)(--c99 --gnu -c --cpu Cortex-M7.fp.dp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc -I ../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I ../Drivers/CMSIS/Include -I ..\BSP -I ..\Application -I ..\Modules -I ..\SYSTEM-I.\RTE\_Project-ID:\Keil\Packs\ARM\CMSIS\6.1.0\CMSIS\Core\Include-D__UVISION_VERSION="540" -DSTM32H743xx -D_RTE_ -DUSE_FULL_LL_DRIVER -DHSE_VALUE="25000000" -DHSE_STARTUP_TIMEOUT="100" -DLSE_STARTUP_TIMEOUT="5000" -DLSE_VALUE="32768" -DEXTERNAL_CLOCK_VALUE="12288000" -DHSI_VALUE="64000000" -DLSI_VALUE="32000" -DVDD_VALUE="3300" -DSTM32H743xx-o project\stm32h7xx_it.o --omf_browse project\stm32h7xx_it.crf --depend project\stm32h7xx_it.d)
+I (../Core/Inc/main.h)(0x68D28317)
+I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_rcc.h)(0x68D282F6)
+I (../Drivers/CMSIS/Device/ST/STM32H7xx/Include/stm32h7xx.h)(0x68D282F5)
+I (../Drivers/CMSIS/Device/ST/STM32H7xx/Include/stm32h743xx.h)(0x68D282F5)
+I (../Drivers/CMSIS/Include/core_cm7.h)(0x68D28275)
+I (D:\Keil\Keil_v5\ARM\ARMCC\include\stdint.h)(0x569DEA3A)
+I (../Drivers/CMSIS/Include/cmsis_version.h)(0x68D28275)
+I (../Drivers/CMSIS/Include/cmsis_compiler.h)(0x68D28275)
+I (../Drivers/CMSIS/Include/cmsis_armcc.h)(0x68D28275)
+I (../Drivers/CMSIS/Include/mpu_armv7.h)(0x68D28275)
+I (../Drivers/CMSIS/Device/ST/STM32H7xx/Include/system_stm32h7xx.h)(0x68D282F5)
+I (D:\Keil\Keil_v5\ARM\ARMCC\include\math.h)(0x569DEA3A)
+I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_crs.h)(0x68D282F6)
+I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_bus.h)(0x68D282F6)
+I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_system.h)(0x68D282F6)
+I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_exti.h)(0x68D282F6)
+I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_cortex.h)(0x68D282F6)
+I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_utils.h)(0x68D282F6)
+I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_pwr.h)(0x68D282F6)
+I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_dma.h)(0x68D282F6)
+I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_dmamux.h)(0x68D282F6)
+I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_gpio.h)(0x68D282F6)
+I (../Core/Inc/stm32h7xx_it.h)(0x68D28317)
+F (../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_exti.c)(0x68D282F6)(--c99 --gnu -c --cpu Cortex-M7.fp.dp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc -I ../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I ../Drivers/CMSIS/Include -I ..\BSP -I ..\Application -I ..\Modules -I ..\SYSTEM-I.\RTE\_Project-ID:\Keil\Packs\ARM\CMSIS\6.1.0\CMSIS\Core\Include-D__UVISION_VERSION="540" -DSTM32H743xx -D_RTE_ -DUSE_FULL_LL_DRIVER -DHSE_VALUE="25000000" -DHSE_STARTUP_TIMEOUT="100" -DLSE_STARTUP_TIMEOUT="5000" -DLSE_VALUE="32768" -DEXTERNAL_CLOCK_VALUE="12288000" -DHSI_VALUE="64000000" -DLSI_VALUE="32000" -DVDD_VALUE="3300" -DSTM32H743xx-o project\stm32h7xx_ll_exti.o --omf_browse project\stm32h7xx_ll_exti.crf --depend project\stm32h7xx_ll_exti.d)
+I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_exti.h)(0x68D282F6)
+I (../Drivers/CMSIS/Device/ST/STM32H7xx/Include/stm32h7xx.h)(0x68D282F5)
+I (../Drivers/CMSIS/Device/ST/STM32H7xx/Include/stm32h743xx.h)(0x68D282F5)
+I (../Drivers/CMSIS/Include/core_cm7.h)(0x68D28275)
+I (D:\Keil\Keil_v5\ARM\ARMCC\include\stdint.h)(0x569DEA3A)
+I (../Drivers/CMSIS/Include/cmsis_version.h)(0x68D28275)
+I (../Drivers/CMSIS/Include/cmsis_compiler.h)(0x68D28275)
+I (../Drivers/CMSIS/Include/cmsis_armcc.h)(0x68D28275)
+I (../Drivers/CMSIS/Include/mpu_armv7.h)(0x68D28275)
+I (../Drivers/CMSIS/Device/ST/STM32H7xx/Include/system_stm32h7xx.h)(0x68D282F5)
+F (../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_gpio.c)(0x68D282F6)(--c99 --gnu -c --cpu Cortex-M7.fp.dp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc -I ../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I ../Drivers/CMSIS/Include -I ..\BSP -I ..\Application -I ..\Modules -I ..\SYSTEM-I.\RTE\_Project-ID:\Keil\Packs\ARM\CMSIS\6.1.0\CMSIS\Core\Include-D__UVISION_VERSION="540" -DSTM32H743xx -D_RTE_ -DUSE_FULL_LL_DRIVER -DHSE_VALUE="25000000" -DHSE_STARTUP_TIMEOUT="100" -DLSE_STARTUP_TIMEOUT="5000" -DLSE_VALUE="32768" -DEXTERNAL_CLOCK_VALUE="12288000" -DHSI_VALUE="64000000" -DLSI_VALUE="32000" -DVDD_VALUE="3300" -DSTM32H743xx-o project\stm32h7xx_ll_gpio.o --omf_browse project\stm32h7xx_ll_gpio.crf --depend project\stm32h7xx_ll_gpio.d)
+I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_gpio.h)(0x68D282F6)
+I (../Drivers/CMSIS/Device/ST/STM32H7xx/Include/stm32h7xx.h)(0x68D282F5)
+I (../Drivers/CMSIS/Device/ST/STM32H7xx/Include/stm32h743xx.h)(0x68D282F5)
+I (../Drivers/CMSIS/Include/core_cm7.h)(0x68D28275)
+I (D:\Keil\Keil_v5\ARM\ARMCC\include\stdint.h)(0x569DEA3A)
+I (../Drivers/CMSIS/Include/cmsis_version.h)(0x68D28275)
+I (../Drivers/CMSIS/Include/cmsis_compiler.h)(0x68D28275)
+I (../Drivers/CMSIS/Include/cmsis_armcc.h)(0x68D28275)
+I (../Drivers/CMSIS/Include/mpu_armv7.h)(0x68D28275)
+I (../Drivers/CMSIS/Device/ST/STM32H7xx/Include/system_stm32h7xx.h)(0x68D282F5)
+I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_bus.h)(0x68D282F6)
+F (../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_rcc.c)(0x68D282F6)(--c99 --gnu -c --cpu Cortex-M7.fp.dp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc -I ../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I ../Drivers/CMSIS/Include -I ..\BSP -I ..\Application -I ..\Modules -I ..\SYSTEM-I.\RTE\_Project-ID:\Keil\Packs\ARM\CMSIS\6.1.0\CMSIS\Core\Include-D__UVISION_VERSION="540" -DSTM32H743xx -D_RTE_ -DUSE_FULL_LL_DRIVER -DHSE_VALUE="25000000" -DHSE_STARTUP_TIMEOUT="100" -DLSE_STARTUP_TIMEOUT="5000" -DLSE_VALUE="32768" -DEXTERNAL_CLOCK_VALUE="12288000" -DHSI_VALUE="64000000" -DLSI_VALUE="32000" -DVDD_VALUE="3300" -DSTM32H743xx-o project\stm32h7xx_ll_rcc.o --omf_browse project\stm32h7xx_ll_rcc.crf --depend project\stm32h7xx_ll_rcc.d)
+I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_rcc.h)(0x68D282F6)
+I (../Drivers/CMSIS/Device/ST/STM32H7xx/Include/stm32h7xx.h)(0x68D282F5)
+I (../Drivers/CMSIS/Device/ST/STM32H7xx/Include/stm32h743xx.h)(0x68D282F5)
+I (../Drivers/CMSIS/Include/core_cm7.h)(0x68D28275)
+I (D:\Keil\Keil_v5\ARM\ARMCC\include\stdint.h)(0x569DEA3A)
+I (../Drivers/CMSIS/Include/cmsis_version.h)(0x68D28275)
+I (../Drivers/CMSIS/Include/cmsis_compiler.h)(0x68D28275)
+I (../Drivers/CMSIS/Include/cmsis_armcc.h)(0x68D28275)
+I (../Drivers/CMSIS/Include/mpu_armv7.h)(0x68D28275)
+I (../Drivers/CMSIS/Device/ST/STM32H7xx/Include/system_stm32h7xx.h)(0x68D282F5)
+I (D:\Keil\Keil_v5\ARM\ARMCC\include\math.h)(0x569DEA3A)
+I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_bus.h)(0x68D282F6)
+F (../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_utils.c)(0x68D282F6)(--c99 --gnu -c --cpu Cortex-M7.fp.dp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc -I ../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I ../Drivers/CMSIS/Include -I ..\BSP -I ..\Application -I ..\Modules -I ..\SYSTEM-I.\RTE\_Project-ID:\Keil\Packs\ARM\CMSIS\6.1.0\CMSIS\Core\Include-D__UVISION_VERSION="540" -DSTM32H743xx -D_RTE_ -DUSE_FULL_LL_DRIVER -DHSE_VALUE="25000000" -DHSE_STARTUP_TIMEOUT="100" -DLSE_STARTUP_TIMEOUT="5000" -DLSE_VALUE="32768" -DEXTERNAL_CLOCK_VALUE="12288000" -DHSI_VALUE="64000000" -DLSI_VALUE="32000" -DVDD_VALUE="3300" -DSTM32H743xx-o project\stm32h7xx_ll_utils.o --omf_browse project\stm32h7xx_ll_utils.crf --depend project\stm32h7xx_ll_utils.d)
+I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_utils.h)(0x68D282F6)
+I (../Drivers/CMSIS/Device/ST/STM32H7xx/Include/stm32h7xx.h)(0x68D282F5)
+I (../Drivers/CMSIS/Device/ST/STM32H7xx/Include/stm32h743xx.h)(0x68D282F5)
+I (../Drivers/CMSIS/Include/core_cm7.h)(0x68D28275)
+I (D:\Keil\Keil_v5\ARM\ARMCC\include\stdint.h)(0x569DEA3A)
+I (../Drivers/CMSIS/Include/cmsis_version.h)(0x68D28275)
+I (../Drivers/CMSIS/Include/cmsis_compiler.h)(0x68D28275)
+I (../Drivers/CMSIS/Include/cmsis_armcc.h)(0x68D28275)
+I (../Drivers/CMSIS/Include/mpu_armv7.h)(0x68D28275)
+I (../Drivers/CMSIS/Device/ST/STM32H7xx/Include/system_stm32h7xx.h)(0x68D282F5)
+I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_system.h)(0x68D282F6)
+I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_bus.h)(0x68D282F6)
+I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_rcc.h)(0x68D282F6)
+I (D:\Keil\Keil_v5\ARM\ARMCC\include\math.h)(0x569DEA3A)
+I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_pwr.h)(0x68D282F6)
+F (../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_pwr.c)(0x68D282F6)(--c99 --gnu -c --cpu Cortex-M7.fp.dp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc -I ../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I ../Drivers/CMSIS/Include -I ..\BSP -I ..\Application -I ..\Modules -I ..\SYSTEM-I.\RTE\_Project-ID:\Keil\Packs\ARM\CMSIS\6.1.0\CMSIS\Core\Include-D__UVISION_VERSION="540" -DSTM32H743xx -D_RTE_ -DUSE_FULL_LL_DRIVER -DHSE_VALUE="25000000" -DHSE_STARTUP_TIMEOUT="100" -DLSE_STARTUP_TIMEOUT="5000" -DLSE_VALUE="32768" -DEXTERNAL_CLOCK_VALUE="12288000" -DHSI_VALUE="64000000" -DLSI_VALUE="32000" -DVDD_VALUE="3300" -DSTM32H743xx-o project\stm32h7xx_ll_pwr.o --omf_browse project\stm32h7xx_ll_pwr.crf --depend project\stm32h7xx_ll_pwr.d)
+I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_pwr.h)(0x68D282F6)
+I (../Drivers/CMSIS/Device/ST/STM32H7xx/Include/stm32h7xx.h)(0x68D282F5)
+I (../Drivers/CMSIS/Device/ST/STM32H7xx/Include/stm32h743xx.h)(0x68D282F5)
+I (../Drivers/CMSIS/Include/core_cm7.h)(0x68D28275)
+I (D:\Keil\Keil_v5\ARM\ARMCC\include\stdint.h)(0x569DEA3A)
+I (../Drivers/CMSIS/Include/cmsis_version.h)(0x68D28275)
+I (../Drivers/CMSIS/Include/cmsis_compiler.h)(0x68D28275)
+I (../Drivers/CMSIS/Include/cmsis_armcc.h)(0x68D28275)
+I (../Drivers/CMSIS/Include/mpu_armv7.h)(0x68D28275)
+I (../Drivers/CMSIS/Device/ST/STM32H7xx/Include/system_stm32h7xx.h)(0x68D282F5)
+F (../Core/Src/system_stm32h7xx.c)(0x68D282F5)(--c99 --gnu -c --cpu Cortex-M7.fp.dp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc -I ../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I ../Drivers/CMSIS/Include -I ..\BSP -I ..\Application -I ..\Modules -I ..\SYSTEM-I.\RTE\_Project-ID:\Keil\Packs\ARM\CMSIS\6.1.0\CMSIS\Core\Include-D__UVISION_VERSION="540" -DSTM32H743xx -D_RTE_ -DUSE_FULL_LL_DRIVER -DHSE_VALUE="25000000" -DHSE_STARTUP_TIMEOUT="100" -DLSE_STARTUP_TIMEOUT="5000" -DLSE_VALUE="32768" -DEXTERNAL_CLOCK_VALUE="12288000" -DHSI_VALUE="64000000" -DLSI_VALUE="32000" -DVDD_VALUE="3300" -DSTM32H743xx-o project\system_stm32h7xx.o --omf_browse project\system_stm32h7xx.crf --depend project\system_stm32h7xx.d)
+I (../Drivers/CMSIS/Device/ST/STM32H7xx/Include/stm32h7xx.h)(0x68D282F5)
+I (../Drivers/CMSIS/Device/ST/STM32H7xx/Include/stm32h743xx.h)(0x68D282F5)
+I (../Drivers/CMSIS/Include/core_cm7.h)(0x68D28275)
+I (D:\Keil\Keil_v5\ARM\ARMCC\include\stdint.h)(0x569DEA3A)
+I (../Drivers/CMSIS/Include/cmsis_version.h)(0x68D28275)
+I (../Drivers/CMSIS/Include/cmsis_compiler.h)(0x68D28275)
+I (../Drivers/CMSIS/Include/cmsis_armcc.h)(0x68D28275)
+I (../Drivers/CMSIS/Include/mpu_armv7.h)(0x68D28275)
+I (../Drivers/CMSIS/Device/ST/STM32H7xx/Include/system_stm32h7xx.h)(0x68D282F5)
+I (D:\Keil\Keil_v5\ARM\ARMCC\include\math.h)(0x569DEA3A)
+F (..\SYSTEM\sys.c)(0x68D2A01E)(--c99 --gnu -c --cpu Cortex-M7.fp.dp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc -I ../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I ../Drivers/CMSIS/Include -I ..\BSP -I ..\Application -I ..\Modules -I ..\SYSTEM-I.\RTE\_Project-ID:\Keil\Packs\ARM\CMSIS\6.1.0\CMSIS\Core\Include-D__UVISION_VERSION="540" -DSTM32H743xx -D_RTE_ -DUSE_FULL_LL_DRIVER -DHSE_VALUE="25000000" -DHSE_STARTUP_TIMEOUT="100" -DLSE_STARTUP_TIMEOUT="5000" -DLSE_VALUE="32768" -DEXTERNAL_CLOCK_VALUE="12288000" -DHSI_VALUE="64000000" -DLSI_VALUE="32000" -DVDD_VALUE="3300" -DSTM32H743xx-o project\sys.o --omf_browse project\sys.crf --depend project\sys.d)
+I (../Core/Inc/main.h)(0x68D28317)
+I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_rcc.h)(0x68D282F6)
+I (../Drivers/CMSIS/Device/ST/STM32H7xx/Include/stm32h7xx.h)(0x68D282F5)
+I (../Drivers/CMSIS/Device/ST/STM32H7xx/Include/stm32h743xx.h)(0x68D282F5)
+I (../Drivers/CMSIS/Include/core_cm7.h)(0x68D28275)
+I (D:\Keil\Keil_v5\ARM\ARMCC\include\stdint.h)(0x569DEA3A)
+I (../Drivers/CMSIS/Include/cmsis_version.h)(0x68D28275)
+I (../Drivers/CMSIS/Include/cmsis_compiler.h)(0x68D28275)
+I (../Drivers/CMSIS/Include/cmsis_armcc.h)(0x68D28275)
+I (../Drivers/CMSIS/Include/mpu_armv7.h)(0x68D28275)
+I (../Drivers/CMSIS/Device/ST/STM32H7xx/Include/system_stm32h7xx.h)(0x68D282F5)
+I (D:\Keil\Keil_v5\ARM\ARMCC\include\math.h)(0x569DEA3A)
+I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_crs.h)(0x68D282F6)
+I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_bus.h)(0x68D282F6)
+I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_system.h)(0x68D282F6)
+I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_exti.h)(0x68D282F6)
+I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_cortex.h)(0x68D282F6)
+I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_utils.h)(0x68D282F6)
+I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_pwr.h)(0x68D282F6)
+I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_dma.h)(0x68D282F6)
+I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_dmamux.h)(0x68D282F6)
+I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_gpio.h)(0x68D282F6)
+F (..\SYSTEM\sys.h)(0x68D29F84)()
