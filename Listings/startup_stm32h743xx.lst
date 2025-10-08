@@ -1278,7 +1278,8 @@ Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M7.fp.dp --apcs=
 interwork --depend=project\startup_stm32h743xx.d -oproject\startup_stm32h743xx.
 o -I.\RTE\_Project -ID:\Keil_v5\ARM\PACK\ARM\CMSIS\6.1.0\CMSIS\Core\Include --p
 redefine="__UVISION_VERSION SETA 540" --predefine="STM32H743xx SETA 1" --predef
-ine="_RTE_ SETA 1" --list=startup_stm32h743xx.lst startup_stm32h743xx.s
+ine="_RTE_ SETA 1" --list=..\listings\startup_stm32h743xx.lst startup_stm32h743
+xx.s
 
 
 
