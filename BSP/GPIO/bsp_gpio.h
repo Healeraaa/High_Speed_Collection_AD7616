@@ -6,9 +6,10 @@
 
 
 
-void MX_GPIO_Init(void);
+void BSP_GPIO_LED_Init(void);
+void BSP_GPIO_System_Clock_Init(void);
 
 
-#endif
-#endif /*__ GPIO_H__ */
+
+#endif 
 

@@ -1,0 +1,9 @@
+project\retarget_io.o: D:/Keil/Packs/Keil/ARM_Compiler/1.6.3/Source/retarget_io.c
+project\retarget_io.o: D:\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+project\retarget_io.o: D:\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+project\retarget_io.o: D:\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+project\retarget_io.o: D:\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
+project\retarget_io.o: D:\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\assert.h
+project\retarget_io.o: D:\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\rt_sys.h
+project\retarget_io.o: .\RTE\_Project\RTE_Components.h
+project\retarget_io.o: D:\Keil\Packs\Keil\ARM_Compiler\1.6.3\Include\EventRecorder.h

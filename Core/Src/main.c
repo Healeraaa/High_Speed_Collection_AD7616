@@ -1,63 +1,25 @@
-#include "main.h"
-#include "memorymap.h"
-#include "gpio.h"
-#include "sys.h"
+#include "bsp.h"
+uint8_t t1 = 0;
+uint8_t t2 = 1;
+uint8_t t3 = 2;
+uint8_t t4 = 3;
+uint8_t str[] = "Hello World!";
 
 int main(void)
 {
-
-  /* USER CODE BEGIN 1 */
-
-  /* USER CODE END 1 */
-
-  /* MPU Configuration--------------------------------------------------------*/
-  MPU_Config();
-
-  /* Enable the CPU Cache */
-
-  /* Enable I-Cache---------------------------------------------------------*/
-  SCB_EnableICache();
-
-  /* Enable D-Cache---------------------------------------------------------*/
-  SCB_EnableDCache();
-
-  /* MCU Configuration--------------------------------------------------------*/
-
-  /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
-  LL_APB4_GRP1_EnableClock(LL_APB4_GRP1_PERIPH_SYSCFG);
-
-  /* System interrupt init*/
-  NVIC_SetPriorityGrouping(NVIC_PRIORITYGROUP_4);
-
-  /* SysTick_IRQn interrupt configuration */
-  NVIC_SetPriority(SysTick_IRQn, NVIC_EncodePriority(NVIC_GetPriorityGrouping(),15, 0));
-
-  /* USER CODE BEGIN Init */
-
-  /* USER CODE END Init */
-
-  /* Configure the system clock */
-  SystemClock_Config();
-
-  /* USER CODE BEGIN SysInit */
-
-  /* USER CODE END SysInit */
-
-  /* Initialize all configured peripherals */
-  MX_GPIO_Init();
-  /* USER CODE BEGIN 2 */
-
-  /* USER CODE END 2 */
-
-  /* Infinite loop */
-  /* USER CODE BEGIN WHILE */
+  BSP_Init();
   while (1)
   {
-    /* USER CODE END WHILE */
+    EventStartA(0);
+    LL_mDelay(500);
+    EventStopA(0);
 
-    /* USER CODE BEGIN 3 */
+    EventRecord2(1+EventLevelAPI,t1,t2);
+    EventRecord4(2+EventLevelOp,t1,t2,t3,t4);
+    EventRecordData(3+EventLevelOp,str,sizeof(str));
+    printf("Hello World!\n");
   }
-  /* USER CODE END 3 */
+
 }
 
 

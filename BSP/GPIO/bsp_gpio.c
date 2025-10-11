@@ -1,14 +1,17 @@
 #include "bsp_gpio.h"
 
-void MX_GPIO_Init(void)
+void BSP_GPIO_System_Clock_Init(void)
+{
+  LL_AHB4_GRP1_EnableClock(LL_AHB4_GRP1_PERIPH_GPIOH);
+  LL_AHB4_GRP1_EnableClock(LL_AHB4_GRP1_PERIPH_GPIOA);
+}
+
+void BSP_GPIO_LED_Init(void)
 {
 
   LL_GPIO_InitTypeDef GPIO_InitStruct = {0};
 
   LL_AHB4_GRP1_EnableClock(LL_AHB4_GRP1_PERIPH_GPIOC);
-  LL_AHB4_GRP1_EnableClock(LL_AHB4_GRP1_PERIPH_GPIOH);
-  LL_AHB4_GRP1_EnableClock(LL_AHB4_GRP1_PERIPH_GPIOA);
-
   LL_GPIO_SetOutputPin(GPIOC, LL_GPIO_PIN_13);
 
   GPIO_InitStruct.Pin = LL_GPIO_PIN_13;

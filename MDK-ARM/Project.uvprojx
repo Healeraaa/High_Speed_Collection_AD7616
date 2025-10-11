@@ -10,13 +10,13 @@
       <TargetName>Project</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
-      <pCCUsed>5060061::V5.06 update 1 (build 61)::.\ARMCC</pCCUsed>
+      <pCCUsed>5060960::V5.06 update 7 (build 960)::.\ARMCC</pCCUsed>
       <uAC6>0</uAC6>
       <TargetOption>
         <TargetCommonOption>
           <Device>STM32H743VITx</Device>
           <Vendor>STMicroelectronics</Vendor>
-          <PackID>Keil.STM32H7xx_DFP.4.1.2</PackID>
+          <PackID>Keil.STM32H7xx_DFP.3.1.1</PackID>
           <PackURL>https://www.keil.com/pack/</PackURL>
           <Cpu>IRAM(0x20000000-0x2001FFFF) IRAM2(0x24000000-0x2407FFFF) IROM(0x8000000-0x81FFFFF) CLOCK(12000000) FPU3(DFPU) CPUTYPE("Cortex-M7") ELITTLE</Cpu>
           <FlashUtilSpec></FlashUtilSpec>
@@ -54,8 +54,8 @@
           <CreateLib>0</CreateLib>
           <CreateHexFile>1</CreateHexFile>
           <DebugInformation>1</DebugInformation>
-          <BrowseInformation>1</BrowseInformation>
-          <ListingPath></ListingPath>
+          <BrowseInformation>0</BrowseInformation>
+          <ListingPath>..\Listings\</ListingPath>
           <HexFormatSelection>1</HexFormatSelection>
           <Merge32K>0</Merge32K>
           <CreateBatchFile>0</CreateBatchFile>
@@ -81,7 +81,7 @@
           </BeforeMake>
           <AfterMake>
             <RunUserProg1>0</RunUserProg1>
-            <RunUserProg2>1</RunUserProg2>
+            <RunUserProg2>0</RunUserProg2>
             <UserProg1Name></UserProg1Name>
             <UserProg2Name></UserProg2Name>
             <UserProg1Dos16Mode>0</UserProg1Dos16Mode>
@@ -134,11 +134,11 @@
             <RunIndependent>0</RunIndependent>
             <UpdateFlashBeforeDebugging>1</UpdateFlashBeforeDebugging>
             <Capability>1</Capability>
-            <DriverSelection>4107</DriverSelection>
+            <DriverSelection>4101</DriverSelection>
           </Flash1>
           <bUseTDR>1</bUseTDR>
           <Flash2>STLink\ST-LINKIII-KEIL_SWO.dll</Flash2>
-          <Flash3></Flash3>
+          <Flash3>"" ()</Flash3>
           <Flash4></Flash4>
           <pFcarmOut></pFcarmOut>
           <pFcarmGrp></pFcarmGrp>
@@ -212,7 +212,7 @@
             <Ra2Chk>0</Ra2Chk>
             <Ra3Chk>0</Ra3Chk>
             <Im1Chk>1</Im1Chk>
-            <Im2Chk>1</Im2Chk>
+            <Im2Chk>0</Im2Chk>
             <OnChipMemories>
               <Ocm1>
                 <Type>0</Type>
@@ -340,7 +340,7 @@
               <MiscControls></MiscControls>
               <Define>USE_FULL_LL_DRIVER,HSE_VALUE=25000000,HSE_STARTUP_TIMEOUT=100,LSE_STARTUP_TIMEOUT=5000,LSE_VALUE=32768,EXTERNAL_CLOCK_VALUE=12288000,HSI_VALUE=64000000,LSI_VALUE=32000,VDD_VALUE=3300,STM32H743xx</Define>
               <Undefine></Undefine>
-              <IncludePath>../Core/Inc;../Drivers/STM32H7xx_HAL_Driver/Inc;../Drivers/CMSIS/Device/ST/STM32H7xx/Include;../Drivers/CMSIS/Include;..\BSP;..\Application;..\Modules;..\SYSTEM</IncludePath>
+              <IncludePath>../Core/Inc;../Drivers/STM32H7xx_HAL_Driver/Inc;../Drivers/CMSIS/Device/ST/STM32H7xx/Include;../Drivers/CMSIS/Include;..\BSP;..\Application;..\Modules;..\SYSTEM;..\BSP\GPIO</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -458,6 +458,18 @@
         </Group>
         <Group>
           <GroupName>BSP</GroupName>
+          <Files>
+            <File>
+              <FileName>bsp_gpio.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\BSP\GPIO\bsp_gpio.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\BSP\bsp.c</FilePath>
+            </File>
+          </Files>
         </Group>
         <Group>
           <GroupName>Modules</GroupName>
@@ -480,21 +492,131 @@
         <Group>
           <GroupName>::CMSIS</GroupName>
         </Group>
+        <Group>
+          <GroupName>::Compiler</GroupName>
+        </Group>
       </Groups>
     </Target>
   </Targets>
 
   <RTE>
+    <packages>
+      <filter>
+        <targetInfos/>
+      </filter>
+      <package name="CMSIS-Compiler" vendor="ARM" version="2.1.0">
+        <targetInfos>
+          <targetInfo name="Project" versionMatchMode="fixed"/>
+        </targetInfos>
+      </package>
+      <package name="CMSIS-DSP" vendor="ARM">
+        <targetInfos>
+          <targetInfo name="Project"/>
+        </targetInfos>
+      </package>
+      <package name="CMSIS-Driver" vendor="ARM">
+        <targetInfos>
+          <targetInfo name="Project"/>
+        </targetInfos>
+      </package>
+      <package name="CMSIS-NN" vendor="ARM">
+        <targetInfos>
+          <targetInfo name="Project"/>
+        </targetInfos>
+      </package>
+      <package name="CMSIS-RTX" vendor="ARM">
+        <targetInfos>
+          <targetInfo name="Project"/>
+        </targetInfos>
+      </package>
+      <package name="CMSIS-View" vendor="ARM">
+        <targetInfos>
+          <targetInfo name="Project"/>
+        </targetInfos>
+      </package>
+      <package name="CMSIS" vendor="ARM" version="6.1.0">
+        <targetInfos>
+          <targetInfo name="Project" versionMatchMode="fixed"/>
+        </targetInfos>
+      </package>
+      <package name="Cortex_DFP" vendor="ARM">
+        <targetInfos>
+          <targetInfo name="Project"/>
+        </targetInfos>
+      </package>
+      <package name="ARM_Compiler" vendor="Keil" version="1.6.3">
+        <targetInfos>
+          <targetInfo name="Project" versionMatchMode="fixed"/>
+        </targetInfos>
+      </package>
+      <package name="MDK-Middleware" vendor="Keil">
+        <targetInfos>
+          <targetInfo name="Project"/>
+        </targetInfos>
+      </package>
+      <package name="STM32F1xx_DFP" vendor="Keil">
+        <targetInfos>
+          <targetInfo name="Project"/>
+        </targetInfos>
+      </package>
+      <package name="STM32F4xx_DFP" vendor="Keil">
+        <targetInfos>
+          <targetInfo name="Project"/>
+        </targetInfos>
+      </package>
+      <package name="STM32H7xx_DFP" vendor="Keil" version="3.1.1">
+        <targetInfos>
+          <targetInfo name="Project" versionMatchMode="fixed"/>
+        </targetInfos>
+      </package>
+      <package name="MSPM0G1X0X_G3X0X_DFP" vendor="TexasInstruments">
+        <targetInfos>
+          <targetInfo name="Project"/>
+        </targetInfos>
+      </package>
+      <package name="MSPM0G_DFP" vendor="TexasInstruments">
+        <targetInfos>
+          <targetInfo name="Project"/>
+        </targetInfos>
+      </package>
+    </packages>
     <apis/>
     <components>
-      <component Cclass="CMSIS" Cgroup="CORE" Cvendor="ARM" Cversion="4.3.0" condition="CMSIS Core">
-        <package name="CMSIS" schemaVersion="1.3" url="http://www.keil.com/pack/" vendor="ARM" version="4.5.0"/>
+      <component Cclass="CMSIS" Cgroup="CORE" Cvendor="ARM" Cversion="6.1.0" condition="ARMv6_7_8-M Device">
+        <package name="CMSIS" schemaVersion="1.7.36" url="https://www.keil.com/pack/" vendor="ARM" version="6.1.0"/>
+        <targetInfos>
+          <targetInfo name="Project"/>
+        </targetInfos>
+      </component>
+      <component Cbundle="ARM Compiler" Cclass="Compiler" Cgroup="Event Recorder" Cvariant="DAP" Cvendor="Keil" Cversion="1.4.0" condition="Cortex-M Device">
+        <package name="ARM_Compiler" schemaVersion="1.6.3" url="http://www.keil.com/pack/" vendor="Keil" version="1.6.3"/>
+        <targetInfos>
+          <targetInfo name="Project"/>
+        </targetInfos>
+      </component>
+      <component Cbundle="ARM Compiler" Cclass="Compiler" Cgroup="I/O" Csub="STDOUT" Cvariant="EVR" Cvendor="Keil" Cversion="1.2.0" condition="ARMCC Cortex-M with EVR">
+        <package name="ARM_Compiler" schemaVersion="1.6.3" url="http://www.keil.com/pack/" vendor="Keil" version="1.6.3"/>
         <targetInfos>
           <targetInfo name="Project"/>
         </targetInfos>
       </component>
     </components>
-    <files/>
+    <files>
+      <file attr="config" category="header" name="Config\EventRecorderConf.h" version="1.1.0">
+        <instance index="0">RTE\Compiler\EventRecorderConf.h</instance>
+        <component Cbundle="ARM Compiler" Cclass="Compiler" Cgroup="Event Recorder" Cvariant="DAP" Cvendor="Keil" Cversion="1.4.0" condition="Cortex-M Device"/>
+        <package name="ARM_Compiler" schemaVersion="1.6.3" url="http://www.keil.com/pack/" vendor="Keil" version="1.6.3"/>
+        <targetInfos>
+          <targetInfo name="Project"/>
+        </targetInfos>
+      </file>
+      <file attr="config" category="header" name="Network\Config\Net_Config_Legacy.h" version="7.0.0">
+        <instance index="0" removed="1">RTE\Network\Net_Config_Legacy.h</instance>
+        <component Cbundle="MDK-Pro" Cclass="Network" Cgroup="Legacy API" Cvendor="Keil" Cversion="7.0.0" condition="Network Core"/>
+        <package name="MDK-Middleware" schemaVersion="1.3" url="http://www.keil.com/pack/" vendor="Keil" version="7.0.0"/>
+        <targetInfos/>
+      </file>
+    </files>
   </RTE>
 
   <LayerInfo>

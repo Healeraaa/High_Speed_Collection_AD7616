@@ -10,8 +10,12 @@
 "project\stm32h7xx_ll_utils.o"
 "project\stm32h7xx_ll_pwr.o"
 "project\system_stm32h7xx.o"
+"project\bsp_gpio.o"
+"project\bsp.o"
 "project\sys.o"
+"project\eventrecorder.o"
+"project\retarget_io.o"
 --strict --scatter "Project\Project.sct"
 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers
---list "Project.map" -o Project\Project.axf
+--list "..\Listings\Project.map" -o Project\Project.axf

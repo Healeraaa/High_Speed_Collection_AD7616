@@ -1,0 +1,14 @@
+project\eventrecorder.o: D:/Keil/Packs/Keil/ARM_Compiler/1.6.3/Source/EventRecorder.c
+project\eventrecorder.o: .\RTE\_Project\RTE_Components.h
+project\eventrecorder.o: ../Drivers/CMSIS/Device/ST/STM32H7xx/Include/stm32h7xx.h
+project\eventrecorder.o: ../Drivers/CMSIS/Device/ST/STM32H7xx/Include/stm32h743xx.h
+project\eventrecorder.o: ../Drivers/CMSIS/Include/core_cm7.h
+project\eventrecorder.o: D:\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+project\eventrecorder.o: ../Drivers/CMSIS/Include/cmsis_version.h
+project\eventrecorder.o: ../Drivers/CMSIS/Include/cmsis_compiler.h
+project\eventrecorder.o: ../Drivers/CMSIS/Include/cmsis_armcc.h
+project\eventrecorder.o: ../Drivers/CMSIS/Include/mpu_armv7.h
+project\eventrecorder.o: ../Drivers/CMSIS/Device/ST/STM32H7xx/Include/system_stm32h7xx.h
+project\eventrecorder.o: D:\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+project\eventrecorder.o: D:\Keil\Packs\Keil\ARM_Compiler\1.6.3\Include\EventRecorder.h
+project\eventrecorder.o: .\RTE\Compiler\EventRecorderConf.h

@@ -1,4 +1,5 @@
 project\main.o: ../Core/Src/main.c
+project\main.o: ..\BSP\bsp.h
 project\main.o: ../Core/Inc/main.h
 project\main.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_rcc.h
 project\main.o: ../Drivers/CMSIS/Device/ST/STM32H7xx/Include/stm32h7xx.h
@@ -21,6 +22,5 @@ project\main.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_pwr.h
 project\main.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_dma.h
 project\main.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_dmamux.h
 project\main.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_gpio.h
-project\main.o: ../Core/Inc/memorymap.h
-project\main.o: ../Core/Inc/gpio.h
-project\main.o: ..\SYSTEM\sys.h
+project\main.o: D:\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+project\main.o: D:\Keil\Packs\Keil\ARM_Compiler\1.6.3\Include\EventRecorder.h
