@@ -3,6 +3,7 @@
         {
             "name": "Project",
             "includePath": [
+<<<<<<< HEAD
                 "e:\\MCU_Project\\STM32H743Project\\02High_Speed_Collection_AD7616\\Core\\Inc",
                 "e:\\MCU_Project\\STM32H743Project\\02High_Speed_Collection_AD7616\\Drivers\\STM32H7xx_HAL_Driver\\Inc",
                 "e:\\MCU_Project\\STM32H743Project\\02High_Speed_Collection_AD7616\\Drivers\\CMSIS\\Device\\ST\\STM32H7xx\\Include",
@@ -17,6 +18,21 @@
                 "e:\\MCU_Project\\STM32H743Project\\02High_Speed_Collection_AD7616\\MDK-ARM",
                 "e:\\MCU_Project\\STM32H743Project\\02High_Speed_Collection_AD7616\\Core\\Src",
                 "e:\\MCU_Project\\STM32H743Project\\02High_Speed_Collection_AD7616\\Drivers\\STM32H7xx_HAL_Driver\\Src"
+=======
+                "d:\\STM32Cube\\STM32H743Project\\High_Speed_Collection_AD7616\\Core\\Inc",
+                "d:\\STM32Cube\\STM32H743Project\\High_Speed_Collection_AD7616\\Drivers\\STM32H7xx_HAL_Driver\\Inc",
+                "d:\\STM32Cube\\STM32H743Project\\High_Speed_Collection_AD7616\\Drivers\\CMSIS\\Device\\ST\\STM32H7xx\\Include",
+                "d:\\STM32Cube\\STM32H743Project\\High_Speed_Collection_AD7616\\Drivers\\CMSIS\\Include",
+                "d:\\STM32Cube\\STM32H743Project\\High_Speed_Collection_AD7616\\BSP",
+                "d:\\STM32Cube\\STM32H743Project\\High_Speed_Collection_AD7616\\Application",
+                "d:\\STM32Cube\\STM32H743Project\\High_Speed_Collection_AD7616\\Modules",
+                "d:\\STM32Cube\\STM32H743Project\\High_Speed_Collection_AD7616\\SYSTEM",
+                "D:\\Keil_v5\\ARM\\ARMCC\\include",
+                "D:\\Keil_v5\\ARM\\ARMCC\\include\\rw",
+                "d:\\STM32Cube\\STM32H743Project\\High_Speed_Collection_AD7616\\MDK-ARM",
+                "d:\\STM32Cube\\STM32H743Project\\High_Speed_Collection_AD7616\\Core\\Src",
+                "d:\\STM32Cube\\STM32H743Project\\High_Speed_Collection_AD7616\\Drivers\\STM32H7xx_HAL_Driver\\Src"
+>>>>>>> 7bbbc75a6f48850db0f336af4e168c652a26db9b
             ],
             "defines": [
                 "USE_FULL_LL_DRIVER",

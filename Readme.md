@@ -154,6 +154,11 @@ https://pan.baidu.com/s/1K0eSO25UTzlgqdymQ2rUxw  提取码：oh6l
 第4部分，使用STM32CubeMX生成一个最简单的H7裸机模板。
 （1）添加EVR和RTT功能。
 （2）大家做芯片前期验证时, 仅需一个SWD调试接口就可以做一个工程来测试打印。
+<<<<<<< HEAD
 [EventRecorder本地参考手册](file:///D:/Keil/Packs/Keil/ARM_Compiler/1.6.3/Doc/EventRecorder/html/er_theory.html#er_req)
 
 [参考文档和相关例子下载](https://www.armbbs.cn/forum.php?mod=viewthread&tid=111133)
+=======
+
+[参考文档和相关例子下载：](https://www.armbbs.cn/forum.php?mod=viewthread&tid=111133)
+>>>>>>> 7bbbc75a6f48850db0f336af4e168c652a26db9b
