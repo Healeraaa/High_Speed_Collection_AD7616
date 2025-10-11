@@ -10,21 +10,13 @@
       <TargetName>Project</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
-<<<<<<< HEAD
       <pCCUsed>5060960::V5.06 update 7 (build 960)::.\ARMCC</pCCUsed>
-=======
-      <pCCUsed>5060061::V5.06 update 1 (build 61)::ARMCC</pCCUsed>
->>>>>>> 7bbbc75a6f48850db0f336af4e168c652a26db9b
       <uAC6>0</uAC6>
       <TargetOption>
         <TargetCommonOption>
           <Device>STM32H743VITx</Device>
           <Vendor>STMicroelectronics</Vendor>
-<<<<<<< HEAD
           <PackID>Keil.STM32H7xx_DFP.3.1.1</PackID>
-=======
-          <PackID>Keil.STM32H7xx_DFP.4.1.0</PackID>
->>>>>>> 7bbbc75a6f48850db0f336af4e168c652a26db9b
           <PackURL>https://www.keil.com/pack/</PackURL>
           <Cpu>IRAM(0x20000000-0x2001FFFF) IRAM2(0x24000000-0x2407FFFF) IROM(0x8000000-0x81FFFFF) CLOCK(12000000) FPU3(DFPU) CPUTYPE("Cortex-M7") ELITTLE</Cpu>
           <FlashUtilSpec></FlashUtilSpec>
@@ -592,7 +584,6 @@
     <components>
       <component Cclass="CMSIS" Cgroup="CORE" Cvendor="ARM" Cversion="6.1.0" condition="ARMv6_7_8-M Device">
         <package name="CMSIS" schemaVersion="1.7.36" url="https://www.keil.com/pack/" vendor="ARM" version="6.1.0"/>
-<<<<<<< HEAD
         <targetInfos>
           <targetInfo name="Project"/>
         </targetInfos>
@@ -605,15 +596,12 @@
       </component>
       <component Cbundle="ARM Compiler" Cclass="Compiler" Cgroup="I/O" Csub="STDOUT" Cvariant="EVR" Cvendor="Keil" Cversion="1.2.0" condition="ARMCC Cortex-M with EVR">
         <package name="ARM_Compiler" schemaVersion="1.6.3" url="http://www.keil.com/pack/" vendor="Keil" version="1.6.3"/>
-=======
->>>>>>> 7bbbc75a6f48850db0f336af4e168c652a26db9b
         <targetInfos>
           <targetInfo name="Project"/>
         </targetInfos>
       </component>
     </components>
     <files>
-<<<<<<< HEAD
       <file attr="config" category="header" name="Config\EventRecorderConf.h" version="1.1.0">
         <instance index="0">RTE\Compiler\EventRecorderConf.h</instance>
         <component Cbundle="ARM Compiler" Cclass="Compiler" Cgroup="Event Recorder" Cvariant="DAP" Cvendor="Keil" Cversion="1.4.0" condition="Cortex-M Device"/>
@@ -622,8 +610,6 @@
           <targetInfo name="Project"/>
         </targetInfos>
       </file>
-=======
->>>>>>> 7bbbc75a6f48850db0f336af4e168c652a26db9b
       <file attr="config" category="header" name="Network\Config\Net_Config_Legacy.h" version="7.0.0">
         <instance index="0" removed="1">RTE\Network\Net_Config_Legacy.h</instance>
         <component Cbundle="MDK-Pro" Cclass="Network" Cgroup="Legacy API" Cvendor="Keil" Cversion="7.0.0" condition="Network Core"/>

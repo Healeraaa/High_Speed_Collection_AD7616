@@ -41,13 +41,9 @@ virtualFolder:
             - path: ../Core/Src/system_stm32h7xx.c
           folders: []
     - name: BSP
-<<<<<<< HEAD
       files:
         - path: ../BSP/GPIO/bsp_gpio.c
         - path: ../BSP/bsp.c
-=======
-      files: []
->>>>>>> 7bbbc75a6f48850db0f336af4e168c652a26db9b
       folders: []
     - name: Modules
       files: []
@@ -60,7 +56,6 @@ virtualFolder:
     - name: ::CMSIS
       files: []
       folders: []
-<<<<<<< HEAD
     - name: ::Compiler
       files:
         - path: RTE/Compiler/EventRecorderConf.h
@@ -69,8 +64,6 @@ virtualFolder:
       files:
         - path: RTE/Network/Net_Config_Legacy.h
       folders: []
-=======
->>>>>>> 7bbbc75a6f48850db0f336af4e168c652a26db9b
 dependenceList: []
 outDir: build
 miscInfo:
@@ -98,15 +91,10 @@ targets:
         - ../Application
         - ../Modules
         - ../SYSTEM
-<<<<<<< HEAD
         - ../BSP/GPIO
-        - D:/Keil/Packs/Keil/ARM_Compiler/1.6.3/Source
         - .cmsis/include
         - RTE/Compiler
         - RTE/Network
-=======
-        - .cmsis/include
->>>>>>> 7bbbc75a6f48850db0f336af4e168c652a26db9b
         - RTE/_Project
       libList: []
     excludeList: []
@@ -171,7 +159,7 @@ targets:
               noInit: false
               tag: IRAM
             - id: 2
-              isChecked: true
+              isChecked: false
               mem:
                 size: "0x80000"
                 startAddr: "0x24000000"

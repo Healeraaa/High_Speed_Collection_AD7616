@@ -4,13 +4,13 @@ project\sys.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_rcc.h
 project\sys.o: ../Drivers/CMSIS/Device/ST/STM32H7xx/Include/stm32h7xx.h
 project\sys.o: ../Drivers/CMSIS/Device/ST/STM32H7xx/Include/stm32h743xx.h
 project\sys.o: ../Drivers/CMSIS/Include/core_cm7.h
-project\sys.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+project\sys.o: D:\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 project\sys.o: ../Drivers/CMSIS/Include/cmsis_version.h
 project\sys.o: ../Drivers/CMSIS/Include/cmsis_compiler.h
 project\sys.o: ../Drivers/CMSIS/Include/cmsis_armcc.h
 project\sys.o: ../Drivers/CMSIS/Include/mpu_armv7.h
 project\sys.o: ../Drivers/CMSIS/Device/ST/STM32H7xx/Include/system_stm32h7xx.h
-project\sys.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
+project\sys.o: D:\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
 project\sys.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_crs.h
 project\sys.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_bus.h
 project\sys.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_system.h

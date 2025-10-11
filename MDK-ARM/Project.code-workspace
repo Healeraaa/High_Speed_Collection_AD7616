@@ -4,15 +4,6 @@
             "path": "."
         }
     ],
-<<<<<<< HEAD
     "settings": {},
-=======
-    "settings": {
-        "files.associations": {
-            "main.h": "c",
-            "stm32h7xx_ll_rcc.h": "c"
-        }
-    },
->>>>>>> 7bbbc75a6f48850db0f336af4e168c652a26db9b
     "extensions": {}
 }
