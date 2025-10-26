@@ -157,3 +157,51 @@ https://pan.baidu.com/s/1K0eSO25UTzlgqdymQ2rUxw  提取码：oh6l
 [EventRecorder本地参考手册](file:///D:/Keil/Packs/Keil/ARM_Compiler/1.6.3/Doc/EventRecorder/html/er_theory.html#er_req)
 
 [参考文档和相关例子下载](https://www.armbbs.cn/forum.php?mod=viewthread&tid=111133)
+
+
+### 9.STM32H7的GPIO专题，通过驱动源码，参考手册，数据手册应用笔记系统学习GPIO知识点
+
+本期视频主要分为如下几个部分：
+    第1部分：英文版参考手册GPIO章节学习。
+        （1）GPIO各种工作模式分析。
+        （2）GPIO 的速度等级高的时候， 最好使能 IO 补偿单元。
+        （3）施密特触发输入。
+        （4）正确理解PA0_C, PA1_C, PC2_C PC3_C。
+        （5）H7的上电后GPIO默认已经是模拟模式，而F1，F4是浮空输入。
+    第2部分：英文版数据手册GPIO章节学习，了解GPIO的电气特性。
+        (1)STM32H7引脚允许的最大拉电流和灌电流
+        (2)  STM32H7的弱上拉和下拉电阻大小。
+        (3)  STM32H7的GPIO对TTL电平和CMOS电平的兼容问题
+    第3部分：GPIO应用笔记手册。
+    第4部分：GPIO的HAL库，LL库和寄存器方式玩法。
+
+参考资料：
+[1.STM32H7引脚允许的最大拉电流和灌电流](https://www.armbbs.cn/forum.php?mod=viewthread&tid=87665)
+[2.H7的上电后GPIO默认已经是模拟模式，而F1，F4是浮空输入](https://www.armbbs.cn/forum.php?mod=viewthread&tid=88677)
+[3.STM32H7的SWD调试接口里面的SWDIO-PA13和SWCLK-PA14可以随意使用](https://www.armbbs.cn/forum.php?mod=viewthread&tid=96691)
+[4.STM32H7的GPIO对TTL电平和CMOS电平的兼容问题](https://www.armbbs.cn/forum.php?mod=viewthread&tid=87676)
+[5.STM32H7开启IO补偿单元和关闭补偿单元，GPIO配置不同速度等级的最高速度](https://www.armbbs.cn/forum.php?mod=viewthread&tid=87677)
+[6.施密特触发器也有简单的滤波作用](https://www.armbbs.cn/forum.php?mod=viewthread&tid=111275)
+[7.ST曾经发布的一篇GPIO深入介绍文档AN4899，特别是5V耐压的应用介绍值得一看](https://www.armbbs.cn/forum.php?mod=viewthread&tid=91660)
+
+### 10.STM32H7的GPIO专题，非阻塞式驱动编程思想，按键FIFO，蜂鸣器驱动的新式玩法
+
+本期视频教程为大家分享BSP驱动教程第10期，非阻塞式驱动设计思想，我们的按键FIFO，串口FIFO和触摸FIFO都是类似的用法。把这种实现思路做的说明，然后讲解下我们的驱动代码实现。
+
+本期教程主要分为如下几个部分：
+    1、硬件设计部分。
+        （1）按键硬件设计。
+        （2）无源蜂鸣器硬件设计。
+    2、阻塞式和非阻塞式编程思想。
+        （1）阻塞式设计效果，代码举例测试。
+        （2）外部中断式设计效果，代码举例测试。
+        （3）非阻塞式设计。
+    3、按键FIFO实现。
+        （1）FIFO设计思路，看教程文档。
+        （2）测试按键效果，感性认识下。
+        （3）调试状态FIFO变化，调试看FIFO。
+        （4）代码说明。
+    4、蜂鸣器驱动新式实现。
+
+参考资料：
+[本次视频魔改的例子](https://www.armbbs.cn/forum.php?mod=viewthread&tid=111527)

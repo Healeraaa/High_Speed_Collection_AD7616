@@ -473,6 +473,28 @@
         </Group>
         <Group>
           <GroupName>Modules</GroupName>
+          <Files>
+            <File>
+              <FileName>Module_Key.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Modules\Module_Key.c</FilePath>
+            </File>
+            <File>
+              <FileName>Module_Key.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Modules\Module_Key.h</FilePath>
+            </File>
+            <File>
+              <FileName>Module.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Modules\Module.c</FilePath>
+            </File>
+            <File>
+              <FileName>Module.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Modules\Module.h</FilePath>
+            </File>
+          </Files>
         </Group>
         <Group>
           <GroupName>SYSTEM</GroupName>

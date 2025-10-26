@@ -25,5 +25,4 @@ project\bsp.o: ../Core/Inc/memorymap.h
 project\bsp.o: ..\SYSTEM\sys.h
 project\bsp.o: ..\BSP\bsp.h
 project\bsp.o: D:\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
-project\bsp.o: D:\Keil\Packs\Keil\ARM_Compiler\1.6.3\Include\EventRecorder.h
 project\bsp.o: ..\BSP\GPIO\bsp_gpio.h

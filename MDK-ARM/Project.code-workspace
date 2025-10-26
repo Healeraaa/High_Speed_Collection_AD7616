@@ -4,6 +4,12 @@
             "path": "."
         }
     ],
-    "settings": {},
+    "settings": {
+        "files.associations": {
+            "bsp.h": "c",
+            "bsp_gpio.h": "c",
+            "mod_key.h": "c"
+        }
+    },
     "extensions": {}
 }

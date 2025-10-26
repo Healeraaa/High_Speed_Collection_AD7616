@@ -2,7 +2,7 @@
 #include "memorymap.h"
 #include "sys.h"
 #include "bsp.h"
-#include "bsp_gpio.h"
+
 
 
 
@@ -19,11 +19,6 @@ void BSP_Init(void)
   NVIC_SetPriority(SysTick_IRQn, NVIC_EncodePriority(NVIC_GetPriorityGrouping(),15, 0));// 设置SysTick中断优先级为最低15
 
   SystemClock_Config();//系统时钟配置
-
-#if Enable_EventRecorder == 1 
-  EventRecorderInitialize(EventRecordAll, 1U); //初始化事件记录器  
-  EventRecorderStart(); //启动事件记录器
-#endif
 
   /* 初始化GPIO时钟 */
   BSP_GPIO_System_Clock_Init();
