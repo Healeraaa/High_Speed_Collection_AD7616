@@ -12,6 +12,7 @@
 "project\system_stm32h7xx.o"
 "project\bsp_gpio.o"
 "project\bsp.o"
+"project\bsp_timer.o"
 "project\module_key.o"
 "project\module.o"
 "project\sys.o"

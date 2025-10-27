@@ -29,7 +29,7 @@ void BSP_GPIO_LED_Init(void)
 	};
 // 按键列表
 static const KeyGpioConfig_t s_key_gpio_list[HARD_KEY_NUM] = {
-	{GPIOA, LL_GPIO_PIN_0, 1},		/* KEY1 */
+	{GPIOA, LL_GPIO_PIN_0, 0 },		/* KEY1 */
 };	
 
 void BSP_GPIO_KEY_Init(void)

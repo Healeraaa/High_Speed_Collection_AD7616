@@ -20,8 +20,14 @@ void BSP_Init(void)
 
   SystemClock_Config();//系统时钟配置
 
+  BSP_TIMER_SysTick_Init();// 初始化SysTick定时器
+
   /* 初始化GPIO时钟 */
   BSP_GPIO_System_Clock_Init();
   /* 初始化LED相关的GPIO */
   BSP_GPIO_LED_Init();
+}
+
+void BSP_RunPer10ms(void)
+{
 }

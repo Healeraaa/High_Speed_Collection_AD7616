@@ -12,6 +12,7 @@
                 "e:\\MCU_Project\\STM32H743Project\\02High_Speed_Collection_AD7616\\Modules",
                 "e:\\MCU_Project\\STM32H743Project\\02High_Speed_Collection_AD7616\\SYSTEM",
                 "e:\\MCU_Project\\STM32H743Project\\02High_Speed_Collection_AD7616\\BSP\\GPIO",
+                "e:\\MCU_Project\\STM32H743Project\\02High_Speed_Collection_AD7616\\BSP\\TIMER",
                 "D:\\Keil\\Keil_v5\\ARM\\ARMCC\\include",
                 "D:\\Keil\\Keil_v5\\ARM\\ARMCC\\include\\rw",
                 "e:\\MCU_Project\\STM32H743Project\\02High_Speed_Collection_AD7616\\MDK-ARM",

@@ -6,9 +6,9 @@
     ],
     "settings": {
         "files.associations": {
-            "bsp.h": "c",
-            "bsp_gpio.h": "c",
-            "mod_key.h": "c"
+            "bsp_timer.h": "c",
+            "module.h": "c",
+            "bsp.h": "c"
         }
     },
     "extensions": {}

@@ -23,4 +23,5 @@ project\module.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_dmamux.h
 project\module.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_gpio.h
 project\module.o: ..\Modules\Module.h
 project\module.o: D:\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+project\module.o: D:\Keil\Packs\Keil\ARM_Compiler\1.6.3\Include\EventRecorder.h
 project\module.o: ..\Modules\Module_Key.h

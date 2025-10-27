@@ -46,7 +46,11 @@ virtualFolder:
         - path: ../BSP/bsp.c
       folders: []
     - name: Modules
-      files: []
+      files:
+        - path: ../Modules/Module_Key.c
+        - path: ../Modules/Module_Key.h
+        - path: ../Modules/Module.c
+        - path: ../Modules/Module.h
       folders: []
     - name: SYSTEM
       files:

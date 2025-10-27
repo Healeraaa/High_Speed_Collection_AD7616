@@ -13,15 +13,31 @@ int main(void)
   Module_Config();
   while (1)
   {
-    // EventStartA(0);
-    // LL_mDelay(500);
-    // EventStopA(0);
+    uint8_t ucKeyCode = Moudle_Key_GetFifoBuffer();	/* 读取键值, 无键按下时返回 KEY_NONE = 0 */
+		if (ucKeyCode != KEY_NONE)
+		{
+			switch (ucKeyCode)
+			{
+				case KEY_1_DOWN:			/* K1键按下 */
+					printf("K1_Dowm\r\n");
+					break;
 
-    // EventRecord2(1+EventLevelAPI,t1,t2);
-    // EventRecord4(2+EventLevelOp,t1,t2,t3,t4);
-    // EventRecordData(3+EventLevelOp,str,sizeof(str));
-    // printf("Hello World!\n");
-  }
+				case KEY_1_UP:				/* K1键弹起 */
+					printf("K1_Up\r\n");
+					break;
+				case KEY_1_LONG:				/* K1键弹起 */
+					printf("K1_Long\r\n");
+					break;
+
+			
+
+				default:
+					/* 其它的键值不处理 */
+					break;
+			}
+  		}
+		LL_mDelay(10);  /* 延时10ms */
+}
 
 }
 
