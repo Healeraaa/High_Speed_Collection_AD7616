@@ -4,12 +4,6 @@
             "path": "."
         }
     ],
-    "settings": {
-        "files.associations": {
-            "bsp_timer.h": "c",
-            "module.h": "c",
-            "bsp.h": "c"
-        }
-    },
+    "settings": {},
     "extensions": {}
 }

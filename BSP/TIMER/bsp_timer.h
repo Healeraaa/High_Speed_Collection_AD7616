@@ -5,7 +5,7 @@
 #include "main.h"
 
 // ==================== SysTick ====================
-void BSP_TIMER_SysTick_Init(void);
+// void BSP_TIMER_SysTick_Init(void);
 
 #endif 
 

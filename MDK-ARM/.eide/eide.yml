@@ -44,6 +44,7 @@ virtualFolder:
       files:
         - path: ../BSP/GPIO/bsp_gpio.c
         - path: ../BSP/bsp.c
+        - path: ../BSP/TIMER/bsp_timer.c
       folders: []
     - name: Modules
       files:
@@ -96,6 +97,7 @@ targets:
         - ../Modules
         - ../SYSTEM
         - ../BSP/GPIO
+        - ../BSP/TIMER
         - .cmsis/include
         - RTE/Compiler
         - RTE/Network
@@ -131,7 +133,7 @@ targets:
             ro-base: "0x08000000"
             rw-base: "0x20000000"
             xo-base: ""
-        scatterFilePath: ""
+        scatterFilePath: Project\Project.sct
         storageLayout:
           RAM:
             - id: 1
@@ -158,16 +160,16 @@ targets:
             - id: 1
               isChecked: true
               mem:
-                size: "0x20000"
+                size: "0x10000"
                 startAddr: "0x20000000"
               noInit: false
               tag: IRAM
             - id: 2
               isChecked: false
               mem:
-                size: "0x80000"
-                startAddr: "0x24000000"
-              noInit: false
+                size: "0x10000"
+                startAddr: "0x20010000"
+              noInit: true
               tag: IRAM
           ROM:
             - id: 1

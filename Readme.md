@@ -129,6 +129,10 @@
 （1）根域。
 （2）.ANY设置不同加载优先级。
 
+// 将数据key_statistics放到RAM_D1段
+"__attribute__((section("RAM_D1")))
+static uint8_t key_statistics[256];"
+
 相关资料
 https://pan.baidu.com/s/1K0eSO25UTzlgqdymQ2rUxw  提取码：oh6l
 [1.ARM分散加载文档：](https://developer.arm.com/docume ... using-scatter-files)
@@ -202,6 +206,57 @@ https://pan.baidu.com/s/1K0eSO25UTzlgqdymQ2rUxw  提取码：oh6l
         （3）调试状态FIFO变化，调试看FIFO。
         （4）代码说明。
     4、蜂鸣器驱动新式实现。
-
 参考资料：
 [本次视频魔改的例子](https://www.armbbs.cn/forum.php?mod=viewthread&tid=111527)
+
+### 11.STM32H7的GPIO实战，深化非阻塞编程思想，开启Event Recorder狂暴模式，移植驱动到全新器件上
+
+深化非阻塞编程思想，移植驱动到全新器件上，使用杜邦线洞洞板搭建的，不使用我们自己的开发板，来一期GPIO应用实战，并给大家展示下Event Recorder开狂暴模式。
+本期视频主要分为如下几个部分：
+    第1部分：STM32CubeMX生成工程模板
+    第2部分：移植添加BSP相关驱动。
+    第3部分：添加Event Recorder的正确姿势，极速printf打印展示。
+    第4部分：调试仿真运行。
+    第5部分：不同主频的功耗问题。
+
+### 12.STM32H7的NVIC中断管理和优先级动态分配，实战分享减小开关中断对实时性影响，提升系统响应速度
+NVIC中断相关的问题，NVIC在项目设计中有着举足轻重的作用，特别是程序较复杂，且中断比较多时。实际应用中推荐：中断越少越好，中断频率越低越好，任务之间耦合度越低越好
+
+本期教程主要分为如下几个部分：
+第1部分：图形化实时展示NVIC分组，抢占优先级和子优先级。
+    （1）NVIC分组
+    （2）抢占优先级和子优先级
+    （3）各种优先级配置下，中断响应顺序。
+第2部分：中断延迟。
+    （1）含义：从中断触发到执行中断服务程序的第一条指令这段时间就是中断延迟时间。
+    （2）零中断延迟：并不是说中断延迟时间是0，而是中断触发后，延迟时间接近芯片特性的延迟时间。
+第3部分：实战应用
+    （1）实战应用场景一：尽量不要使用全局开关中断，使用局部中断
+    （2）实战应用场景二：使用__set_PRIMASK（操作PRIMASK寄存器）做全局开关中断的地方，改用__set_BASEPRI（操作BASEPRI寄存器）
+    （3）实战应用场景三：降低中断服务程序执行时间。
+第4部分：几十个中断时，中断动态优先级分配问题。
+    在不同优先级分配下，总有一个功能无法正常运行，而修改后，这个问题修复了，但又出现新的问题。所以就想搞搞动态分配，发现不实用，问题更多。
+
+参数资料：
+[实战技能分享，减小开关中断对系统实时性的影响，提升系统响应速度](https://www.armbbs.cn/forum.php?mod=viewthread&tid=109927)
+
+### 13.系统讲解Cortex-M7内核Cache和MPU
+初学时容易无法形成系统的认识，说到某一个知识点也明白，但是具体到Cache读写操作的时候是怎么个流程，就懵了，本期视频教程就帮大家捋顺这个问题。MPU和Cache也是M7内核芯片学习的核心内容。
+
+本期教程主要分为如下几个部分：
+第1部分：MPU基础
+    （1）MPU和Cache作用介绍。
+    （2）深入介绍MPU。
+第2部分：Cache各种配置工作流程理解。
+    （1）深入介绍各个Cache配置策略执行流程。
+
+参数资料：
+[1.言简意赅的介绍M7内核的Cache工作流程，摸爬滚打半年的经验总结  ](https://www.armbbs.cn/forum.php?mod=viewthread&tid=90066)
+2、https://www.sciencedirect.com/topics/computer-science/set-associative-cache
+3、文档链接：https://pan.baidu.com/s/1z6A9fWDCp2_BKlEIQLNoRg 提取码：7x4q
+
+
+### 13.超干货，MPU和Cache实战，一张图了解所有经典配置案例，争取人人都可以玩溜
+BV1p54y1f7CY
+[一张图](https://www.armbbs.cn/forum.php?mod=viewthread&tid=112268)
+

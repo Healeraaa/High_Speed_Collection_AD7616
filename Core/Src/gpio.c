@@ -51,6 +51,7 @@ void MX_GPIO_Init(void)
 
   /**/
   LL_GPIO_SetOutputPin(GPIOC, LL_GPIO_PIN_13);
+
   /**/
   GPIO_InitStruct.Pin = LL_GPIO_PIN_13;
   GPIO_InitStruct.Mode = LL_GPIO_MODE_OUTPUT;
