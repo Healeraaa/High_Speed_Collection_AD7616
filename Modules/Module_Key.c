@@ -8,7 +8,6 @@
 /* 静态全局变量 */
 
 __attribute__((section("RAM_D3"))) __attribute__((aligned(4)))  static KeyGpioConfig_t* key_gpio_list = NULL;                   /**< 指向从BSP层获取的按键GPIO配置数组的指针 */
-// __attribute__((section("RAM_D3"))) __attribute__((aligned(4)))  static uint8_t KEY_COUNT = HARD_KEY_NUM + COMBO_KEY_NUM;        /**< 总按键数量 = 实体按键数量 + 组合键数量 */
 __attribute__((section("RAM_D3"))) __attribute__((aligned(4)))  static KeyState_t s_key_states[KEY_COUNT];   /**< 存储所有按键状态的数组 */
 __attribute__((section("RAM_D3"))) __attribute__((aligned(4)))  static  KeyFifo_t s_key_fifo;                                    /**< 按键事件FIFO缓冲区 */
 // __attribute__((section(".ARM.__at_0x30000400"))) __attribute__((aligned(32)))  KeyFifo_t s_key_fifo;

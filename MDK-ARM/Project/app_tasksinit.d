@@ -66,5 +66,4 @@ project\app_tasksinit.o: D:\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 project\app_tasksinit.o: ../BSP/GPIO/bsp_gpio.h
 project\app_tasksinit.o: ../BSP/TIMER/bsp_timer.h
 project\app_tasksinit.o: ../Modules/Module.h
-project\app_tasksinit.o: D:\Keil\Packs\Keil\ARM_Compiler\1.6.3\Include\EventRecorder.h
 project\app_tasksinit.o: ../Modules/Module_Key.h

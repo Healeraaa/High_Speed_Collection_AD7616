@@ -136,10 +136,10 @@ void MPU_Config(void)
 //     LL_MPU_REGION_SIZE_128KB | 
 //     LL_MPU_TEX_LEVEL1 | 
 //     LL_MPU_REGION_FULL_ACCESS | 
-//     LL_MPU_INSTRUCTION_ACCESS_ENABLE |  // ✅ 允许指令访问（即使不执行代码）
+//     LL_MPU_INSTRUCTION_ACCESS_ENABLE |  //  允许指令访问（即使不执行代码）
 //     LL_MPU_ACCESS_NOT_SHAREABLE | 
-//     LL_MPU_ACCESS_NOT_CACHEABLE |       // ✅ 保持 Non-Cacheable（避免 DMA 问题）
-//     LL_MPU_ACCESS_BUFFERABLE            // ✅ 启用写缓冲（提高写性能）
+//     LL_MPU_ACCESS_NOT_CACHEABLE |       // 保持 Non-Cacheable（避免 DMA 问题）
+//     LL_MPU_ACCESS_BUFFERABLE            // 启用写缓冲（提高写性能）
 //   );
   /* Enables the MPU */
   LL_MPU_Enable(LL_MPU_CTRL_PRIVILEGED_DEFAULT);

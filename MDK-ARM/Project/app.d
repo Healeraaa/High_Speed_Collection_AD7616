@@ -58,6 +58,7 @@ project\app.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/list.h
 project\app.o: ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h
 project\app.o: ../Core/Inc/memorymap.h
 project\app.o: ..\Application\App.h
+project\app.o: D:\Keil\Packs\Keil\ARM_Compiler\1.6.3\Include\EventRecorder.h
 project\app.o: ..\Application\App_TasksInit.h
 project\app.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h
 project\app.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/semphr.h

@@ -60,7 +60,14 @@ void App_Run10ms_Task(void *argument)
   }
 }
 
-void KeyTask(void *argument)
+/**
+ * @brief  按键测试处理任务
+ * @param  argument: Not used
+ * @retval None
+ * @note   用于测试按键功能
+ */
+
+void App_KeyTestTask(void *argument)
 {
   while (1)
   {
@@ -79,9 +86,6 @@ void KeyTask(void *argument)
 				case KEY_1_LONG:				/* K1键弹起 */
 					printf("K1_Long\r\n");
 					break;
-
-			
-
 				default:
 					/* 其它的键值不处理 */
 					break;
@@ -107,7 +111,7 @@ void App_Tasks_Init(void)
 
   xTaskCreate(App_LEDToggle_Task, "App_LEDToggle_Task", 128, NULL, 1, &App_LEDToggle_Task_Handle);
   xTaskCreate(App_Run10ms_Task, "App_Run10ms_Task", 256, NULL, 2, &App_Run10ms_Task_Handle);    
-  xTaskCreate(KeyTask, "KeyTask", 256, NULL, 2, &App_Key_Task_Handle);                
+  xTaskCreate(App_KeyTestTask, "App_KeyTestTask", 256, NULL, 2, &App_Key_Task_Handle);                
               
   // xSemaphoreGive(xMutex);
 }

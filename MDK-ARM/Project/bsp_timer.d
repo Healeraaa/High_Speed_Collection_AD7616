@@ -50,5 +50,4 @@ project\bsp_timer.o: ../BSP/bsp.h
 project\bsp_timer.o: D:\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 project\bsp_timer.o: ../BSP/GPIO/bsp_gpio.h
 project\bsp_timer.o: ../Modules/Module.h
-project\bsp_timer.o: D:\Keil\Packs\Keil\ARM_Compiler\1.6.3\Include\EventRecorder.h
 project\bsp_timer.o: ../Modules/Module_Key.h
