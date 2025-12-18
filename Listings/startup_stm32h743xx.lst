@@ -1275,13 +1275,13 @@ ARM Macro Assembler    Page 20
               00000200 
               00000000 
 Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M7.fp.dp --apcs=
-interwork --depend=project\startup_stm32h743xx.d -oproject\startup_stm32h743xx.
-o -I../Core/Inc -I.\RTE\Compiler -I.\RTE\_Project -ID:\Keil\Packs\ARM\CMSIS\6.1
-.0\CMSIS\Core\Include -ID:\Keil\Packs\Keil\ARM_Compiler\1.6.3\Include -ID:\Keil
-\Packs\Keil\STM32H7xx_DFP\3.1.1\Drivers\CMSIS\Device\ST\STM32H7xx\Include --pre
-define="__UVISION_VERSION SETA 542" --predefine="STM32H743xx SETA 1" --predefin
-e="_RTE_ SETA 1" --list=..\listings\startup_stm32h743xx.lst startup_stm32h743xx
-.s
+interwork --depend=.\project\startup_stm32h743xx.d -o.\project\startup_stm32h74
+3xx.o -I../Core/Inc -I.\RTE\Compiler -I.\RTE\_Project -ID:\Keil\Packs\ARM\CMSIS
+\6.1.0\CMSIS\Core\Include -ID:\Keil\Packs\Keil\ARM_Compiler\1.6.3\Include -ID:\
+Keil\Packs\Keil\STM32H7xx_DFP\3.1.1\Drivers\CMSIS\Device\ST\STM32H7xx\Include -
+-predefine="__UVISION_VERSION SETA 542" --predefine="STM32H743xx SETA 1" --pred
+efine="_RTE_ SETA 1" --list=..\listings\startup_stm32h743xx.lst startup_stm32h7
+43xx.s
 
 
 

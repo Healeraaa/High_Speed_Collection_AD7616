@@ -256,7 +256,74 @@ NVIC中断相关的问题，NVIC在项目设计中有着举足轻重的作用，
 3、文档链接：https://pan.baidu.com/s/1z6A9fWDCp2_BKlEIQLNoRg 提取码：7x4q
 
 
-### 13.超干货，MPU和Cache实战，一张图了解所有经典配置案例，争取人人都可以玩溜
-BV1p54y1f7CY
+### 14.超干货，MPU和Cache实战，一张图了解所有经典配置案例，争取人人都可以玩溜
 [一张图](https://www.armbbs.cn/forum.php?mod=viewthread&tid=112268)
 
+
+### 15.几张手册框图讲明白DMAMUX和DMA各种玩法，FIFO，突发传输，不同位宽传输方式等
+本期教程主要分为如下几个部分：
+第1部分：整体把控
+    DMAMUX1，DMAMUX2，DMA1，DMA2在总线上的位置以及相关DMA支持访问的相关外设。
+第2部分：DMAMUX介绍
+    （1）为什么使用DMAMUX，相比之前方案的优势。
+    （2）DMAMUX的外设请求，同步输入和触发输入。
+第3部分：DMA和BDMA介绍
+    （1）先简单看框图
+    （2）通过程序来说明每个配置项。
+第4部分：
+    DMA到底有没有加速作用。
+
+参考资料：
+[DMA到底能不能起到加速程序执行的作用，DMA死等操作是否合理，多个DMA数据流同时刷是否处理过来](https://www.armbbs.cn/forum.php?mod=viewthread&tid=109765)
+
+
+### 16.DMA双缓冲实现32路脉冲并行同步控制
+本期教程为大家分享DMA双缓冲实现32路脉冲并行同步控制，同时这种玩法也支持任意IO做脉冲控制。
+
+参考资料：
+1、例子下载：
+链接：https://pan.baidu.com/s/1fxdlinf8Jerw885zjAdKEA 提取码：wsdk
+
+2、手册：
+在之前文档版教程第40到41章的基础上做了扩展：
+https://www.armbbs.cn/forum.php?mod=viewthread&tid=86980
+
+### 17.单片机bootloader专题，启动，跳转配置和调试下载的各种用法
+本期教程开始给大家分享各种BootLoader专题视频教程，争取把市面上各种BootLoader玩法都做个实战讲解。像系统BootLoader，网络boot，USB boot，串口boot，SD卡boot等常用玩法都整理下，还有裸机版和RTOS版本的app+boot调试下载问题都做下。
+
+[1、实战技能分享，一劳永逸的解决BOOT跳转APP失败问题，含MDK AC5，AC6和IAR，同时制作了一个视频操作说明](https://www.armbbs.cn/forum.php?mod=viewthread&tid=109595)
+
+[2、成功实现MDK自动生成hex文件的crc值并附加到hex文件末尾（bin也支持），然后跟STM32的硬件CRC计算值做比较](https://www.armbbs.cn/forum.php?mod=viewthread&tid=97379)
+
+[3、【不是问题的问题】为什么STM32的Flash地址要设置到0x08000000](https://www.armbbs.cn/forum.php?mod=viewthread&tid=109321)
+
+[5、OpenBLT](https://www.armbbs.cn/forum.php?mod=viewthread&tid=99063)
+
+[6、MCUBoot](https://www.armbbs.cn/forum.php?mod=viewthread&tid=29999)
+
+[7、wolfboot](https://www.armbbs.cn/forum.php?mod=viewthread&tid=99992)
+
+### 18.基于NAND，eMMC，SD卡和U盘的BootLoader实战，带CRC完整性校验
+本期教程分享的工程是可以用于项目实战的，大家可以根据自己的需要做魔改，不限制单片机平台。
+
+参考资料：
+1、例子下载：
+链接：https://pan.baidu.com/s/1zIA4bv89NicOiOfYZsFmPg 提取码：vakh
+
+[2、系统的谈下STM32H7的SD卡驱动兼容性问题，现在兼容性很强，主流厂家16GB以上容量全部通过](https://www.armbbs.cn/forum.php?mod=viewthread&tid=107689)
+
+[3、uCOS全家桶带的CRC软件包，含汇编加速方式，支持查表和计算两种方式](https://www.armbbs.cn/forum.php?mod=viewthread&tid=97690)
+
+[4、实战技能分享，一劳永逸的解决BOOT跳转APP失败问题，含MDK AC5，AC6和IAR，同时制作了一个视频操作说明](https://www.armbbs.cn/forum.php?mod=viewthread&tid=109595)
+
+[5、成功实现MDK自动生成hex文件的crc值并附加到hex文件末尾（bin也支持），然后跟STM32的硬件CRC计算值做比较](https://www.armbbs.cn/forum.php?mod=viewthread&tid=97379)
+
+### 19.单片机BootLoader的AES加密实战，含上位机和下位机代码全开源
+本期教程，继续为大家带来BootLoader专题进阶，APP固件的AES加密实现，提升产品安全性，一定程度上防止被轻易破解。
+
+参考资料：
+1、例子下载：https://pan.baidu.com/s/1olJIWk3orltxxJ0Kpxa6iw  提取码：j2fi 
+
+[2、bin编辑免费小软件：](https://www.hhdsoftware.com/free-hex-editor)
+
+[3、最强bin固件逆向，可方便查看每个外设的配置实现，代码安全任重道远](https://www.armbbs.cn/forum.php?mod=viewthread&tid=111237)
