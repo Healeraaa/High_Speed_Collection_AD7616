@@ -55,6 +55,8 @@ virtualFolder:
             - path: ../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_exti.c
             - path: ../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim.c
             - path: ../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim_ex.c
+            - path: ../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sram.c
+            - path: ../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_fmc.c
           folders: []
         - name: CMSIS
           files:
@@ -65,6 +67,7 @@ virtualFolder:
         - path: ../BSP/GPIO/bsp_gpio.c
         - path: ../BSP/bsp.c
         - path: ../BSP/TIMER/bsp_timer.c
+        - path: ../BSP/FMC/bsp_fmc.c
       folders: []
     - name: Modules
       files:
@@ -134,6 +137,7 @@ targets:
         - ../SYSTEM
         - ../BSP/GPIO
         - ../BSP/TIMER
+        - ../BSP/FMC
         - ../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy
         - ../Middlewares/Third_Party/FreeRTOS/Source/include
         - ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2
@@ -156,11 +160,11 @@ targets:
             - name: "[Copy linker output for Keil User Commands]"
               abortAfterFailed: true
               command: mkdir ${KEIL_OUTPUT_DIR} & copy "${OutDir}\${ProjectName}.axf" "${KEIL_OUTPUT_DIR}\${KEIL_OUTPUT_NAME}.axf"
-              disable: false
+              disable: true
             - name: E:\MCU_Project\STM32H743Project\02High_Speed_Collection_AD7616\MDK-ARM\Hex2Bin\CopyHex_Flash.bat
               abortAfterFailed: true
               command: E:\MCU_Project\STM32H743Project\02High_Speed_Collection_AD7616\MDK-ARM\Hex2Bin\CopyHex_Flash.bat
-              disable: false
+              disable: true
           asm-compiler: {}
           beforeBuildTasks: []
           c/cpp-compiler:

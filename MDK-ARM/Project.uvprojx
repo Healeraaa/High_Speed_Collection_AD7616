@@ -80,7 +80,7 @@
             <nStopB2X>0</nStopB2X>
           </BeforeMake>
           <AfterMake>
-            <RunUserProg1>1</RunUserProg1>
+            <RunUserProg1>0</RunUserProg1>
             <RunUserProg2>0</RunUserProg2>
             <UserProg1Name>E:\MCU_Project\STM32H743Project\02High_Speed_Collection_AD7616\MDK-ARM\Hex2Bin\CopyHex_Flash.bat</UserProg1Name>
             <UserProg2Name></UserProg2Name>
@@ -340,7 +340,7 @@
               <MiscControls></MiscControls>
               <Define>USE_FULL_LL_DRIVER,STM32H743xx,USE_HAL_DRIVER</Define>
               <Undefine></Undefine>
-              <IncludePath>../Core/Inc;../Drivers/STM32H7xx_HAL_Driver/Inc;../Drivers/CMSIS/Device/ST/STM32H7xx/Include;../Drivers/CMSIS/Include;../BSP;../Application;../Modules;../SYSTEM;../BSP/GPIO;../BSP/TIMER;../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy;../Middlewares/Third_Party/FreeRTOS/Source/include;../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2;../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F</IncludePath>
+              <IncludePath>../Core/Inc;../Drivers/STM32H7xx_HAL_Driver/Inc;../Drivers/CMSIS/Device/ST/STM32H7xx/Include;../Drivers/CMSIS/Include;../BSP;../Application;../Modules;../SYSTEM;../BSP/GPIO;../BSP/TIMER;..\BSP\FMC;../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy;../Middlewares/Third_Party/FreeRTOS/Source/include;../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2;../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -1615,6 +1615,16 @@
                 </FileArmAds>
               </FileOption>
             </File>
+            <File>
+              <FileName>stm32h7xx_hal_sram.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_sram.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32h7xx_ll_fmc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_ll_fmc.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1645,6 +1655,11 @@
               <FileType>1</FileType>
               <FilePath>..\BSP\TIMER\bsp_timer.c</FilePath>
             </File>
+            <File>
+              <FileName>bsp_fmc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\BSP\FMC\bsp_fmc.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1669,6 +1684,16 @@
               <FileName>Module.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\Modules\Module.h</FilePath>
+            </File>
+            <File>
+              <FileName>Module_AD7616.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Modules\Module_AD7616.c</FilePath>
+            </File>
+            <File>
+              <FileName>Module_AD7616.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Modules\Module_AD7616.h</FilePath>
             </File>
           </Files>
         </Group>

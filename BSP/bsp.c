@@ -23,6 +23,7 @@ void BSP_Init(void)
 
   SystemClock_Config();//系统时钟配置
 
+  BSP_DWT_DelayInit();// 初始化DWT延迟函数
 
   // BSP_TIMER_SysTick_Init();// 初始化SysTick定时器
 
@@ -30,6 +31,7 @@ void BSP_Init(void)
   BSP_GPIO_System_Clock_Init();
   /* 初始化LED相关的GPIO */
   BSP_GPIO_LED_Init();
+  
 }
 
 void BSP_RunPer10ms(void)

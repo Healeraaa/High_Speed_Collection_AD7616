@@ -4,8 +4,13 @@
 
 #include "main.h"
 
-// ==================== SysTick ====================
-// void BSP_TIMER_SysTick_Init(void);
+// ========================================================================== DWT ==========================================================================
+void BSP_DWT_DelayInit(void);
+void BSP_DWT_Delay_us(uint32_t us);
+void BSP_DWT_Delay_ms(uint32_t ms);
+void BSP_DWT_Delay_s(uint32_t s);
+uint32_t BSP_DWT_GetCycles(void);
+
 
 #endif 
 
