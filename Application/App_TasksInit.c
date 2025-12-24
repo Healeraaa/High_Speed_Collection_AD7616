@@ -16,6 +16,7 @@
 TaskHandle_t App_LEDToggle_Task_Handle;
 TaskHandle_t App_Run10ms_Task_Handle;
 TaskHandle_t App_Key_Task_Handle;
+TaskHandle_t App_AD7616_Task_Handle;
 
 /* Queues --------------------------------------------------------------------*/
 
@@ -95,6 +96,20 @@ void App_KeyTestTask(void *argument)
   }
 }
 
+/**
+ * @brief  AD7616数据读取任务
+ * @param  argument: Not used
+ * @retval None
+ * @note   
+ */
+
+void App_AD7616_Task(void *argument)
+{
+  while (1)
+  {
+    vTaskDelay(1);
+  }
+}
 
 
 

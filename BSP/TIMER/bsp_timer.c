@@ -13,7 +13,7 @@ void BSP_DWT_DelayInit(void)
     CoreDebug->DEMCR |= CoreDebug_DEMCR_TRCENA_Msk;  // 使能DWT
     DWT->CYCCNT = 0;                                  // 清零计数器
     DWT->CTRL |= DWT_CTRL_CYCCNTENA_Msk;             // 使能CYCCNT计数器
-}
+} 
 
 /**
  * @brief 微秒级延迟函数

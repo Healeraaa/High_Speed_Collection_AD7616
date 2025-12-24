@@ -1,13 +1,21 @@
 #include "main.h"
 #include "Module.h"
 #include "Module_Key.h"
+#include "Module_AD7616.h"
+#include "bsp_timer.h"
 
 
 
 
 void Module_Config(void)
 {
-  Module_KEY_Config();
+  
+  // Module_KEY_Config();
+  // BSP_DWT_Delay_ms(1);
+  Module_AD7616_Config();
+  
+  
+  
 }
 
 void Module_RunPer10ms(void)

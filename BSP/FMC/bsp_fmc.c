@@ -13,9 +13,9 @@ static void BSP_FMC_PSRAM_MspDeInit(void);
   *         内存映射：
   *         - FMC Bank1 区域：0x60000000 ~ 0x6FFFFFFF (256MB)
   *         - 本配置使用 Bank1 Sector1：0x60000000 起始
-  * @retval HAL_StatusTypeDef HAL_OK: 初始化成功, HAL_ERROR: 初始化失败
+  * @retval BSP_Status_t BSP_OK: 初始化成功, BSP_ERROR: 初始化失败
   */
-HAL_StatusTypeDef BSP_FMC_PSRAM_Init(void)
+BSP_Status_t BSP_FMC_PSRAM_Init(void)
 {
   FMC_NORSRAM_TimingTypeDef Timing = {0};                                       // FMC 时序配置结构体（单位：HCLK 周期）
 
@@ -23,16 +23,18 @@ HAL_StatusTypeDef BSP_FMC_PSRAM_Init(void)
   bsp_fmc_psram_handle.Instance = FMC_NORSRAM_DEVICE;                           // FMC NORSRAM 设备基地址（Bank1 Sector1 寄存器）
   bsp_fmc_psram_handle.Extended = FMC_NORSRAM_EXTENDED_DEVICE;                  // FMC NORSRAM 扩展寄存器基地址（扩展时序模式）
   bsp_fmc_psram_handle.Init.NSBank = FMC_NORSRAM_BANK1;                         // 使用 Bank1 Sector1（地址：0x60000000）
-  bsp_fmc_psram_handle.Init.DataAddressMux = FMC_DATA_ADDRESS_MUX_ENABLE;       // 使能地址/数据复用（节省 GPIO，地址和数据共用引脚）
+  // bsp_fmc_psram_handle.Init.DataAddressMux = FMC_DATA_ADDRESS_MUX_DISABLE;  // 禁用地址数据复用
+  // bsp_fmc_psram_handle.Init.MemoryType = FMC_MEMORY_TYPE_SRAM;             // 改为SRAM模式
+  bsp_fmc_psram_handle.Init.DataAddressMux = FMC_DATA_ADDRESS_MUX_DISABLE;       // 使能地址/数据复用（节省 GPIO，地址和数据共用引脚）
   bsp_fmc_psram_handle.Init.MemoryType = FMC_MEMORY_TYPE_PSRAM;                 // 存储器类型：PSRAM（伪静态 RAM，内部自动刷新）
   bsp_fmc_psram_handle.Init.MemoryDataWidth = FMC_NORSRAM_MEM_BUS_WIDTH_16;    // 数据总线宽度：16 位（每次读写 2 字节）
   bsp_fmc_psram_handle.Init.BurstAccessMode = FMC_BURST_ACCESS_MODE_DISABLE;    // 禁用突发访问模式（PSRAM 不需要突发模式）
-  bsp_fmc_psram_handle.Init.WaitSignalPolarity = FMC_WAIT_SIGNAL_POLARITY_HIGH; // 等待信号极性：高电平有效（NWAIT 引脚）
+  bsp_fmc_psram_handle.Init.WaitSignalPolarity = FMC_WAIT_SIGNAL_POLARITY_LOW; // 等待信号极性：低电平有效（NWAIT 引脚）
   bsp_fmc_psram_handle.Init.WaitSignalActive = FMC_WAIT_TIMING_BEFORE_WS;       // 等待信号生效时机：在等待状态之前检测 NWAIT
   bsp_fmc_psram_handle.Init.WriteOperation = FMC_WRITE_OPERATION_ENABLE;        // 使能写操作（允许向 PSRAM 写入数据）
   bsp_fmc_psram_handle.Init.WaitSignal = FMC_WAIT_SIGNAL_DISABLE;               // 禁用等待信号（不使用 NWAIT 引脚，时序由软件控制）
   bsp_fmc_psram_handle.Init.ExtendedMode = FMC_EXTENDED_MODE_DISABLE;           // 禁用扩展模式（读写使用相同时序）
-  bsp_fmc_psram_handle.Init.AsynchronousWait = FMC_ASYNCHRONOUS_WAIT_ENABLE;    // 使能异步等待（在异步模式下插入等待状态）
+  bsp_fmc_psram_handle.Init.AsynchronousWait = FMC_ASYNCHRONOUS_WAIT_DISABLE;    // 不使能异步等待（在异步模式下插入等待状态）
   bsp_fmc_psram_handle.Init.WriteBurst = FMC_WRITE_BURST_DISABLE;               // 禁用写突发（写操作不使用突发模式）
   bsp_fmc_psram_handle.Init.ContinuousClock = FMC_CONTINUOUS_CLOCK_SYNC_ONLY;   // 连续时钟：仅同步模式（异步模式不需要）
   bsp_fmc_psram_handle.Init.WriteFifo = FMC_WRITE_FIFO_ENABLE;                  // 使能写 FIFO（内部 FIFO 缓存写数据，提高性能）
@@ -41,10 +43,10 @@ HAL_StatusTypeDef BSP_FMC_PSRAM_Init(void)
   // 配置 FMC 时序参数
   Timing.AddressSetupTime = 15;                                                 // 地址建立时间：15 HCLK（从地址有效到读/写信号有效）= 80ns @ 200MHz
   Timing.AddressHoldTime = 15;                                                  // 地址保持时间：15 HCLK（从读/写信号无效到地址无效）= 80ns @ 200MHz
-  Timing.DataSetupTime = 255;                                                   // 数据建立时间：255 HCLK（从读/写信号有效到数据有效）= 1.28us @ 200MHz（兼容慢速 PSRAM）
-  Timing.BusTurnAroundDuration = 15;                                            // 总线转换时间：15 HCLK（连续两次访问的恢复时间）= 80ns @ 200MHz
-  Timing.CLKDivision = 16;                                                      // 时钟分频：16（仅同步模式有效，本配置为异步模式）
-  Timing.DataLatency = 17;                                                      // 数据延迟：17 周期（仅同步模式有效，本配置为异步模式）
+  Timing.DataSetupTime = 250;                                                   // 数据建立时间：255 HCLK（从读/写信号有效到数据有效）= 1.28us @ 200MHz（兼容慢速 PSRAM）
+  Timing.BusTurnAroundDuration = 1;                                            // 总线转换时间：15 HCLK（连续两次访问的恢复时间）= 80ns @ 200MHz
+  Timing.CLKDivision = 2;                                                      // 时钟分频：16（仅同步模式有效，本配置为异步模式）
+  Timing.DataLatency = 2;                                                      // 数据延迟：17 周期（仅同步模式有效，本配置为异步模式）
   Timing.AccessMode = FMC_ACCESS_MODE_A;                                        // 访问模式：模式 A（标准异步模式）
 
   // 初始化底层硬件（GPIO 和时钟）
@@ -53,17 +55,17 @@ HAL_StatusTypeDef BSP_FMC_PSRAM_Init(void)
   // 初始化 FMC SRAM 外设
   if (HAL_SRAM_Init(&bsp_fmc_psram_handle, &Timing, NULL) != HAL_OK)           // 调用 HAL 库初始化函数（读时序 = Timing，写时序 = NULL 表示与读时序相同）
   {
-    return HAL_ERROR;                                                           // 初始化失败
+    return BSP_ERROR;                                                           // 初始化失败
   }
   
-  return HAL_OK;                                                                // 初始化成功
+  return BSP_OK;                                                                // 初始化成功
 }
 
 /**
   * @brief  FMC PSRAM 反初始化
-  * @retval HAL_StatusTypeDef HAL_OK: 反初始化成功
+  * @retval BSP_Status_t BSP_OK: 反初始化成功
   */
-HAL_StatusTypeDef BSP_FMC_PSRAM_DeInit(void)
+BSP_Status_t BSP_FMC_PSRAM_DeInit(void)
 {
   HAL_StatusTypeDef status;
   
@@ -72,8 +74,11 @@ HAL_StatusTypeDef BSP_FMC_PSRAM_DeInit(void)
   
   // 反初始化底层硬件
   BSP_FMC_PSRAM_MspDeInit();
-  
-  return status;
+  if(status != HAL_OK)
+  {
+    return BSP_ERROR;
+  }
+  return BSP_OK;
 }
 
 // ========================================================================== 数据读写接口 ==========================================================================
@@ -146,19 +151,27 @@ void BSP_FMC_PSRAM_WriteWord(uint32_t address, uint32_t data)
   * @param  address: 读取地址（相对于 PSRAM 基地址的偏移）
   * @param  pBuffer: 数据缓冲区指针
   * @param  length: 读取长度（字节数）
-  * @retval HAL_StatusTypeDef HAL_OK: 读取成功
+  * @retval BSP_Status_t BSP_OK: 读取成功
   */
-HAL_StatusTypeDef BSP_FMC_PSRAM_ReadBuffer(uint32_t address, uint8_t *pBuffer, uint32_t length)
+BSP_Status_t BSP_FMC_PSRAM_ReadBuffer(uint32_t address, uint8_t *pBuffer, uint32_t length)
 {
   if (pBuffer == NULL || address + length > PSRAM_SIZE)
   {
-    return HAL_ERROR;
+    return BSP_ERROR;
   }
-  
-  return HAL_SRAM_Read_8b(&bsp_fmc_psram_handle, 
+
+  if(HAL_SRAM_Read_8b(&bsp_fmc_psram_handle, 
                           (uint32_t *)(PSRAM_BASE_ADDR + address), 
                           pBuffer, 
-                          length);
+                          length) == HAL_OK)
+  {
+    return BSP_OK;
+  }          
+  else
+  {
+    return BSP_ERROR;
+  }
+
 }
 
 /**
@@ -166,19 +179,26 @@ HAL_StatusTypeDef BSP_FMC_PSRAM_ReadBuffer(uint32_t address, uint8_t *pBuffer, u
   * @param  address: 写入地址（相对于 PSRAM 基地址的偏移）
   * @param  pBuffer: 数据缓冲区指针
   * @param  length: 写入长度（字节数）
-  * @retval HAL_StatusTypeDef HAL_OK: 写入成功
+  * @retval BSP_Status_t BSP_OK: 写入成功
   */
-HAL_StatusTypeDef BSP_FMC_PSRAM_WriteBuffer(uint32_t address, uint8_t *pBuffer, uint32_t length)
+BSP_Status_t BSP_FMC_PSRAM_WriteBuffer(uint32_t address, uint8_t *pBuffer, uint32_t length)
 {
   if (pBuffer == NULL || address + length > PSRAM_SIZE)
   {
-    return HAL_ERROR;
+    return BSP_ERROR;
   }
-  
-  return HAL_SRAM_Write_8b(&bsp_fmc_psram_handle, 
+
+  if(HAL_SRAM_Write_8b(&bsp_fmc_psram_handle, 
                            (uint32_t *)(PSRAM_BASE_ADDR + address), 
                            pBuffer, 
-                           length);
+                           length) == HAL_OK)
+  {
+    return BSP_OK;
+  }          
+  else
+  {
+    return BSP_ERROR;
+  }
 }
 
 /**
@@ -186,19 +206,28 @@ HAL_StatusTypeDef BSP_FMC_PSRAM_WriteBuffer(uint32_t address, uint8_t *pBuffer, 
   * @param  address: 读取地址（相对于 PSRAM 基地址的偏移，必须 2 字节对齐）
   * @param  pBuffer: 数据缓冲区指针
   * @param  length: 读取长度（16 位字数）
-  * @retval HAL_StatusTypeDef HAL_OK: 读取成功
+  * @retval BSP_Status_t BSP_OK: 读取成功
   */
-HAL_StatusTypeDef BSP_FMC_PSRAM_ReadBuffer_16b(uint32_t address, uint16_t *pBuffer, uint32_t length)
+BSP_Status_t BSP_FMC_PSRAM_ReadBuffer_16b(uint32_t address, uint16_t *pBuffer, uint32_t length)
 {
   if (pBuffer == NULL || address + (length * 2) > PSRAM_SIZE)
   {
-    return HAL_ERROR;
+    return BSP_ERROR;
   }
   
-  return HAL_SRAM_Read_16b(&bsp_fmc_psram_handle, 
+  if(HAL_SRAM_Read_16b(&bsp_fmc_psram_handle, 
                            (uint32_t *)(PSRAM_BASE_ADDR + address), 
                            pBuffer, 
-                           length);
+                           length) == HAL_OK)
+  {
+    return BSP_OK;
+  }          
+  else
+  {
+    return BSP_ERROR;
+  }
+
+
 }
 
 /**
@@ -206,19 +235,26 @@ HAL_StatusTypeDef BSP_FMC_PSRAM_ReadBuffer_16b(uint32_t address, uint16_t *pBuff
   * @param  address: 写入地址（相对于 PSRAM 基地址的偏移，必须 2 字节对齐）
   * @param  pBuffer: 数据缓冲区指针
   * @param  length: 写入长度（16 位字数）
-  * @retval HAL_StatusTypeDef HAL_OK: 写入成功
+  * @retval BSP_Status_t BSP_OK: 写入成功
   */
-HAL_StatusTypeDef BSP_FMC_PSRAM_WriteBuffer_16b(uint32_t address, uint16_t *pBuffer, uint32_t length)
+BSP_Status_t BSP_FMC_PSRAM_WriteBuffer_16b(uint32_t address, uint16_t *pBuffer, uint32_t length)
 {
   if (pBuffer == NULL || address + (length * 2) > PSRAM_SIZE)
   {
-    return HAL_ERROR;
+    return BSP_ERROR;
   }
   
-  return HAL_SRAM_Write_16b(&bsp_fmc_psram_handle, 
+  if(HAL_SRAM_Write_16b(&bsp_fmc_psram_handle, 
                             (uint32_t *)(PSRAM_BASE_ADDR + address), 
                             pBuffer, 
-                            length);
+                            length) == HAL_OK)
+  {
+    return BSP_OK;
+  }          
+  else
+  {
+    return BSP_ERROR;
+  }
 }
 
 /**
@@ -226,19 +262,26 @@ HAL_StatusTypeDef BSP_FMC_PSRAM_WriteBuffer_16b(uint32_t address, uint16_t *pBuf
   * @param  address: 读取地址（相对于 PSRAM 基地址的偏移，必须 4 字节对齐）
   * @param  pBuffer: 数据缓冲区指针
   * @param  length: 读取长度（32 位字数）
-  * @retval HAL_StatusTypeDef HAL_OK: 读取成功
+  * @retval BSP_Status_t BSP_OK: 读取成功
   */
-HAL_StatusTypeDef BSP_FMC_PSRAM_ReadBuffer_32b(uint32_t address, uint32_t *pBuffer, uint32_t length)
+BSP_Status_t BSP_FMC_PSRAM_ReadBuffer_32b(uint32_t address, uint32_t *pBuffer, uint32_t length)
 {
   if (pBuffer == NULL || address + (length * 4) > PSRAM_SIZE)
   {
-    return HAL_ERROR;
+    return BSP_ERROR;
   }
   
-  return HAL_SRAM_Read_32b(&bsp_fmc_psram_handle, 
+  if(HAL_SRAM_Read_32b(&bsp_fmc_psram_handle, 
                            (uint32_t *)(PSRAM_BASE_ADDR + address), 
                            pBuffer, 
-                           length);
+                           length) == HAL_OK)
+  {
+    return BSP_OK;
+  }          
+  else
+  {
+    return BSP_ERROR;
+  }
 }
 
 /**
@@ -246,19 +289,26 @@ HAL_StatusTypeDef BSP_FMC_PSRAM_ReadBuffer_32b(uint32_t address, uint32_t *pBuff
   * @param  address: 写入地址（相对于 PSRAM 基地址的偏移，必须 4 字节对齐）
   * @param  pBuffer: 数据缓冲区指针
   * @param  length: 写入长度（32 位字数）
-  * @retval HAL_StatusTypeDef HAL_OK: 写入成功
+  * @retval BSP_Status_t BSP_OK: 写入成功
   */
-HAL_StatusTypeDef BSP_FMC_PSRAM_WriteBuffer_32b(uint32_t address, uint32_t *pBuffer, uint32_t length)
+BSP_Status_t BSP_FMC_PSRAM_WriteBuffer_32b(uint32_t address, uint32_t *pBuffer, uint32_t length)
 {
   if (pBuffer == NULL || address + (length * 4) > PSRAM_SIZE)
   {
-    return HAL_ERROR;
+    return BSP_ERROR;
   }
   
-  return HAL_SRAM_Write_32b(&bsp_fmc_psram_handle, 
+  if(HAL_SRAM_Write_32b(&bsp_fmc_psram_handle, 
                             (uint32_t *)(PSRAM_BASE_ADDR + address), 
                             pBuffer, 
-                            length);
+                            length) == HAL_OK)
+  {
+    return BSP_OK;
+  }          
+  else
+  {
+    return BSP_ERROR;
+  }
 }
 
 // ========================================================================== DMA 读写接口 ==========================================================================
@@ -268,19 +318,26 @@ HAL_StatusTypeDef BSP_FMC_PSRAM_WriteBuffer_32b(uint32_t address, uint32_t *pBuf
   * @param  address: 读取地址（相对于 PSRAM 基地址的偏移）
   * @param  pBuffer: 数据缓冲区指针
   * @param  length: 读取长度（字节数）
-  * @retval HAL_StatusTypeDef HAL_OK: 读取启动成功
+  * @retval BSP_Status_t BSP_OK: 读取启动成功
   */
-HAL_StatusTypeDef BSP_FMC_PSRAM_ReadBuffer_DMA(uint32_t address, uint8_t *pBuffer, uint32_t length)
+BSP_Status_t BSP_FMC_PSRAM_ReadBuffer_DMA(uint32_t address, uint8_t *pBuffer, uint32_t length)
 {
   if (pBuffer == NULL || address + length > PSRAM_SIZE)
   {
-    return HAL_ERROR;
+    return BSP_ERROR;
   }
   
-  return HAL_SRAM_Read_DMA(&bsp_fmc_psram_handle, 
+  if(HAL_SRAM_Read_DMA(&bsp_fmc_psram_handle, 
                            (uint32_t *)(PSRAM_BASE_ADDR + address), 
                            (uint32_t *)pBuffer, 
-                           length);
+                           length) == HAL_OK)
+  {
+    return BSP_OK;
+  }          
+  else
+  {
+    return BSP_ERROR;
+  }
 }
 
 /**
@@ -288,19 +345,27 @@ HAL_StatusTypeDef BSP_FMC_PSRAM_ReadBuffer_DMA(uint32_t address, uint8_t *pBuffe
   * @param  address: 写入地址（相对于 PSRAM 基地址的偏移）
   * @param  pBuffer: 数据缓冲区指针
   * @param  length: 写入长度（字节数）
-  * @retval HAL_StatusTypeDef HAL_OK: 写入启动成功
+  * @retval BSP_Status_t BSP_OK: 写入启动成功
   */
-HAL_StatusTypeDef BSP_FMC_PSRAM_WriteBuffer_DMA(uint32_t address, uint8_t *pBuffer, uint32_t length)
+BSP_Status_t BSP_FMC_PSRAM_WriteBuffer_DMA(uint32_t address, uint8_t *pBuffer, uint32_t length)
 {
   if (pBuffer == NULL || address + length > PSRAM_SIZE)
   {
-    return HAL_ERROR;
+    return BSP_ERROR;
   }
   
-  return HAL_SRAM_Write_DMA(&bsp_fmc_psram_handle, 
+  if(HAL_SRAM_Write_DMA(&bsp_fmc_psram_handle, 
                             (uint32_t *)(PSRAM_BASE_ADDR + address), 
                             (uint32_t *)pBuffer, 
-                            length);
+                            length) == HAL_OK)
+  {
+    return BSP_OK;
+  }          
+  else
+  {
+    return BSP_ERROR;
+  }
+
 }
 
 // ========================================================================== FMC 底层初始化（GPIO 和时钟配置） ==========================================================================
@@ -352,7 +417,6 @@ static void BSP_FMC_PSRAM_MspInit(void)
     *   PD1   -> FMC_DA3   (复用地址 A3 / 数据 D3)
     * 
     * 控制信号:
-    *   PC6   -> FMC_NWAIT (等待信号，PSRAM 未准备好时拉高，MCU 等待)
     *   PC7   -> FMC_NE1   (片选信号 Bank1 Sector1，低电平有效，选中 PSRAM)
     *   PD4   -> FMC_NOE   (读使能，Output Enable，低电平有效，PSRAM 输出数据)
     *   PD5   -> FMC_NWE   (写使能，Write Enable，低电平有效，PSRAM 接收数据)
@@ -380,13 +444,44 @@ static void BSP_FMC_PSRAM_MspInit(void)
   GPIO_InitStruct.Alternate = GPIO_AF12_FMC;                                    // 复用功能 12：FMC
   HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);                                       // 初始化 GPIOD 的 FMC 引脚
 
-  // 配置 GPIOC 引脚 (控制信号 NWAIT 和 NE1)
-  GPIO_InitStruct.Pin = GPIO_PIN_6 | GPIO_PIN_7;                                // PC6：FMC_NWAIT（等待信号），PC7：FMC_NE1（片选）
+  // 配置 GPIOC 引脚 (控制信号 NE1)
+  GPIO_InitStruct.Pin = GPIO_PIN_7;                                             //PC7：FMC_NE1（片选）
   GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;                                       // 模式：复用推挽输出
   GPIO_InitStruct.Pull = GPIO_NOPULL;                                           // 无上下拉
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;                            // 速度：极高速
   GPIO_InitStruct.Alternate = GPIO_AF9_FMC;                                     // 复用功能 9：FMC（注意：PC6/PC7 使用 AF9，而不是 AF12）
   HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);                                       // 初始化 GPIOC 的 FMC 引脚
+
+
+  //   // GPIOE: D4-D12
+  // GPIO_InitStruct.Pin = GPIO_PIN_7 | GPIO_PIN_8 | GPIO_PIN_9 | GPIO_PIN_10 |
+  //                       GPIO_PIN_11 | GPIO_PIN_12 | GPIO_PIN_13 | GPIO_PIN_14 |
+  //                       GPIO_PIN_15;
+  // GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+  // GPIO_InitStruct.Pull = GPIO_NOPULL;
+  // GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+  // GPIO_InitStruct.Alternate = GPIO_AF12_FMC;
+  // HAL_GPIO_Init(GPIOE, &GPIO_InitStruct);
+
+  // // GPIOD: D0-D3, D13-D15
+  // GPIO_InitStruct.Pin = GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_8 | 
+  //                       GPIO_PIN_9 | GPIO_PIN_10 | GPIO_PIN_14 | GPIO_PIN_15;
+  // HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
+
+  // // ========== 控制信号 ==========
+  // // PC7: NE1/CS（片选）
+  // GPIO_InitStruct.Pin = GPIO_PIN_7;
+  // GPIO_InitStruct.Alternate = GPIO_AF9_FMC;  // 注意：PC7使用AF9！
+  // HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
+
+  // // PD4: NOE/RD（读使能）
+  // GPIO_InitStruct.Pin = GPIO_PIN_4;
+  // GPIO_InitStruct.Alternate = GPIO_AF12_FMC;
+  // HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
+
+  // // PD5: NWE/WR（写使能）
+  // GPIO_InitStruct.Pin = GPIO_PIN_5;
+  // HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
 }
 
 
