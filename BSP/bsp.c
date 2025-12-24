@@ -28,7 +28,7 @@ void BSP_Init(void)
   // // BSP_TIMER_SysTick_Init();// 初始化SysTick定时器
 
   /* 初始化GPIO时钟 */
-  // BSP_GPIO_System_Clock_Init();
+  BSP_GPIO_System_Clock_Init();
   // /* 初始化LED相关的GPIO */
   // BSP_GPIO_LED_Init();
   

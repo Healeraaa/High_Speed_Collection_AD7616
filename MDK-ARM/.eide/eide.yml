@@ -75,6 +75,8 @@ virtualFolder:
         - path: ../Modules/Module_Key.h
         - path: ../Modules/Module.c
         - path: ../Modules/Module.h
+        - path: ../Modules/Module_AD7616.c
+        - path: ../Modules/Module_AD7616.h
       folders: []
     - name: App
       files:

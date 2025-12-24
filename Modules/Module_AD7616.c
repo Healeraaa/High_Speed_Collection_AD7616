@@ -45,10 +45,10 @@ Module_Status_t Module_AD7616_Config(void)
     // BSP_DWT_Delay_ms(1);
     
     // 初始化量程配置为 ±10V
-    for (i = 0; i < AD7616_CHANNEL_NUM; i++)
-    {
-        g_channel_range[i] = AD7616_RANGE_10V;
-    }
+    // for (i = 0; i < AD7616_CHANNEL_NUM; i++)
+    // {
+    //     g_channel_range[i] = AD7616_RANGE_10V;
+    // }
     while (1)
     {
         *(__IO uint16_t *)(0x60000088U) = 0xA55A; 

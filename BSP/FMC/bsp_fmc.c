@@ -43,10 +43,10 @@ BSP_Status_t BSP_FMC_PSRAM_Init(void)
   // 配置 FMC 时序参数
   Timing.AddressSetupTime = 15;                                                 // 地址建立时间：15 HCLK（从地址有效到读/写信号有效）= 80ns @ 200MHz
   Timing.AddressHoldTime = 15;                                                  // 地址保持时间：15 HCLK（从读/写信号无效到地址无效）= 80ns @ 200MHz
-  Timing.DataSetupTime = 250;                                                   // 数据建立时间：255 HCLK（从读/写信号有效到数据有效）= 1.28us @ 200MHz（兼容慢速 PSRAM）
-  Timing.BusTurnAroundDuration = 1;                                            // 总线转换时间：15 HCLK（连续两次访问的恢复时间）= 80ns @ 200MHz
-  Timing.CLKDivision = 2;                                                      // 时钟分频：16（仅同步模式有效，本配置为异步模式）
-  Timing.DataLatency = 2;                                                      // 数据延迟：17 周期（仅同步模式有效，本配置为异步模式）
+  Timing.DataSetupTime = 255;                                                   // 数据建立时间：255 HCLK（从读/写信号有效到数据有效）= 1.28us @ 200MHz（兼容慢速 PSRAM）
+  Timing.BusTurnAroundDuration = 15;                                            // 总线转换时间：15 HCLK（连续两次访问的恢复时间）= 80ns @ 200MHz
+  Timing.CLKDivision = 16;                                                      // 时钟分频：16（仅同步模式有效，本配置为异步模式）
+  Timing.DataLatency = 17;                                                      // 数据延迟：17 周期（仅同步模式有效，本配置为异步模式）
   Timing.AccessMode = FMC_ACCESS_MODE_A;                                        // 访问模式：模式 A（标准异步模式）
 
   // 初始化底层硬件（GPIO 和时钟）

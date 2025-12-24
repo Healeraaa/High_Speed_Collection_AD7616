@@ -10,8 +10,8 @@
 void Module_Config(void)
 {
   
-  // Module_KEY_Config();
-  // BSP_DWT_Delay_ms(1);
+  Module_KEY_Config();
+
   Module_AD7616_Config();
   
   
