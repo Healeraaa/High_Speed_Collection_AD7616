@@ -22,37 +22,21 @@ Module_Status_t Module_AD7616_Config(void)
     {
         return Module_ERROR;
     }
-    
-    // volatile uint16_t *test_addr = (volatile uint16_t *)0x60000000;
-    
-    // while (1) {
-    //     // 写入数据
-    //     *test_addr = 0x55AA;
-        
-    //     // 短暂延时
-    //     for(int i = 0; i < 1000; i++) __NOP();
-        
-    //     // 写入另一个数据
-    //     *test_addr = 0xAA55;
-        
-    //     // 短暂延时
-    //     for(int i = 0; i < 1000; i++) __NOP();
-    // }
-
 
     // 初始化控制引脚
     // AD7616_GPIO_Init();
-    // BSP_DWT_Delay_ms(1);
     
     // 初始化量程配置为 ±10V
-    // for (i = 0; i < AD7616_CHANNEL_NUM; i++)
-    // {
-    //     g_channel_range[i] = AD7616_RANGE_10V;
-    // }
+    for (i = 0; i < AD7616_CHANNEL_NUM; i++)
+    {
+        g_channel_range[i] = AD7616_RANGE_10V;
+    }
     while (1)
     {
+
         *(__IO uint16_t *)(0x60000088U) = 0xA55A; 
 		for(int i = 0; i < 30000; i++) __NOP();
+
         // BSP_FMC_PSRAM_WriteByte(0x00, 0xAA);
         // BSP_FMC_PSRAM_WriteHalfWord(0x08, 0xA55A);
         // __disable_irq();

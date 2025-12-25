@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Project\output.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Project\output.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060960: Last Updated: Wed Dec 24 15:48:46 2025
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060960: Last Updated: Thu Dec 25 15:03:59 2025
 <BR><P>
 <H3>Maximum Stack Usage =        240 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -850,13 +850,13 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 4<LI>Call Chain = __aeabi_memclr4
 </UL>
 <BR>[Called By]<UL><LI><a href="#[115]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_FMC_MspInit
-<LI><a href="#[d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_fclose_internal
-<LI><a href="#[de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;fopen
-<LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_initio
 <LI><a href="#[f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EventRecorderInitialize
 <LI><a href="#[fc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BSP_FMC_PSRAM_Init
 <LI><a href="#[fd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BSP_FMC_PSRAM_MspInit
 <LI><a href="#[100]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BSP_GPIO_KEY_Init
+<LI><a href="#[d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_fclose_internal
+<LI><a href="#[de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;fopen
+<LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_initio
 </UL>
 
 <P><STRONG><a name="[1a4]"></a>__aeabi_memclr8</STRONG> (Thumb, 0 bytes, Stack size 4 bytes, rt_memclr_w.o(.text), UNUSED)
@@ -1241,10 +1241,10 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 128 + In Cycle
 <LI>Call Chain = App_KeyTestTask &rArr;  App_KeyTestTask (Cycle)
 </UL>
-<BR>[Calls]<UL><LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
-<LI><a href="#[f7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelay
+<BR>[Calls]<UL><LI><a href="#[f7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelay
 <LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;App_KeyTestTask
 <LI><a href="#[f6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Moudle_Key_GetFifoBuffer
+<LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
 </UL>
 <BR>[Called By]<UL><LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;App_KeyTestTask
 </UL>
@@ -1279,8 +1279,8 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 152<LI>Call Chain = BSP_FMC_PSRAM_Init &rArr; HAL_SRAM_Init &rArr; HAL_SRAM_MspInit &rArr; HAL_FMC_MspInit &rArr; HAL_GPIO_Init
 </UL>
 <BR>[Calls]<UL><LI><a href="#[fe]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SRAM_Init
-<LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
 <LI><a href="#[fd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BSP_FMC_PSRAM_MspInit
+<LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
 </UL>
 <BR>[Called By]<UL><LI><a href="#[134]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Module_AD7616_Config (via Veneer)
 </UL>
@@ -1308,11 +1308,11 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[104]"></a>BSP_Init</STRONG> (Thumb, 18 bytes, Stack size 8 bytes, bsp.o(i.BSP_Init))
-<BR><BR>[Stack]<UL><LI>Max Depth = 104<LI>Call Chain = BSP_Init &rArr; HAL_Init &rArr; HAL_InitTick &rArr; HAL_TIM_Base_Init &rArr; TIM_Base_SetConfig
+<BR><BR>[Stack]<UL><LI>Max Depth = 104<LI>Call Chain = BSP_Init &rArr; SystemClock_Config &rArr; HAL_InitTick &rArr; HAL_TIM_Base_Init &rArr; TIM_Base_SetConfig
 </UL>
-<BR>[Calls]<UL><LI><a href="#[105]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_Init
-<LI><a href="#[106]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SystemClock_Config
+<BR>[Calls]<UL><LI><a href="#[106]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SystemClock_Config
 <LI><a href="#[103]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BSP_GPIO_System_Clock_Init
+<LI><a href="#[105]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_Init
 </UL>
 <BR>[Called By]<UL><LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
@@ -1348,13 +1348,13 @@ Global Symbols
 <P><STRONG><a name="[f1]"></a>EventRecorderInitialize</STRONG> (Thumb, 252 bytes, Stack size 32 bytes, eventrecorder.o(i.EventRecorderInitialize))
 <BR><BR>[Stack]<UL><LI>Max Depth = 96<LI>Call Chain = EventRecorderInitialize &rArr; EventRecorderStart &rArr; EventRecordItem
 </UL>
-<BR>[Calls]<UL><LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
+<BR>[Calls]<UL><LI><a href="#[f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EventRecorderStart
+<LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
 <LI><a href="#[112]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EventRecorderTimerSetup
 <LI><a href="#[114]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EventRecorderTimerGetFreq
 <LI><a href="#[113]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EventRecorderEnable
 <LI><a href="#[10f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EventRecordItem
 <LI><a href="#[107]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EventGetTS
-<LI><a href="#[f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EventRecorderStart
 </UL>
 <BR>[Called By]<UL><LI><a href="#[f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;App_Init
 </UL>
@@ -1431,8 +1431,8 @@ Global Symbols
 <LI><a href="#[11b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_NVIC_EnableIRQ
 <LI><a href="#[11a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_NVIC_SetPriority
 </UL>
-<BR>[Called By]<UL><LI><a href="#[105]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_Init
-<LI><a href="#[106]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SystemClock_Config
+<BR>[Called By]<UL><LI><a href="#[106]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SystemClock_Config
+<LI><a href="#[105]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_Init
 </UL>
 
 <P><STRONG><a name="[119]"></a>HAL_MspInit</STRONG> (Thumb, 32 bytes, Stack size 8 bytes, stm32h7xx_hal_msp.o(i.HAL_MspInit))
@@ -1859,8 +1859,8 @@ Global Symbols
 <LI><a href="#[163]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskResumeAll
 <LI><a href="#[162]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskSuspendAll
 </UL>
-<BR>[Called By]<UL><LI><a href="#[15e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvProcessReceivedCommands
-<LI><a href="#[fb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskCreate
+<BR>[Called By]<UL><LI><a href="#[fb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskCreate
+<LI><a href="#[15e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvProcessReceivedCommands
 <LI><a href="#[14f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvDeleteTCB
 </UL>
 
@@ -1954,9 +1954,9 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[162]"></a>vTaskSuspendAll</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, tasks.o(i.vTaskSuspendAll))
-<BR><BR>[Called By]<UL><LI><a href="#[161]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvProcessTimerOrBlockTask
-<LI><a href="#[fa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelayUntil
+<BR><BR>[Called By]<UL><LI><a href="#[fa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelayUntil
 <LI><a href="#[f7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelay
+<LI><a href="#[161]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvProcessTimerOrBlockTask
 <LI><a href="#[15f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueReceive
 <LI><a href="#[179]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericSend
 <LI><a href="#[153]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortFree
@@ -2094,8 +2094,8 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[f8]"></a>xTaskGetTickCount</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, tasks.o(i.xTaskGetTickCount))
-<BR><BR>[Called By]<UL><LI><a href="#[160]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvSampleTimeNow
-<LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;App_Run10ms_Task
+<BR><BR>[Called By]<UL><LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;App_Run10ms_Task
+<LI><a href="#[160]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvSampleTimeNow
 </UL>
 
 <P><STRONG><a name="[178]"></a>xTaskIncrementTick</STRONG> (Thumb, 196 bytes, Stack size 24 bytes, tasks.o(i.xTaskIncrementTick))
@@ -2141,9 +2141,9 @@ Global Symbols
 <LI><a href="#[149]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortExitCritical
 <LI><a href="#[147]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortEnterCritical
 </UL>
-<BR>[Called By]<UL><LI><a href="#[161]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvProcessTimerOrBlockTask
-<LI><a href="#[fa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelayUntil
+<BR>[Called By]<UL><LI><a href="#[fa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelayUntil
 <LI><a href="#[f7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelay
+<LI><a href="#[161]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvProcessTimerOrBlockTask
 <LI><a href="#[15f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueReceive
 <LI><a href="#[179]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericSend
 <LI><a href="#[153]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortFree
@@ -2322,8 +2322,8 @@ Local Symbols
 <LI><a href="#[149]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortExitCritical
 <LI><a href="#[147]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortEnterCritical
 </UL>
-<BR>[Called By]<UL><LI><a href="#[172]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskCreateStatic
-<LI><a href="#[fb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskCreate
+<BR>[Called By]<UL><LI><a href="#[fb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskCreate
+<LI><a href="#[172]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskCreateStatic
 </UL>
 
 <P><STRONG><a name="[14e]"></a>prvCheckTasksWaitingTermination</STRONG> (Thumb, 56 bytes, Stack size 16 bytes, tasks.o(i.prvCheckTasksWaitingTermination))
@@ -2360,8 +2360,8 @@ Local Symbols
 <LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memset
 <LI><a href="#[157]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vListInitialiseItem
 </UL>
-<BR>[Called By]<UL><LI><a href="#[172]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskCreateStatic
-<LI><a href="#[fb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskCreate
+<BR>[Called By]<UL><LI><a href="#[fb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskCreate
+<LI><a href="#[172]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskCreateStatic
 </UL>
 
 <P><STRONG><a name="[148]"></a>prvInitialiseTaskLists</STRONG> (Thumb, 66 bytes, Stack size 16 bytes, tasks.o(i.prvInitialiseTaskLists))
@@ -2440,8 +2440,8 @@ Local Symbols
 <P><STRONG><a name="[160]"></a>prvSampleTimeNow</STRONG> (Thumb, 38 bytes, Stack size 16 bytes, timers.o(i.prvSampleTimeNow))
 <BR><BR>[Stack]<UL><LI>Max Depth = 192<LI>Call Chain = prvSampleTimeNow &rArr; prvSwitchTimerLists &rArr; xTimerGenericCommand &rArr; xQueueGenericSend &rArr; xTaskResumeAll &rArr; xTaskIncrementTick
 </UL>
-<BR>[Calls]<UL><LI><a href="#[165]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvSwitchTimerLists
-<LI><a href="#[f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskGetTickCount
+<BR>[Calls]<UL><LI><a href="#[f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskGetTickCount
+<LI><a href="#[165]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvSwitchTimerLists
 </UL>
 <BR>[Called By]<UL><LI><a href="#[161]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvProcessTimerOrBlockTask
 <LI><a href="#[15e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvProcessReceivedCommands
@@ -2491,9 +2491,9 @@ Local Symbols
 <LI><a href="#[109]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__asm___15_EventRecorder_c_e8d3082c__atomic_xch32
 <LI><a href="#[10a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__asm___15_EventRecorder_c_e8d3082c__atomic_inc32
 </UL>
-<BR>[Called By]<UL><LI><a href="#[10b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EventRecordData
-<LI><a href="#[f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EventRecorderStart
+<BR>[Called By]<UL><LI><a href="#[f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EventRecorderStart
 <LI><a href="#[f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EventRecorderInitialize
+<LI><a href="#[10b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EventRecordData
 </UL>
 
 <P><STRONG><a name="[10f]"></a>EventRecordItem</STRONG> (Thumb, 160 bytes, Stack size 56 bytes, eventrecorder.o(i.EventRecordItem))
@@ -2503,9 +2503,9 @@ Local Symbols
 <LI><a href="#[110]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__asm___15_EventRecorder_c_e8d3082c__LockRecord
 <LI><a href="#[10a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__asm___15_EventRecorder_c_e8d3082c__atomic_inc32
 </UL>
-<BR>[Called By]<UL><LI><a href="#[10b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EventRecordData
-<LI><a href="#[f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EventRecorderStart
+<BR>[Called By]<UL><LI><a href="#[f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EventRecorderStart
 <LI><a href="#[f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EventRecorderInitialize
+<LI><a href="#[10b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EventRecordData
 </UL>
 
 <P><STRONG><a name="[a1]"></a>_printf_input_char</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, _printf_char_common.o(.text))
