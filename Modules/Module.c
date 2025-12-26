@@ -10,7 +10,7 @@
 void Module_Config(void)
 {
   
-  // Module_KEY_Config();
+  Module_KEY_Config();
 
   Module_AD7616_Config();
   

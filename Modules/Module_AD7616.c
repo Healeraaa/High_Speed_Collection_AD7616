@@ -31,17 +31,18 @@ Module_Status_t Module_AD7616_Config(void)
     {
         g_channel_range[i] = AD7616_RANGE_10V;
     }
+
     while (1)
     {
-        BSP_FMC_PSRAM_WriteHalfWord(0x88, 0xA55A);
+        BSP_FMC_PSRAM_WriteHalfWord(0x00, 0xA55A);
         // *(__IO uint16_t *)(0x60000000U) = 0xA55A; 
 		for(int i = 0; i < 30000; i++) __NOP(); 
     }
-    
-    // // 配置所有通道为 ±10V 量程
-    // Module_AD7616_WriteReg(AD7616_REG_RANGE_A, 0xAAAA);  // A0-A7 通道
-    // BSP_DWT_Delay_ms(1);
-    // Module_AD7616_WriteReg(AD7616_REG_RANGE_B, 0xAAAA);  // B0-B7 通道
+
+    // 配置所有通道为 ±10V 量程
+    Module_AD7616_WriteReg(AD7616_REG_RANGE_A, 0xAAAA);  // A0-A7 通道
+    BSP_DWT_Delay_ms(10);
+    Module_AD7616_WriteReg(AD7616_REG_RANGE_B, 0xAAAA);  // B0-B7 通道
     
     return Module_OK;
 }
@@ -127,15 +128,13 @@ Module_Status_t Module_AD7616_WriteReg(uint8_t reg_addr, uint16_t data)
                | ((reg_addr & 0x3F) << 9)       // D14~D9: 6 位寄存器地址
                | (data & 0x1FF);                // D8~D0: 9 位数据
     
-    __disable_irq();
-    __DSB();
+
     BSP_FMC_PSRAM_WriteHalfWord(0, write_word);
     // 短延时确保写入完成
-    for (volatile int i = 0; i < 10; i++);
-    __DSB();
-    __enable_irq();
+    // for (volatile int i = 0; i < 10; i++);
+
     
-    // *(__IO uint16_t *)(0x60000088U) = 0xA55A; 
+    *(__IO uint16_t *)(0x60000000U) = 0xA55A; 
     
     return Module_OK;
 }

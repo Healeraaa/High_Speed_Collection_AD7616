@@ -15,8 +15,13 @@ void SRAM_ClockEnable(void)
    * - SRAM3: 0x30040000 - 0x30047FFF (32KB)
    * ======================================== */
   LL_AHB2_GRP1_EnableClock(LL_AHB2_GRP1_PERIPH_D2SRAM1);  // SRAM1
+  while (!(RCC->AHB2ENR & RCC_AHB2ENR_D2SRAM1EN)){}
+  
   LL_AHB2_GRP1_EnableClock(LL_AHB2_GRP1_PERIPH_D2SRAM2);  // SRAM2
+  while (!(RCC->AHB2ENR & RCC_AHB2ENR_D2SRAM2EN)){}
+
   LL_AHB2_GRP1_EnableClock(LL_AHB2_GRP1_PERIPH_D2SRAM3);  // SRAM3 
+  while (!(RCC->AHB2ENR & RCC_AHB2ENR_D2SRAM3EN)){}
   
   /* ========================================
    * 使能 D3 域的 SRAM4 时钟
