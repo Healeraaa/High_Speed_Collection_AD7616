@@ -10,20 +10,20 @@ void BSP_Init(void)
 {
   // MPU_Config();//配置MPU 
 
-  // SRAM_ClockEnable();// 使能SRAM时钟
+  SRAM_ClockEnable();// 使能SRAM时钟
 
   // SCB_EnableICache();// 使能指令缓存 I-Cache 
   // SCB_EnableDCache();// 使能数据缓存 D-Cache
 	
 	HAL_Init();
-  // LL_APB4_GRP1_EnableClock(LL_APB4_GRP1_PERIPH_SYSCFG);// 使能SYSCFG时钟
+  LL_APB4_GRP1_EnableClock(LL_APB4_GRP1_PERIPH_SYSCFG);// 使能SYSCFG时钟
   
-  // NVIC_SetPriorityGrouping(NVIC_PRIORITYGROUP_4);//  配置NVIC中断优先级分组为4，即4位抢占优先级，0位子优先级 
-  // NVIC_SetPriority(SysTick_IRQn, NVIC_EncodePriority(NVIC_GetPriorityGrouping(),15, 0));// 设置SysTick中断优先级为最低15
+  NVIC_SetPriorityGrouping(NVIC_PRIORITYGROUP_4);//  配置NVIC中断优先级分组为4，即4位抢占优先级，0位子优先级 
+  NVIC_SetPriority(SysTick_IRQn, NVIC_EncodePriority(NVIC_GetPriorityGrouping(),15, 0));// 设置SysTick中断优先级为最低15
 
   SystemClock_Config();//系统时钟配置
 
-  // BSP_DWT_DelayInit();// 初始化DWT延迟函数
+  BSP_DWT_DelayInit();// 初始化DWT延迟函数
 
   // // BSP_TIMER_SysTick_Init();// 初始化SysTick定时器
 

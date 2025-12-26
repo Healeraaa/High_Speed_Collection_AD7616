@@ -33,27 +33,14 @@ Module_Status_t Module_AD7616_Config(void)
     }
     while (1)
     {
-
-        *(__IO uint16_t *)(0x60000088U) = 0xA55A; 
-		for(int i = 0; i < 30000; i++) __NOP();
-
-        // BSP_FMC_PSRAM_WriteByte(0x00, 0xAA);
-        // BSP_FMC_PSRAM_WriteHalfWord(0x08, 0xA55A);
-        // __disable_irq();
+        BSP_FMC_PSRAM_WriteHalfWord(0x88, 0xA55A);
         // *(__IO uint16_t *)(0x60000000U) = 0xA55A; 
-        // __DSB(); 
-        // __enable_irq();
-		// for(int i = 0; i < 30000; i++) __NOP();
-        // // BSP_DWT_Delay_ms(10);
+		for(int i = 0; i < 30000; i++) __NOP(); 
     }
-        // BSP_FMC_PSRAM_WriteBuffer_16b(0, (uint16_t *)g_channel_range, AD7616_CHANNEL_NUM);
-        // BSP_FMC_PSRAM_WriteByte(0x01, 0xAA);
-        // BSP_FMC_PSRAM_WriteHalfWord(0x04, 0xAAAA);  // A0-A7 通道
-
-        
- 
-    // 配置所有通道为 ±10V 量程
+    
+    // // 配置所有通道为 ±10V 量程
     // Module_AD7616_WriteReg(AD7616_REG_RANGE_A, 0xAAAA);  // A0-A7 通道
+    // BSP_DWT_Delay_ms(1);
     // Module_AD7616_WriteReg(AD7616_REG_RANGE_B, 0xAAAA);  // B0-B7 通道
     
     return Module_OK;
@@ -133,19 +120,22 @@ Module_Status_t Module_AD7616_SetMode(AD7616_Mode_TypeDef mode)
   */
 Module_Status_t Module_AD7616_WriteReg(uint8_t reg_addr, uint16_t data)
 {
-    uint16_t cmd;
+    uint16_t write_word;
     
-    // 构造写命令：[15]=1(写), [14:8]=寄存器地址, [7:0]=数据高字节
-    cmd = (1 << 15) | ((reg_addr & 0x7F) << 8) | ((data >> 8) & 0xFF);
+    // 构造 16 位写入字： [15] = 1 (写操作)   [14:9] = 寄存器地址 (取低 6 位)   [8:0] = 数据 (取低 9 位)
+    write_word = (1 << 15)                      // D15: 写操作标志
+               | ((reg_addr & 0x3F) << 9)       // D14~D9: 6 位寄存器地址
+               | (data & 0x1FF);                // D8~D0: 9 位数据
     
-    // 写入命令和地址
-    BSP_FMC_PSRAM_WriteHalfWord(0, cmd);
-    
-    // 短延时
+    __disable_irq();
+    __DSB();
+    BSP_FMC_PSRAM_WriteHalfWord(0, write_word);
+    // 短延时确保写入完成
     for (volatile int i = 0; i < 10; i++);
+    __DSB();
+    __enable_irq();
     
-    // 写入数据低字节
-    BSP_FMC_PSRAM_WriteHalfWord(0, data & 0xFF);
+    // *(__IO uint16_t *)(0x60000088U) = 0xA55A; 
     
     return Module_OK;
 }
@@ -157,26 +147,26 @@ Module_Status_t Module_AD7616_WriteReg(uint8_t reg_addr, uint16_t data)
   */
 uint16_t Module_AD7616_ReadReg(uint8_t reg_addr)
 {
-    uint16_t cmd;
-    uint16_t data_h, data_l;
+    uint16_t read_cmd;
+    uint16_t read_data;
     
-    // 构造读命令：[15]=0(读), [14:8]=寄存器地址
-    cmd = (0 << 15) | ((reg_addr & 0x7F) << 8);
+    // 构造读命令字：[15] = 0 (读操作)   [14:9] = 寄存器地址 (取低 6 位)   [8:0] = 0 (读操作时该字段无意义)
+    read_cmd = (0 << 15)                        // D15: 读操作标志
+             | ((reg_addr & 0x3F) << 9);        // D14~D9: 6 位寄存器地址
     
-    // 写入读命令
-    BSP_FMC_PSRAM_WriteHalfWord(0, cmd);
+    // 1.写入读命令（发起读请求）
+    BSP_FMC_PSRAM_WriteHalfWord(0, read_cmd);
     
     // 短延时
     for (volatile int i = 0; i < 10; i++);
     
-    // 读取数据高字节
-    data_h = BSP_FMC_PSRAM_ReadHalfWord(0);
-    
-    // 读取数据低字节
-    data_l = BSP_FMC_PSRAM_ReadHalfWord(0);
-    
-    return ((data_h << 8) | data_l);
+    // 2.从数据总线读取数据（低 9 位有效）
+    read_data = BSP_FMC_PSRAM_ReadHalfWord(0);
+
+    // 返回低 9 位有效数据
+    return (read_data & 0x1FF);
 }
+
 
 // ========================================================================== 数据采集 ==========================================================================
 

@@ -23,10 +23,10 @@ BSP_Status_t BSP_FMC_PSRAM_Init(void)
   bsp_fmc_psram_handle.Instance = FMC_NORSRAM_DEVICE;                           // FMC NORSRAM 设备基地址（Bank1 Sector1 寄存器）
   bsp_fmc_psram_handle.Extended = FMC_NORSRAM_EXTENDED_DEVICE;                  // FMC NORSRAM 扩展寄存器基地址（扩展时序模式）
   bsp_fmc_psram_handle.Init.NSBank = FMC_NORSRAM_BANK1;                         // 使用 Bank1 Sector1（地址：0x60000000）
-  // bsp_fmc_psram_handle.Init.DataAddressMux = FMC_DATA_ADDRESS_MUX_DISABLE;  // 禁用地址数据复用
-  // bsp_fmc_psram_handle.Init.MemoryType = FMC_MEMORY_TYPE_SRAM;             // 改为SRAM模式
-  bsp_fmc_psram_handle.Init.DataAddressMux = FMC_DATA_ADDRESS_MUX_DISABLE;       // 使能地址/数据复用（节省 GPIO，地址和数据共用引脚）
-  bsp_fmc_psram_handle.Init.MemoryType = FMC_MEMORY_TYPE_PSRAM;                 // 存储器类型：PSRAM（伪静态 RAM，内部自动刷新）
+  bsp_fmc_psram_handle.Init.DataAddressMux = FMC_DATA_ADDRESS_MUX_DISABLE;  // 禁用地址数据复用
+  bsp_fmc_psram_handle.Init.MemoryType = FMC_MEMORY_TYPE_SRAM;             // 改为SRAM模式
+  // bsp_fmc_psram_handle.Init.DataAddressMux = FMC_DATA_ADDRESS_MUX_DISABLE;       // 使能地址/数据复用（节省 GPIO，地址和数据共用引脚）
+  // bsp_fmc_psram_handle.Init.MemoryType = FMC_MEMORY_TYPE_PSRAM;                 // 存储器类型：PSRAM（伪静态 RAM，内部自动刷新）
   bsp_fmc_psram_handle.Init.MemoryDataWidth = FMC_NORSRAM_MEM_BUS_WIDTH_16;    // 数据总线宽度：16 位（每次读写 2 字节）
   bsp_fmc_psram_handle.Init.BurstAccessMode = FMC_BURST_ACCESS_MODE_DISABLE;    // 禁用突发访问模式（PSRAM 不需要突发模式）
   bsp_fmc_psram_handle.Init.WaitSignalPolarity = FMC_WAIT_SIGNAL_POLARITY_LOW; // 等待信号极性：低电平有效（NWAIT 引脚）
@@ -124,6 +124,7 @@ void BSP_FMC_PSRAM_WriteHalfWord(uint32_t address, uint16_t data)
 {
   *(__IO uint16_t *)(PSRAM_BASE_ADDR + address) = data;
 }
+
 
 /**
   * @brief  从 PSRAM 读取 32 位数据

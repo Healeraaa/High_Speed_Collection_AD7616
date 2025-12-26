@@ -8,10 +8,12 @@ int main(void)
 {
   BSP_Init();
   Module_Config();
-  App_Init();
+  // App_Init();
   while (1)
   {
-    
+      // BSP_FMC_PSRAM_WriteHalfWord(0x88, 0xA55A);
+      *(__IO uint16_t *)(0x60000000U) = 0xA55A; 
+      for(int i = 0; i < 30000; i++) __NOP();
   }
 
 }

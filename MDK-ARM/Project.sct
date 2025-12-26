@@ -57,9 +57,40 @@ LR_IROM1 0x08000000 0x00200000  {
   ;   - 中断服务程序中使用的变量
   ; ----------------------------------------------------------
   RW_IRAM1 0x20000000 0x00020000  {
-	; *(RAM_D1)  ; 支持自定义 section
-  Module_AD7616.o (.+RO +RW +ZI)  ; AD7616 驱动相关代码和数据
-   .ANY (+RW +ZI)
+
+  ;   startup_stm32h743xx.o (STACK)        ; 栈
+  ;   startup_stm32h743xx.o (HEAP)         ; 堆
+
+  ;   Module_AD7616.o ( +RW +ZI)  ; AD7616 驱动相关代码和数据
+  ;   .ANY (+RW +ZI)
+	; ; *(RAM_D1)  ; 支持自定义 section
+  ; ; bsp_fmc.o (.+RO +RW +ZI)  ; FMC 驱动相关代码和数据
+  
+
+    ;  Priority 1：栈和堆（最频繁访问）
+    startup_stm32h743xx.o (STACK)
+    startup_stm32h743xx.o (HEAP)
+    
+    ;  Priority 2：HAL 核心变量（极高访问频率）
+    stm32h7xx_hal.o (+RW +ZI)                    ; uwTick 等全局变量
+    system_stm32h7xx.o (+RW +ZI)                 ; SystemCoreClock
+    stm32h7xx_hal_timebase_tim.o (+RW +ZI)       ; TIM6 时基句柄
+    
+    ;  Priority 3：FMC 和 AD7616（关键驱动）
+    bsp_fmc.o (+RW +ZI)
+    Module_AD7616.o (+RW +ZI)
+    
+    ;  Priority 4：其他 BSP 驱动
+    bsp_gpio.o (+RW +ZI)
+    bsp_timer.o (+RW +ZI)
+    bsp_dwt.o (+RW +ZI)
+    
+    ;  Priority 5：应用模块
+    Module_Key.o (+RW +ZI)
+    
+    ;  Priority 6：剩余所有数据段（直到 DTCM 满）
+    .ANY (+RW +ZI)
+   
   }
   
   ; ----------------------------------------------------------
