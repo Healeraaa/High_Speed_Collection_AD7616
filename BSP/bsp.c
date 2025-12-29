@@ -10,12 +10,11 @@ void BSP_Init(void)
 {
   MPU_Config();//配置MPU 
 
-  SRAM_ClockEnable();// 使能SRAM时钟
-
   SCB_EnableICache();// 使能指令缓存 I-Cache 
   SCB_EnableDCache();// 使能数据缓存 D-Cache
 	
 	HAL_Init();
+  SRAM_ClockEnable();// 使能SRAM时钟
   LL_APB4_GRP1_EnableClock(LL_APB4_GRP1_PERIPH_SYSCFG);// 使能SYSCFG时钟
   
   NVIC_SetPriorityGrouping(NVIC_PRIORITYGROUP_4);//  配置NVIC中断优先级分组为4，即4位抢占优先级，0位子优先级 

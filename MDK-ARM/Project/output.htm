@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Project\output.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Project\output.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060960: Last Updated: Mon Dec 29 15:10:41 2025
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060960: Last Updated: Mon Dec 29 15:53:49 2025
 <BR><P>
 <H3>Maximum Stack Usage =        240 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -1345,9 +1345,9 @@ Global Symbols
 <P><STRONG><a name="[109]"></a>BSP_Init</STRONG> (Thumb, 242 bytes, Stack size 24 bytes, bsp.o(i.BSP_Init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 120<LI>Call Chain = BSP_Init &rArr; HAL_Init &rArr; HAL_InitTick &rArr; HAL_TIM_Base_Init &rArr; TIM_Base_SetConfig
 </UL>
-<BR>[Calls]<UL><LI><a href="#[10c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_Init
+<BR>[Calls]<UL><LI><a href="#[10b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_Init
 <LI><a href="#[10d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SystemClock_Config
-<LI><a href="#[10b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SRAM_ClockEnable
+<LI><a href="#[10c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SRAM_ClockEnable
 <LI><a href="#[10a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MPU_Config
 <LI><a href="#[10e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BSP_DWT_DelayInit
 <LI><a href="#[108]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BSP_GPIO_System_Clock_Init
@@ -1449,7 +1449,7 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[134]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_TIM_PeriodElapsedCallback
 </UL>
 
-<P><STRONG><a name="[10c]"></a>HAL_Init</STRONG> (Thumb, 74 bytes, Stack size 8 bytes, stm32h7xx_hal.o(i.HAL_Init))
+<P><STRONG><a name="[10b]"></a>HAL_Init</STRONG> (Thumb, 74 bytes, Stack size 8 bytes, stm32h7xx_hal.o(i.HAL_Init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 96<LI>Call Chain = HAL_Init &rArr; HAL_InitTick &rArr; HAL_TIM_Base_Init &rArr; TIM_Base_SetConfig
 </UL>
 <BR>[Calls]<UL><LI><a href="#[120]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_InitTick
@@ -1470,7 +1470,7 @@ Global Symbols
 <LI><a href="#[123]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_NVIC_EnableIRQ
 <LI><a href="#[122]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_NVIC_SetPriority
 </UL>
-<BR>[Called By]<UL><LI><a href="#[10c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_Init
+<BR>[Called By]<UL><LI><a href="#[10b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_Init
 <LI><a href="#[10d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SystemClock_Config
 </UL>
 
@@ -1493,7 +1493,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[122]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_NVIC_SetPriority
 </UL>
-<BR>[Called By]<UL><LI><a href="#[10c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_Init
+<BR>[Called By]<UL><LI><a href="#[10b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_Init
 </UL>
 
 <P><STRONG><a name="[123]"></a>HAL_NVIC_EnableIRQ</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, stm32h7xx_hal_cortex.o(i.HAL_NVIC_EnableIRQ))
@@ -1512,7 +1512,7 @@ Global Symbols
 <P><STRONG><a name="[11e]"></a>HAL_NVIC_SetPriorityGrouping</STRONG> (Thumb, 28 bytes, Stack size 8 bytes, stm32h7xx_hal_cortex.o(i.HAL_NVIC_SetPriorityGrouping))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = HAL_NVIC_SetPriorityGrouping
 </UL>
-<BR>[Called By]<UL><LI><a href="#[10c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_Init
+<BR>[Called By]<UL><LI><a href="#[10b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_Init
 </UL>
 
 <P><STRONG><a name="[124]"></a>HAL_RCC_GetClockConfig</STRONG> (Thumb, 84 bytes, Stack size 16 bytes, stm32h7xx_hal_rcc.o(i.HAL_RCC_GetClockConfig))
@@ -1541,7 +1541,7 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = HAL_RCC_GetSysClockFreq
 </UL>
 <BR>[Called By]<UL><LI><a href="#[129]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_RCC_GetHCLKFreq
-<LI><a href="#[10c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_Init
+<LI><a href="#[10b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_Init
 </UL>
 
 <P><STRONG><a name="[102]"></a>HAL_SRAM_Init</STRONG> (Thumb, 102 bytes, Stack size 16 bytes, stm32h7xx_hal_sram.o(i.HAL_SRAM_Init))
@@ -1647,8 +1647,8 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[10d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SystemClock_Config
 </UL>
 
-<P><STRONG><a name="[10a]"></a>MPU_Config</STRONG> (Thumb, 74 bytes, Stack size 24 bytes, sys.o(i.MPU_Config))
-<BR><BR>[Stack]<UL><LI>Max Depth = 44<LI>Call Chain = MPU_Config &rArr; HAL_MPU_ConfigRegion
+<P><STRONG><a name="[10a]"></a>MPU_Config</STRONG> (Thumb, 126 bytes, Stack size 32 bytes, sys.o(i.MPU_Config))
+<BR><BR>[Stack]<UL><LI>Max Depth = 52<LI>Call Chain = MPU_Config &rArr; HAL_MPU_ConfigRegion
 </UL>
 <BR>[Calls]<UL><LI><a href="#[13c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_MPU_Enable
 <LI><a href="#[13a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_MPU_Disable
@@ -1747,7 +1747,7 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32h743xx.o(RESET)
 </UL>
-<P><STRONG><a name="[10b]"></a>SRAM_ClockEnable</STRONG> (Thumb, 68 bytes, Stack size 16 bytes, sys.o(i.SRAM_ClockEnable))
+<P><STRONG><a name="[10c]"></a>SRAM_ClockEnable</STRONG> (Thumb, 68 bytes, Stack size 16 bytes, sys.o(i.SRAM_ClockEnable))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = SRAM_ClockEnable &rArr; LL_AHB2_GRP1_EnableClock
 </UL>
 <BR>[Calls]<UL><LI><a href="#[149]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LL_AHB2_GRP1_EnableClock
@@ -2365,7 +2365,7 @@ Local Symbols
 <P><STRONG><a name="[149]"></a>LL_AHB2_GRP1_EnableClock</STRONG> (Thumb, 18 bytes, Stack size 8 bytes, sys.o(i.LL_AHB2_GRP1_EnableClock))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = LL_AHB2_GRP1_EnableClock
 </UL>
-<BR>[Called By]<UL><LI><a href="#[10b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SRAM_ClockEnable
+<BR>[Called By]<UL><LI><a href="#[10c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SRAM_ClockEnable
 </UL>
 
 <P><STRONG><a name="[14c]"></a>LL_RCC_SetAHBPrescaler</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, sys.o(i.LL_RCC_SetAHBPrescaler))

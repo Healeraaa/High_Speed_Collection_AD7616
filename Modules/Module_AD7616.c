@@ -32,7 +32,6 @@ Module_Status_t Module_AD7616_Config(void)
     {
         g_input_range_register[i] = 0xAA;
     }
-
     // 初始化配置寄存器为默认值
     Module_AD7616_ConfigRegister(AD7616_CONFIG_OS_DISABLE, false, false, false, false);
     // 默认选择通道 A0-B0

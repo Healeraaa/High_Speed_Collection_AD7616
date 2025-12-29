@@ -110,6 +110,7 @@ void App_AD7616_Task(void *argument)
   uint16_t i;
   while (1)
   {
+
     Module_AD7616_WriteReg(AD7616_REG_RANGE_A1, 0xA5);
     // vTaskDelay(1);
     // Module_AD7616_ReadReg(AD7616_REG_RANGE_A1);
