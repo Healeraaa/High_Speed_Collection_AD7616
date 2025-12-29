@@ -11,6 +11,8 @@ int main(void)
   App_Init();
   while (1)
   {
+    // *(__IO uint16_t *)(0x60000000U) = 0xA55A; 
+    // BSP_DWT_Delay_ms(10);
   }
 
 }

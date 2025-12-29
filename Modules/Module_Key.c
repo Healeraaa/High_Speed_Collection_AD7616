@@ -16,11 +16,11 @@ static  KeyFifo_t s_key_fifo;
 // __attribute__((section("RAM_D3"))) __attribute__((aligned(4)))  static  KeyFifo_t s_key_fifo;                                    /**< 按键事件FIFO缓冲区 */
 // __attribute__((section(".ARM.__at_0x30000400"))) __attribute__((aligned(32)))  KeyFifo_t s_key_fifo;
 
-/* 内部静态函数声明 */
-static void Module_InitKeyVar(void);
-static void Moudle_Key_Detect(uint8_t key_id);
-static uint8_t Moudle_Key_IsPinActive(uint8_t key_id);
-static uint8_t Moudle_Key_IsPressed(uint8_t key_id);
+// /* 内部静态函数声明 */
+// static void Module_InitKeyVar(void);
+// static void Moudle_Key_Detect(uint8_t key_id);
+// static uint8_t Moudle_Key_IsPinActive(uint8_t key_id);
+// static uint8_t Moudle_Key_IsPressed(uint8_t key_id);
 
 
 /**

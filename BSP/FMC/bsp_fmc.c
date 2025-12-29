@@ -41,12 +41,12 @@ BSP_Status_t BSP_FMC_PSRAM_Init(void)
   bsp_fmc_psram_handle.Init.PageSize = FMC_PAGE_SIZE_NONE;                      // 页大小：无（PSRAM 不需要页模式）
   
   // 配置 FMC 时序参数
-  Timing.AddressSetupTime = 15;                                                 // 地址建立时间：15 HCLK（从地址有效到读/写信号有效）= 80ns @ 200MHz
-  Timing.AddressHoldTime = 15;                                                  // 地址保持时间：15 HCLK（从读/写信号无效到地址无效）= 80ns @ 200MHz
-  Timing.DataSetupTime = 255;                                                   // 数据建立时间：255 HCLK（从读/写信号有效到数据有效）= 1.28us @ 200MHz（兼容慢速 PSRAM）
-  Timing.BusTurnAroundDuration = 15;                                            // 总线转换时间：15 HCLK（连续两次访问的恢复时间）= 80ns @ 200MHz
-  Timing.CLKDivision = 16;                                                      // 时钟分频：16（仅同步模式有效，本配置为异步模式）
-  Timing.DataLatency = 17;                                                      // 数据延迟：17 周期（仅同步模式有效，本配置为异步模式）
+  Timing.AddressSetupTime = 1;                                                 // 地址建立时间：15 HCLK（从地址有效到读/写信号有效）= 80ns @ 200MHz
+  Timing.AddressHoldTime = 1;                                                  // 地址保持时间：15 HCLK（从读/写信号无效到地址无效）= 80ns @ 200MHz
+  Timing.DataSetupTime = 50;                                                   // 数据建立时间：255 HCLK（从读/写信号有效到数据有效）= 1.28us @ 200MHz（兼容慢速 PSRAM）
+  Timing.BusTurnAroundDuration = 0;                                            // 总线转换时间：15 HCLK（连续两次访问的恢复时间）= 80ns @ 200MHz
+  Timing.CLKDivision = 2;                                                      // 时钟分频：16（仅同步模式有效，本配置为异步模式）
+  Timing.DataLatency = 2;                                                      // 数据延迟：17 周期（仅同步模式有效，本配置为异步模式）
   Timing.AccessMode = FMC_ACCESS_MODE_A;                                        // 访问模式：模式 A（标准异步模式）
 
   // 初始化底层硬件（GPIO 和时钟）
@@ -123,6 +123,11 @@ uint16_t BSP_FMC_PSRAM_ReadHalfWord(uint32_t address)
 void BSP_FMC_PSRAM_WriteHalfWord(uint32_t address, uint16_t data)
 {
   *(__IO uint16_t *)(PSRAM_BASE_ADDR + address) = data;
+  __DSB();
+  // HAL_SRAM_Write_16b(&bsp_fmc_psram_handle, 
+  //                    (uint32_t *)(PSRAM_BASE_ADDR + address), 
+  //                    &data, 
+  //                    1); 
 }
 
 
@@ -419,7 +424,7 @@ static void BSP_FMC_PSRAM_MspInit(void)
     * 
     * 控制信号:
     *   PC7   -> FMC_NE1   (片选信号 Bank1 Sector1，低电平有效，选中 PSRAM)
-    *   PD4   -> FMC_NOE   (读使能，Output Enable，低电平有效，PSRAM 输出数据)
+    *   PD4   ->                                                                (读使能，Output Enable，低电平有效，PSRAM 输出数据)
     *   PD5   -> FMC_NWE   (写使能，Write Enable，低电平有效，PSRAM 接收数据)
     * 
     * 注：DA = Data/Address（地址/数据复用引脚，时分复用）

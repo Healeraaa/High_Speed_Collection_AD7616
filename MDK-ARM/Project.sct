@@ -80,10 +80,10 @@ LR_IROM1 0x08000000 0x00200000  {
     bsp_fmc.o (+RW +ZI)
     Module_AD7616.o (+RW +ZI)
     
-    ;  Priority 4：其他 BSP 驱动
-    bsp_gpio.o (+RW +ZI)
-    bsp_timer.o (+RW +ZI)
-    bsp_dwt.o (+RW +ZI)
+    ; ;  Priority 4：其他 BSP 驱动
+    ; bsp_gpio.o (+RW +ZI)
+    ; bsp_timer.o (+RW +ZI)
+    ; bsp_dwt.o (+RW +ZI)
     
     ;  Priority 5：应用模块
     Module_Key.o (+RW +ZI)
@@ -111,6 +111,7 @@ LR_IROM1 0x08000000 0x00200000  {
   ;   - 通信协议缓冲区
   ; ----------------------------------------------------------
   RW_IRAM2 0x24000000 0x00080000  {
+    *(RAM_D2)  ; 支持自定义 section
   ;  .ANY (+RW +ZI)
   }
   
@@ -130,7 +131,7 @@ LR_IROM1 0x08000000 0x00200000  {
   ;   - 以太网、USB 等外设的缓冲区
   ; ----------------------------------------------------------
   RW_IRAM3 0x30000000 0x00020000  {
-	*(RAM_D3)  ; 支持自定义 section
+	; *(RAM_D3)  ; 支持自定义 section
   ;  .ANY (+RW +ZI)
   }
   
@@ -174,7 +175,7 @@ LR_IROM1 0x08000000 0x00200000  {
    ; 含义: Event Recorder 调试工具的数据段
    ; UNINIT 修饰符: 该区域在程序启动时不会被清零
    ; 原因: Event Recorder 需要在程序复位后保留之前的调试信息
-   EventRecorder.o (+ZI)
+  ;  EventRecorder.o (+ZI)
   ;  .ANY (+RW +ZI)
   }
   

@@ -69,3 +69,5 @@
 .\project\app_tasksinit.o: ../BSP/TIMER/bsp_timer.h
 .\project\app_tasksinit.o: ../Modules/Module.h
 .\project\app_tasksinit.o: ../Modules/Module_Key.h
+.\project\app_tasksinit.o: ../Modules/Module_AD7616.h
+.\project\app_tasksinit.o: D:\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h

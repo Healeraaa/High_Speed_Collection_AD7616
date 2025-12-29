@@ -8,12 +8,12 @@
 
 void BSP_Init(void)
 {
-  // MPU_Config();//配置MPU 
+  MPU_Config();//配置MPU 
 
   SRAM_ClockEnable();// 使能SRAM时钟
 
-  // SCB_EnableICache();// 使能指令缓存 I-Cache 
-  // SCB_EnableDCache();// 使能数据缓存 D-Cache
+  SCB_EnableICache();// 使能指令缓存 I-Cache 
+  SCB_EnableDCache();// 使能数据缓存 D-Cache
 	
 	HAL_Init();
   LL_APB4_GRP1_EnableClock(LL_APB4_GRP1_PERIPH_SYSCFG);// 使能SYSCFG时钟
@@ -30,7 +30,7 @@ void BSP_Init(void)
   /* 初始化GPIO时钟 */
   BSP_GPIO_System_Clock_Init();
   // /* 初始化LED相关的GPIO */
-  // BSP_GPIO_LED_Init();
+  BSP_GPIO_LED_Init();
   
 }
 

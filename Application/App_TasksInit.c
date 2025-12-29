@@ -2,6 +2,7 @@
 #include "App_TasksInit.h"
 #include "bsp.h"
 #include "Module.h"
+#include "Module_AD7616.h"
 
 
 /* Private typedef -----------------------------------------------------------*/
@@ -17,13 +18,14 @@ TaskHandle_t App_LEDToggle_Task_Handle;
 TaskHandle_t App_Run10ms_Task_Handle;
 TaskHandle_t App_Key_Task_Handle;
 TaskHandle_t App_AD7616_Task_Handle;
+__attribute__((section("RAM_D3"))) __attribute__((aligned(4)))  uint32_t AD7616_DataBuffer[1024];  /**< AD7616 数据缓冲区 */
 
 /* Queues --------------------------------------------------------------------*/
 
 /* Events --------------------------------------------------------------------*/
 
 // 定义互斥锁
-// SemaphoreHandle_t xMutex;
+SemaphoreHandle_t xMutex;
 
 
 /**
@@ -105,8 +107,15 @@ void App_KeyTestTask(void *argument)
 
 void App_AD7616_Task(void *argument)
 {
+  uint16_t i;
   while (1)
   {
+    Module_AD7616_WriteReg(AD7616_REG_RANGE_A1, 0xA5);
+    // vTaskDelay(1);
+    // Module_AD7616_ReadReg(AD7616_REG_RANGE_A1);
+    // AD7616_DataBuffer[0] = Module_AD7616_ReadChannel(0);
+    // *(__IO uint16_t *)(0x60000000U) = 0xA55A; 
+    // *(__IO uint16_t *)(0x60000000U) = 0xA5A5; 
     vTaskDelay(1);
   }
 }
@@ -122,13 +131,14 @@ void App_AD7616_Task(void *argument)
 void App_Tasks_Init(void)
 {
   // 创建互斥锁
-  // xMutex = xSemaphoreCreateMutex();
+  xMutex = xSemaphoreCreateMutex();
 
   xTaskCreate(App_LEDToggle_Task, "App_LEDToggle_Task", 128, NULL, 1, &App_LEDToggle_Task_Handle);
   xTaskCreate(App_Run10ms_Task, "App_Run10ms_Task", 256, NULL, 2, &App_Run10ms_Task_Handle);    
-  xTaskCreate(App_KeyTestTask, "App_KeyTestTask", 256, NULL, 2, &App_Key_Task_Handle);                
+  xTaskCreate(App_KeyTestTask, "App_KeyTestTask", 256, NULL, 2, &App_Key_Task_Handle);        
+  xTaskCreate(App_AD7616_Task, "App_AD7616_Task", 256, NULL, 3, &App_AD7616_Task_Handle);          
               
-  // xSemaphoreGive(xMutex);
+  xSemaphoreGive(xMutex);
 }
 
 
