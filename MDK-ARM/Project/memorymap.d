@@ -48,3 +48,4 @@
 .\project\memorymap.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_dma.h
 .\project\memorymap.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_dmamux.h
 .\project\memorymap.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_gpio.h
+.\project\memorymap.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_tim.h

@@ -360,7 +360,7 @@ Module_Status_t Module_AD7616_WriteReg(uint8_t reg_addr, uint8_t data)
 
     BSP_FMC_PSRAM_WriteHalfWord(0, write_word);
     // 短延时确保写入完成
-    for (volatile int i = 0; i < 10; i++);
+    // for (volatile int i = 0; i < 10; i++);
 
     return Module_OK;
 }

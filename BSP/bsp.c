@@ -24,12 +24,12 @@ void BSP_Init(void)
 
   BSP_DWT_DelayInit();// 初始化DWT延迟函数
 
-  // // BSP_TIMER_SysTick_Init();// 初始化SysTick定时器
+  BSP_GPIO_System_Clock_Init();// 初始化GPIO时钟
 
-  /* 初始化GPIO时钟 */
-  BSP_GPIO_System_Clock_Init();
-  // /* 初始化LED相关的GPIO */
-  BSP_GPIO_LED_Init();
+  BSP_TIM3_PWM0_Init();// 初始化TIM3用于AD7616采样触发的PWM输出
+  BSP_TIM3_PWM0_Start();
+
+  BSP_GPIO_LED_Init();// 初始化LED相关的GPIO 
   
 }
 

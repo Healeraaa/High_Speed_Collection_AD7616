@@ -3,6 +3,7 @@
 #include "bsp.h"
 #include "Module.h"
 #include "Module_AD7616.h"
+#include "bsp_fmc.h"
 
 
 /* Private typedef -----------------------------------------------------------*/
@@ -111,7 +112,9 @@ void App_AD7616_Task(void *argument)
   while (1)
   {
 
-    Module_AD7616_WriteReg(AD7616_REG_RANGE_A1, 0xA5);
+    // Module_AD7616_WriteReg(AD7616_REG_RANGE_A1, 0xA5);
+    // for (volatile int i = 0; i < 10; i++);
+    BSP_FMC_PSRAM_ReadHalfWord(0);
     // vTaskDelay(1);
     // Module_AD7616_ReadReg(AD7616_REG_RANGE_A1);
     // AD7616_DataBuffer[0] = Module_AD7616_ReadChannel(0);

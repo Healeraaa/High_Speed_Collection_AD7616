@@ -23,6 +23,7 @@
                 "e:\\MCU_Project\\STM32H743Project\\02High_Speed_Collection_AD7616\\MDK-ARM",
                 "e:\\MCU_Project\\STM32H743Project\\02High_Speed_Collection_AD7616\\Core\\Src",
                 "e:\\MCU_Project\\STM32H743Project\\02High_Speed_Collection_AD7616\\Drivers\\STM32H7xx_HAL_Driver\\Src",
+                "e:\\MCU_Project\\STM32H743Project\\02High_Speed_Collection_AD7616\\BSP\\DMA",
                 "e:\\MCU_Project\\STM32H743Project\\02High_Speed_Collection_AD7616\\Middlewares\\Third_Party\\FreeRTOS\\Source",
                 "e:\\MCU_Project\\STM32H743Project\\02High_Speed_Collection_AD7616\\Middlewares\\Third_Party\\FreeRTOS\\Source\\portable\\MemMang"
             ],

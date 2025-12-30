@@ -19,6 +19,7 @@ BSP_Status_t BSP_FMC_PSRAM_Init(void)
 {
   FMC_NORSRAM_TimingTypeDef Timing = {0};                                       // FMC 时序配置结构体（单位：HCLK 周期）
 
+
   // 配置 SRAM 外设基本参数
   bsp_fmc_psram_handle.Instance = FMC_NORSRAM_DEVICE;                           // FMC NORSRAM 设备基地址（Bank1 Sector1 寄存器）
   bsp_fmc_psram_handle.Extended = FMC_NORSRAM_EXTENDED_DEVICE;                  // FMC NORSRAM 扩展寄存器基地址（扩展时序模式）
@@ -33,27 +34,28 @@ BSP_Status_t BSP_FMC_PSRAM_Init(void)
   bsp_fmc_psram_handle.Init.WaitSignalActive = FMC_WAIT_TIMING_BEFORE_WS;       // 等待信号生效时机：在等待状态之前检测 NWAIT
   bsp_fmc_psram_handle.Init.WriteOperation = FMC_WRITE_OPERATION_ENABLE;        // 使能写操作（允许向 PSRAM 写入数据）
   bsp_fmc_psram_handle.Init.WaitSignal = FMC_WAIT_SIGNAL_DISABLE;               // 禁用等待信号（不使用 NWAIT 引脚，时序由软件控制）
-  bsp_fmc_psram_handle.Init.ExtendedMode = FMC_EXTENDED_MODE_DISABLE;           // 禁用扩展模式（读写使用相同时序）
+  // bsp_fmc_psram_handle.Init.ExtendedMode = FMC_EXTENDED_MODE_DISABLE;           // 禁用扩展模式（读写使用相同时序）
+  bsp_fmc_psram_handle.Init.ExtendedMode = FMC_EXTENDED_MODE_ENABLE;          // 使能扩展模式（读写使用不同时序，写入更快） ！！！使能扩展模式FMC_ACCESS_MODE_A才生效
   bsp_fmc_psram_handle.Init.AsynchronousWait = FMC_ASYNCHRONOUS_WAIT_DISABLE;    // 不使能异步等待（在异步模式下插入等待状态）
   bsp_fmc_psram_handle.Init.WriteBurst = FMC_WRITE_BURST_DISABLE;               // 禁用写突发（写操作不使用突发模式）
   bsp_fmc_psram_handle.Init.ContinuousClock = FMC_CONTINUOUS_CLOCK_SYNC_ONLY;   // 连续时钟：仅同步模式（异步模式不需要）
   bsp_fmc_psram_handle.Init.WriteFifo = FMC_WRITE_FIFO_ENABLE;                  // 使能写 FIFO（内部 FIFO 缓存写数据，提高性能）
   bsp_fmc_psram_handle.Init.PageSize = FMC_PAGE_SIZE_NONE;                      // 页大小：无（PSRAM 不需要页模式）
   
-  // 配置 FMC 时序参数
-  Timing.AddressSetupTime = 1;                                                 // 地址建立时间：15 HCLK（从地址有效到读/写信号有效）= 80ns @ 200MHz
-  Timing.AddressHoldTime = 1;                                                  // 地址保持时间：15 HCLK（从读/写信号无效到地址无效）= 80ns @ 200MHz
-  Timing.DataSetupTime = 50;                                                   // 数据建立时间：255 HCLK（从读/写信号有效到数据有效）= 1.28us @ 200MHz（兼容慢速 PSRAM）
-  Timing.BusTurnAroundDuration = 0;                                            // 总线转换时间：15 HCLK（连续两次访问的恢复时间）= 80ns @ 200MHz
-  Timing.CLKDivision = 2;                                                      // 时钟分频：16（仅同步模式有效，本配置为异步模式）
-  Timing.DataLatency = 2;                                                      // 数据延迟：17 周期（仅同步模式有效，本配置为异步模式）
+  // 配置 FMC 时序参数-----1 HCLK = 4.17ns @ 240MHz
+  Timing.AddressSetupTime = 6;        // 地址建立时间: 6 HCLK = 25.02ns @ 240MHz ------ t_RD_SETUP
+  Timing.AddressHoldTime = 2;         // 地址保持时间: 1 HCLK = 8.34ns @ 240MHz 模式 A用不到此参数
+  Timing.DataSetupTime = 10;          // 数据建立时间: 10 HCLK = 41.7ns @ 240MHz
+  Timing.BusTurnAroundDuration = 6;   // 总线转换时间: 5 HCLK = 25.02ns
+  Timing.CLKDivision = 2;             // 同步模式时钟分频 (异步模式不使用)
+  Timing.DataLatency = 2;             // 同步模式数据延迟 (异步模式不使用)
   Timing.AccessMode = FMC_ACCESS_MODE_A;                                        // 访问模式：模式 A（标准异步模式）
 
   // 初始化底层硬件（GPIO 和时钟）
   BSP_FMC_PSRAM_MspInit();
   
   // 初始化 FMC SRAM 外设
-  if (HAL_SRAM_Init(&bsp_fmc_psram_handle, &Timing, NULL) != HAL_OK)           // 调用 HAL 库初始化函数（读时序 = Timing，写时序 = NULL 表示与读时序相同）
+  if (HAL_SRAM_Init(&bsp_fmc_psram_handle, &Timing, &Timing) != HAL_OK)           // 调用 HAL 库初始化函数
   {
     return BSP_ERROR;                                                           // 初始化失败
   }
@@ -123,7 +125,7 @@ uint16_t BSP_FMC_PSRAM_ReadHalfWord(uint32_t address)
 void BSP_FMC_PSRAM_WriteHalfWord(uint32_t address, uint16_t data)
 {
   *(__IO uint16_t *)(PSRAM_BASE_ADDR + address) = data;
-  __DSB();
+  // __DSB();
   // HAL_SRAM_Write_16b(&bsp_fmc_psram_handle, 
   //                    (uint32_t *)(PSRAM_BASE_ADDR + address), 
   //                    &data, 
@@ -424,7 +426,7 @@ static void BSP_FMC_PSRAM_MspInit(void)
     * 
     * 控制信号:
     *   PC7   -> FMC_NE1   (片选信号 Bank1 Sector1，低电平有效，选中 PSRAM)
-    *   PD4   ->                                                                (读使能，Output Enable，低电平有效，PSRAM 输出数据)
+    *   PD4   -> FMC_NOE   (读使能，Output Enable，低电平有效，PSRAM 输出数据)
     *   PD5   -> FMC_NWE   (写使能，Write Enable，低电平有效，PSRAM 接收数据)
     * 
     * 注：DA = Data/Address（地址/数据复用引脚，时分复用）

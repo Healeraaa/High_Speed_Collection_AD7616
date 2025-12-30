@@ -64,6 +64,7 @@
 .\project\app_tasksinit.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_dma.h
 .\project\app_tasksinit.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_dmamux.h
 .\project\app_tasksinit.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_gpio.h
+.\project\app_tasksinit.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_tim.h
 .\project\app_tasksinit.o: D:\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 .\project\app_tasksinit.o: ../BSP/GPIO/bsp_gpio.h
 .\project\app_tasksinit.o: ../BSP/TIMER/bsp_timer.h
@@ -71,3 +72,4 @@
 .\project\app_tasksinit.o: ../Modules/Module_Key.h
 .\project\app_tasksinit.o: ../Modules/Module_AD7616.h
 .\project\app_tasksinit.o: D:\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
+.\project\app_tasksinit.o: ..\BSP\FMC\bsp_fmc.h

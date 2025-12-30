@@ -47,6 +47,7 @@
 .\project\app.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_dma.h
 .\project\app.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_dmamux.h
 .\project\app.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_gpio.h
+.\project\app.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_tim.h
 .\project\app.o: ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os.h
 .\project\app.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h
 .\project\app.o: ../Core/Inc/FreeRTOSConfig.h

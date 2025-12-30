@@ -125,47 +125,51 @@ void SystemClock_Config(void)
   }
 }
 
+/**
+  * @brief  配置 MPU (Memory Protection Unit) 保护关键内存区域
+  * @note   必须在系统初始化阶段调用,优先级高于 FMC 和其他外设初始化
+  * @note   Region 0: AXI SRAM (0x24000000, 512KB) - Non-cacheable, 用于 DMA 缓冲区
+  *         Region 1: FMC 扩展 IO (0x60000000, 64KB) - Device 类型, 用于 AD7616
+  * @retval None
+  */
 void MPU_Config(void)
 {
   MPU_Region_InitTypeDef MPU_InitStruct;
 
-	/* ½ûÖ¹ MPU */
-	HAL_MPU_Disable();
+  HAL_MPU_Disable();  // 禁止 MPU
 
-	/* ÅäÖÃAXI SRAMµÄMPUÊôÐÔÎªNon-cacheable  */
-	MPU_InitStruct.Enable           = MPU_REGION_ENABLE;
-	MPU_InitStruct.BaseAddress      = 0x24000000;
-	MPU_InitStruct.Size             = MPU_REGION_SIZE_512KB;
-	MPU_InitStruct.AccessPermission = MPU_REGION_FULL_ACCESS;
-	MPU_InitStruct.IsBufferable     = MPU_ACCESS_NOT_BUFFERABLE;
-	MPU_InitStruct.IsCacheable      = MPU_ACCESS_NOT_CACHEABLE;
-	MPU_InitStruct.IsShareable      = MPU_ACCESS_NOT_SHAREABLE;
-	MPU_InitStruct.Number           = MPU_REGION_NUMBER0;
-	MPU_InitStruct.TypeExtField     = MPU_TEX_LEVEL1;
-	MPU_InitStruct.SubRegionDisable = 0x00;
-	MPU_InitStruct.DisableExec      = MPU_INSTRUCTION_ACCESS_ENABLE;
+  /* ======== MPU Region 0: AXI SRAM (D1 域) ======== */
+  MPU_InitStruct.Enable           = MPU_REGION_ENABLE;
+  MPU_InitStruct.BaseAddress      = 0x24000000;                    // AXI SRAM 基地址 (512KB)
+  MPU_InitStruct.Size             = MPU_REGION_SIZE_512KB;
+  MPU_InitStruct.AccessPermission = MPU_REGION_FULL_ACCESS;        // 读写权限
+  MPU_InitStruct.IsBufferable     = MPU_ACCESS_NOT_BUFFERABLE;     // 不缓冲 (保证 DMA 一致性)
+  MPU_InitStruct.IsCacheable      = MPU_ACCESS_NOT_CACHEABLE;      // 不缓存 (避免 Cache 一致性问题)
+  MPU_InitStruct.IsShareable      = MPU_ACCESS_NOT_SHAREABLE;      // 不共享
+  MPU_InitStruct.Number           = MPU_REGION_NUMBER0;
+  MPU_InitStruct.TypeExtField     = MPU_TEX_LEVEL1;                // Normal Memory
+  MPU_InitStruct.SubRegionDisable = 0x00;
+  MPU_InitStruct.DisableExec      = MPU_INSTRUCTION_ACCESS_ENABLE;
 
-	HAL_MPU_ConfigRegion(&MPU_InitStruct);
-	
-	
-	/* ÅäÖÃFMCÀ©Õ¹IOµÄMPUÊôÐÔÎªDevice»òÕßStrongly Ordered */
-	MPU_InitStruct.Enable           = MPU_REGION_ENABLE;
-	MPU_InitStruct.BaseAddress      = 0x60000000;
-	MPU_InitStruct.Size             = ARM_MPU_REGION_SIZE_64KB;	
-	MPU_InitStruct.AccessPermission = MPU_REGION_FULL_ACCESS;
-	MPU_InitStruct.IsBufferable     = MPU_ACCESS_BUFFERABLE;
-	MPU_InitStruct.IsCacheable      = MPU_ACCESS_NOT_CACHEABLE;	/* ²»ÄÜÓÃMPU_ACCESS_CACHEABLE;»á³öÏÖ2´ÎCS¡¢WEÐÅºÅ */
-	MPU_InitStruct.IsShareable      = MPU_ACCESS_NOT_SHAREABLE;
-	MPU_InitStruct.Number           = MPU_REGION_NUMBER1;
-	MPU_InitStruct.TypeExtField     = MPU_TEX_LEVEL0;
-	MPU_InitStruct.SubRegionDisable = 0x00;
-	MPU_InitStruct.DisableExec      = MPU_INSTRUCTION_ACCESS_ENABLE;
-	
-	HAL_MPU_ConfigRegion(&MPU_InitStruct);
+  HAL_MPU_ConfigRegion(&MPU_InitStruct);
+  
+  
+  /* ======== MPU Region 1: FMC 扩展 IO (AD7616) ======== */
+  MPU_InitStruct.Enable           = MPU_REGION_ENABLE;
+  MPU_InitStruct.BaseAddress      = 0x60000000;                    // FMC Bank1 Sector1 基地址 (64KB)
+  MPU_InitStruct.Size             = ARM_MPU_REGION_SIZE_64KB;	
+  MPU_InitStruct.AccessPermission = MPU_REGION_FULL_ACCESS;        // 读写权限
+  MPU_InitStruct.IsBufferable     = MPU_ACCESS_BUFFERABLE;         // 允许写缓冲 (提高 FMC 写性能)
+  MPU_InitStruct.IsCacheable      = MPU_ACCESS_NOT_CACHEABLE;      // 不缓存 (避免读取过期寄存器值) ⚠️ 不能用 CACHEABLE,会出现 2 次 CS/WE 信号
+  MPU_InitStruct.IsShareable      = MPU_ACCESS_NOT_SHAREABLE;      // 不共享
+  MPU_InitStruct.Number           = MPU_REGION_NUMBER1;
+  MPU_InitStruct.TypeExtField     = MPU_TEX_LEVEL0;                // Device 类型 (外设寄存器)
+  MPU_InitStruct.SubRegionDisable = 0x00;
+  MPU_InitStruct.DisableExec      = MPU_INSTRUCTION_ACCESS_ENABLE;
+  
+  HAL_MPU_ConfigRegion(&MPU_InitStruct);
 
-	/*Ê¹ÄÜ MPU */
-	HAL_MPU_Enable(MPU_PRIVILEGED_DEFAULT);
-
+  HAL_MPU_Enable(MPU_PRIVILEGED_DEFAULT);  // 使能 MPU (特权模式下允许默认内存访问)
 }
 
 /**
