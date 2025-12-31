@@ -109,18 +109,20 @@ void App_KeyTestTask(void *argument)
 void App_AD7616_Task(void *argument)
 {
   uint16_t i;
+  __IO uint16_t read_data;
   while (1)
-  {
+  {                           
 
     // Module_AD7616_WriteReg(AD7616_REG_RANGE_A1, 0xA5);
     // for (volatile int i = 0; i < 10; i++);
-    BSP_FMC_PSRAM_ReadHalfWord(0);
-    // vTaskDelay(1);
+    read_data = BSP_FMC_PSRAM_ReadHalfWord(0);
+    // read_data = Module_AD7616_ReadReg(AD7616_REG_RANGE_A1);
+    vTaskDelay(1);
     // Module_AD7616_ReadReg(AD7616_REG_RANGE_A1);
     // AD7616_DataBuffer[0] = Module_AD7616_ReadChannel(0);
     // *(__IO uint16_t *)(0x60000000U) = 0xA55A; 
     // *(__IO uint16_t *)(0x60000000U) = 0xA5A5; 
-    vTaskDelay(1);
+                                                                                                                                                                                                                                                              vTaskDelay(1);
   }
 }
 

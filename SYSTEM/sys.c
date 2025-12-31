@@ -159,7 +159,7 @@ void MPU_Config(void)
   MPU_InitStruct.BaseAddress      = 0x60000000;                    // FMC Bank1 Sector1 基地址 (64KB)
   MPU_InitStruct.Size             = ARM_MPU_REGION_SIZE_64KB;	
   MPU_InitStruct.AccessPermission = MPU_REGION_FULL_ACCESS;        // 读写权限
-  MPU_InitStruct.IsBufferable     = MPU_ACCESS_BUFFERABLE;         // 允许写缓冲 (提高 FMC 写性能)
+  MPU_InitStruct.IsBufferable     = MPU_ACCESS_NOT_BUFFERABLE;         // 允许写缓冲 (提高 FMC 写性能)
   MPU_InitStruct.IsCacheable      = MPU_ACCESS_NOT_CACHEABLE;      // 不缓存 (避免读取过期寄存器值) ⚠️ 不能用 CACHEABLE,会出现 2 次 CS/WE 信号
   MPU_InitStruct.IsShareable      = MPU_ACCESS_NOT_SHAREABLE;      // 不共享
   MPU_InitStruct.Number           = MPU_REGION_NUMBER1;

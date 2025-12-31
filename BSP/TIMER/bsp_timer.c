@@ -102,7 +102,7 @@ void BSP_TIM3_PWM0_Init(void)
   /* ========== 配置 TIM3 基本参数 ========== */
   TIM_InitStruct.Prescaler = 0;                                                 // 预分频器：不分频（TIM3 时钟 = 240MHz）
   TIM_InitStruct.CounterMode = LL_TIM_COUNTERMODE_UP;                           // 计数模式：向上计数（0→ARR）
-  TIM_InitStruct.Autoreload = 2399;                                             // 自动重载值：2400 周期 → PWM 频率 = 100kHz (10us)
+  TIM_InitStruct.Autoreload = 23990;                                             // 自动重载值：2400 周期 → PWM 频率 = 100kHz (10us)
   TIM_InitStruct.ClockDivision = LL_TIM_CLOCKDIVISION_DIV1;                     // 时钟分频：不分频（用于死区时间计算）
   LL_TIM_Init(TIM3, &TIM_InitStruct);                                           // 初始化定时器基本参数
   LL_TIM_EnableARRPreload(TIM3);                                                // 使能 ARR 预装载（防止计数器溢出时产生毛刺）
@@ -113,7 +113,7 @@ void BSP_TIM3_PWM0_Init(void)
   TIM_OC_InitStruct.OCMode = LL_TIM_OCMODE_PWM1;                                // PWM 模式 1：CNT < CCR1 时输出高电平
   TIM_OC_InitStruct.OCState = LL_TIM_OCSTATE_DISABLE;                           // 输出状态：禁用（需手动使能后输出 PWM）
   TIM_OC_InitStruct.OCNState = LL_TIM_OCSTATE_DISABLE;                          // 互补输出：禁用（仅用于高级定时器）
-  TIM_OC_InitStruct.CompareValue = 15;                                          // 比较值：15 → 占空比 = 15/2400 = 0.625% (62.5ns 脉冲)
+  TIM_OC_InitStruct.CompareValue = 100;                                          // 比较值：15 → 占空比 = 15/2400 = 0.625% (62.5ns 脉冲)
   TIM_OC_InitStruct.OCPolarity = LL_TIM_OCPOLARITY_HIGH;                        // 输出极性：高电平有效
   LL_TIM_OC_Init(TIM3, LL_TIM_CHANNEL_CH1, &TIM_OC_InitStruct);                // 初始化输出比较通道 1
   LL_TIM_OC_DisableFast(TIM3, LL_TIM_CHANNEL_CH1);                              // 禁用快速模式（正常 PWM 模式）

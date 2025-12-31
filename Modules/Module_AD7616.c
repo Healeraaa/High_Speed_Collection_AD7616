@@ -34,13 +34,24 @@ Module_Status_t Module_AD7616_Config(void)
     }
     // 初始化配置寄存器为默认值
     Module_AD7616_ConfigRegister(AD7616_CONFIG_OS_DISABLE, false, false, false, false);
+    BSP_DWT_Delay_ms(10);  // 等待 AD7616 上电稳定
     // 默认选择通道 A0-B0
     Module_AD7616_SetChannelSelect(AD7616_CHANNEL_CHA_A0, AD7616_CHANNEL_CHB_B0);
+    BSP_DWT_Delay_ms(10);  // 等待 AD7616 上电稳定
     // 配置所有通道为 ±5V 量程
     Module_AD7616_WriteReg(AD7616_REG_RANGE_A1, 0xAA);  
+    BSP_DWT_Delay_ms(10);  // 等待 AD7616 上电稳定
     Module_AD7616_WriteReg(AD7616_REG_RANGE_A2, 0xAA);  
+    BSP_DWT_Delay_ms(10);  // 等待 AD7616 上电稳定
     Module_AD7616_WriteReg(AD7616_REG_RANGE_B1, 0xAA);  
+    BSP_DWT_Delay_ms(10);  // 等待 AD7616 上电稳定
     Module_AD7616_WriteReg(AD7616_REG_RANGE_B2, 0xAA);  
+    BSP_DWT_Delay_ms(10);  // 等待 AD7616 上电稳定
+    // while(1)
+    // {
+    //     __IO uint16_t read_data = Module_AD7616_ReadReg(AD7616_REG_RANGE_A1);
+    //     BSP_DWT_Delay_ms(1);
+    // }
     
     return Module_OK;
 }

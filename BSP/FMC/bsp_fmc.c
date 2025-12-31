@@ -45,11 +45,12 @@ BSP_Status_t BSP_FMC_PSRAM_Init(void)
   // 配置 FMC 时序参数-----1 HCLK = 4.17ns @ 240MHz
   Timing.AddressSetupTime = 6;        // 地址建立时间: 6 HCLK = 25.02ns @ 240MHz ------ t_RD_SETUP
   Timing.AddressHoldTime = 2;         // 地址保持时间: 1 HCLK = 8.34ns @ 240MHz 模式 A用不到此参数
-  Timing.DataSetupTime = 10;          // 数据建立时间: 10 HCLK = 41.7ns @ 240MHz
+  Timing.DataSetupTime = 6;          // 数据建立时间: 10 HCLK = 41.7ns @ 240MHz
   Timing.BusTurnAroundDuration = 6;   // 总线转换时间: 5 HCLK = 25.02ns
   Timing.CLKDivision = 2;             // 同步模式时钟分频 (异步模式不使用)
   Timing.DataLatency = 2;             // 同步模式数据延迟 (异步模式不使用)
-  Timing.AccessMode = FMC_ACCESS_MODE_A;                                        // 访问模式：模式 A（标准异步模式）
+  Timing.AccessMode = FMC_ACCESS_MODE_A
+  ;                                        // 访问模式：模式 A（标准异步模式）
 
   // 初始化底层硬件（GPIO 和时钟）
   BSP_FMC_PSRAM_MspInit();
@@ -385,7 +386,7 @@ static uint32_t FMC_Initialized = 0;                                            
   * @note   配置 FMC 所需的 GPIO 引脚和使能 FMC 时钟
   * @retval None
   */
-static void BSP_FMC_PSRAM_MspInit(void)
+static void  BSP_FMC_PSRAM_MspInit(void)
 {
   GPIO_InitTypeDef GPIO_InitStruct = {0};                                       // GPIO 初始化结构体
 
@@ -411,17 +412,17 @@ static void BSP_FMC_PSRAM_MspInit(void)
     *   PE8   -> FMC_DA5   (复用地址 A5 / 数据 D5)
     *   PE9   -> FMC_DA6   (复用地址 A6 / 数据 D6)
     *   PE10  -> FMC_DA7   (复用地址 A7 / 数据 D7)
-    *   PE11  -> FMC_DA8   (复用地址 A8 / 数据 D8)
+    *   PE11  -> FMC_DA8   (复用地址 A8 / 数据 D8)                     
     *   PE12  -> FMC_DA9   (复用地址 A9 / 数据 D9)
     *   PE13  -> FMC_DA10  (复用地址 A10 / 数据 D10)
-    *   PE14  -> FMC_DA11  (复用地址 A11 / 数据 D11)
+    *   PE14  -> FMC_DA11                                                                                                                        (复用地址 A11 / 数据 D11)
     *   PE15  -> FMC_DA12  (复用地址 A12 / 数据 D12)
     *   PD8   -> FMC_DA13  (复用地址 A13 / 数据 D13)
     *   PD9   -> FMC_DA14  (复用地址 A14 / 数据 D14)
     *   PD10  -> FMC_DA15  (复用地址 A15 / 数据 D15)
     *   PD14  -> FMC_DA0   (复用地址 A0 / 数据 D0)
-    *   PD15  -> FMC_DA1   (复用地址 A1 / 数据 D1)
-    *   PD0   -> FMC_DA2   (复用地址 A2 / 数据 D2)
+    *   PD15  -> FMC_DA1   (复用地址 A1 / 数据 D1) 
+    *   PD0   -> FMC_DA2   (复用地址 A2 / 数据 D2)                                            
     *   PD1   -> FMC_DA3   (复用地址 A3 / 数据 D3)
     * 
     * 控制信号:
