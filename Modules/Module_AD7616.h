@@ -48,7 +48,7 @@ typedef enum {
 
 // OS [4:2] R/W
 #define AD7616_CONFIG_OS_POS                 2
-#define AD7616_CONFIG_OS_DISABLE             (0x00 << AD7616_CONFIG_OS_POS)             // 8x 过采样
+#define AD7616_CONFIG_OS_DISABLE             (0x00 << AD7616_CONFIG_OS_POS)             // 1x 过采样
 #define AD7616_CONFIG_OS_2X                  (0x01 << AD7616_CONFIG_OS_POS)             // 2x 过采样
 #define AD7616_CONFIG_OS_4X                  (0x02 << AD7616_CONFIG_OS_POS)             // 4x 过采样
 #define AD7616_CONFIG_OS_8X                  (0x03 << AD7616_CONFIG_OS_POS)             // 8x 过采样

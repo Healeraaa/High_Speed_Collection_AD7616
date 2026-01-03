@@ -46,7 +46,7 @@ BSP_Status_t BSP_FMC_PSRAM_Init(void)
   Timing.AddressSetupTime = 6;        // 地址建立时间: 6 HCLK = 25.02ns @ 240MHz ------ t_RD_SETUP
   Timing.AddressHoldTime = 2;         // 地址保持时间: 1 HCLK = 8.34ns @ 240MHz 模式 A用不到此参数
   Timing.DataSetupTime = 6;          // 数据建立时间: 10 HCLK = 41.7ns @ 240MHz
-  Timing.BusTurnAroundDuration = 6;   // 总线转换时间: 5 HCLK = 25.02ns
+  Timing.BusTurnAroundDuration = 2;   // 总线转换时间: 5 HCLK = 25.02ns
   Timing.CLKDivision = 2;             // 同步模式时钟分频 (异步模式不使用)
   Timing.DataLatency = 2;             // 同步模式数据延迟 (异步模式不使用)
   Timing.AccessMode = FMC_ACCESS_MODE_A
@@ -415,7 +415,7 @@ static void  BSP_FMC_PSRAM_MspInit(void)
     *   PE11  -> FMC_DA8   (复用地址 A8 / 数据 D8)                     
     *   PE12  -> FMC_DA9   (复用地址 A9 / 数据 D9)
     *   PE13  -> FMC_DA10  (复用地址 A10 / 数据 D10)
-    *   PE14  -> FMC_DA11                                                                                                                        (复用地址 A11 / 数据 D11)
+    *   PE14  -> FMC_DA11  (复用地址 A11 / 数据 D11)
     *   PE15  -> FMC_DA12  (复用地址 A12 / 数据 D12)
     *   PD8   -> FMC_DA13  (复用地址 A13 / 数据 D13)
     *   PD9   -> FMC_DA14  (复用地址 A14 / 数据 D14)

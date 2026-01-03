@@ -102,7 +102,7 @@ void BSP_TIM3_PWM0_Init(void)
   /* ========== 配置 TIM3 基本参数 ========== */
   TIM_InitStruct.Prescaler = 0;                                                 // 预分频器：不分频（TIM3 时钟 = 240MHz）
   TIM_InitStruct.CounterMode = LL_TIM_COUNTERMODE_UP;                           // 计数模式：向上计数（0→ARR）
-  TIM_InitStruct.Autoreload = 23990;                                             // 自动重载值：2400 周期 → PWM 频率 = 100kHz (10us)
+  TIM_InitStruct.Autoreload = 53990;                                             // 自动重载值：2400 周期 → PWM 频率 = 100kHz (10us)
   TIM_InitStruct.ClockDivision = LL_TIM_CLOCKDIVISION_DIV1;                     // 时钟分频：不分频（用于死区时间计算）
   LL_TIM_Init(TIM3, &TIM_InitStruct);                                           // 初始化定时器基本参数
   LL_TIM_EnableARRPreload(TIM3);                                                // 使能 ARR 预装载（防止计数器溢出时产生毛刺）

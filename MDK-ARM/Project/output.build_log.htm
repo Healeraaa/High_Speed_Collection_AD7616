@@ -27,17 +27,22 @@ Project File Date:  12/30/2025
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 7 (build 960)', folder: 'D:\Keil\Keil_v5\ARM\ARMCC\Bin'
 Build target 'Project'
-compiling bsp_fmc.c...
+compiling Module.c...
+compiling App_TasksInit.c...
+..\Application\App_TasksInit.c(111): warning:  #177-D: variable "i"  was declared but never referenced
+    uint16_t i;
+..\Application\App_TasksInit.c: 1 warning, 0 errors
+compiling Module_AD7616.c...
 linking...
 .\Project.sct(136): warning: L6312W: Empty Execution region description for region RW_IRAM3
 .\Project.sct(155): warning: L6312W: Empty Execution region description for region RW_IRAM4
 .\Project.sct(180): warning: L6312W: Empty Execution region description for region RW_IRAM5
 .\Project.sct(201): warning: L6312W: Empty Execution region description for region RW_IRAM6
 .\Project.sct(114): warning: L6314W: No section matches pattern *(RAM_D2).
-Program Size: Code=19158 RO-data=802 RW-data=220 ZI-data=88972  
+Program Size: Code=19222 RO-data=802 RW-data=220 ZI-data=88972  
 Finished: 0 information, 5 warning and 0 error messages.
 FromELF: creating hex file...
-".\Project\output.axf" - 0 Error(s), 5 Warning(s).
+".\Project\output.axf" - 0 Error(s), 6 Warning(s).
 
 <h2>Software Packages used:</h2>
 

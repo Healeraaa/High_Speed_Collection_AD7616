@@ -32,8 +32,10 @@ Module_Status_t Module_AD7616_Config(void)
     {
         g_input_range_register[i] = 0xAA;
     }
+    Module_AD7616_ConfigRegister(AD7616_CONFIG_OS_16X, false, false, false, false);
+    BSP_DWT_Delay_ms(10);  // 等待 AD7616 上电稳定
     // 初始化配置寄存器为默认值
-    Module_AD7616_ConfigRegister(AD7616_CONFIG_OS_DISABLE, false, false, false, false);
+    Module_AD7616_ConfigRegister(AD7616_CONFIG_OS_16X, false, false, false, false);
     BSP_DWT_Delay_ms(10);  // 等待 AD7616 上电稳定
     // 默认选择通道 A0-B0
     Module_AD7616_SetChannelSelect(AD7616_CHANNEL_CHA_A0, AD7616_CHANNEL_CHB_B0);
