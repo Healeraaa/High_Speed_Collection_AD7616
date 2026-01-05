@@ -45,6 +45,7 @@
 ".\project\module_ad7616.o"
 ".\project\app.o"
 ".\project\app_tasksinit.o"
+".\project\app_wavecollectiontask.o"
 ".\project\sys.o"
 ".\project\croutine.o"
 ".\project\event_groups.o"

@@ -340,7 +340,7 @@
               <MiscControls></MiscControls>
               <Define>USE_FULL_LL_DRIVER,STM32H743xx,USE_HAL_DRIVER</Define>
               <Undefine></Undefine>
-              <IncludePath>../Core/Inc;../Drivers/STM32H7xx_HAL_Driver/Inc;../Drivers/CMSIS/Device/ST/STM32H7xx/Include;../Drivers/CMSIS/Include;../BSP;../Application;../Modules;../SYSTEM;../BSP/GPIO;../BSP/TIMER;..\BSP\FMC;../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy;../Middlewares/Third_Party/FreeRTOS/Source/include;../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2;../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F</IncludePath>
+              <IncludePath>../Core/Inc;../Drivers/STM32H7xx_HAL_Driver/Inc;../Drivers/CMSIS/Device/ST/STM32H7xx/Include;../Drivers/CMSIS/Include;../BSP;../Application;../Modules;../SYSTEM;../BSP/GPIO;../BSP/TIMER;..\BSP\FMC;../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy;../Middlewares/Third_Party/FreeRTOS/Source/include;../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2;../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F;..\BSP\DMA</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -1739,6 +1739,16 @@
               <FileName>App_TasksInit.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\Application\App_TasksInit.h</FilePath>
+            </File>
+            <File>
+              <FileName>App_WaveCollectionTask.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Application\App_WaveCollectionTask.c</FilePath>
+            </File>
+            <File>
+              <FileName>App_WaveCollectionTask.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Application\App_WaveCollectionTask.h</FilePath>
             </File>
           </Files>
         </Group>

@@ -1,6 +1,7 @@
 #include "Module_AD7616.h"
 #include "bsp.h"
 #include "bsp_fmc.h"
+#include "bsp_dma.h"
 #include "bsp_timer.h"
 #include "stdio.h"
 
@@ -24,31 +25,32 @@ Module_Status_t Module_AD7616_Config(void)
         return Module_ERROR;
     }
 
-    // 初始化控制引脚
-    // AD7616_GPIO_Init();
+    BSP_TIM3_PWM0_Init();// 初始化TIM3用于AD7616采样触发的PWM输出
+    BSP_DMA_TIM3_Init();// 初始化DMA用于TIM3触发的AD7616数据传输
     
     // 初始化量程配置为 ±10V
     for (i = 0; i < AD7616_RANGE_RESGISTER_NUM; i++)
     {
         g_input_range_register[i] = 0xAA;
     }
-    Module_AD7616_ConfigRegister(AD7616_CONFIG_OS_16X, false, false, false, false);
-    BSP_DWT_Delay_ms(10);  // 等待 AD7616 上电稳定
+    Module_AD7616_ConfigRegister(AD7616_CONFIG_OS_DISABLE, false, false, false, false);
+    BSP_DWT_Delay_us(5);  // 等待 AD7616 上电稳定
     // 初始化配置寄存器为默认值
-    Module_AD7616_ConfigRegister(AD7616_CONFIG_OS_16X, false, false, false, false);
-    BSP_DWT_Delay_ms(10);  // 等待 AD7616 上电稳定
+    Module_AD7616_ConfigRegister(AD7616_CONFIG_OS_DISABLE, false, false, false, false);
+    BSP_DWT_Delay_us(5);  // 等待 AD7616 上电稳定
     // 默认选择通道 A0-B0
-    Module_AD7616_SetChannelSelect(AD7616_CHANNEL_CHA_A0, AD7616_CHANNEL_CHB_B0);
-    BSP_DWT_Delay_ms(10);  // 等待 AD7616 上电稳定
+    Module_AD7616_SetChannelSelect(AD7616_CHANNEL_CHA_ALDO, AD7616_CHANNEL_CHB_ALDO);
+    BSP_DWT_Delay_us(5);  // 等待 AD7616 上电稳定
     // 配置所有通道为 ±5V 量程
     Module_AD7616_WriteReg(AD7616_REG_RANGE_A1, 0xAA);  
-    BSP_DWT_Delay_ms(10);  // 等待 AD7616 上电稳定
+    BSP_DWT_Delay_us(5);  // 等待 AD7616 上电稳定
     Module_AD7616_WriteReg(AD7616_REG_RANGE_A2, 0xAA);  
-    BSP_DWT_Delay_ms(10);  // 等待 AD7616 上电稳定
+    BSP_DWT_Delay_us(5);  // 等待 AD7616 上电稳定
     Module_AD7616_WriteReg(AD7616_REG_RANGE_B1, 0xAA);  
-    BSP_DWT_Delay_ms(10);  // 等待 AD7616 上电稳定
+    BSP_DWT_Delay_us(5);  // 等待 AD7616 上电稳定
     Module_AD7616_WriteReg(AD7616_REG_RANGE_B2, 0xAA);  
-    BSP_DWT_Delay_ms(10);  // 等待 AD7616 上电稳定
+    BSP_DWT_Delay_us(5);  // 等待 AD7616 上电稳定
+
     // while(1)
     // {
     //     __IO uint16_t read_data = Module_AD7616_ReadReg(AD7616_REG_RANGE_A1);

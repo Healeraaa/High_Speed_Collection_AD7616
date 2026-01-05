@@ -4,6 +4,7 @@
 #include "Module.h"
 #include "Module_AD7616.h"
 #include "bsp_fmc.h"
+#include "App_WaveCollectionTask.h"
 
 
 /* Private typedef -----------------------------------------------------------*/
@@ -19,7 +20,6 @@ TaskHandle_t App_LEDToggle_Task_Handle;
 TaskHandle_t App_Run10ms_Task_Handle;
 TaskHandle_t App_Key_Task_Handle;
 TaskHandle_t App_AD7616_Task_Handle;
-__attribute__((section("RAM_D3"))) __attribute__((aligned(4)))  uint32_t AD7616_DataBuffer[1024];  /**< AD7616 数据缓冲区 */
 
 /* Queues --------------------------------------------------------------------*/
 
@@ -106,26 +106,26 @@ void App_KeyTestTask(void *argument)
  * @note   
  */
 
-void App_AD7616_Task(void *argument)
-{
-  uint16_t i;
-  __IO int16_t read_data;
-  __IO float f_read_data;
-  while (1)
-  {                           
+// void App_AD7616_Task(void *argument)
+// {
+//   uint16_t i;
+//   __IO int16_t read_data;
+//   __IO float f_read_data;
+//   while (1)
+//   {                           
 
-    // Module_AD7616_WriteReg(AD7616_REG_RANGE_A1, 0xA5);
-    // for (volatile int i = 0; i < 10; i++);
-    read_data = BSP_FMC_PSRAM_ReadHalfWord(0);
-    f_read_data = read_data/32768.0f*5.0f;
-    // read_data = Module_AD7616_ReadReg(AD7616_REG_RANGE_A1);
-    vTaskDelay(1);
-    // Module_AD7616_ReadReg(AD7616_REG_RANGE_A1);
-    // AD7616_DataBuffer[0] = Module_AD7616_ReadChannel(0);
-    // *(__IO uint16_t *)(0x60000000U) = 0xA55A; 
-    // *(__IO uint16_t *)(0x60000000U) = 0xA5A5; 
-  }
-}
+//     // Module_AD7616_WriteReg(AD7616_REG_RANGE_A1, 0xA5);
+//     // for (volatile int i = 0; i < 10; i++);
+//     read_data = BSP_FMC_PSRAM_ReadHalfWord(0);
+//     f_read_data = read_data/32768.0f*5.0f;
+//     // read_data = Module_AD7616_ReadReg(AD7616_REG_RANGE_A1);
+//     vTaskDelay(1);
+//     // Module_AD7616_ReadReg(AD7616_REG_RANGE_A1);
+//     // AD7616_DataBuffer[0] = Module_AD7616_ReadChannel(0);
+//     // *(__IO uint16_t *)(0x60000000U) = 0xA55A; 
+//     // *(__IO uint16_t *)(0x60000000U) = 0xA5A5; 
+//   }
+// }
 
 
 
@@ -143,7 +143,7 @@ void App_Tasks_Init(void)
   xTaskCreate(App_LEDToggle_Task, "App_LEDToggle_Task", 128, NULL, 1, &App_LEDToggle_Task_Handle);
   xTaskCreate(App_Run10ms_Task, "App_Run10ms_Task", 256, NULL, 2, &App_Run10ms_Task_Handle);    
   xTaskCreate(App_KeyTestTask, "App_KeyTestTask", 256, NULL, 2, &App_Key_Task_Handle);        
-  xTaskCreate(App_AD7616_Task, "App_AD7616_Task", 256, NULL, 3, &App_AD7616_Task_Handle);          
+  xTaskCreate(App_WaveCollectionTask, "App_WaveCollectionTask", 256, NULL, 3, &App_AD7616_Task_Handle);          
               
   xSemaphoreGive(xMutex);
 }

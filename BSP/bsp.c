@@ -26,9 +26,6 @@ void BSP_Init(void)
 
   BSP_GPIO_System_Clock_Init();// 初始化GPIO时钟
 
-  BSP_TIM3_PWM0_Init();// 初始化TIM3用于AD7616采样触发的PWM输出
-  
-
   BSP_GPIO_LED_Init();// 初始化LED相关的GPIO 
   
 }

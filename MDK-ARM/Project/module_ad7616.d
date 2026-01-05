@@ -57,3 +57,4 @@
 .\project\module_ad7616.o: ../BSP/GPIO/bsp_gpio.h
 .\project\module_ad7616.o: ../BSP/TIMER/bsp_timer.h
 .\project\module_ad7616.o: ..\BSP\FMC\bsp_fmc.h
+.\project\module_ad7616.o: ..\BSP\DMA\bsp_dma.h
