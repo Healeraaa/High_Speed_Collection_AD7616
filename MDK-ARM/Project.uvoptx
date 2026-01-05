@@ -185,6 +185,16 @@
           <WinNumber>1</WinNumber>
           <ItemText>AD7616_DataBuffer_B</ItemText>
         </Ww>
+        <Ww>
+          <count>6</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>AD7616_VoltageBuffer_A</ItemText>
+        </Ww>
+        <Ww>
+          <count>7</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>AD7616_VoltageBuffer_B</ItemText>
+        </Ww>
       </WatchWindow1>
       <MemoryWindow1>
         <Mm>

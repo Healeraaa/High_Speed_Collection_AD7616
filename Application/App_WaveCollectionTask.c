@@ -9,6 +9,9 @@
 __attribute__((section("RAM_D3"))) __attribute__((aligned(32))) uint16_t AD7616_DataBuffer_A[1024] = {0};
 __attribute__((section("RAM_D3"))) __attribute__((aligned(32))) uint16_t AD7616_DataBuffer_B[1024] = {0};
 
+float AD7616_VoltageBuffer_A[1024] = {0.0f};
+float AD7616_VoltageBuffer_B[1024] = {0.0f};
+
 /* 计数信号量句柄 */
 SemaphoreHandle_t xDMA_BufferReadySemaphore = NULL;
 
@@ -32,11 +35,6 @@ void App_WaveCollectionTask(void *argument)
     }
     
     /* 启动定时器和 DMA (首次使用 Buffer_A) */
-    for(uint16_t i = 0; i < 1024; i++)
-    {
-        AD7616_DataBuffer_A[i] = 0;
-        AD7616_DataBuffer_B[i] = 0;
-    }
     BSP_TIM3_PWM0_Start();
     BSP_DMA_TIM3_Start(AD7616_DataBuffer_A, 1024);
     
@@ -48,13 +46,22 @@ void App_WaveCollectionTask(void *argument)
             /* 选择处理缓冲区（处理上一次 DMA 完成的缓冲区） */
             p_processing_buffer = (u8_process_buffer == 0) ? AD7616_DataBuffer_A : AD7616_DataBuffer_B;            
             /* ========== 数据处理 ========== */
-            for (uint16_t i = 0; i < 1024; i++)
+            if (u8_process_buffer == 0)
             {
-                int16_t raw_data = (int16_t)p_processing_buffer[i];
-                float voltage = (raw_data / 32768.0f) * 5.0f;  // ±5V 量程
-                
-                // 你的数据处理逻辑...
+                for(uint16_t i = 0; i < 1024; i++)
+                {
+                    int16_t raw_data = (int16_t)p_processing_buffer[i];
+                    AD7616_VoltageBuffer_A[i] = (raw_data / 32768.0f) * 5.0f;  // ±5V 量程
+                }
             }
+            else
+            {
+                for(uint16_t i = 0; i < 1024; i++)
+                {
+                    int16_t raw_data = (int16_t)p_processing_buffer[i];
+                    AD7616_VoltageBuffer_B[i] = (raw_data / 32768.0f) * 5.0f;  // ±5V 量程
+                }
+}
             /* =============================== */
             
             /* 切换到下一个处理缓冲区 */
