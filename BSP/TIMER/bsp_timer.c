@@ -76,7 +76,7 @@ void BSP_TIM3_PWM0_Init(void)
     LL_DMA_SetPeriphRequest(DMA1, LL_DMA_STREAM_0, LL_DMAMUX1_REQ_TIM3_CH2);           // 设置 DMA 请求源为 TIM3_CH2
     LL_DMA_SetDataTransferDirection(DMA1, LL_DMA_STREAM_0, LL_DMA_DIRECTION_PERIPH_TO_MEMORY);  // 方向：外设 → 内存
     LL_DMA_SetStreamPriorityLevel(DMA1, LL_DMA_STREAM_0, LL_DMA_PRIORITY_VERYHIGH);    // 优先级：最高（保证数据采集实时性）
-    LL_DMA_SetMode(DMA1, LL_DMA_STREAM_0, LL_DMA_MODE_CIRCULAR);                       // 循环模式（连续采集）
+    LL_DMA_SetMode(DMA1, LL_DMA_STREAM_0, LL_DMA_MODE_NORMAL);                       // 循环模式（连续采集）
     LL_DMA_SetPeriphIncMode(DMA1, LL_DMA_STREAM_0, LL_DMA_PERIPH_NOINCREMENT);        // 外设地址不递增（固定读取 AD7616 数据寄存器）
     LL_DMA_SetMemoryIncMode(DMA1, LL_DMA_STREAM_0, LL_DMA_MEMORY_INCREMENT);          // 内存地址递增（顺序存储采样数据）
     LL_DMA_SetPeriphSize(DMA1, LL_DMA_STREAM_0, LL_DMA_PDATAALIGN_HALFWORD);          // 外设数据宽度：16-bit（AD7616 数据宽度）
