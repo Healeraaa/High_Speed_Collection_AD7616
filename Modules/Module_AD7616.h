@@ -91,18 +91,18 @@ typedef enum {
 
 // 通道 B [7:4] R/W
 #define AD7616_CHANNEL_CHB_POS                4
-#define AD7616_CHANNEL_CHB_B0                 (0x00 << AD7616_CHANNEL_CHA_POS)          // B0 
-#define AD7616_CHANNEL_CHB_B1                 (0x01 << AD7616_CHANNEL_CHA_POS)          // B1
-#define AD7616_CHANNEL_CHB_B2                 (0x02 << AD7616_CHANNEL_CHA_POS)          // B2
-#define AD7616_CHANNEL_CHB_B3                 (0x03 << AD7616_CHANNEL_CHA_POS)          // B3
-#define AD7616_CHANNEL_CHB_B4                 (0x04 << AD7616_CHANNEL_CHA_POS)          // B4
-#define AD7616_CHANNEL_CHB_B5                 (0x05 << AD7616_CHANNEL_CHA_POS)          // B5
-#define AD7616_CHANNEL_CHB_B6                 (0x06 << AD7616_CHANNEL_CHA_POS)          // B6
-#define AD7616_CHANNEL_CHB_B7                 (0x07 << AD7616_CHANNEL_CHA_POS)          // B7
-#define AD7616_CHANNEL_CHB_VCC                (0x08 << AD7616_CHANNEL_CHA_POS)          // VCC
-#define AD7616_CHANNEL_CHB_ALDO               (0x09 << AD7616_CHANNEL_CHA_POS)          // ALDO
-#define AD7616_CHANNEL_CHB_NONE               (0x0A << AD7616_CHANNEL_CHA_POS)          // Reserved
-#define AD7616_CHANNEL_CHB_TEST               (0x0B << AD7616_CHANNEL_CHA_POS)          // TEST 读取代码为0x5555
+#define AD7616_CHANNEL_CHB_B0                 (0x00 << AD7616_CHANNEL_CHB_POS)          // B0 
+#define AD7616_CHANNEL_CHB_B1                 (0x01 << AD7616_CHANNEL_CHB_POS)          // B1
+#define AD7616_CHANNEL_CHB_B2                 (0x02 << AD7616_CHANNEL_CHB_POS)          // B2
+#define AD7616_CHANNEL_CHB_B3                 (0x03 << AD7616_CHANNEL_CHB_POS)          // B3
+#define AD7616_CHANNEL_CHB_B4                 (0x04 << AD7616_CHANNEL_CHB_POS)          // B4
+#define AD7616_CHANNEL_CHB_B5                 (0x05 << AD7616_CHANNEL_CHB_POS)          // B5
+#define AD7616_CHANNEL_CHB_B6                 (0x06 << AD7616_CHANNEL_CHB_POS)          // B6
+#define AD7616_CHANNEL_CHB_B7                 (0x07 << AD7616_CHANNEL_CHB_POS)          // B7
+#define AD7616_CHANNEL_CHB_VCC                (0x08 << AD7616_CHANNEL_CHB_POS)          // VCC
+#define AD7616_CHANNEL_CHB_ALDO               (0x09 << AD7616_CHANNEL_CHB_POS)          // ALDO
+#define AD7616_CHANNEL_CHB_NONE               (0x0A << AD7616_CHANNEL_CHB_POS)          // Reserved
+#define AD7616_CHANNEL_CHB_TEST               (0x0B << AD7616_CHANNEL_CHB_POS)          // TEST 读取代码为0x5555
 
 // ========================================================================== 输入范围寄存器A1定义 (Input Range Register A1) ==========================================================================
 

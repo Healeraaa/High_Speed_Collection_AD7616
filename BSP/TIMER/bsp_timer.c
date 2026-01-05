@@ -80,11 +80,14 @@ void BSP_TIM3_PWM0_Init(void)
     LL_DMA_SetPeriphIncMode(DMA1, LL_DMA_STREAM_0, LL_DMA_PERIPH_NOINCREMENT);        // 外设地址不递增（固定读取 AD7616 数据寄存器）
     LL_DMA_SetMemoryIncMode(DMA1, LL_DMA_STREAM_0, LL_DMA_MEMORY_INCREMENT);          // 内存地址递增（顺序存储采样数据）
     LL_DMA_SetPeriphSize(DMA1, LL_DMA_STREAM_0, LL_DMA_PDATAALIGN_HALFWORD);          // 外设数据宽度：16-bit（AD7616 数据宽度）
-    LL_DMA_SetMemorySize(DMA1, LL_DMA_STREAM_0, LL_DMA_MDATAALIGN_HALFWORD);          // 内存数据宽度：16-bit
+    // LL_DMA_SetMemorySize(DMA1, LL_DMA_STREAM_0, LL_DMA_MDATAALIGN_HALFWORD);          // 内存数据宽度：16-bit
+    LL_DMA_SetMemorySize(DMA1, LL_DMA_STREAM_0, LL_DMA_MDATAALIGN_WORD);            // 内存数据宽度：32-bit
     LL_DMA_EnableFifoMode(DMA1, LL_DMA_STREAM_0);                                      // 使能 FIFO 模式（提高突发传输效率）
-    LL_DMA_SetFIFOThreshold(DMA1, LL_DMA_STREAM_0, LL_DMA_FIFOTHRESHOLD_FULL);        // FIFO 阈值：满触发（4×16-bit）
+    LL_DMA_SetFIFOThreshold(DMA1, LL_DMA_STREAM_0, LL_DMA_FIFOTHRESHOLD_FULL);        // FIFO 阈值：满触发（4×16-bit）4字节
     LL_DMA_SetMemoryBurstxfer(DMA1, LL_DMA_STREAM_0, LL_DMA_MBURST_SINGLE);           // 内存突发：单次传输
     LL_DMA_SetPeriphBurstxfer(DMA1, LL_DMA_STREAM_0, LL_DMA_PBURST_SINGLE);           // 外设突发：单次传输
+    // LL_DMA_SetPeriphBurstxfer(DMA1, LL_DMA_STREAM_0, LL_DMA_PBURST_INC4);         // 外设突发：4次传输
+
 
     // ========== TIM3 基本参数配置 ==========
     TIM_InitStruct.Prescaler = 0;                          // 预分频器 = 0（不分频，定时器时钟 = 240MHz）

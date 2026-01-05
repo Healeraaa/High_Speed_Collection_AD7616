@@ -9,8 +9,8 @@
 __attribute__((section("RAM_D3"))) __attribute__((aligned(32))) uint16_t AD7616_DataBuffer_A[1024] = {0};
 __attribute__((section("RAM_D3"))) __attribute__((aligned(32))) uint16_t AD7616_DataBuffer_B[1024] = {0};
 
-float AD7616_VoltageBuffer_A[1024] = {0.0f};
-float AD7616_VoltageBuffer_B[1024] = {0.0f};
+__attribute__((section("RAM_D3"))) __attribute__((aligned(32))) float AD7616_VoltageBuffer_A[1024] = {0.0f};
+__attribute__((section("RAM_D3"))) __attribute__((aligned(32))) float AD7616_VoltageBuffer_B[1024] = {0.0f};
 
 /* 计数信号量句柄 */
 SemaphoreHandle_t xDMA_BufferReadySemaphore = NULL;
