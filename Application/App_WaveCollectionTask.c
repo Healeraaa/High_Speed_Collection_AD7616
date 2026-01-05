@@ -38,6 +38,7 @@ void App_WaveCollectionTask(void *argument)
     BSP_TIM3_PWM0_Start();
     BSP_DMA_TIM3_Start(AD7616_DataBuffer_A, 1024);
     
+    
     while (1)
     {
         /* 等待 DMA 缓冲区就绪 */

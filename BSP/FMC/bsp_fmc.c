@@ -34,8 +34,8 @@ BSP_Status_t BSP_FMC_PSRAM_Init(void)
   bsp_fmc_psram_handle.Init.WaitSignalActive = FMC_WAIT_TIMING_BEFORE_WS;       // 等待信号生效时机：在等待状态之前检测 NWAIT
   bsp_fmc_psram_handle.Init.WriteOperation = FMC_WRITE_OPERATION_ENABLE;        // 使能写操作（允许向 PSRAM 写入数据）
   bsp_fmc_psram_handle.Init.WaitSignal = FMC_WAIT_SIGNAL_DISABLE;               // 禁用等待信号（不使用 NWAIT 引脚，时序由软件控制）
-  bsp_fmc_psram_handle.Init.ExtendedMode = FMC_EXTENDED_MODE_DISABLE;           // 禁用扩展模式（读写使用相同时序）
-  // bsp_fmc_psram_handle.Init.ExtendedMode = FMC_EXTENDED_MODE_ENABLE;          // 使能扩展模式（读写使用不同时序，写入更快） ！！！使能扩展模式FMC_ACCESS_MODE_A才生效
+  // bsp_fmc_psram_handle.Init.ExtendedMode = FMC_EXTENDED_MODE_DISABLE;           // 禁用扩展模式（读写使用相同时序）
+  bsp_fmc_psram_handle.Init.ExtendedMode = FMC_EXTENDED_MODE_ENABLE;          // 使能扩展模式（读写使用不同时序，写入更快） ！！！使能扩展模式FMC_ACCESS_MODE_A才生效
   bsp_fmc_psram_handle.Init.AsynchronousWait = FMC_ASYNCHRONOUS_WAIT_DISABLE;    // 不使能异步等待（在异步模式下插入等待状态）
   bsp_fmc_psram_handle.Init.WriteBurst = FMC_WRITE_BURST_DISABLE;               // 禁用写突发（写操作不使用突发模式）
   bsp_fmc_psram_handle.Init.ContinuousClock = FMC_CONTINUOUS_CLOCK_SYNC_ONLY;   // 连续时钟：仅同步模式（异步模式不需要）
@@ -43,13 +43,14 @@ BSP_Status_t BSP_FMC_PSRAM_Init(void)
   bsp_fmc_psram_handle.Init.PageSize = FMC_PAGE_SIZE_NONE;                      // 页大小：无（PSRAM 不需要页模式）
   
   // 配置 FMC 时序参数-----1 HCLK = 4.17ns @ 240MHz
-  Timing.AddressSetupTime = 12;        // 地址建立时间: 6 HCLK = 25.02ns @ 240MHz ------ t_RD_SETUP
+  Timing.AddressSetupTime = 6;        // 地址建立时间: 6 HCLK = 25.02ns @ 240MHz ------ t_RD_SETUP
   Timing.AddressHoldTime = 2;         // 地址保持时间: 1 HCLK = 8.34ns @ 240MHz 模式 A用不到此参数
-  Timing.DataSetupTime = 12;          // 数据建立时间: 10 HCLK = 41.7ns @ 240MHz
+  Timing.DataSetupTime = 10;          // 数据建立时间: 10 HCLK = 41.7ns @ 240MHz
   Timing.BusTurnAroundDuration = 5;   // 总线转换时间: 5 HCLK = 25.02ns
   Timing.CLKDivision = 2;             // 同步模式时钟分频 (异步模式不使用)
   Timing.DataLatency = 2;             // 同步模式数据延迟 (异步模式不使用)
-  Timing.AccessMode = FMC_ACCESS_MODE_A;                                        // 访问模式：模式 A（标准异步模式）
+  Timing.AccessMode = FMC_ACCESS_MODE_A
+  ;                                        // 访问模式：模式 A（标准异步模式）
 
   // 初始化底层硬件（GPIO 和时钟）
   BSP_FMC_PSRAM_MspInit();
@@ -422,7 +423,7 @@ static void  BSP_FMC_PSRAM_MspInit(void)
     *   PD14  -> FMC_DA0   (复用地址 A0 / 数据 D0)
     *   PD15  -> FMC_DA1   (复用地址 A1 / 数据 D1) 
     *   PD0   -> FMC_DA2   (复用地址 A2 / 数据 D2)                                            
-    *   PD1   -> FMC_DA3   (复用地址 A3 / 数据 D3)
+    *   PD1                                                                                                                                                                                                        -> FMC_DA3   (复用地址 A3 / 数据 D3)
     * 
     * 控制信号:
     *   PC7   -> FMC_NE1   (片选信号 Bank1 Sector1，低电平有效，选中 PSRAM)
