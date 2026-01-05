@@ -15,7 +15,6 @@ void BSP_DMA_SetPeriphAddress(DMA_TypeDef *DMAx, uint32_t Stream, uint32_t Perip
 
 void BSP_DMA_TIM3_Init(void)
 {
-  LL_AHB1_GRP1_EnableClock(LL_AHB1_GRP1_PERIPH_DMA1);
 
   NVIC_SetPriority(DMA1_Stream0_IRQn, NVIC_EncodePriority(NVIC_GetPriorityGrouping(),5, 0));
 }

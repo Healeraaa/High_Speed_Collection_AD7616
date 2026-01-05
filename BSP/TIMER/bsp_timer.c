@@ -70,6 +70,7 @@ void BSP_TIM3_PWM0_Init(void)
     
     /* Peripheral clock enable */
     LL_APB1_GRP1_EnableClock(LL_APB1_GRP1_PERIPH_TIM3);  // 使能 TIM3 外设时钟（APB1 总线）
+    LL_AHB1_GRP1_EnableClock(LL_AHB1_GRP1_PERIPH_DMA1);
 
     // ========== DMA 配置（用于 TIM3_CH2 触发数据采集） ==========
     LL_DMA_SetPeriphRequest(DMA1, LL_DMA_STREAM_0, LL_DMAMUX1_REQ_TIM3_CH2);           // 设置 DMA 请求源为 TIM3_CH2
@@ -122,6 +123,7 @@ void BSP_TIM3_PWM0_Init(void)
     GPIO_InitStruct.Pull = LL_GPIO_PULL_NO;                // 上下拉：无
     GPIO_InitStruct.Alternate = LL_GPIO_AF_2;              // 复用功能 2：TIM3_CH1
     LL_GPIO_Init(GPIOA, &GPIO_InitStruct);                 // 应用配置到 PA6
+    NVIC_SetPriority(DMA1_Stream0_IRQn, NVIC_EncodePriority(NVIC_GetPriorityGrouping(),5, 0));
 }
 
 // ...existing code...

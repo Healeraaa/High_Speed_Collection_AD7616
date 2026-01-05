@@ -157,9 +157,9 @@
         <Bp>
           <Number>0</Number>
           <Type>0</Type>
-          <LineNumber>43</LineNumber>
+          <LineNumber>35</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>134224096</Address>
+          <Address>134222542</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
@@ -168,14 +168,14 @@
           <BreakIfRCount>1</BreakIfRCount>
           <Filename>..\Application\App_WaveCollectionTask.c</Filename>
           <ExecCommand></ExecCommand>
-          <Expression>\\output\../Application/App_WaveCollectionTask.c\43</Expression>
+          <Expression>\\output\../Application/App_WaveCollectionTask.c\35</Expression>
         </Bp>
         <Bp>
           <Number>1</Number>
           <Type>0</Type>
-          <LineNumber>38</LineNumber>
+          <LineNumber>40</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>134224084</Address>
+          <Address>134222564</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
@@ -184,23 +184,7 @@
           <BreakIfRCount>1</BreakIfRCount>
           <Filename>..\Application\App_WaveCollectionTask.c</Filename>
           <ExecCommand></ExecCommand>
-          <Expression>\\output\../Application/App_WaveCollectionTask.c\38</Expression>
-        </Bp>
-        <Bp>
-          <Number>2</Number>
-          <Type>0</Type>
-          <LineNumber>47</LineNumber>
-          <EnabledFlag>1</EnabledFlag>
-          <Address>134224108</Address>
-          <ByteObject>0</ByteObject>
-          <HtxType>0</HtxType>
-          <ManyObjects>0</ManyObjects>
-          <SizeOfObject>0</SizeOfObject>
-          <BreakByAccess>0</BreakByAccess>
-          <BreakIfRCount>1</BreakIfRCount>
-          <Filename>..\Application\App_WaveCollectionTask.c</Filename>
-          <ExecCommand></ExecCommand>
-          <Expression>\\output\../Application/App_WaveCollectionTask.c\47</Expression>
+          <Expression>\\output\../Application/App_WaveCollectionTask.c\40</Expression>
         </Bp>
       </Breakpoint>
       <WatchWindow1>
@@ -227,14 +211,19 @@
         <Ww>
           <count>4</count>
           <WinNumber>1</WinNumber>
-          <ItemText>AD7616_DataBuffer</ItemText>
+          <ItemText>AD7616_DataBuffer_A</ItemText>
+        </Ww>
+        <Ww>
+          <count>5</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>AD7616_DataBuffer_B</ItemText>
         </Ww>
       </WatchWindow1>
       <MemoryWindow1>
         <Mm>
           <WinNumber>1</WinNumber>
           <SubType>0</SubType>
-          <ItemText>0x24000000</ItemText>
+          <ItemText>0x30000000</ItemText>
           <AccSizeX>0</AccSizeX>
         </Mm>
       </MemoryWindow1>

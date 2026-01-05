@@ -24,9 +24,9 @@ Module_Status_t Module_AD7616_Config(void)
     {
         return Module_ERROR;
     }
-
-    BSP_TIM3_PWM0_Init();// 初始化TIM3用于AD7616采样触发的PWM输出
     BSP_DMA_TIM3_Init();// 初始化DMA用于TIM3触发的AD7616数据传输
+    BSP_TIM3_PWM0_Init();// 初始化TIM3用于AD7616采样触发的PWM输出
+    
     
     // 初始化量程配置为 ±10V
     for (i = 0; i < AD7616_RANGE_RESGISTER_NUM; i++)
