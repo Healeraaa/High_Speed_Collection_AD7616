@@ -34,7 +34,7 @@ void App_WaveCollectionTask(void *argument)
         while(1) { vTaskDelay(pdMS_TO_TICKS(1000)); }
     }
     
-    Module_AD7616_Set_SampleRate(1);
+    Module_AD7616_Set_SampleRate(100);
     /* 启动定时器和 DMA (首次使用 Buffer_A) */
     BSP_TIM3_PWM0_Start();
     BSP_DMA_TIM3_Start(AD7616_DataBuffer_A, 1024);

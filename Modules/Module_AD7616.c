@@ -41,7 +41,7 @@ Module_Status_t Module_AD7616_Config(void)
     Module_AD7616_ConfigRegister(AD7616_CONFIG_OS_DISABLE, false, false, false, false);
     BSP_DWT_Delay_us(5);  // 等待 AD7616 上电稳定
     // 默认选择通道 A0-B0
-    Module_AD7616_SetChannelSelect(AD7616_CHANNEL_CHA_TEST, AD7616_CHANNEL_CHB_TEST);
+    Module_AD7616_SetChannelSelect(AD7616_CHANNEL_CHA_A0, AD7616_CHANNEL_CHB_TEST);
     BSP_DWT_Delay_us(5);  // 等待 AD7616 上电稳定
     // 配置所有通道为 ±5V 量程
     Module_AD7616_WriteReg(AD7616_REG_RANGE_A1, 0xAA);  
@@ -439,8 +439,8 @@ Module_Status_t Module_AD7616_Set_SampleRate(double freq)
         {
             cpv2 = arr - 10;  // 留 10 个时钟周期余量
         }
-        
-        return BSP_TIM3_PWM0_SetParams(0, arr, cpv1, cpv2);
+        BSP_TIM3_PWM0_SetParams(0, arr, cpv1, cpv2);
+        return Module_OK;
     }
 
     // ========== 情况 2: 需要预分频 ==========
@@ -487,7 +487,8 @@ Module_Status_t Module_AD7616_Set_SampleRate(double freq)
         }
 
         // 应用配置并返回
-        return BSP_TIM3_PWM0_SetParams(psc, arr, cpv1, cpv2);
+        BSP_TIM3_PWM0_SetParams(psc, arr, cpv1, cpv2);
+        return Module_OK;
     }
 
     return Module_ERROR;  // 无法找到有效配置
