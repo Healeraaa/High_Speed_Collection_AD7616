@@ -1,5 +1,5 @@
 .\project\bsp_timer.o: ..\BSP\TIMER\bsp_timer.c
-.\project\bsp_timer.o: ..\BSP\TIMER\bsp_timer.h
+.\project\bsp_timer.o: ../BSP/bsp.h
 .\project\bsp_timer.o: ../Core/Inc/main.h
 .\project\bsp_timer.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h
 .\project\bsp_timer.o: ../Core/Inc/stm32h7xx_hal_conf.h
@@ -49,8 +49,8 @@
 .\project\bsp_timer.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_dmamux.h
 .\project\bsp_timer.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_gpio.h
 .\project\bsp_timer.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_tim.h
-.\project\bsp_timer.o: ../BSP/bsp.h
 .\project\bsp_timer.o: D:\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 .\project\bsp_timer.o: ../BSP/GPIO/bsp_gpio.h
+.\project\bsp_timer.o: ../BSP/TIMER/bsp_timer.h
 .\project\bsp_timer.o: ../Modules/Module.h
 .\project\bsp_timer.o: ../Modules/Module_Key.h

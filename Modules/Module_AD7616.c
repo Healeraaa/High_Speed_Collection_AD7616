@@ -4,12 +4,14 @@
 #include "bsp_dma.h"
 #include "bsp_timer.h"
 #include "stdio.h"
+#include "math.h"
 
 // ========================================================================== 私有变量 ==========================================================================
 
 // static AD7616_Range_TypeDef g_channel_range[AD7616_CHANNEL_NUM];   // 保存每个通道的量程配置
 static uint8_t g_input_range_register[AD7616_RANGE_RESGISTER_NUM];   // 保存每个输入范围寄存器的值
-static uint8_t g_config_range_register = 0x00;                      // 保存配置寄存器的值
+static uint8_t g_config_range_register = 0x00;                      // 保存配置寄存器的值    
+static uint32_t g_osbuffer[8] = {2000,4000,8000,16000,32000,64000,128000,256000}; // 过采样对应的采样率缓冲区
 // ========================================================================== 初始化和配置 ==========================================================================
 
 /**
@@ -354,7 +356,191 @@ Module_Status_t Module_AD7616_SetRange(uint8_t channel, AD7616_Range_TypeDef ran
     return Module_AD7616_WriteReg(reg_addr, reg_value);
 }
 
+/**
+  * @brief  设置 AD7616 采样率
+  * @param  freq 采样频率 (Hz)，范围：1Hz ~ 1MHz
+  * @note   自动计算 TIM3 的 PSC、ARR、CCR1、CCR2 参数
+  *         - CCR1: CONVST 脉冲宽度（固定 100ns，AD7616 最小要求 10ns）
+  *         - CCR2: DMA 触发时刻（CONVST 上升沿 + 过采样转换时间）
+  * @retval Module_Status_t Module_OK: 设置成功, Module_ERROR: 参数错误
+  */
+Module_Status_t Module_AD7616_Set_SampleRate(double freq)
+{
+    // ========== 参数合法性检查 ==========
+    if (freq <= 0 || freq > 1000000)
+    {
+        return Module_ERROR;  // 频率范围：1Hz ~ 1MHz
+    }
 
+    volatile uint32_t arr = 0;
+    volatile uint32_t psc = 0;
+    volatile uint32_t cpv1 = 0;  // CONVST 脉冲宽度（100ns）
+    volatile uint32_t cpv2 = 0;  // DMA 触发时刻（CONVST 上升沿 + 过采样时间）
+    volatile uint32_t os_time = 0;
+    bool os_found = false;
+
+    volatile BSP_TIM_Config_t bsp_timer = BSP_Get_TIM3_Config();
+
+    // ========== 计算采样周期（单位：ns） ==========
+    double period_ns = 1000000000.0 / freq;
+
+    if (period_ns > (double)UINT32_MAX)
+    {
+        return Module_ERROR;
+    }
+    
+    uint32_t time = (uint32_t)period_ns;
+
+    // ========== 选择合适的过采样模式 ==========
+    for (int8_t i = 7; i >= 0; i--)  
+    {
+        if (time >= g_osbuffer[i])
+        {
+            Module_AD7616_SetOversample((i << AD7616_CONFIG_OS_POS));
+            os_time = g_osbuffer[i];
+            os_found = true;
+            break;
+        }
+    }
+
+    // 如果所有过采样档位都不满足，使用最小档位
+    if (!os_found)
+    {
+        Module_AD7616_SetOversample(AD7616_CONFIG_OS_DISABLE);
+        os_time = g_osbuffer[0];  // 无过采样，最小转换时间 2us (2000ns)
+    }
+
+    // ========== 情况 1: 不需要预分频 (PSC = 0) ==========
+    double arr_double = ((double)bsp_timer.TIM_CLK / freq) - 1.0;
+    
+    if (arr_double <= (double)bsp_timer.TIM_MAX_ARR)
+    {
+        arr = (uint32_t)arr_double;
+        
+        // ========== 计算 CCR1（CONVST 脉冲宽度 = 100ns） ==========
+        cpv1 = (uint32_t)(100.0 * (double)bsp_timer.TIM_CLK / 1000000000.0);
+        
+        // 限制 CCR1 范围
+        if (cpv1 > arr) 
+        {
+            cpv1 = arr / 2;  // 降级为 50% 占空比（不应发生）
+        }
+        if (cpv1 < 15)
+        {
+            cpv1 = 15;  // 最小脉宽约 62.5ns (240MHz 时钟)
+        }
+        
+        // ========== 计算 CCR2（DMA 触发时刻 = CONVST 上升沿 + 过采样时间） ==========
+        uint32_t os_ticks = (uint32_t)((double)os_time * (double)bsp_timer.TIM_CLK / 1000000000.0);
+        cpv2 = cpv1 + os_ticks;
+        
+        // 安全检查：确保 CCR2 不超过 ARR
+        if (cpv2 > arr)
+        {
+            cpv2 = arr - 10;  // 留 10 个时钟周期余量
+        }
+        
+        return BSP_TIM3_PWM0_SetParams(0, arr, cpv1, cpv2);
+    }
+
+    // ========== 情况 2: 需要预分频 ==========
+    for (psc = 1; psc <= bsp_timer.TIM_MAX_PSC; psc++)
+    {
+        // 使用 double 精确计算 ARR
+        arr_double = ((double)bsp_timer.TIM_CLK / ((psc + 1) * freq)) - 1.0;
+        
+        if (arr_double > (double)bsp_timer.TIM_MAX_ARR)
+        {
+            continue;  // ARR 太大，增加预分频
+        }
+        
+        if (arr_double < 10.0)
+        {
+            break;  // ARR 太小，分辨率不足，退出循环
+        }
+
+        arr = (uint32_t)arr_double;
+
+        // ========== 找到第一个有效的配置，直接使用（ARR 最大） ==========
+        
+        // 计算 CCR1（CONVST 脉冲宽度 = 100ns）
+        cpv1 = (uint32_t)(100.0 * (double)bsp_timer.TIM_CLK / 
+                          ((psc + 1) * 1000000000.0));
+        
+        if (cpv1 > arr)
+        {
+            cpv1 = arr / 2;
+        }
+        if (cpv1 < 2)
+        {
+            cpv1 = 2;  // 最小值
+        }
+
+        // 计算 CCR2（CONVST 上升沿 + 过采样时间）
+        uint32_t os_ticks = (uint32_t)((double)os_time * (double)bsp_timer.TIM_CLK / 
+                                       ((psc + 1) * 1000000000.0));
+        cpv2 = cpv1 + os_ticks;
+        
+        if (cpv2 > arr)
+        {
+            cpv2 = arr - 2;  // 留余量
+        }
+
+        // 应用配置并返回
+        return BSP_TIM3_PWM0_SetParams(psc, arr, cpv1, cpv2);
+    }
+
+    return Module_ERROR;  // 无法找到有效配置
+}
+
+
+// Module_Status_t Module_AD7616_Set_SampleRate(double freq)
+// {
+//     if (freq == 0 || freq > 1000000)    // 频率范围：1Hz ~ 1MHz
+//     {
+//         return Module_ERROR;
+//     }
+//     uint32_t arr = 0;
+//     uint32_t psc = 0;
+//     uint32_t cpv1 = 0;
+//     uint32_t cpv2 = 0;
+//     uint32_t os_time = 0;
+
+//     volatile BSP_TIM_Config_t bsp_timer = BSP_Get_TIM3_Config();
+
+//     uint32_t time = (uint32_t)floor((1000000000ULL) / freq); // 采样周期，单位：ns
+//     for(uint8_t i = 7; i >=0 ; i--)
+//     {
+//         if(time >= g_osbuffer[i])
+//         {
+//             Module_AD7616_SetOversample( (i << AD7616_CONFIG_OS_POS) ); // 设置过采样
+//             os_time = g_osbuffer[i]; // 过采样时间，单位：ns
+//             break;
+//         }
+//     }
+
+    
+//     arr = (bsp_timer.TIM_CLK / freq) - 1; 
+//     if(arr <= bsp_timer.TIM_MAX_ARR)
+//     {
+//         cpv1 = (uint32_t)(100 * (double)(bsp_timer.TIM_CLK / (1000000000ULL) ));
+//         cpv1 = (uint32_t)(os_time * (double)(bsp_timer.TIM_CLK / (1000000000ULL) ));
+//         BSP_TIM3_PWM0_SetParams(0, arr, cpv1, cpv2);
+//         return Module_OK;
+//     }
+
+//      for (psc = 1; psc <= bsp_timer.TIM_MAX_PSC; psc++)
+//     {
+//         arr = (bsp_timer.TIM_CLK / (psc + 1) / freq) - 1; // 计算当前预分频下的 ARR 值
+//         if (arr > bsp_timer.TIM_MAX_ARR)
+//         {
+//             continue;  // ARR 太大，继续增加预分频
+//         } 
+//     }
+//     cpv1 = (uint32_t)(100 * (double)(bsp_timer.TIM_CLK / ( (psc + 1) * (1000000000ULL) ) ));
+//     cpv1 = (uint32_t)(os_time * (double)(bsp_timer.TIM_CLK / ( (psc + 1) * (1000000000ULL) ) ));
+//     BSP_TIM3_PWM0_SetParams(psc, arr, cpv1, cpv2);
+// }
 // ========================================================================== 寄存器读写 ==========================================================================
 
 /**

@@ -34,6 +34,7 @@ void App_WaveCollectionTask(void *argument)
         while(1) { vTaskDelay(pdMS_TO_TICKS(1000)); }
     }
     
+    Module_AD7616_Set_SampleRate(1);
     /* 启动定时器和 DMA (首次使用 Buffer_A) */
     BSP_TIM3_PWM0_Start();
     BSP_DMA_TIM3_Start(AD7616_DataBuffer_A, 1024);
@@ -63,10 +64,8 @@ void App_WaveCollectionTask(void *argument)
                     AD7616_VoltageBuffer_B[i] = (raw_data / 32768.0f) * 5.0f;  // ±5V 量程
                 }
 }
-            /* =============================== */
             
-            /* 切换到下一个处理缓冲区 */
-            u8_process_buffer = 1 - u8_process_buffer;
+            u8_process_buffer = 1 - u8_process_buffer; // 切换到下一个处理缓冲区 
         }
     }
 }
@@ -74,7 +73,7 @@ void App_WaveCollectionTask(void *argument)
 void DMA1_Stream0_IRQHandler(void)
 {
     BaseType_t xHigherPriorityTaskWoken = pdFALSE;
-    
+     
     if (LL_DMA_IsActiveFlag_TC0(DMA1)) 
     {
         LL_DMA_ClearFlag_TC0(DMA1);

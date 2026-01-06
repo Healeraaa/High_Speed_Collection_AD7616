@@ -42,7 +42,7 @@ BSP_Status_t BSP_FMC_PSRAM_Init(void)
   bsp_fmc_psram_handle.Init.WriteFifo = FMC_WRITE_FIFO_ENABLE;                  // 使能写 FIFO（内部 FIFO 缓存写数据，提高性能）
   bsp_fmc_psram_handle.Init.PageSize = FMC_PAGE_SIZE_NONE;                      // 页大小：无（PSRAM 不需要页模式）
   
-  // 配置 FMC 时序参数-----1 HCLK = 4.17ns @ 240MHz
+  // 配置 FMC 时序参数-----1 HCLK = 4.17ns @ 240MHz  一次读写周期约66.72ns
   Timing.AddressSetupTime = 6;        // 地址建立时间: 6 HCLK = 25.02ns @ 240MHz ------ t_RD_SETUP
   Timing.AddressHoldTime = 2;         // 地址保持时间: 1 HCLK = 8.34ns @ 240MHz 模式 A用不到此参数
   Timing.DataSetupTime = 10;          // 数据建立时间: 10 HCLK = 41.7ns @ 240MHz

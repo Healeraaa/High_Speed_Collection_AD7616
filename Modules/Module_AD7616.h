@@ -165,6 +165,7 @@ bool Module_AD7616_CheckSelfTest(void);
 Module_Status_t Module_AD7616_SetChannelSelect(uint8_t channel_a, uint8_t channel_b);
 Module_Status_t Module_AD7616_GetChannelSelect(uint8_t *pChannelA, uint8_t *pChannelB);
 
+Module_Status_t Module_AD7616_Set_SampleRate(double freq);
 // ...existing code...
 
 // 寄存器读写

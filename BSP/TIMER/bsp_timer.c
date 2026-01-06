@@ -1,4 +1,4 @@
-#include "bsp_timer.h"
+// #include "bsp_timer.h"
 #include "bsp.h"
 #include "Module.h"
 
@@ -62,6 +62,17 @@ uint32_t BSP_DWT_GetCycles(void)
 }
 
 // ========================================================================== TIM3 ==========================================================================
+BSP_TIM_Config_t TIM3_Config = {
+    .TIM_CLK = 240000000,       // 定时器时钟频率（APB1 时钟 120MHz × 2）
+    .TIM_MAX_ARR = 0xFFFF,      // 16位自动重装载寄存器
+    .TIM_MAX_PSC = 0xFFFF      // 16 位预分频器最大值
+};
+
+BSP_TIM_Config_t BSP_Get_TIM3_Config(void)
+{
+    return TIM3_Config;
+}
+
 void BSP_TIM3_PWM0_Init(void)
 {
     LL_TIM_InitTypeDef TIM_InitStruct = {0};
@@ -155,25 +166,29 @@ void BSP_TIM3_PWM0_Stop(void)
 }
 
 /**
-  * @brief  动态调整 TIM3 PWM 频率
-  * @param  frequency_hz 目标频率（Hz），范围：1Hz ~ 1MHz
-  * @note   修改 ARR 值来改变 PWM 频率，占空比保持不变
-  *         新频率 = 240MHz / (Prescaler+1) / (Autoreload+1)
+  * @brief  设置 TIM3 PWM 定时器参数
+  * @param  psc 预分频器值 (0 ~ 65535)
+  * @param  arr 自动重载值 (0 ~ 65535)
+  * @param  cpv1 CH1 比较值 (PWM 输出控制，0 ~ arr)
+  * @param  cpv2 CH2 比较值 (DMA 触发时刻，0 ~ arr)
+  * @note   参数在下一个 TIM3 更新事件生效（预装载机制）
   * @retval BSP_Status_t BSP_OK: 设置成功, BSP_ERROR: 参数错误
   */
-BSP_Status_t BSP_TIM3_PWM0_SetFrequency(uint32_t frequency_hz)
+BSP_Status_t BSP_TIM3_PWM0_SetParams(uint32_t psc, uint32_t arr, uint32_t cpv1, uint32_t cpv2)
 {
-  if (frequency_hz == 0 || frequency_hz > 1000000)    // 参数范围检查：1Hz ~ 1MHz
-  {
-    return BSP_ERROR;                                 // 频率超出合理范围
-  }
-  
-  uint32_t arr = (240000000 / frequency_hz) - 1;      // 计算新的 ARR 值（TIM3 时钟 = 240MHz）
-  LL_TIM_SetAutoReload(TIM3, arr);                    // 更新自动重载值（立即生效）
-  
-  return BSP_OK;
+    // 参数有效性检查
+    if (psc > TIM3_Config.TIM_MAX_PSC || arr > TIM3_Config.TIM_MAX_ARR || cpv1 > arr || cpv2 > arr)
+    {
+        return BSP_ERROR;
+    }
+    
+    LL_TIM_SetPrescaler(TIM3, psc);            // 设置预分频器
+    LL_TIM_SetAutoReload(TIM3, arr);           // 设置自动重载值
+    LL_TIM_OC_SetCompareCH1(TIM3, cpv1);       // 设置 CH1 比较值（PWM 占空比）
+    LL_TIM_OC_SetCompareCH2(TIM3, cpv2);       // 设置 CH2 比较值（DMA 触发时刻）
+    
+    return BSP_OK;
 }
-
 /**
   * @brief  动态调整 TIM3 PWM 占空比
   * @param  duty_percent 占空比百分比（0.0 ~ 100.0）
