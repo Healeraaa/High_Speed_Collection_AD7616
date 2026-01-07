@@ -48,6 +48,7 @@
 ".\project\app.o"
 ".\project\app_tasksinit.o"
 ".\project\app_wavecollectiontask.o"
+".\project\app_vofa_dataupload.o"
 ".\project\sys.o"
 ".\project\croutine.o"
 ".\project\event_groups.o"

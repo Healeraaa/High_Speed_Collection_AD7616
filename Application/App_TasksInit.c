@@ -5,6 +5,7 @@
 #include "Module_AD7616.h"
 #include "bsp_fmc.h"
 #include "App_WaveCollectionTask.h"
+#include "App_VOFA_DataUpload.h"
 
 
 /* Private typedef -----------------------------------------------------------*/
@@ -20,6 +21,7 @@ TaskHandle_t App_LEDToggle_Task_Handle;
 TaskHandle_t App_Run10ms_Task_Handle;
 TaskHandle_t App_Key_Task_Handle;
 TaskHandle_t App_AD7616_Task_Handle;
+TaskHandle_t App_VOFA_DataUpload_Task_Handle;
 
 /* Queues --------------------------------------------------------------------*/
 
@@ -143,7 +145,8 @@ void App_Tasks_Init(void)
   xTaskCreate(App_LEDToggle_Task, "App_LEDToggle_Task", 128, NULL, 1, &App_LEDToggle_Task_Handle);
   xTaskCreate(App_Run10ms_Task, "App_Run10ms_Task", 256, NULL, 2, &App_Run10ms_Task_Handle);    
   xTaskCreate(App_KeyTestTask, "App_KeyTestTask", 256, NULL, 2, &App_Key_Task_Handle);        
-  xTaskCreate(App_WaveCollectionTask, "App_WaveCollectionTask", 256, NULL, 3, &App_AD7616_Task_Handle);          
+  xTaskCreate(App_WaveCollectionTask, "App_WaveCollectionTask", 256, NULL, 3, &App_AD7616_Task_Handle);     
+  xTaskCreate(App_VofaDataUploadTask, "App_VofaDataUploadTask", 256, NULL, 2, &App_VOFA_DataUpload_Task_Handle);       
               
   xSemaphoreGive(xMutex);
 }

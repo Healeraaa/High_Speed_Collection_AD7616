@@ -1760,6 +1760,16 @@
               <FileType>5</FileType>
               <FilePath>..\Application\App_WaveCollectionTask.h</FilePath>
             </File>
+            <File>
+              <FileName>App_VOFA_DataUpload.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Application\App_VOFA_DataUpload.c</FilePath>
+            </File>
+            <File>
+              <FileName>App_VOFA_DataUpload.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Application\App_VOFA_DataUpload.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

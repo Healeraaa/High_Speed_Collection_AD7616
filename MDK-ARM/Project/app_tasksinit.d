@@ -76,3 +76,4 @@
 .\project\app_tasksinit.o: D:\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
 .\project\app_tasksinit.o: ..\BSP\FMC\bsp_fmc.h
 .\project\app_tasksinit.o: ..\Application\App_WaveCollectionTask.h
+.\project\app_tasksinit.o: ..\Application\App_VOFA_DataUpload.h

@@ -2,7 +2,6 @@
 #include "memorymap.h"
 #include "sys.h"
 #include "bsp.h"
-#include "stdio.h"
 
 
 
@@ -29,13 +28,6 @@ void BSP_Init(void)
 
   BSP_GPIO_LED_Init();// 初始化LED相关的GPIO 
   BSP_USART1_Init();// 初始化USART1
-  while (1)
-  {
-    printf("BSP Init OK!\r\n");
-    BSP_DWT_Delay_ms(100);
-  }
-  
-  
 }
 
 void BSP_RunPer10ms(void)
