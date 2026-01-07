@@ -50,4 +50,5 @@
 .\project\module_key.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_dmamux.h
 .\project\module_key.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_gpio.h
 .\project\module_key.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_tim.h
+.\project\module_key.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_usart.h
 .\project\module_key.o: D:\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h

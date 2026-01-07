@@ -49,6 +49,7 @@
 .\project\module_ad7616.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_dmamux.h
 .\project\module_ad7616.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_gpio.h
 .\project\module_ad7616.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_tim.h
+.\project\module_ad7616.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_usart.h
 .\project\module_ad7616.o: ..\Modules\Module.h
 .\project\module_ad7616.o: D:\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 .\project\module_ad7616.o: ..\Modules\Module_Key.h
@@ -56,5 +57,6 @@
 .\project\module_ad7616.o: ../BSP/bsp.h
 .\project\module_ad7616.o: ../BSP/GPIO/bsp_gpio.h
 .\project\module_ad7616.o: ../BSP/TIMER/bsp_timer.h
+.\project\module_ad7616.o: ..\BSP\USART\bsp_usart.h
 .\project\module_ad7616.o: ..\BSP\FMC\bsp_fmc.h
 .\project\module_ad7616.o: ..\BSP\DMA\bsp_dma.h

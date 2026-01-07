@@ -423,7 +423,7 @@ static void  BSP_FMC_PSRAM_MspInit(void)
     *   PD14  -> FMC_DA0   (复用地址 A0 / 数据 D0)
     *   PD15  -> FMC_DA1   (复用地址 A1 / 数据 D1) 
     *   PD0   -> FMC_DA2   (复用地址 A2 / 数据 D2)                                            
-    *   PD1                                                                                                                                                                                                        -> FMC_DA3   (复用地址 A3 / 数据 D3)
+    *   PD1   -> FMC_DA3   (复用地址 A3 / 数据 D3)
     * 
     * 控制信号:
     *   PC7   -> FMC_NE1   (片选信号 Bank1 Sector1，低电平有效，选中 PSRAM)

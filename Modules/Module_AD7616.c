@@ -495,53 +495,6 @@ Module_Status_t Module_AD7616_Set_SampleRate(double freq)
 }
 
 
-// Module_Status_t Module_AD7616_Set_SampleRate(double freq)
-// {
-//     if (freq == 0 || freq > 1000000)    // 频率范围：1Hz ~ 1MHz
-//     {
-//         return Module_ERROR;
-//     }
-//     uint32_t arr = 0;
-//     uint32_t psc = 0;
-//     uint32_t cpv1 = 0;
-//     uint32_t cpv2 = 0;
-//     uint32_t os_time = 0;
-
-//     volatile BSP_TIM_Config_t bsp_timer = BSP_Get_TIM3_Config();
-
-//     uint32_t time = (uint32_t)floor((1000000000ULL) / freq); // 采样周期，单位：ns
-//     for(uint8_t i = 7; i >=0 ; i--)
-//     {
-//         if(time >= g_osbuffer[i])
-//         {
-//             Module_AD7616_SetOversample( (i << AD7616_CONFIG_OS_POS) ); // 设置过采样
-//             os_time = g_osbuffer[i]; // 过采样时间，单位：ns
-//             break;
-//         }
-//     }
-
-    
-//     arr = (bsp_timer.TIM_CLK / freq) - 1; 
-//     if(arr <= bsp_timer.TIM_MAX_ARR)
-//     {
-//         cpv1 = (uint32_t)(100 * (double)(bsp_timer.TIM_CLK / (1000000000ULL) ));
-//         cpv1 = (uint32_t)(os_time * (double)(bsp_timer.TIM_CLK / (1000000000ULL) ));
-//         BSP_TIM3_PWM0_SetParams(0, arr, cpv1, cpv2);
-//         return Module_OK;
-//     }
-
-//      for (psc = 1; psc <= bsp_timer.TIM_MAX_PSC; psc++)
-//     {
-//         arr = (bsp_timer.TIM_CLK / (psc + 1) / freq) - 1; // 计算当前预分频下的 ARR 值
-//         if (arr > bsp_timer.TIM_MAX_ARR)
-//         {
-//             continue;  // ARR 太大，继续增加预分频
-//         } 
-//     }
-//     cpv1 = (uint32_t)(100 * (double)(bsp_timer.TIM_CLK / ( (psc + 1) * (1000000000ULL) ) ));
-//     cpv1 = (uint32_t)(os_time * (double)(bsp_timer.TIM_CLK / ( (psc + 1) * (1000000000ULL) ) ));
-//     BSP_TIM3_PWM0_SetParams(psc, arr, cpv1, cpv2);
-// }
 // ========================================================================== 寄存器读写 ==========================================================================
 
 /**

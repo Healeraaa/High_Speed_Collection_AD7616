@@ -48,9 +48,11 @@
 .\project\bsp.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_dmamux.h
 .\project\bsp.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_gpio.h
 .\project\bsp.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_tim.h
+.\project\bsp.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_usart.h
 .\project\bsp.o: ../Core/Inc/memorymap.h
 .\project\bsp.o: ../SYSTEM/sys.h
 .\project\bsp.o: ..\BSP\bsp.h
 .\project\bsp.o: D:\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 .\project\bsp.o: ../BSP/GPIO/bsp_gpio.h
 .\project\bsp.o: ../BSP/TIMER/bsp_timer.h
+.\project\bsp.o: ..\BSP\USART\bsp_usart.h
