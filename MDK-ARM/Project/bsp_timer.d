@@ -56,3 +56,4 @@
 .\project\bsp_timer.o: ..\BSP\USART\bsp_usart.h
 .\project\bsp_timer.o: ../Modules/Module.h
 .\project\bsp_timer.o: ../Modules/Module_Key.h
+.\project\bsp_timer.o: ../Modules/Module_Serial411.h

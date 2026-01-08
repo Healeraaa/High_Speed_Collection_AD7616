@@ -56,6 +56,7 @@
 .\project\main.o: ..\BSP\USART\bsp_usart.h
 .\project\main.o: ../Modules/Module.h
 .\project\main.o: ../Modules/Module_Key.h
+.\project\main.o: ../Modules/Module_Serial411.h
 .\project\main.o: ../Application/App.h
 .\project\main.o: D:\Keil\Packs\Keil\ARM_Compiler\1.6.3\Include\EventRecorder.h
 .\project\main.o: D:\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\string.h

@@ -1725,6 +1725,16 @@
               <FileType>5</FileType>
               <FilePath>..\Modules\Module_AD7616.h</FilePath>
             </File>
+            <File>
+              <FileName>Module_Serial411.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Modules\Module_Serial411.c</FilePath>
+            </File>
+            <File>
+              <FileName>Module_Serial411.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Modules\Module_Serial411.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1769,6 +1779,16 @@
               <FileName>App_VOFA_DataUpload.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\Application\App_VOFA_DataUpload.h</FilePath>
+            </File>
+            <File>
+              <FileName>App_IncentiveSettingsTask.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Application\App_IncentiveSettingsTask.c</FilePath>
+            </File>
+            <File>
+              <FileName>App_IncentiveSettingsTask.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Application\App_IncentiveSettingsTask.h</FilePath>
             </File>
           </Files>
         </Group>

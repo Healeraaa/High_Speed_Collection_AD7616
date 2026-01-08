@@ -5,7 +5,10 @@
 #include <stdio.h>
 
 #include "Module_Key.h"
+#include "Module_Serial411.h"
 
+#ifndef MODULE_STATUS_T_DEFINED
+#define MODULE_STATUS_T_DEFINED
 typedef enum
 {
   Module_OK       = 0x00,
@@ -13,6 +16,7 @@ typedef enum
   Module_BUSY     = 0x02,
   Module_TIMEOUT  = 0x03
 } Module_Status_t;
+#endif
 
 
 void Module_Config(void);

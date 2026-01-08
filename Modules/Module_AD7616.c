@@ -418,27 +418,20 @@ Module_Status_t Module_AD7616_Set_SampleRate(double freq)
         arr = (uint32_t)arr_double;
         
         // ========== 计算 CCR1（CONVST 脉冲宽度 = 100ns） ==========
-        cpv1 = (uint32_t)(100.0 * (double)bsp_timer.TIM_CLK / 1000000000.0);
+        cpv1 = (uint32_t)(200.0 * (double)bsp_timer.TIM_CLK / 1000000000.0);
         
         // 限制 CCR1 范围
-        if (cpv1 > arr) 
-        {
-            cpv1 = arr / 2;  // 降级为 50% 占空比（不应发生）
-        }
-        if (cpv1 < 15)
-        {
-            cpv1 = 15;  // 最小脉宽约 62.5ns (240MHz 时钟)
-        }
+        if (cpv1 > arr) cpv1 = arr / 2;
+        if (cpv1 < 20) cpv1 = 20;  // 240MHz 下至少 83ns
         
         // ========== 计算 CCR2（DMA 触发时刻 = CONVST 上升沿 + 过采样时间） ==========
-        uint32_t os_ticks = (uint32_t)((double)os_time * (double)bsp_timer.TIM_CLK / 1000000000.0);
-        cpv2 = cpv1 + os_ticks;
+        uint32_t conversion_time_ns = os_time + 200;  // 增加 200ns 余量
+        uint32_t conversion_ticks = (uint32_t)((double)conversion_time_ns * (double)bsp_timer.TIM_CLK / 1000000000.0);
         
-        // 安全检查：确保 CCR2 不超过 ARR
-        if (cpv2 > arr)
-        {
-            cpv2 = arr - 10;  // 留 10 个时钟周期余量
-        }
+        cpv2 = cpv1 + conversion_ticks;  // CCR2 = CONVST 上升沿 + 完整转换时间
+        
+        if (cpv2 > arr) cpv2 = arr - 10;  // 留余量
+
         BSP_TIM3_PWM0_SetParams(0, arr, cpv1, cpv2);
         return Module_OK;
     }
@@ -446,52 +439,28 @@ Module_Status_t Module_AD7616_Set_SampleRate(double freq)
     // ========== 情况 2: 需要预分频 ==========
     for (psc = 1; psc <= bsp_timer.TIM_MAX_PSC; psc++)
     {
-        // 使用 double 精确计算 ARR
         arr_double = ((double)bsp_timer.TIM_CLK / ((psc + 1) * freq)) - 1.0;
         
-        if (arr_double > (double)bsp_timer.TIM_MAX_ARR)
-        {
-            continue;  // ARR 太大，增加预分频
-        }
-        
-        if (arr_double < 10.0)
-        {
-            break;  // ARR 太小，分辨率不足，退出循环
-        }
+        if (arr_double > (double)bsp_timer.TIM_MAX_ARR) continue;
+        // if (arr_double < 10.0) break;
 
         arr = (uint32_t)arr_double;
 
-        // ========== 找到第一个有效的配置，直接使用（ARR 最大） ==========
-        
-        // 计算 CCR1（CONVST 脉冲宽度 = 100ns）
-        cpv1 = (uint32_t)(100.0 * (double)bsp_timer.TIM_CLK / 
-                          ((psc + 1) * 1000000000.0));
-        
-        if (cpv1 > arr)
-        {
-            cpv1 = arr / 2;
-        }
-        if (cpv1 < 2)
-        {
-            cpv1 = 2;  // 最小值
-        }
+        cpv1 = (uint32_t)(200.0 * (double)bsp_timer.TIM_CLK / ((psc + 1) * 1000000000.0));
+        if (cpv1 > arr) cpv1 = arr / 2;
+        if (cpv1 < 2) cpv1 = 2;
 
-        // 计算 CCR2（CONVST 上升沿 + 过采样时间）
-        uint32_t os_ticks = (uint32_t)((double)os_time * (double)bsp_timer.TIM_CLK / 
-                                       ((psc + 1) * 1000000000.0));
-        cpv2 = cpv1 + os_ticks;
-        
-        if (cpv2 > arr)
-        {
-            cpv2 = arr - 2;  // 留余量
-        }
+        uint32_t conversion_time_ns = os_time + 200;
+        uint32_t conversion_ticks = (uint32_t)((double)conversion_time_ns * (double)bsp_timer.TIM_CLK / 
+                                               ((psc + 1) * 1000000000.0));
+        cpv2 = cpv1 + conversion_ticks;
+        if (cpv2 > arr) cpv2 = arr - 2;
 
-        // 应用配置并返回
         BSP_TIM3_PWM0_SetParams(psc, arr, cpv1, cpv2);
         return Module_OK;
     }
 
-    return Module_ERROR;  // 无法找到有效配置
+    return Module_ERROR;
 }
 
 

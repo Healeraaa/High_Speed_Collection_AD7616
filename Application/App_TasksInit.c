@@ -6,6 +6,7 @@
 #include "bsp_fmc.h"
 #include "App_WaveCollectionTask.h"
 #include "App_VOFA_DataUpload.h"
+#include "App_IncentiveSettingsTask.h"
 
 
 /* Private typedef -----------------------------------------------------------*/
@@ -22,6 +23,7 @@ TaskHandle_t App_Run10ms_Task_Handle;
 TaskHandle_t App_Key_Task_Handle;
 TaskHandle_t App_AD7616_Task_Handle;
 TaskHandle_t App_VOFA_DataUpload_Task_Handle;
+TaskHandle_t App_IncentiveSettingsTask_Handle;
 
 /* Queues --------------------------------------------------------------------*/
 
@@ -146,7 +148,8 @@ void App_Tasks_Init(void)
   xTaskCreate(App_Run10ms_Task, "App_Run10ms_Task", 256, NULL, 2, &App_Run10ms_Task_Handle);    
   xTaskCreate(App_KeyTestTask, "App_KeyTestTask", 256, NULL, 2, &App_Key_Task_Handle);        
   xTaskCreate(App_WaveCollectionTask, "App_WaveCollectionTask", 256, NULL, 3, &App_AD7616_Task_Handle);     
-  xTaskCreate(App_VofaDataUploadTask, "App_VofaDataUploadTask", 256, NULL, 2, &App_VOFA_DataUpload_Task_Handle);       
+  xTaskCreate(App_VofaDataUploadTask, "App_VofaDataUploadTask", 256, NULL, 2, &App_VOFA_DataUpload_Task_Handle);   
+  xTaskCreate(App_IncentiveSettingsTask, "App_IncentiveSettingsTask", 256, NULL, 2, &App_IncentiveSettingsTask_Handle); 
               
   xSemaphoreGive(xMutex);
 }

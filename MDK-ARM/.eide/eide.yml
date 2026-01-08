@@ -27,6 +27,7 @@ virtualFolder:
                 - path: ../Core/Src/stm32h7xx_it.c
                 - path: ../Core/Src/stm32h7xx_hal_msp.c
                 - path: ../Core/Src/stm32h7xx_hal_timebase_tim.c
+                - path: ../Core/Src/fmc.c
               folders: []
     - name: Drivers
       files: []
@@ -57,6 +58,9 @@ virtualFolder:
             - path: ../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim_ex.c
             - path: ../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sram.c
             - path: ../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_fmc.c
+            - path: ../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_dma.c
+            - path: ../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_tim.c
+            - path: ../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_usart.c
           folders: []
         - name: CMSIS
           files:
@@ -68,6 +72,8 @@ virtualFolder:
         - path: ../BSP/bsp.c
         - path: ../BSP/TIMER/bsp_timer.c
         - path: ../BSP/FMC/bsp_fmc.c
+        - path: ../BSP/DMA/bsp_dma.c
+        - path: ../BSP/USART/bsp_usart.c
       folders: []
     - name: Modules
       files:
@@ -84,6 +90,10 @@ virtualFolder:
         - path: ../Application/App.h
         - path: ../Application/App_TasksInit.c
         - path: ../Application/App_TasksInit.h
+        - path: ../Application/App_WaveCollectionTask.c
+        - path: ../Application/App_WaveCollectionTask.h
+        - path: ../Application/App_VOFA_DataUpload.c
+        - path: ../Application/App_VOFA_DataUpload.h
       folders: []
     - name: SYSTEM
       files:
@@ -133,14 +143,16 @@ targets:
         - ../Drivers/STM32H7xx_HAL_Driver/Inc
         - ../Drivers/CMSIS/Device/ST/STM32H7xx/Include
         - ../Drivers/CMSIS/Include
+        - ../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy
+        - ../SYSTEM
         - ../BSP
         - ../Application
         - ../Modules
-        - ../SYSTEM
         - ../BSP/GPIO
         - ../BSP/TIMER
         - ../BSP/FMC
-        - ../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy
+        - ../BSP/DMA
+        - ../BSP/USART
         - ../Middlewares/Third_Party/FreeRTOS/Source/include
         - ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2
         - ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F

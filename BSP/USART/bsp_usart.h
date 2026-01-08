@@ -16,4 +16,8 @@ typedef enum {
 void BSP_USART1_Init(void);
 uint8_t BSP_USART1_SendByte(uint8_t ch);
 
+void BSP_USART3_Init(void);
+uint8_t BSP_USART3_SendByte(uint8_t ch);
+
+
 #endif /* __BSP_USART_H */
