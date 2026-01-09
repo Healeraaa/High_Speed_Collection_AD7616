@@ -24,9 +24,9 @@ void App_VofaDataUploadTask(void *argument)
             //        p_voltage_data[2]);  // 通道 2
             
             /* 或发送所有 1024 个采样点 (需 VOFA+ 配置对应通道数) */
-            for (uint16_t i = 0; i < 1024; i++)
+            for (uint16_t i = 0; i < 512; i++)
             {
-                printf("%4.3f\r\n", p_voltage_data[i]);
+                printf("%4.3f\r\n", p_voltage_data[2*i]);
                 vTaskDelay(10);
             }
         }

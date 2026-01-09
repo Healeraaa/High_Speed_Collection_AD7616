@@ -71,3 +71,6 @@
 .\project\app_vofa_dataupload.o: ../BSP/GPIO/bsp_gpio.h
 .\project\app_vofa_dataupload.o: ../BSP/TIMER/bsp_timer.h
 .\project\app_vofa_dataupload.o: ..\BSP\USART\bsp_usart.h
+.\project\app_vofa_dataupload.o: ..\BSP\DMA\bsp_dma.h
+.\project\app_vofa_dataupload.o: ..\BSP\FMC\bsp_fmc.h
+.\project\app_vofa_dataupload.o: ../BSP/bsp.h

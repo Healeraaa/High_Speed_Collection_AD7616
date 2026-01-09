@@ -57,3 +57,40 @@ KeyGpioConfig_t* BSP_GPIO_KEY_GetHandle(void)
   return (KeyGpioConfig_t*)s_key_gpio_list;
 }
 
+
+// ==================== AD7616_BUSY ====================
+void BSP_GPIO_AD7616_BUSY_Init(void)
+{
+
+  LL_EXTI_InitTypeDef EXTI_InitStruct = {0};  // EXTI 配置结构体
+  LL_GPIO_InitTypeDef GPIO_InitStruct = {0};   // GPIO 配置结构体
+
+  LL_AHB4_GRP1_EnableClock(LL_AHB4_GRP1_PERIPH_GPIOE);  // 使能 GPIOE 时钟
+
+  LL_SYSCFG_SetEXTISource(LL_SYSCFG_EXTI_PORTE, LL_SYSCFG_EXTI_LINE0);  // 设置 PE0 为 EXTI0 中断源
+
+  EXTI_InitStruct.Line_0_31 = LL_EXTI_LINE_0;       // 配置 EXTI Line 0
+  EXTI_InitStruct.Line_32_63 = LL_EXTI_LINE_NONE;   // 不使用 Line 32-63
+  EXTI_InitStruct.Line_64_95 = LL_EXTI_LINE_NONE;   // 不使用 Line 64-95
+  EXTI_InitStruct.LineCommand = ENABLE;              // 使能 EXTI Line
+  // EXTI_InitStruct.Mode = LL_EXTI_MODE_EVENT;         // 配置为事件模式(不触发中断,仅用于唤醒或 DMA)
+  EXTI_InitStruct.Mode = LL_EXTI_MODE_IT;  // 从 LL_EXTI_MODE_EVENT 改为 IT
+  EXTI_InitStruct.Trigger = LL_EXTI_TRIGGER_FALLING;  // 下降沿触发(BUSY 信号由高变低表示转换完成)
+  LL_EXTI_Init(&EXTI_InitStruct);                    // 初始化 EXTI
+
+  LL_GPIO_SetPinPull(GPIOE, LL_GPIO_PIN_0, LL_GPIO_PULL_NO);     // PE0 无上下拉(AD7616 BUSY 为推挽输出)
+  LL_GPIO_SetPinMode(GPIOE, LL_GPIO_PIN_0, LL_GPIO_MODE_INPUT);  // PE0 配置为输入模式
+
+  NVIC_SetPriority(EXTI0_IRQn, 6);
+  NVIC_EnableIRQ(EXTI0_IRQn);
+}
+
+__attribute__((section(".itcm")))
+void EXTI0_IRQHandler(void)
+{
+    if (LL_EXTI_IsActiveFlag_0_31(LL_EXTI_LINE_0))
+    {
+        LL_EXTI_ClearFlag_0_31(LL_EXTI_LINE_0);
+    }
+}
+

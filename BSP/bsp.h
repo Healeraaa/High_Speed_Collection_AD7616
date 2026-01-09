@@ -7,6 +7,8 @@
 #include "bsp_gpio.h"
 #include "bsp_timer.h"
 #include "bsp_usart.h"
+#include "bsp_dma.h"
+#include "bsp_fmc.h"
 
 #ifndef BSP_STATUS_T_DEFINED
 #define BSP_STATUS_T_DEFINED

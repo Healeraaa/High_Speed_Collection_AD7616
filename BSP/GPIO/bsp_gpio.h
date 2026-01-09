@@ -20,7 +20,8 @@ void BSP_GPIO_KEY_Init(void);
 uint8_t BSP_GPIO_KEY_GetHardNum(void);
 KeyGpioConfig_t* BSP_GPIO_KEY_GetHandle(void);
 
-
+// ==================== AD7616_BUSY ====================
+void BSP_GPIO_AD7616_BUSY_Init(void);
 
 #endif 
 

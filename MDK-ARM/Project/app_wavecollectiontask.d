@@ -72,9 +72,10 @@
 .\project\app_wavecollectiontask.o: ../BSP/GPIO/bsp_gpio.h
 .\project\app_wavecollectiontask.o: ../BSP/TIMER/bsp_timer.h
 .\project\app_wavecollectiontask.o: ..\BSP\USART\bsp_usart.h
+.\project\app_wavecollectiontask.o: ..\BSP\DMA\bsp_dma.h
+.\project\app_wavecollectiontask.o: ..\BSP\FMC\bsp_fmc.h
 .\project\app_wavecollectiontask.o: ../Modules/Module_AD7616.h
 .\project\app_wavecollectiontask.o: ../Modules/Module.h
 .\project\app_wavecollectiontask.o: ../Modules/Module_Key.h
 .\project\app_wavecollectiontask.o: ../Modules/Module_Serial411.h
 .\project\app_wavecollectiontask.o: D:\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
-.\project\app_wavecollectiontask.o: ..\BSP\DMA\bsp_dma.h

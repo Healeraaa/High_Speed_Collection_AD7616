@@ -55,4 +55,6 @@
 .\project\bsp_fmc.o: ../BSP/GPIO/bsp_gpio.h
 .\project\bsp_fmc.o: ../BSP/TIMER/bsp_timer.h
 .\project\bsp_fmc.o: ..\BSP\USART\bsp_usart.h
+.\project\bsp_fmc.o: ..\BSP\DMA\bsp_dma.h
+.\project\bsp_fmc.o: ..\BSP\FMC\bsp_fmc.h
 .\project\bsp_fmc.o: D:\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\string.h

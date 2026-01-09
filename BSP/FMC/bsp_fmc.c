@@ -43,9 +43,9 @@ BSP_Status_t BSP_FMC_PSRAM_Init(void)
   bsp_fmc_psram_handle.Init.PageSize = FMC_PAGE_SIZE_NONE;                      // 页大小：无（PSRAM 不需要页模式）
   
   // 配置 FMC 时序参数-----1 HCLK = 4.17ns @ 240MHz  一次读写周期约66.72ns
-  Timing.AddressSetupTime = 6;        // 地址建立时间: 6 HCLK = 25.02ns @ 240MHz ------ t_RD_SETUP
+  Timing.AddressSetupTime = 3;        // 地址建立时间: 6 HCLK = 25.02ns @ 240MHz ------ t_RD_SETUP
   Timing.AddressHoldTime = 2;         // 地址保持时间: 1 HCLK = 8.34ns @ 240MHz 模式 A用不到此参数
-  Timing.DataSetupTime = 10;          // 数据建立时间: 10 HCLK = 41.7ns @ 240MHz
+  Timing.DataSetupTime = 6;          // 数据建立时间: 10 HCLK = 41.7ns @ 240MHz
   Timing.BusTurnAroundDuration = 5;   // 总线转换时间: 5 HCLK = 25.02ns
   Timing.CLKDivision = 2;             // 同步模式时钟分频 (异步模式不使用)
   Timing.DataLatency = 2;             // 同步模式数据延迟 (异步模式不使用)

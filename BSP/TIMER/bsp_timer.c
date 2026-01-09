@@ -75,29 +75,30 @@ BSP_TIM_Config_t BSP_Get_TIM3_Config(void)
 
 void BSP_TIM3_PWM0_Init(void)
 {
+  
     LL_TIM_InitTypeDef TIM_InitStruct = {0};
     LL_TIM_OC_InitTypeDef TIM_OC_InitStruct = {0};
     LL_GPIO_InitTypeDef GPIO_InitStruct = {0};
     
     /* Peripheral clock enable */
     LL_APB1_GRP1_EnableClock(LL_APB1_GRP1_PERIPH_TIM3);  // 使能 TIM3 外设时钟（APB1 总线）
-    LL_AHB1_GRP1_EnableClock(LL_AHB1_GRP1_PERIPH_DMA1);
+    // LL_AHB1_GRP1_EnableClock(LL_AHB1_GRP1_PERIPH_DMA1);
 
-    // ========== DMA 配置（用于 TIM3_CH2 触发数据采集） ==========
-    LL_DMA_SetPeriphRequest(DMA1, LL_DMA_STREAM_0, LL_DMAMUX1_REQ_TIM3_CH2);           // 设置 DMA 请求源为 TIM3_CH2
-    LL_DMA_SetDataTransferDirection(DMA1, LL_DMA_STREAM_0, LL_DMA_DIRECTION_PERIPH_TO_MEMORY);  // 方向：外设 → 内存
-    LL_DMA_SetStreamPriorityLevel(DMA1, LL_DMA_STREAM_0, LL_DMA_PRIORITY_VERYHIGH);    // 优先级：最高（保证数据采集实时性）
-    LL_DMA_SetMode(DMA1, LL_DMA_STREAM_0, LL_DMA_MODE_NORMAL);                       // 循环模式（连续采集）
-    LL_DMA_SetPeriphIncMode(DMA1, LL_DMA_STREAM_0, LL_DMA_PERIPH_NOINCREMENT);        // 外设地址不递增（固定读取 AD7616 数据寄存器）
-    LL_DMA_SetMemoryIncMode(DMA1, LL_DMA_STREAM_0, LL_DMA_MEMORY_INCREMENT);          // 内存地址递增（顺序存储采样数据）
-    LL_DMA_SetPeriphSize(DMA1, LL_DMA_STREAM_0, LL_DMA_PDATAALIGN_HALFWORD);          // 外设数据宽度：16-bit（AD7616 数据宽度）
-    LL_DMA_SetMemorySize(DMA1, LL_DMA_STREAM_0, LL_DMA_MDATAALIGN_HALFWORD);          // 内存数据宽度：16-bit
-    // LL_DMA_SetMemorySize(DMA1, LL_DMA_STREAM_0, LL_DMA_MDATAALIGN_WORD);            // 内存数据宽度：32-bit
-    LL_DMA_EnableFifoMode(DMA1, LL_DMA_STREAM_0);                                      // 使能 FIFO 模式（提高突发传输效率）
-    LL_DMA_SetFIFOThreshold(DMA1, LL_DMA_STREAM_0, LL_DMA_FIFOTHRESHOLD_FULL);        // FIFO 阈值：满触发（4×16-bit）4字节
-    LL_DMA_SetMemoryBurstxfer(DMA1, LL_DMA_STREAM_0, LL_DMA_MBURST_SINGLE);           // 内存突发：单次传输
-    LL_DMA_SetPeriphBurstxfer(DMA1, LL_DMA_STREAM_0, LL_DMA_PBURST_SINGLE);           // 外设突发：单次传输
-    // LL_DMA_SetPeriphBurstxfer(DMA1, LL_DMA_STREAM_0, LL_DMA_PBURST_INC4);         // 外设突发：4次传输
+    // // ========== DMA 配置（用于 TIM3_CH2 触发数据采集） ==========
+    // LL_DMA_SetPeriphRequest(DMA1, LL_DMA_STREAM_0, LL_DMAMUX1_REQ_TIM3_CH2);           // 设置 DMA 请求源为 TIM3_CH2
+    // LL_DMA_SetDataTransferDirection(DMA1, LL_DMA_STREAM_0, LL_DMA_DIRECTION_PERIPH_TO_MEMORY);  // 方向：外设 → 内存
+    // LL_DMA_SetStreamPriorityLevel(DMA1, LL_DMA_STREAM_0, LL_DMA_PRIORITY_VERYHIGH);    // 优先级：最高（保证数据采集实时性）
+    // LL_DMA_SetMode(DMA1, LL_DMA_STREAM_0, LL_DMA_MODE_NORMAL);                       // 循环模式（连续采集）
+    // LL_DMA_SetPeriphIncMode(DMA1, LL_DMA_STREAM_0, LL_DMA_PERIPH_NOINCREMENT);        // 外设地址不递增（固定读取 AD7616 数据寄存器）
+    // LL_DMA_SetMemoryIncMode(DMA1, LL_DMA_STREAM_0, LL_DMA_MEMORY_INCREMENT);          // 内存地址递增（顺序存储采样数据）
+    // LL_DMA_SetPeriphSize(DMA1, LL_DMA_STREAM_0, LL_DMA_PDATAALIGN_HALFWORD);          // 外设数据宽度：16-bit（AD7616 数据宽度）
+    // LL_DMA_SetMemorySize(DMA1, LL_DMA_STREAM_0, LL_DMA_MDATAALIGN_HALFWORD);          // 内存数据宽度：16-bit
+    // // LL_DMA_SetMemorySize(DMA1, LL_DMA_STREAM_0, LL_DMA_MDATAALIGN_WORD);            // 内存数据宽度：32-bit
+    // LL_DMA_EnableFifoMode(DMA1, LL_DMA_STREAM_0);                                      // 使能 FIFO 模式（提高突发传输效率）
+    // LL_DMA_SetFIFOThreshold(DMA1, LL_DMA_STREAM_0, LL_DMA_FIFOTHRESHOLD_FULL);        // FIFO 阈值：满触发（4×16-bit）4字节
+    // LL_DMA_SetMemoryBurstxfer(DMA1, LL_DMA_STREAM_0, LL_DMA_MBURST_SINGLE);           // 内存突发：单次传输
+    // LL_DMA_SetPeriphBurstxfer(DMA1, LL_DMA_STREAM_0, LL_DMA_PBURST_SINGLE);           // 外设突发：单次传输
+    // // LL_DMA_SetPeriphBurstxfer(DMA1, LL_DMA_STREAM_0, LL_DMA_PBURST_INC4);         // 外设突发：4次传输
 
 
     // ========== TIM3 基本参数配置 ==========
@@ -119,14 +120,14 @@ void BSP_TIM3_PWM0_Init(void)
     LL_TIM_OC_Init(TIM3, LL_TIM_CHANNEL_CH1, &TIM_OC_InitStruct);  // 应用配置到 CH1
     LL_TIM_OC_DisableFast(TIM3, LL_TIM_CHANNEL_CH1);       // 禁用快速模式（标准 PWM 模式）
     
-    // ========== TIM3_CH2 配置（DMA 触发源，不输出 PWM） ==========
-    TIM_OC_InitStruct.OCMode = LL_TIM_OCMODE_FROZEN;       // 冻结模式（不影响输出引脚，仅用于触发 DMA）
-    TIM_OC_InitStruct.CompareValue = 10000;                  // 比较值 = 200（触发时刻：CNT = 200）
-    LL_TIM_OC_Init(TIM3, LL_TIM_CHANNEL_CH2, &TIM_OC_InitStruct);  // 应用配置到 CH2
-    LL_TIM_OC_DisableFast(TIM3, LL_TIM_CHANNEL_CH2);       // 禁用快速模式
-    LL_TIM_SetTriggerOutput(TIM3, LL_TIM_TRGO_OC2REF);     // 触发输出：CH2 比较事件（用于触发 DMA 或其他外设）
-    LL_TIM_DisableMasterSlaveMode(TIM3);                   // 禁用主从模式（TIM3 作为独立定时器）
-    LL_TIM_OC_EnablePreload(TIM3, LL_TIM_CHANNEL_CH2);     // 使能 CH2 比较值预装载
+    // // ========== TIM3_CH2 配置（DMA 触发源，不输出 PWM） ==========
+    // TIM_OC_InitStruct.OCMode = LL_TIM_OCMODE_FROZEN;       // 冻结模式（不影响输出引脚，仅用于触发 DMA）
+    // TIM_OC_InitStruct.CompareValue = 10000;                  // 比较值 = 200（触发时刻：CNT = 200）
+    // LL_TIM_OC_Init(TIM3, LL_TIM_CHANNEL_CH2, &TIM_OC_InitStruct);  // 应用配置到 CH2
+    // LL_TIM_OC_DisableFast(TIM3, LL_TIM_CHANNEL_CH2);       // 禁用快速模式
+    // LL_TIM_SetTriggerOutput(TIM3, LL_TIM_TRGO_OC2REF);     // 触发输出：CH2 比较事件（用于触发 DMA 或其他外设）
+    // LL_TIM_DisableMasterSlaveMode(TIM3);                   // 禁用主从模式（TIM3 作为独立定时器）
+    // LL_TIM_OC_EnablePreload(TIM3, LL_TIM_CHANNEL_CH2);     // 使能 CH2 比较值预装载
 
     // ========== GPIO 配置（PA6 = TIM3_CH1 PWM 输出） ==========
     LL_AHB4_GRP1_EnableClock(LL_AHB4_GRP1_PERIPH_GPIOA);   // 使能 GPIOA 时钟
@@ -137,7 +138,7 @@ void BSP_TIM3_PWM0_Init(void)
     GPIO_InitStruct.Pull = LL_GPIO_PULL_NO;                // 上下拉：无
     GPIO_InitStruct.Alternate = LL_GPIO_AF_2;              // 复用功能 2：TIM3_CH1
     LL_GPIO_Init(GPIOA, &GPIO_InitStruct);                 // 应用配置到 PA6
-    NVIC_SetPriority(DMA1_Stream0_IRQn, NVIC_EncodePriority(NVIC_GetPriorityGrouping(),5, 0));
+    // NVIC_SetPriority(DMA1_Stream0_IRQn, NVIC_EncodePriority(NVIC_GetPriorityGrouping(),5, 0));
 }
 
 // ...existing code...
@@ -149,7 +150,7 @@ void BSP_TIM3_PWM0_Init(void)
   */
 void BSP_TIM3_PWM0_Start(void)
 {
-  LL_TIM_ClearFlag_CC2(TIM3);                         // 清除CC2比较事件标志位
+  // LL_TIM_ClearFlag_CC2(TIM3);                         // 清除CC2比较事件标志位
   LL_TIM_CC_EnableChannel(TIM3, LL_TIM_CHANNEL_CH1);  // 使能通道 1 输出（开始输出 PWM 波形）
   LL_TIM_EnableCounter(TIM3);                         // 使能定时器计数器（开始计数 0→ARR）
 }

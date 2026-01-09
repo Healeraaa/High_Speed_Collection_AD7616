@@ -56,3 +56,6 @@
 .\project\bsp.o: ../BSP/GPIO/bsp_gpio.h
 .\project\bsp.o: ../BSP/TIMER/bsp_timer.h
 .\project\bsp.o: ..\BSP\USART\bsp_usart.h
+.\project\bsp.o: ..\BSP\DMA\bsp_dma.h
+.\project\bsp.o: ..\BSP\FMC\bsp_fmc.h
+.\project\bsp.o: ../BSP/bsp.h

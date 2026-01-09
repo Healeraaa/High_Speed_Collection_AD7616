@@ -45,7 +45,7 @@ void App_WaveCollectionTask(void *argument)
     
     /* 启动定时器和 DMA (首次使用 Buffer_A) */
     BSP_TIM3_PWM0_Start();
-    BSP_DMA_TIM3_Start(AD7616_DataBuffer_A, 1024);
+    BSP_DMA_AD7616_Start(AD7616_DataBuffer_A, 1024);
     
     while (1)
     {
@@ -84,11 +84,11 @@ void DMA1_Stream0_IRQHandler(void)
         
         if (u8_dma_buffer == 0)
         {
-            BSP_DMA_TIM3_Start(AD7616_DataBuffer_A, 1024);
+            BSP_DMA_AD7616_Start(AD7616_DataBuffer_A, 1024);
         }
         else
         {
-            BSP_DMA_TIM3_Start(AD7616_DataBuffer_B, 1024);
+            BSP_DMA_AD7616_Start(AD7616_DataBuffer_B, 1024);
         }
         
         /* 释放信号量 (计数 +1) */

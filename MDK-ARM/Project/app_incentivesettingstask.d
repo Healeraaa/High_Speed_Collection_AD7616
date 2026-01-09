@@ -71,3 +71,6 @@
 .\project\app_incentivesettingstask.o: ../BSP/GPIO/bsp_gpio.h
 .\project\app_incentivesettingstask.o: ../BSP/TIMER/bsp_timer.h
 .\project\app_incentivesettingstask.o: ..\BSP\USART\bsp_usart.h
+.\project\app_incentivesettingstask.o: ..\BSP\DMA\bsp_dma.h
+.\project\app_incentivesettingstask.o: ..\BSP\FMC\bsp_fmc.h
+.\project\app_incentivesettingstask.o: ../BSP/bsp.h

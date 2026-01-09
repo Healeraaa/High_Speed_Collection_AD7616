@@ -54,6 +54,9 @@
 .\project\bsp_timer.o: ../BSP/GPIO/bsp_gpio.h
 .\project\bsp_timer.o: ../BSP/TIMER/bsp_timer.h
 .\project\bsp_timer.o: ..\BSP\USART\bsp_usart.h
+.\project\bsp_timer.o: ..\BSP\DMA\bsp_dma.h
+.\project\bsp_timer.o: ..\BSP\FMC\bsp_fmc.h
+.\project\bsp_timer.o: ../BSP/bsp.h
 .\project\bsp_timer.o: ../Modules/Module.h
 .\project\bsp_timer.o: ../Modules/Module_Key.h
 .\project\bsp_timer.o: ../Modules/Module_Serial411.h

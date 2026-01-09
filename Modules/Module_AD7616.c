@@ -26,8 +26,10 @@ Module_Status_t Module_AD7616_Config(void)
     {
         return Module_ERROR;
     }
-    // BSP_DMA_TIM3_Init();// 初始化DMA用于TIM3触发的AD7616数据传输
     BSP_TIM3_PWM0_Init();// 初始化TIM3用于AD7616采样触发的PWM输出
+    
+    BSP_DMA_AD7616_Init();// 初始化DMA用于AD7616数据传输
+    BSP_GPIO_AD7616_BUSY_Init(); // 初始化 AD7616 BUSY 引脚的 GPIO
     
     
     // 初始化量程配置为 ±10V
@@ -41,7 +43,7 @@ Module_Status_t Module_AD7616_Config(void)
     Module_AD7616_ConfigRegister(AD7616_CONFIG_OS_DISABLE, false, false, false, false);
     BSP_DWT_Delay_us(5);  // 等待 AD7616 上电稳定
     // 默认选择通道 A0-B0
-    Module_AD7616_SetChannelSelect(AD7616_CHANNEL_CHA_A0, AD7616_CHANNEL_CHB_TEST);
+    Module_AD7616_SetChannelSelect(AD7616_CHANNEL_CHA_A0, AD7616_CHANNEL_CHB_B0);
     BSP_DWT_Delay_us(5);  // 等待 AD7616 上电稳定
     // 配置所有通道为 ±5V 量程
     Module_AD7616_WriteReg(AD7616_REG_RANGE_A1, 0xAA);  
@@ -397,6 +399,7 @@ Module_Status_t Module_AD7616_Set_SampleRate(double freq)
         if (time >= g_osbuffer[i])
         {
             Module_AD7616_SetOversample((i << AD7616_CONFIG_OS_POS));
+            // Module_AD7616_SetOversample(AD7616_CONFIG_OS_DISABLE);
             os_time = g_osbuffer[i];
             os_found = true;
             break;
