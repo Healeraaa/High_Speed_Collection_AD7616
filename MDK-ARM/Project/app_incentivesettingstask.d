@@ -18,6 +18,7 @@
 .\project\app_incentivesettingstask.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/semphr.h
 .\project\app_incentivesettingstask.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h
 .\project\app_incentivesettingstask.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/timers.h
+.\project\app_incentivesettingstask.o: ../Modules/Module.h
 .\project\app_incentivesettingstask.o: ../Core/Inc/main.h
 .\project\app_incentivesettingstask.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h
 .\project\app_incentivesettingstask.o: ../Core/Inc/stm32h7xx_hal_conf.h
@@ -66,8 +67,10 @@
 .\project\app_incentivesettingstask.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_gpio.h
 .\project\app_incentivesettingstask.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_tim.h
 .\project\app_incentivesettingstask.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_usart.h
-.\project\app_incentivesettingstask.o: ../BSP/bsp.h
 .\project\app_incentivesettingstask.o: D:\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+.\project\app_incentivesettingstask.o: ../Modules/Module_Key.h
+.\project\app_incentivesettingstask.o: ../Modules/Module_Serial411.h
+.\project\app_incentivesettingstask.o: ../BSP/bsp.h
 .\project\app_incentivesettingstask.o: ../BSP/GPIO/bsp_gpio.h
 .\project\app_incentivesettingstask.o: ../BSP/TIMER/bsp_timer.h
 .\project\app_incentivesettingstask.o: ..\BSP\USART\bsp_usart.h

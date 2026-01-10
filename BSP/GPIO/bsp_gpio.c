@@ -74,7 +74,7 @@ void BSP_GPIO_AD7616_BUSY_Init(void)
   EXTI_InitStruct.Line_64_95 = LL_EXTI_LINE_NONE;   // 不使用 Line 64-95
   EXTI_InitStruct.LineCommand = ENABLE;              // 使能 EXTI Line
   // EXTI_InitStruct.Mode = LL_EXTI_MODE_EVENT;         // 配置为事件模式(不触发中断,仅用于唤醒或 DMA)
-  EXTI_InitStruct.Mode = LL_EXTI_MODE_IT;  // 从 LL_EXTI_MODE_EVENT 改为 IT
+  EXTI_InitStruct.Mode = LL_EXTI_MODE_IT;  // 从 LL_EXTI_MODE_EVENT 改为 IT 必须设置为中断才能触发dma
   EXTI_InitStruct.Trigger = LL_EXTI_TRIGGER_FALLING;  // 下降沿触发(BUSY 信号由高变低表示转换完成)
   LL_EXTI_Init(&EXTI_InitStruct);                    // 初始化 EXTI
 

@@ -361,9 +361,8 @@ Module_Status_t Module_AD7616_SetRange(uint8_t channel, AD7616_Range_TypeDef ran
 /**
   * @brief  设置 AD7616 采样率
   * @param  freq 采样频率 (Hz)，范围：1Hz ~ 1MHz
-  * @note   自动计算 TIM3 的 PSC、ARR、CCR1、CCR2 参数
+  * @note   自动计算 TIM3 的 PSC、ARR、CCR1 参数
   *         - CCR1: CONVST 脉冲宽度（固定 100ns，AD7616 最小要求 10ns）
-  *         - CCR2: DMA 触发时刻（CONVST 上升沿 + 过采样转换时间）
   * @retval Module_Status_t Module_OK: 设置成功, Module_ERROR: 参数错误
   */
 Module_Status_t Module_AD7616_Set_SampleRate(double freq)
@@ -377,7 +376,6 @@ Module_Status_t Module_AD7616_Set_SampleRate(double freq)
     volatile uint32_t arr = 0;
     volatile uint32_t psc = 0;
     volatile uint32_t cpv1 = 0;  // CONVST 脉冲宽度（100ns）
-    volatile uint32_t cpv2 = 0;  // DMA 触发时刻（CONVST 上升沿 + 过采样时间）
     volatile uint32_t os_time = 0;
     bool os_found = false;
 
@@ -399,7 +397,6 @@ Module_Status_t Module_AD7616_Set_SampleRate(double freq)
         if (time >= g_osbuffer[i])
         {
             Module_AD7616_SetOversample((i << AD7616_CONFIG_OS_POS));
-            // Module_AD7616_SetOversample(AD7616_CONFIG_OS_DISABLE);
             os_time = g_osbuffer[i];
             os_found = true;
             break;
@@ -420,22 +417,14 @@ Module_Status_t Module_AD7616_Set_SampleRate(double freq)
     {
         arr = (uint32_t)arr_double;
         
-        // ========== 计算 CCR1（CONVST 脉冲宽度 = 100ns） ==========
-        cpv1 = (uint32_t)(200.0 * (double)bsp_timer.TIM_CLK / 1000000000.0);
+        // ========== 计算 CCR1（CONVST 脉冲宽度 = 100ns）向上取整 ==========
+        cpv1 = (uint32_t)ceil(200.0 * (double)bsp_timer.TIM_CLK / 1000000000.0);
         
         // 限制 CCR1 范围
         if (cpv1 > arr) cpv1 = arr / 2;
         if (cpv1 < 20) cpv1 = 20;  // 240MHz 下至少 83ns
-        
-        // ========== 计算 CCR2（DMA 触发时刻 = CONVST 上升沿 + 过采样时间） ==========
-        uint32_t conversion_time_ns = os_time + 200;  // 增加 200ns 余量
-        uint32_t conversion_ticks = (uint32_t)((double)conversion_time_ns * (double)bsp_timer.TIM_CLK / 1000000000.0);
-        
-        cpv2 = cpv1 + conversion_ticks;  // CCR2 = CONVST 上升沿 + 完整转换时间
-        
-        if (cpv2 > arr) cpv2 = arr - 10;  // 留余量
 
-        BSP_TIM3_PWM0_SetParams(0, arr, cpv1, cpv2);
+        BSP_TIM3_PWM0_SetParams(0, arr, cpv1);  // CCR2 设置为 0
         return Module_OK;
     }
 
@@ -445,21 +434,14 @@ Module_Status_t Module_AD7616_Set_SampleRate(double freq)
         arr_double = ((double)bsp_timer.TIM_CLK / ((psc + 1) * freq)) - 1.0;
         
         if (arr_double > (double)bsp_timer.TIM_MAX_ARR) continue;
-        // if (arr_double < 10.0) break;
 
         arr = (uint32_t)arr_double;
 
-        cpv1 = (uint32_t)(200.0 * (double)bsp_timer.TIM_CLK / ((psc + 1) * 1000000000.0));
+        cpv1 = (uint32_t)ceil(200.0 * (double)bsp_timer.TIM_CLK / ((psc + 1) * 1000000000.0));
         if (cpv1 > arr) cpv1 = arr / 2;
         if (cpv1 < 2) cpv1 = 2;
 
-        uint32_t conversion_time_ns = os_time + 200;
-        uint32_t conversion_ticks = (uint32_t)((double)conversion_time_ns * (double)bsp_timer.TIM_CLK / 
-                                               ((psc + 1) * 1000000000.0));
-        cpv2 = cpv1 + conversion_ticks;
-        if (cpv2 > arr) cpv2 = arr - 2;
-
-        BSP_TIM3_PWM0_SetParams(psc, arr, cpv1, cpv2);
+        BSP_TIM3_PWM0_SetParams(psc, arr, cpv1);  // CCR2 设置为 0
         return Module_OK;
     }
 

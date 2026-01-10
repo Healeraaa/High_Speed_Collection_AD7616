@@ -34,7 +34,7 @@ BSP_TIM_Config_t BSP_Get_TIM3_Config(void);
 void BSP_TIM3_PWM0_Init(void);
 void BSP_TIM3_PWM0_Start(void);
 void BSP_TIM3_PWM0_Stop(void);
-BSP_Status_t BSP_TIM3_PWM0_SetParams(uint32_t psc, uint32_t arr, uint32_t cpv1, uint32_t cpv2);
+BSP_Status_t BSP_TIM3_PWM0_SetParams(uint32_t psc, uint32_t arr, uint32_t cpv1);
 
 #endif 
 

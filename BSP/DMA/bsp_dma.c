@@ -33,7 +33,6 @@ void BSP_DMA_AD7616_Init(void)
   LL_DMAMUX_SetGenRequestNb(DMAMUX1, LL_DMAMUX_REQ_GEN_0, 2);                  // 每次 EXTI0 事件生成 2 个 DMA 请求（对应 A/B 两路数据）
   LL_DMAMUX_EnableRequestGen(DMAMUX1, LL_DMAMUX_REQ_GEN_0);  // 使能 DMAMUX 请求生成器
   NVIC_SetPriority(DMA1_Stream0_IRQn, NVIC_EncodePriority(NVIC_GetPriorityGrouping(),5, 0));  // 设置中断优先级（低于关键实时任务）
-  // NVIC_EnableIRQ(DMA1_Stream0_IRQn);  // 使能 DMA 中断
   
 
 }
