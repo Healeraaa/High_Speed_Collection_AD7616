@@ -24,14 +24,14 @@ void BSP_USART1_Init(void)
   */
   GPIO_InitStruct.Pin = LL_GPIO_PIN_9|LL_GPIO_PIN_10;          // 配置 PA9 和 PA10 引脚
   GPIO_InitStruct.Mode = LL_GPIO_MODE_ALTERNATE;               // 设置为复用功能模式
-  GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_HIGH;              // 设置低速输出
+  GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_VERY_HIGH;              // 设置低速输出
   GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_PUSHPULL;        // 设置推挽输出
   GPIO_InitStruct.Pull = LL_GPIO_PULL_NO;                      // 无上下拉
   GPIO_InitStruct.Alternate = LL_GPIO_AF_7;                    // 复用功能 7 (USART1)
   LL_GPIO_Init(GPIOA, &GPIO_InitStruct);                       // 初始化 GPIO
 
   USART_InitStruct.PrescalerValue = LL_USART_PRESCALER_DIV1;              // 预分频器设置为 1
-  USART_InitStruct.BaudRate = 1152000;                                     // 波特率 115200
+  USART_InitStruct.BaudRate = 3000000;                                     // 波特率 115200
   USART_InitStruct.DataWidth = LL_USART_DATAWIDTH_8B;                     // 数据位 8 位
   USART_InitStruct.StopBits = LL_USART_STOPBITS_1;                        // 停止位 1 位
   USART_InitStruct.Parity = LL_USART_PARITY_NONE;                         // 无校验位
