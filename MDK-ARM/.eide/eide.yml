@@ -83,6 +83,8 @@ virtualFolder:
         - path: ../Modules/Module.h
         - path: ../Modules/Module_AD7616.c
         - path: ../Modules/Module_AD7616.h
+        - path: ../Modules/Module_Serial411.c
+        - path: ../Modules/Module_Serial411.h
       folders: []
     - name: App
       files:
@@ -94,6 +96,8 @@ virtualFolder:
         - path: ../Application/App_WaveCollectionTask.h
         - path: ../Application/App_VOFA_DataUpload.c
         - path: ../Application/App_VOFA_DataUpload.h
+        - path: ../Application/App_IncentiveSettingsTask.c
+        - path: ../Application/App_IncentiveSettingsTask.h
       folders: []
     - name: SYSTEM
       files:
