@@ -20,6 +20,46 @@ typedef enum
 #define SERIAL411_DATA_LENGTH      10      // 数据长度（double）
 #define SERIAL411_TIMEOUT_MS       100
 
+/* WE通道定义 */
+typedef enum {
+    WE_CHANNEL_4 = 0x00,  // PB4=0, PB3=0
+    WE_CHANNEL_3 = 0x01,  // PB4=0, PB3=1
+    WE_CHANNEL_1 = 0x02,  // PB4=1, PB3=0
+    WE_CHANNEL_2 = 0x03   // PB4=1, PB3=1
+} WE_Channel_TypeDef;
+
+/* IV转换增益定义  */
+typedef enum {
+    IV_GAIN_100   = 0x00,  // PB5=0, 100挡位
+    IV_GAIN_10000 = 0x01   // PB5=1, 10000挡位
+} IV_Gain_TypeDef;
+
+/* 电压放大增益定义  */
+typedef enum {
+    VOLTAGE_GAIN_1    = 0x00,  // PB7=0, PB6=0, 1倍
+    VOLTAGE_GAIN_10   = 0x01,  // PB7=0, PB6=1, 10倍
+    VOLTAGE_GAIN_100  = 0x02,  // PB7=1, PB6=0, 100倍
+    VOLTAGE_GAIN_1000 = 0x03   // PB7=1, PB6=1, 1000倍
+} Voltage_Gain_TypeDef;
+
+/* 反馈通道定义  */
+typedef enum {
+    FB_CHANNEL_4 = 0x00,  // PB9=0, PB8=0
+    FB_CHANNEL_3 = 0x01,  // PB9=0, PB8=1
+    FB_CHANNEL_1 = 0x02,  // PB9=1, PB8=0
+    FB_CHANNEL_2 = 0x03   // PB9=1, PB8=1
+} FB_Channel_TypeDef;
+
+/* DAC通道定义 */
+typedef enum {
+    DAC_CH_A   = 0x00,  // 通道A（D23-D20=0000）
+    DAC_CH_B   = 0x01,  // 通道B（D23-D20=0001）
+    DAC_CH_C   = 0x02,  // 通道C（D23-D20=0010）
+    DAC_CH_D   = 0x03,  // 通道D（D23-D20=0011）
+    DAC_CH_ALL = 0x0F   // 所有通道（D23-D20=1111）
+} DAC_Channel_TypeDef;
+
+
 // 数据转换联合体
 typedef union {
     double      double_val;                 
