@@ -36,6 +36,9 @@
 .\project\eventrecorder.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_pwr_ex.h
 .\project\eventrecorder.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_tim.h
 .\project\eventrecorder.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_tim_ex.h
+.\project\eventrecorder.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_pcd.h
+.\project\eventrecorder.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_usb.h
+.\project\eventrecorder.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_pcd_ex.h
 .\project\eventrecorder.o: D:\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
 .\project\eventrecorder.o: D:\Keil\Packs\Keil\ARM_Compiler\1.6.3\Include\EventRecorder.h
 .\project\eventrecorder.o: .\RTE\Compiler\EventRecorderConf.h

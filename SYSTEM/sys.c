@@ -83,6 +83,14 @@ void SystemClock_Config(void)
   {
 
   }
+
+  LL_RCC_HSI48_Enable();
+   /* Wait till HSI48 is ready */
+  while(LL_RCC_HSI48_IsReady() != 1)
+  {
+
+  }
+
   LL_RCC_PLL_SetSource(LL_RCC_PLLSOURCE_HSE);
   LL_RCC_PLL1P_Enable();
   LL_RCC_PLL1R_Enable();

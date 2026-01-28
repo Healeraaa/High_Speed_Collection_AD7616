@@ -35,4 +35,4 @@ void App_VofaDataUploadTask(void *argument)
         }
     }
 }
-   
+

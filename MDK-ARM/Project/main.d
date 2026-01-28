@@ -36,6 +36,9 @@
 .\project\main.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_pwr_ex.h
 .\project\main.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_tim.h
 .\project\main.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_tim_ex.h
+.\project\main.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_pcd.h
+.\project\main.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_usb.h
+.\project\main.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_pcd_ex.h
 .\project\main.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_rcc.h
 .\project\main.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_crs.h
 .\project\main.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_bus.h
@@ -53,9 +56,9 @@
 .\project\main.o: D:\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 .\project\main.o: ../BSP/GPIO/bsp_gpio.h
 .\project\main.o: ../BSP/TIMER/bsp_timer.h
-.\project\main.o: ..\BSP\USART\bsp_usart.h
-.\project\main.o: ..\BSP\DMA\bsp_dma.h
-.\project\main.o: ..\BSP\FMC\bsp_fmc.h
+.\project\main.o: ../BSP/USART/bsp_usart.h
+.\project\main.o: ../BSP/DMA/bsp_dma.h
+.\project\main.o: ../BSP/FMC/bsp_fmc.h
 .\project\main.o: ../BSP/bsp.h
 .\project\main.o: ../Modules/Module.h
 .\project\main.o: ../Modules/Module_Key.h
@@ -63,3 +66,13 @@
 .\project\main.o: ../Application/App.h
 .\project\main.o: D:\Keil\Packs\Keil\ARM_Compiler\1.6.3\Include\EventRecorder.h
 .\project\main.o: D:\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+.\project\main.o: ..\Application\USB\usb_device.h
+.\project\main.o: ..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\usbd_def.h
+.\project\main.o: ..\BSP\USB\usbd_conf.h
+.\project\main.o: D:\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
+.\project\main.o: ..\Application\USB\usbd_cdc_if.h
+.\project\main.o: ..\Middlewares\ST\STM32_USB_Device_Library\Class\CDC\Inc\usbd_cdc.h
+.\project\main.o: ..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\usbd_ioreq.h
+.\project\main.o: ..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\usbd_core.h
+.\project\main.o: ..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\usbd_ioreq.h
+.\project\main.o: ..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\usbd_ctlreq.h

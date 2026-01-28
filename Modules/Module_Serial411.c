@@ -34,3 +34,4 @@ Module_Status_t Serial_SendPacket(uint8_t command, double *data)
     return Module_OK;
 
 }
+

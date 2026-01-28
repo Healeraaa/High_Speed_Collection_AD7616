@@ -54,6 +54,9 @@
 .\project\app_incentivesettingstask.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_pwr_ex.h
 .\project\app_incentivesettingstask.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_tim.h
 .\project\app_incentivesettingstask.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_tim_ex.h
+.\project\app_incentivesettingstask.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_pcd.h
+.\project\app_incentivesettingstask.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_usb.h
+.\project\app_incentivesettingstask.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_pcd_ex.h
 .\project\app_incentivesettingstask.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_rcc.h
 .\project\app_incentivesettingstask.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_crs.h
 .\project\app_incentivesettingstask.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_bus.h
@@ -73,7 +76,7 @@
 .\project\app_incentivesettingstask.o: ../BSP/bsp.h
 .\project\app_incentivesettingstask.o: ../BSP/GPIO/bsp_gpio.h
 .\project\app_incentivesettingstask.o: ../BSP/TIMER/bsp_timer.h
-.\project\app_incentivesettingstask.o: ..\BSP\USART\bsp_usart.h
-.\project\app_incentivesettingstask.o: ..\BSP\DMA\bsp_dma.h
-.\project\app_incentivesettingstask.o: ..\BSP\FMC\bsp_fmc.h
+.\project\app_incentivesettingstask.o: ../BSP/USART/bsp_usart.h
+.\project\app_incentivesettingstask.o: ../BSP/DMA/bsp_dma.h
+.\project\app_incentivesettingstask.o: ../BSP/FMC/bsp_fmc.h
 .\project\app_incentivesettingstask.o: ../BSP/bsp.h

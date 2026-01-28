@@ -20,13 +20,19 @@
                 "e:\\MCU_Project\\STM32H743Project\\02High_Speed_Collection_AD7616\\Middlewares\\Third_Party\\FreeRTOS\\Source\\include",
                 "e:\\MCU_Project\\STM32H743Project\\02High_Speed_Collection_AD7616\\Middlewares\\Third_Party\\FreeRTOS\\Source\\CMSIS_RTOS_V2",
                 "e:\\MCU_Project\\STM32H743Project\\02High_Speed_Collection_AD7616\\Middlewares\\Third_Party\\FreeRTOS\\Source\\portable\\RVDS\\ARM_CM4F",
+                "e:\\MCU_Project\\STM32H743Project\\02High_Speed_Collection_AD7616\\Middlewares\\ST\\STM32_USB_Device_Library\\Core\\Inc",
+                "e:\\MCU_Project\\STM32H743Project\\02High_Speed_Collection_AD7616\\Middlewares\\ST\\STM32_USB_Device_Library\\Class\\CDC\\Inc",
+                "e:\\MCU_Project\\STM32H743Project\\02High_Speed_Collection_AD7616\\BSP\\USB",
+                "e:\\MCU_Project\\STM32H743Project\\02High_Speed_Collection_AD7616\\Application\\USB",
                 "D:\\Keil\\Keil_v5\\ARM\\ARMCC\\include",
                 "D:\\Keil\\Keil_v5\\ARM\\ARMCC\\include\\rw",
                 "e:\\MCU_Project\\STM32H743Project\\02High_Speed_Collection_AD7616\\MDK-ARM",
                 "e:\\MCU_Project\\STM32H743Project\\02High_Speed_Collection_AD7616\\Core\\Src",
                 "e:\\MCU_Project\\STM32H743Project\\02High_Speed_Collection_AD7616\\Drivers\\STM32H7xx_HAL_Driver\\Src",
                 "e:\\MCU_Project\\STM32H743Project\\02High_Speed_Collection_AD7616\\Middlewares\\Third_Party\\FreeRTOS\\Source",
-                "e:\\MCU_Project\\STM32H743Project\\02High_Speed_Collection_AD7616\\Middlewares\\Third_Party\\FreeRTOS\\Source\\portable\\MemMang"
+                "e:\\MCU_Project\\STM32H743Project\\02High_Speed_Collection_AD7616\\Middlewares\\Third_Party\\FreeRTOS\\Source\\portable\\MemMang",
+                "e:\\MCU_Project\\STM32H743Project\\02High_Speed_Collection_AD7616\\Middlewares\\ST\\STM32_USB_Device_Library\\Core\\Src",
+                "e:\\MCU_Project\\STM32H743Project\\02High_Speed_Collection_AD7616\\Middlewares\\ST\\STM32_USB_Device_Library\\Class\\CDC\\Src"
             ],
             "defines": [
                 "USE_FULL_LL_DRIVER",

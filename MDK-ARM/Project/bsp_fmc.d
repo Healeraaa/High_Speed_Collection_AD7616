@@ -37,6 +37,9 @@
 .\project\bsp_fmc.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_pwr_ex.h
 .\project\bsp_fmc.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_tim.h
 .\project\bsp_fmc.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_tim_ex.h
+.\project\bsp_fmc.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_pcd.h
+.\project\bsp_fmc.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_usb.h
+.\project\bsp_fmc.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_pcd_ex.h
 .\project\bsp_fmc.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_rcc.h
 .\project\bsp_fmc.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_crs.h
 .\project\bsp_fmc.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_bus.h
@@ -54,7 +57,7 @@
 .\project\bsp_fmc.o: D:\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 .\project\bsp_fmc.o: ../BSP/GPIO/bsp_gpio.h
 .\project\bsp_fmc.o: ../BSP/TIMER/bsp_timer.h
-.\project\bsp_fmc.o: ..\BSP\USART\bsp_usart.h
-.\project\bsp_fmc.o: ..\BSP\DMA\bsp_dma.h
-.\project\bsp_fmc.o: ..\BSP\FMC\bsp_fmc.h
+.\project\bsp_fmc.o: ../BSP/USART/bsp_usart.h
+.\project\bsp_fmc.o: ../BSP/DMA/bsp_dma.h
+.\project\bsp_fmc.o: ../BSP/FMC/bsp_fmc.h
 .\project\bsp_fmc.o: D:\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\string.h

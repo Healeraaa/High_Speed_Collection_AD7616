@@ -63,7 +63,6 @@ void BSP_GPIO_AD7616_BUSY_Init(void)
 {
 
   LL_EXTI_InitTypeDef EXTI_InitStruct = {0};  // EXTI 配置结构体
-  LL_GPIO_InitTypeDef GPIO_InitStruct = {0};   // GPIO 配置结构体
 
   LL_AHB4_GRP1_EnableClock(LL_AHB4_GRP1_PERIPH_GPIOE);  // 使能 GPIOE 时钟
 

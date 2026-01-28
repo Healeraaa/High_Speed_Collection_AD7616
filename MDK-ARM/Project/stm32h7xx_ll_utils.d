@@ -36,6 +36,9 @@
 .\project\stm32h7xx_ll_utils.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_pwr_ex.h
 .\project\stm32h7xx_ll_utils.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_tim.h
 .\project\stm32h7xx_ll_utils.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_tim_ex.h
+.\project\stm32h7xx_ll_utils.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_pcd.h
+.\project\stm32h7xx_ll_utils.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_usb.h
+.\project\stm32h7xx_ll_utils.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_pcd_ex.h
 .\project\stm32h7xx_ll_utils.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_system.h
 .\project\stm32h7xx_ll_utils.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_bus.h
 .\project\stm32h7xx_ll_utils.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_rcc.h
