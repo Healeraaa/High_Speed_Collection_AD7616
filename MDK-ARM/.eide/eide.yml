@@ -20,6 +20,7 @@ virtualFolder:
           folders:
             - name: Core
               files:
+                - path: ../Core/Src/fmc.c
                 - path: ../Core/Src/main.c
                 - path: ../Core/Src/gpio.c
                 - path: ../Core/Src/freertos.c
@@ -27,15 +28,35 @@ virtualFolder:
                 - path: ../Core/Src/stm32h7xx_it.c
                 - path: ../Core/Src/stm32h7xx_hal_msp.c
                 - path: ../Core/Src/stm32h7xx_hal_timebase_tim.c
-                - path: ../Core/Src/fmc.c
               folders: []
+            - name: USB_DEVICE
+              files: []
+              folders:
+                - name: App
+                  files:
+                    - path: ../Application/USB/usb_device.c
+                    - path: ../Application/USB/usbd_cdc_if.c
+                    - path: ../Application/USB/usbd_desc.c
+                  folders: []
+                - name: Target
+                  files:
+                    - path: ../BSP/USB/usbd_conf.c
+                  folders: []
     - name: Drivers
       files: []
       folders:
         - name: STM32H7xx_HAL_Driver
           files:
+            - path: ../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_dma.c
+            - path: ../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_fmc.c
+            - path: ../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sram.c
+            - path: ../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_tim.c
+            - path: ../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_usart.c
             - path: ../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_exti.c
             - path: ../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_gpio.c
+            - path: ../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pcd.c
+            - path: ../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pcd_ex.c
+            - path: ../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_usb.c
             - path: ../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_rcc.c
             - path: ../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_utils.c
             - path: ../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc.c
@@ -56,11 +77,6 @@ virtualFolder:
             - path: ../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_exti.c
             - path: ../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim.c
             - path: ../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim_ex.c
-            - path: ../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sram.c
-            - path: ../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_fmc.c
-            - path: ../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_dma.c
-            - path: ../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_tim.c
-            - path: ../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_usart.c
           folders: []
         - name: CMSIS
           files:
@@ -120,6 +136,13 @@ virtualFolder:
             - path: ../Middlewares/Third_Party/FreeRTOS/Source/portable/MemMang/heap_4.c
             - path: ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F/port.c
           folders: []
+        - name: USB_Device_Library
+          files:
+            - path: ../Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_core.c
+            - path: ../Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ctlreq.c
+            - path: ../Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ioreq.c
+            - path: ../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Src/usbd_cdc.c
+          folders: []
     - name: ::CMSIS
       files: []
       folders: []
@@ -160,6 +183,10 @@ targets:
         - ../Middlewares/Third_Party/FreeRTOS/Source/include
         - ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2
         - ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F
+        - ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc
+        - ../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc
+        - ../BSP/USB
+        - ../Application/USB
         - .cmsis/include
         - RTE/Compiler
         - RTE/Network

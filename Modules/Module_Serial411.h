@@ -20,7 +20,7 @@ typedef enum
 #define SERIAL411_DATA_LENGTH      10      // 数据长度（double）
 #define SERIAL411_TIMEOUT_MS       100
 
-/* WE通道定义 */
+/* WE通道定义*/
 typedef enum {
     WE_CHANNEL_4 = 0x00,  // PB4=0, PB3=0
     WE_CHANNEL_3 = 0x01,  // PB4=0, PB3=1
@@ -28,28 +28,33 @@ typedef enum {
     WE_CHANNEL_2 = 0x03   // PB4=1, PB3=1
 } WE_Channel_TypeDef;
 
-/* IV转换增益定义  */
+/* IV转换倍数定义*/
 typedef enum {
-    IV_GAIN_100   = 0x00,  // PB5=0, 100挡位
-    IV_GAIN_10000 = 0x01   // PB5=1, 10000挡位
+    IV_GAIN_1K   = 0x00,  // PB6=0, PB5=0, 1K
+    IV_GAIN_100K = 0x01,  // PB6=0, PB5=1, 100K
+    IV_GAIN_10M  = 0x02,  // PB6=1, PB5=0, 10M
+    IV_GAIN_100M = 0x03   // PB6=1, PB5=1, 100M
 } IV_Gain_TypeDef;
 
-/* 电压放大增益定义  */
+/* 第一级电压放大倍数定义*/
 typedef enum {
-    VOLTAGE_GAIN_1    = 0x00,  // PB7=0, PB6=0, 1倍
-    VOLTAGE_GAIN_10   = 0x01,  // PB7=0, PB6=1, 10倍
-    VOLTAGE_GAIN_100  = 0x02,  // PB7=1, PB6=0, 100倍
-    VOLTAGE_GAIN_1000 = 0x03   // PB7=1, PB6=1, 1000倍
-} Voltage_Gain_TypeDef;
+    VOLTAGE_GAIN_STAGE1_5X  = 0x00,  // PB7=0, 5倍
+    VOLTAGE_GAIN_STAGE1_20X = 0x01   // PB7=1, 20倍
+} Voltage_Gain_Stage1_TypeDef;
 
-/* 反馈通道定义  */
+/* 第二级电压放大倍数定义*/
 typedef enum {
-    FB_CHANNEL_4 = 0x00,  // PB9=0, PB8=0
-    FB_CHANNEL_3 = 0x01,  // PB9=0, PB8=1
-    FB_CHANNEL_1 = 0x02,  // PB9=1, PB8=0
-    FB_CHANNEL_2 = 0x03   // PB9=1, PB8=1
-} FB_Channel_TypeDef;
+    VOLTAGE_GAIN_STAGE2_1X  = 0x00,  // PB9=0, PB8=0, 1倍
+    VOLTAGE_GAIN_STAGE2_5X  = 0x01,  // PB9=0, PB8=1, 5倍
+    VOLTAGE_GAIN_STAGE2_20X = 0x02,  // PB9=1, PB8=0, 20倍
+    VOLTAGE_GAIN_STAGE2_50X = 0x03   // PB9=1, PB8=1, 50倍
+} Voltage_Gain_Stage2_TypeDef;
 
+/* 反馈选择定义*/
+typedef enum {
+    FEEDBACK_GND = 0x00,  // 选择GND
+    FEEDBACK_FB  = 0x01   // 选择FB
+} Feedback_Select_TypeDef;
 /* DAC通道定义 */
 typedef enum {
     DAC_CH_A   = 0x00,  // 通道A（D23-D20=0000）

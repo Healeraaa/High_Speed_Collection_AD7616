@@ -49,3 +49,7 @@ options:
             <virtual_root>/Middlewares/FreeRTOS/cmsis_os2.c: ""
             <virtual_root>/Middlewares/FreeRTOS/heap_4.c: ""
             <virtual_root>/Middlewares/FreeRTOS/port.c: ""
+            <virtual_root>/Middlewares/USB_Device_Library/usbd_core.c: ""
+            <virtual_root>/Middlewares/USB_Device_Library/usbd_ctlreq.c: ""
+            <virtual_root>/Middlewares/USB_Device_Library/usbd_ioreq.c: ""
+            <virtual_root>/Middlewares/USB_Device_Library/usbd_cdc.c: ""

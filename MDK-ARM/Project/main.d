@@ -66,13 +66,3 @@
 .\project\main.o: ../Application/App.h
 .\project\main.o: D:\Keil\Packs\Keil\ARM_Compiler\1.6.3\Include\EventRecorder.h
 .\project\main.o: D:\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
-.\project\main.o: ..\Application\USB\usb_device.h
-.\project\main.o: ..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\usbd_def.h
-.\project\main.o: ..\BSP\USB\usbd_conf.h
-.\project\main.o: D:\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
-.\project\main.o: ..\Application\USB\usbd_cdc_if.h
-.\project\main.o: ..\Middlewares\ST\STM32_USB_Device_Library\Class\CDC\Inc\usbd_cdc.h
-.\project\main.o: ..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\usbd_ioreq.h
-.\project\main.o: ..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\usbd_core.h
-.\project\main.o: ..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\usbd_ioreq.h
-.\project\main.o: ..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\usbd_ctlreq.h
