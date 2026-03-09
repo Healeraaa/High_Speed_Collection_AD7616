@@ -121,8 +121,12 @@ void BSP_TIM3_PWM0_Init(void)
   */
 void BSP_TIM3_PWM0_Start(void)
 {
-  LL_TIM_CC_EnableChannel(TIM3, LL_TIM_CHANNEL_CH1);  // 使能通道 1 输出（开始输出 PWM 波形）
-  LL_TIM_EnableCounter(TIM3);                         // 使能定时器计数器（开始计数 0→ARR）
+  LL_TIM_GenerateEvent_UPDATE(TIM3); 
+  LL_TIM_ClearFlag_UPDATE(TIM3);
+
+  // 使能通道和计数器
+  LL_TIM_CC_EnableChannel(TIM3, LL_TIM_CHANNEL_CH1);
+  LL_TIM_EnableCounter(TIM3);
 }
 
 /**
@@ -134,6 +138,7 @@ void BSP_TIM3_PWM0_Stop(void)
 {
   LL_TIM_CC_DisableChannel(TIM3, LL_TIM_CHANNEL_CH1); // 禁用通道 1 输出（停止 PWM 波形）
   LL_TIM_DisableCounter(TIM3);                        // 禁用定时器计数器（停止计数）
+  LL_TIM_ClearFlag_UPDATE(TIM3);
 }
 
 /**
@@ -177,4 +182,116 @@ BSP_Status_t BSP_TIM3_PWM0_SetDutyCycle(float duty_percent)
   LL_TIM_OC_SetCompareCH1(TIM3, ccr);                 // 更新比较值（下一个周期生效）
   
   return BSP_OK;
+}
+
+// ========================================================================== TIM2 ==========================================================================
+
+void BSP_TIM2_PULSE_Init(void)
+{
+  LL_TIM_InitTypeDef TIM_InitStruct = {0};
+  LL_GPIO_InitTypeDef GPIO_InitStruct = {0};
+
+  // 使能时钟
+  LL_APB1_GRP1_EnableClock(LL_APB1_GRP1_PERIPH_TIM2);
+  LL_AHB4_GRP1_EnableClock(LL_AHB4_GRP1_PERIPH_GPIOA);
+
+  // 配置 GPIO (PA1 -> TIM2_CH2) 
+  GPIO_InitStruct.Pin        = LL_GPIO_PIN_1;
+  GPIO_InitStruct.Mode       = LL_GPIO_MODE_ALTERNATE;
+  GPIO_InitStruct.Speed      = LL_GPIO_SPEED_FREQ_VERY_HIGH; // 提高带宽
+  GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_PUSHPULL;
+  GPIO_InitStruct.Pull       = LL_GPIO_PULL_NO;
+  GPIO_InitStruct.Alternate  = LL_GPIO_AF_1;
+  LL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+
+  // 配置 TIM2 基本参数
+  TIM_InitStruct.Prescaler     = 0;
+  TIM_InitStruct.CounterMode   = LL_TIM_COUNTERMODE_UP;
+  TIM_InitStruct.Autoreload    = 0xFFFFFFFF; // TIM2 是 32 位定时器，全量程计数
+  TIM_InitStruct.ClockDivision = LL_TIM_CLOCKDIVISION_DIV1;
+  LL_TIM_Init(TIM2, &TIM_InitStruct);
+  
+  LL_TIM_DisableARRPreload(TIM2);
+
+  // 配置外部时钟模式 1 (Slave Mode: External Clock Mode 1)
+  // 选择 TI2FP2 (通道2 经过滤波器和极性选择后的信号) 作为触发源
+  LL_TIM_SetTriggerInput(TIM2, LL_TIM_TS_TI2FP2);
+  LL_TIM_SetClockSource(TIM2, LL_TIM_CLOCKSOURCE_EXT_MODE1);
+
+  // 配置通道 2 的输入特性
+  LL_TIM_IC_SetFilter(TIM2, LL_TIM_CHANNEL_CH2, LL_TIM_IC_FILTER_FDIV1);
+  LL_TIM_IC_SetPolarity(TIM2, LL_TIM_CHANNEL_CH2, LL_TIM_IC_POLARITY_RISING);
+  
+  LL_TIM_CC_EnableChannel(TIM2, LL_TIM_CHANNEL_CH2);
+
+  // 强制更新以同步配置并清零计数器
+  LL_TIM_GenerateEvent_UPDATE(TIM2);
+  LL_TIM_ClearFlag_UPDATE(TIM2);
+  LL_TIM_SetCounter(TIM2, 0); // 确保从 0 开始计数
+
+  // 其他辅助设置
+  LL_TIM_DisableIT_TRIG(TIM2);
+  LL_TIM_DisableDMAReq_TRIG(TIM2);
+  LL_TIM_SetTriggerOutput(TIM2, LL_TIM_TRGO_RESET);
+  LL_TIM_DisableMasterSlaveMode(TIM2);
+}
+
+/**
+  * @brief  启动 TIM2 脉冲计数
+  * @note   必须在 BSP_TIM2_PULSE_Init() 之后调用
+  * @retval None
+  */
+void BSP_TIM2_PULSE_Start(void)
+{
+    LL_TIM_SetCounter(TIM2, 0);          // 清零计数器
+    LL_TIM_ClearFlag_UPDATE(TIM2);       // 清除更新标志
+    LL_TIM_EnableCounter(TIM2);          // 使能计数器
+}
+
+/**
+  * @brief  停止 TIM2 脉冲计数
+  * @retval None
+  */
+void BSP_TIM2_PULSE_Stop(void)
+{
+    LL_TIM_DisableCounter(TIM2);         // 禁用计数器
+}
+
+/**
+  * @brief  读取 TIM2 脉冲计数值
+  * @retval uint32_t 当前脉冲计数值（0 ~ 0xFFFFFFFF）
+  */
+uint32_t BSP_TIM2_PULSE_GetCount(void)
+{
+    return LL_TIM_GetCounter(TIM2);
+}
+
+/**
+  * @brief  清除 TIM2 脉冲计数值（归零）
+  * @retval None
+  */
+void BSP_TIM2_PULSE_ClearCount(void)
+{
+    LL_TIM_SetCounter(TIM2, 0);
+}
+
+/**
+  * @brief  读取并清除 TIM2 脉冲计数值（原子操作）
+  * @note   读取当前计数值后立即清零，适用于周期性采样场景
+  * @retval uint32_t 清零前的脉冲计数值
+  */
+uint32_t BSP_TIM2_PULSE_GetAndClearCount(void)
+{
+    uint32_t count = LL_TIM_GetCounter(TIM2);
+    LL_TIM_SetCounter(TIM2, 0);
+    return count;
+}
+
+/**
+  * @brief  检查 TIM2 计数器是否正在运行
+  * @retval uint32_t 1: 正在运行, 0: 已停止
+  */
+uint32_t BSP_TIM2_PULSE_IsRunning(void)
+{
+    return LL_TIM_IsEnabledCounter(TIM2);
 }

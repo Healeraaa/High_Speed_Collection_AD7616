@@ -29,6 +29,10 @@ void BSP_Init(void)
   BSP_GPIO_LED_Init();// 初始化LED相关的GPIO 
   BSP_USART1_Init();// 初始化USART1
   BSP_USART3_Init();// 初始化USART3
+  // BSP_TIM2_PULSE_Init();// 初始化TIM2脉冲计数器
+  // BSP_TIM2_PULSE_Start();
+
+  
 
   
 }

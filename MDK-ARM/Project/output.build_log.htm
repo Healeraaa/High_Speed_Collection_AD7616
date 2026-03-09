@@ -27,29 +27,16 @@ Project File Date:  01/28/2026
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 7 (build 960)', folder: 'D:\Keil\Keil_v5\ARM\ARMCC\Bin'
 Build target 'Project'
-compiling bsp_timer.c...
-compiling Module_Serial411.c...
-compiling main.c...
-../Core/Src/main.c(16): warning:  #1-D: last line of file ends without a newline
-  }
-../Core/Src/main.c: 1 warning, 0 errors
-compiling App_WaveCollectionTask.c...
-compiling App_TasksInit.c...
-compiling App_IncentiveSettingsTask.c...
-..\Application\App_IncentiveSettingsTask.c(66): warning:  #1-D: last line of file ends without a newline
-  // }
-..\Application\App_IncentiveSettingsTask.c: 1 warning, 0 errors
-compiling Module.c...
-compiling Module_AD7616.c...
+compiling bsp.c...
 linking...
 .\Project.sct(155): warning: L6312W: Empty Execution region description for region RW_IRAM4
 .\Project.sct(180): warning: L6312W: Empty Execution region description for region RW_IRAM5
 .\Project.sct(201): warning: L6312W: Empty Execution region description for region RW_IRAM6
 .\Project.sct(114): warning: L6314W: No section matches pattern *(RAM_D2).
-Program Size: Code=34968 RO-data=1056 RW-data=12576 ZI-data=90824  
+Program Size: Code=35696 RO-data=1072 RW-data=12576 ZI-data=90824  
 Finished: 0 information, 4 warning and 0 error messages.
 FromELF: creating hex file...
-".\Project\output.axf" - 0 Error(s), 6 Warning(s).
+".\Project\output.axf" - 0 Error(s), 4 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -83,9 +70,9 @@ Package Vendor: Keil
    * Component: ARM::CMSIS:CORE@6.1.0
 
    * Component: Keil::Compiler&ARM Compiler:Event Recorder&DAP@1.4.0
-      Source file:   Source/EventRecorder.c
       Include file:  Config/EventRecorderConf.h
       Include file:  Include/EventRecorder.h
+      Source file:   Source/EventRecorder.c
 
    * Component: Keil::Compiler&ARM Compiler:I/O:STDOUT&EVR@1.2.0
       Source file:   Source/retarget_io.c

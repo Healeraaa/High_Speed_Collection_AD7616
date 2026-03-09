@@ -27,7 +27,6 @@ Module_Status_t Module_AD7616_Config(void)
         return Module_ERROR;
     }
     BSP_TIM3_PWM0_Init();// 初始化TIM3用于AD7616采样触发的PWM输出
-    
     BSP_DMA_AD7616_Init();// 初始化DMA用于AD7616数据传输
     BSP_GPIO_AD7616_BUSY_Init(); // 初始化 AD7616 BUSY 引脚的 GPIO
     
