@@ -6,42 +6,46 @@
 // #include "usb_device.h"
 // #include "usbd_cdc_if.h"
 
+/* 数据包结构体（与 App_WaveCollectionTask.c 一致） */
+typedef struct {
+    float    *pBuffer;      // 电压缓冲区指针
+    uint32_t  validCount;   // 有效数据数量
+} VoltageData_t;
+
 /* 外部队列句柄 */
 extern QueueHandle_t xVoltageDataQueue;
 
 void App_VofaDataUploadTask(void *argument)
 {
-    float *p_voltage_data = NULL;  // 接收的电压缓冲区指针
+    VoltageData_t rxData;  // 接收的数据包
     // MX_USB_DEVICE_Init();
 
-    
     while (1)
     {
-        /* 等待接收电压数据指针 (阻塞等待) */
-        if (xQueueReceive(xVoltageDataQueue, &p_voltage_data, portMAX_DELAY) == pdTRUE)
+        /* 等待接收电压数据包 (阻塞等待) */
+        if (xQueueReceive(xVoltageDataQueue, &rxData, portMAX_DELAY) == pdTRUE)
         {
-            /* ========== 发送数据到 VOFA+ ========== */
-            // 示例: 发送前 3 个通道数据 (可根据实际需求调整)
-            // printf("%4.3f,%4.3f,%4.3f\r\n", 
-            //        p_voltage_data[0],   // 通道 0
-            //        p_voltage_data[1],   // 通道 1
-            //        p_voltage_data[2]);  // 通道 2
-            
-            /* 或发送所有 1024 个采样点 (需 VOFA+ 配置对应通道数) */
-            for (uint16_t i = 0; i < 512; i++)                                     
-            {
-                printf("%4.3f,%4.3f\r\n", p_voltage_data[2*i],p_voltage_data[2*i+1]);
-                // CDC_Transmit_HS((uint8_t *)"Module Config OK!\r\n", strlen("Module Config OK!\r\n"));
+            float    *p_voltage_data = rxData.pBuffer;
+            uint32_t  valid_count    = rxData.validCount;
 
-                // printf("%4.3f\r\n", p_voltage_data[2*i]);
-                // printf("%4.3f\r\n", p_voltage_data[2*i+1]);
-                // printf("HAHAHHAHAHAHHAHAHAH:%4.3f\r\n", p_voltage_data[2*i]);
+            /* ========== 发送数据到 VOFA+ ========== */
+            // 根据有效数据量发送（每次发送 2 个通道）
+            uint32_t pairs = valid_count / 2;
+            for (uint32_t i = 0; i < pairs; i++)
+            {
+                printf("%4.3f,%4.3f,%d\r\n", p_voltage_data[2*i], p_voltage_data[2*i+1],valid_count);
+                vTaskDelay(10);
+            }
+            
+            // 如果有奇数个数据，单独发送最后一个
+            if (valid_count % 2 != 0)
+            {
+                printf("%4.3f\r\n", p_voltage_data[valid_count - 1]);
                 vTaskDelay(10);
             }
         }
     }
 }
-
 
 // /* 正弦波参数 */
 // #define SINE_AMPLITUDE  5.0f    // 振幅
