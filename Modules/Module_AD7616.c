@@ -46,12 +46,16 @@ Module_Status_t Module_AD7616_Config(void)
     BSP_DWT_Delay_us(5);  // 等待 AD7616 上电稳定
     // 配置所有通道为 ±5V 量程
     Module_AD7616_WriteReg(AD7616_REG_RANGE_A1, 0xAA);  
+    // Module_AD7616_WriteReg(AD7616_REG_RANGE_A1, 0x00);  
     BSP_DWT_Delay_us(5);  // 等待 AD7616 上电稳定
     Module_AD7616_WriteReg(AD7616_REG_RANGE_A2, 0xAA);  
+    // Module_AD7616_WriteReg(AD7616_REG_RANGE_A1, 0x00);  
     BSP_DWT_Delay_us(5);  // 等待 AD7616 上电稳定
     Module_AD7616_WriteReg(AD7616_REG_RANGE_B1, 0xAA);  
+    // Module_AD7616_WriteReg(AD7616_REG_RANGE_A1, 0x00);  
     BSP_DWT_Delay_us(5);  // 等待 AD7616 上电稳定
     Module_AD7616_WriteReg(AD7616_REG_RANGE_B2, 0xAA);  
+    // Module_AD7616_WriteReg(AD7616_REG_RANGE_A1, 0x00);  
     BSP_DWT_Delay_us(5);  // 等待 AD7616 上电稳定
 
     // while(1)
