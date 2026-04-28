@@ -26,6 +26,8 @@ Module_Status_t Module_AD7616_Config(void)
     {
         return Module_ERROR;
     }
+    BSP_GPIO_AD7616_RST_Init(); // 初始化 AD7616 复位引脚
+    BSP_GPIO_AD7616_FULL_RST(); // 对 AD7616 进行一次完整的复位，确保其处于已知状态
     BSP_TIM3_PWM0_Init();// 初始化TIM3用于AD7616采样触发的PWM输出
     BSP_DMA_AD7616_Init();// 初始化DMA用于AD7616数据传输
     BSP_GPIO_AD7616_BUSY_Init(); // 初始化 AD7616 BUSY 引脚的 GPIO
@@ -57,6 +59,11 @@ Module_Status_t Module_AD7616_Config(void)
     Module_AD7616_WriteReg(AD7616_REG_RANGE_B2, 0xAA);  
     // Module_AD7616_WriteReg(AD7616_REG_RANGE_A1, 0x00);  
     BSP_DWT_Delay_us(5);  // 等待 AD7616 上电稳定
+
+    //测试
+    // volatile uint8_t reg = 0;
+    // reg = Module_AD7616_ReadReg(AD7616_REG_RANGE_A1);
+    // BSP_DWT_Delay_us(5);
 
     // while(1)
     // {

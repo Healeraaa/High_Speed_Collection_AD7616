@@ -1750,6 +1750,16 @@
               <FileType>5</FileType>
               <FilePath>..\Modules\Module_Serial411.h</FilePath>
             </File>
+            <File>
+              <FileName>Module_LightCounting.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Modules\Module_LightCounting.c</FilePath>
+            </File>
+            <File>
+              <FileName>Module_LightCounting.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Modules\Module_LightCounting.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

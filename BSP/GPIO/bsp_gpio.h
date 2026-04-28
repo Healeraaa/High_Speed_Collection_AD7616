@@ -23,6 +23,10 @@ KeyGpioConfig_t* BSP_GPIO_KEY_GetHandle(void);
 // ==================== AD7616_BUSY ====================
 void BSP_GPIO_AD7616_BUSY_Init(void);
 
+// ==================== AD7616_RST ====================
+void BSP_GPIO_AD7616_FULL_RST(void);
+void BSP_GPIO_AD7616_RST_Init(void);
+
 // ==================== STM32F411 Synchronization ====================
 
 void BSP_GPIO_STM32F411_SYN_Init(void);

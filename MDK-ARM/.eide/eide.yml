@@ -101,6 +101,8 @@ virtualFolder:
         - path: ../Modules/Module_AD7616.h
         - path: ../Modules/Module_Serial411.c
         - path: ../Modules/Module_Serial411.h
+        - path: ../Modules/Module_LightCounting.c
+        - path: ../Modules/Module_LightCounting.h
       folders: []
     - name: App
       files:
@@ -193,8 +195,7 @@ targets:
         - RTE/_Project
       libList: []
     excludeList: []
-    settings:
-      debugger: cortex-debug
+    settings: {}
     toolchain: AC5
     toolchainConfigMap:
       AC5:

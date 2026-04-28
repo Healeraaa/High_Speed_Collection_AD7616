@@ -3,6 +3,7 @@
 #include "main.h"
 #include "bsp.h"
 #include "stdio.h"
+#include "Module_LightCounting.h"
 // #include "usb_device.h"
 // #include "usbd_cdc_if.h"
 
@@ -33,7 +34,7 @@ void App_VofaDataUploadTask(void *argument)
             uint32_t pairs = valid_count / 2;
             for (uint32_t i = 0; i < pairs; i++)
             {
-                printf("%4.3f,%4.3f,%d\r\n", p_voltage_data[2*i], p_voltage_data[2*i+1],valid_count);
+                printf("%4.3f,%4.3f,%d\r\n", p_voltage_data[2*i], p_voltage_data[2*i+1],Module_LightCounting_GetAndClearCount());
                 vTaskDelay(10);
             }
             

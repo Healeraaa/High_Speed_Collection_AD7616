@@ -85,5 +85,11 @@ uint32_t BSP_TIM2_PULSE_GetAndClearCount(void);
   */
 uint32_t BSP_TIM2_PULSE_IsRunning(void);
 
+// ========================================================================== TIM4 ==========================================================================
+void BSP_TIM4_COUNT_Init(void);
+void BSP_TIM4_COUNT_Start(void);
+void BSP_TIM4_COUNT_Stop(void);
+BSP_Status_t BSP_TIM4_COUNT_SetParams(uint32_t psc, uint32_t arr);
+
 #endif 
 

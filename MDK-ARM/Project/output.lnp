@@ -49,6 +49,7 @@
 ".\project\module.o"
 ".\project\module_ad7616.o"
 ".\project\module_serial411.o"
+".\project\module_lightcounting.o"
 ".\project\app.o"
 ".\project\app_tasksinit.o"
 ".\project\app_wavecollectiontask.o"

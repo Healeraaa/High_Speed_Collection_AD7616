@@ -97,6 +97,30 @@ void EXTI0_IRQHandler(void)
 }
 
 
+// ==================== AD7616_RST ====================
+void BSP_GPIO_AD7616_RST_Init(void)
+{
+  LL_GPIO_InitTypeDef GPIO_InitStruct = {0};
+
+  LL_AHB4_GRP1_EnableClock(LL_AHB4_GRP1_PERIPH_GPIOE);
+  LL_GPIO_SetOutputPin(GPIOE, LL_GPIO_PIN_2);
+
+  GPIO_InitStruct.Pin = LL_GPIO_PIN_2;
+  GPIO_InitStruct.Mode = LL_GPIO_MODE_OUTPUT;
+  GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_LOW;
+  GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_PUSHPULL;
+  GPIO_InitStruct.Pull = LL_GPIO_PULL_NO;
+  LL_GPIO_Init(GPIOE, &GPIO_InitStruct);
+}
+void BSP_GPIO_AD7616_FULL_RST(void)
+{
+  LL_GPIO_ResetOutputPin(GPIOE, LL_GPIO_PIN_2);
+  BSP_DWT_Delay_ms(1); // 保持至少 10us 的低电平
+  LL_GPIO_SetOutputPin(GPIOE, LL_GPIO_PIN_2);
+  BSP_DWT_Delay_ms(1); // 等待 AD7616 上电稳定
+
+}
+
 // ==================== STM32F411 Synchronization ====================
 
 void BSP_GPIO_STM32F411_SYN_Init(void)

@@ -49,7 +49,7 @@ void App_WaveCollectionTask(void *argument)
     }
 
     BSP_GPIO_STM32F411_SYN_Init();
-    Module_AD7616_Config();
+    // Module_AD7616_Config();  
     Module_AD7616_Set_SampleRate(100);
 
     while (1)
@@ -62,8 +62,8 @@ void App_WaveCollectionTask(void *argument)
             for (uint32_t i = 0; i < rxInfo.validCount; i++)
             {
                 int16_t raw_data = (int16_t)p_processing_buffer[i];
-                p_voltage_buffer[i] = (float)(raw_data );
-                // p_voltage_buffer[i] = (raw_data / 32768.0f) * 5.0f;
+                // p_voltage_buffer[i] = (float)(raw_data );
+                p_voltage_buffer[i] = (raw_data / 32768.0f) * 5.0f;
             }
 
             VoltageData_t txData = {
