@@ -78,6 +78,71 @@ typedef struct {
     Serial411_DoubleConverter_t write_buffer[SERIAL411_DATA_LENGTH];        // 写缓冲区
 } Serial411_Packet_t;
 
+
+/**
+ * @brief 模块增益配置结构体
+ * @note  用于存储 IV 转换和电压放大的所有配置参数
+ */
+typedef struct {
+    IV_Gain_TypeDef iv_gain;                          // IV 转换倍数（1K/100K/10M/100M）
+    Voltage_Gain_Stage1_TypeDef voltage_gain_stage1;  // 第一级电压放大倍数（5X/20X）
+    Voltage_Gain_Stage2_TypeDef voltage_gain_stage2;  // 第二级电压放大倍数（1X/5X/20X/50X）
+    Feedback_Select_TypeDef feedback_select;          // 反馈选择（GND/FB）
+    WE_Channel_TypeDef we_channel;                    // WE 通道选择（1/2/3/4）
+} Serial411_GainConfig_t;
+
+/**
+ * @brief 获取 IV 增益对应的实际倍数
+ * @param iv_gain IV 增益枚举值
+ * @return uint32_t 实际的增益倍数（1000/100000/10000000/100000000）
+ */
+static inline uint32_t Serial411_Get_IV_Gain_Value(IV_Gain_TypeDef iv_gain)
+{
+    switch (iv_gain)
+    {
+        case IV_GAIN_1K:    return 1000;           // 1K
+        case IV_GAIN_100K:  return 100000;         // 100K
+        case IV_GAIN_10M:   return 10000000;       // 10M
+        case IV_GAIN_100M:  return 100000000;      // 100M
+        default:            return 1000;
+    }
+}
+
+/**
+ * @brief 获取第一级电压增益对应的倍数
+ * @param gain 第一级电压增益枚举值
+ * @return uint32_t 实际的增益倍数（5 或 20）
+ */
+static inline uint32_t Serial411_Get_Voltage_Gain_Stage1_Value(Voltage_Gain_Stage1_TypeDef gain)
+{
+    switch (gain)
+    {
+        case VOLTAGE_GAIN_STAGE1_5X:   return 5;
+        case VOLTAGE_GAIN_STAGE1_20X:  return 20;
+        default:                        return 5;
+    }
+}
+
+/**
+ * @brief 获取第二级电压增益对应的倍数
+ * @param gain 第二级电压增益枚举值
+ * @return uint32_t 实际的增益倍数（1/5/20/50）
+ */
+static inline uint32_t Serial411_Get_Voltage_Gain_Stage2_Value(Voltage_Gain_Stage2_TypeDef gain)
+{
+    switch (gain)
+    {
+        case VOLTAGE_GAIN_STAGE2_1X:   return 1;
+        case VOLTAGE_GAIN_STAGE2_5X:   return 5;
+        case VOLTAGE_GAIN_STAGE2_20X:  return 20;
+        case VOLTAGE_GAIN_STAGE2_50X:  return 50;
+        default:                        return 1;
+    }
+}
+
+
+
+
 Module_Status_t Serial_SendPacket(uint8_t command, double *data);
 
 #endif 

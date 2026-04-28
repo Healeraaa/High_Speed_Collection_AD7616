@@ -8,25 +8,28 @@
 // #include "usbd_cdc_if.h"
 
 /* 数据包结构体（与 App_WaveCollectionTask.c 一致） */
-typedef struct {
-    float    *pBuffer;      // 电压缓冲区指针
-    uint32_t  validCount;   // 有效数据数量
-} VoltageData_t;
+typedef struct
+{
+    float *pVoltageBuffer;
+    float *pCurrentBuffer;
+    uint32_t validCount;
+} IVData_t;
 
 /* 外部队列句柄 */
-extern QueueHandle_t xVoltageDataQueue;
+extern QueueHandle_t xIVDataQueue;
 
 void App_VofaDataUploadTask(void *argument)
 {
-    VoltageData_t rxData;  // 接收的数据包
+    IVData_t rxData;  // 接收的数据包
     // MX_USB_DEVICE_Init();
 
     while (1)
     {
         /* 等待接收电压数据包 (阻塞等待) */
-        if (xQueueReceive(xVoltageDataQueue, &rxData, portMAX_DELAY) == pdTRUE)
+        if (xQueueReceive(xIVDataQueue, &rxData, portMAX_DELAY) == pdTRUE)
         {
-            float    *p_voltage_data = rxData.pBuffer;
+            float    *p_voltage_data = rxData.pVoltageBuffer;
+            float    *p_current_data = rxData.pCurrentBuffer;
             uint32_t  valid_count    = rxData.validCount;
 
             /* ========== 发送数据到 VOFA+ ========== */
@@ -34,8 +37,10 @@ void App_VofaDataUploadTask(void *argument)
             uint32_t pairs = valid_count / 2;
             for (uint32_t i = 0; i < pairs; i++)
             {
-                printf("%4.3f,%4.3f,%d\r\n", p_voltage_data[2*i], p_voltage_data[2*i+1],Module_LightCounting_GetAndClearCount());
-                vTaskDelay(10);
+                printf("%4.3f,%4.3f,%d\r\n", p_voltage_data[i], p_current_data[i],1);
+                // CDC_Transmit_HS((uint8_t *)p_voltage_data, pairs);
+                // CDC_Transmit_HS((uint8_t *)p_current_data, pairs);
+                vTaskDelay(1);
             }
             
             // 如果有奇数个数据，单独发送最后一个
