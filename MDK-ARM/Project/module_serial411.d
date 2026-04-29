@@ -56,6 +56,7 @@
 .\project\module_serial411.o: D:\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 .\project\module_serial411.o: ..\Modules\Module_Key.h
 .\project\module_serial411.o: ..\Modules\Module_Serial411.h
+.\project\module_serial411.o: ..\Modules\Module_ReceiveUpper.h
 .\project\module_serial411.o: ../BSP/bsp.h
 .\project\module_serial411.o: ../BSP/GPIO/bsp_gpio.h
 .\project\module_serial411.o: ../BSP/TIMER/bsp_timer.h

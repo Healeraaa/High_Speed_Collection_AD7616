@@ -63,3 +63,4 @@
 .\project\bsp_timer.o: ../Modules/Module.h
 .\project\bsp_timer.o: ../Modules/Module_Key.h
 .\project\bsp_timer.o: ../Modules/Module_Serial411.h
+.\project\bsp_timer.o: ../Modules/Module_ReceiveUpper.h

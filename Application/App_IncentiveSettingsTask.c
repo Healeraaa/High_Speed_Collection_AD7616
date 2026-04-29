@@ -1,6 +1,7 @@
 #include "App_IncentiveSettingsTask.h"
 #include "App_TasksInit.h"
 #include "Module.h"
+#include "Module_ReceiveUpper.h"
 #include "main.h"
 #include "bsp.h"
 #include "stdio.h"
@@ -57,10 +58,32 @@ void App_IncentiveSettingsTask(void *argument)
     data_converter[8].double_val = 0.0;
     data_converter[9].double_val = 0.0;
 
+    USART1_RxData_t rx_data = {0};
 
     while(1)
     {
-        Serial_SendPacket(0x0, (double *)data_converter);
+        // // 检查并处理来自上位机的数据
+        // if (Module_USART1_IsDataReady()) {
+        //     if (Module_USART1_ParseData(&rx_data) == BSP_OK) {
+        //         // 根据接收到的模式处理数据
+        //         printf("Received Mode: %lu, Data Count: %lu\n", rx_data.mode, rx_data.float_count);
+                
+        //         // 更新 data_converter 前6个参数（对应浮点数据）
+        //         for (uint32_t i = 0; i < rx_data.float_count && i < 6; i++) {
+        //             data_converter[i].double_val = (double)rx_data.float_data[i];
+        //             printf("  data_converter[%lu] = %f\n", i, data_converter[i].double_val);
+        //         }
+        //         Serial_SendPacket((uint8_t)rx_data.mode, (double *)data_converter);
+        //     }
+            
+        // // vTaskDelay(500000);
+        // }
+        Serial_SendPacket(0x01, (double *)data_converter);
         vTaskDelay(500000);
+        vTaskDelay(5);
+        // 定期发送数据（携带接收到的模式标识）
+        
     }
 }
+
+

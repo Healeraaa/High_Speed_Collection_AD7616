@@ -73,6 +73,7 @@
 .\project\app_incentivesettingstask.o: D:\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 .\project\app_incentivesettingstask.o: ../Modules/Module_Key.h
 .\project\app_incentivesettingstask.o: ../Modules/Module_Serial411.h
+.\project\app_incentivesettingstask.o: ../Modules/Module_ReceiveUpper.h
 .\project\app_incentivesettingstask.o: ../BSP/bsp.h
 .\project\app_incentivesettingstask.o: ../BSP/GPIO/bsp_gpio.h
 .\project\app_incentivesettingstask.o: ../BSP/TIMER/bsp_timer.h

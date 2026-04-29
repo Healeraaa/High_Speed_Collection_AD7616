@@ -1760,6 +1760,16 @@
               <FileType>5</FileType>
               <FilePath>..\Modules\Module_LightCounting.h</FilePath>
             </File>
+            <File>
+              <FileName>Module_ReceiveUpper.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Modules\Module_ReceiveUpper.c</FilePath>
+            </File>
+            <File>
+              <FileName>Module_ReceiveUpper.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Modules\Module_ReceiveUpper.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

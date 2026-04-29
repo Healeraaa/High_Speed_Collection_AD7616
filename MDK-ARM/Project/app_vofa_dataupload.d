@@ -78,14 +78,3 @@
 .\project\app_vofa_dataupload.o: ../BSP/FMC/bsp_fmc.h
 .\project\app_vofa_dataupload.o: ../BSP/bsp.h
 .\project\app_vofa_dataupload.o: ../Modules/Module_LightCounting.h
-.\project\app_vofa_dataupload.o: ..\Application\USB\usb_device.h
-.\project\app_vofa_dataupload.o: ..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\usbd_def.h
-.\project\app_vofa_dataupload.o: ..\BSP\USB\usbd_conf.h
-.\project\app_vofa_dataupload.o: D:\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
-.\project\app_vofa_dataupload.o: D:\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
-.\project\app_vofa_dataupload.o: ..\Application\USB\usbd_cdc_if.h
-.\project\app_vofa_dataupload.o: ..\Middlewares\ST\STM32_USB_Device_Library\Class\CDC\Inc\usbd_cdc.h
-.\project\app_vofa_dataupload.o: ..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\usbd_ioreq.h
-.\project\app_vofa_dataupload.o: ..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\usbd_core.h
-.\project\app_vofa_dataupload.o: ..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\usbd_ioreq.h
-.\project\app_vofa_dataupload.o: ..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\usbd_ctlreq.h

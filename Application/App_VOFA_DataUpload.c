@@ -10,8 +10,7 @@
 /* 数据包结构体（与 App_WaveCollectionTask.c 一致） */
 typedef struct
 {
-    float *pVoltageBuffer;
-    float *pCurrentBuffer;
+    float *pIVBuffer;
     uint32_t validCount;
 } IVData_t;
 
@@ -28,8 +27,7 @@ void App_VofaDataUploadTask(void *argument)
         /* 等待接收电压数据包 (阻塞等待) */
         if (xQueueReceive(xIVDataQueue, &rxData, portMAX_DELAY) == pdTRUE)
         {
-            float    *p_voltage_data = rxData.pVoltageBuffer;
-            float    *p_current_data = rxData.pCurrentBuffer;
+            float    *p_iv_data = rxData.pIVBuffer;
             uint32_t  valid_count    = rxData.validCount;
 
             /* ========== 发送数据到 VOFA+ ========== */
@@ -37,7 +35,7 @@ void App_VofaDataUploadTask(void *argument)
             uint32_t pairs = valid_count / 2;
             for (uint32_t i = 0; i < pairs; i++)
             {
-                printf("%4.3f,%4.3f,%d\r\n", p_voltage_data[i], p_current_data[i],1);
+                printf("%4.3f,%4.3f,%d\r\n", p_iv_data[2*i], p_iv_data[2*i],1);
                 // CDC_Transmit_HS((uint8_t *)p_voltage_data, pairs);
                 // CDC_Transmit_HS((uint8_t *)p_current_data, pairs);
                 vTaskDelay(1);
@@ -46,7 +44,7 @@ void App_VofaDataUploadTask(void *argument)
             // 如果有奇数个数据，单独发送最后一个
             if (valid_count % 2 != 0)
             {
-                printf("%4.3f\r\n", p_voltage_data[valid_count - 1]);
+                printf("%4.3f\r\n", p_iv_data[valid_count - 1]);
                 vTaskDelay(10);
             }
         }

@@ -8,16 +8,13 @@
 #include "bsp_gpio.h"
 
 #define DMA_BUFFER_SIZE 1024
-#define IV_BUFFER_SIZE 512
 
 __attribute__((section("RAM_D3"))) __attribute__((aligned(32))) uint16_t AD7616_DataBuffer_A[DMA_BUFFER_SIZE] = {0};
 __attribute__((section("RAM_D3"))) __attribute__((aligned(32))) uint16_t AD7616_DataBuffer_B[DMA_BUFFER_SIZE] = {0};
 
-__attribute__((section("RAM_D3"))) __attribute__((aligned(32))) float AD7616_VoltageBuffer_A[IV_BUFFER_SIZE] = {0.0f};
-__attribute__((section("RAM_D3"))) __attribute__((aligned(32))) float AD7616_VoltageBuffer_B[IV_BUFFER_SIZE] = {0.0f};
+__attribute__((section("RAM_D3"))) __attribute__((aligned(32))) float AD7616_IVBuffer_A[DMA_BUFFER_SIZE] = {0.0f};
+__attribute__((section("RAM_D3"))) __attribute__((aligned(32))) float AD7616_IVBuffer_B[DMA_BUFFER_SIZE] = {0.0f};
 
-__attribute__((section("RAM_D3"))) __attribute__((aligned(32))) float AD7616_CurrentBuffer_A[IV_BUFFER_SIZE] = {0.0f};
-__attribute__((section("RAM_D3"))) __attribute__((aligned(32))) float AD7616_CurrentBuffer_B[IV_BUFFER_SIZE] = {0.0f};
 
 extern Serial411_GainConfig_t g_Serial411_GainConfig;
 
@@ -32,8 +29,7 @@ typedef struct
 /* 电压数据包（处理任务 → 上传任务）*/
 typedef struct
 {
-    float *pVoltageBuffer;
-    float *pCurrentBuffer;
+    float *pIVBuffer;
     uint32_t validCount;
 } IVData_t;
 
@@ -46,8 +42,7 @@ void App_WaveCollectionTask(void *argument)
 {
     RawDataInfo_t rxInfo;
     uint16_t *p_processing_buffer;
-    float *p_voltage_buffer;
-    float *p_current_buffer;
+    float *p_iv_buffer;
 
     xRawDataQueue = xQueueCreate(4, sizeof(RawDataInfo_t));
     xIVDataQueue = xQueueCreate(2, sizeof(IVData_t));
@@ -69,8 +64,7 @@ void App_WaveCollectionTask(void *argument)
         if (xQueueReceive(xRawDataQueue, &rxInfo, portMAX_DELAY) == pdTRUE)
         {
             p_processing_buffer = (rxInfo.bufferIndex == 0) ? AD7616_DataBuffer_A : AD7616_DataBuffer_B;
-            p_voltage_buffer = (rxInfo.bufferIndex == 0) ? AD7616_VoltageBuffer_A : AD7616_VoltageBuffer_B;
-            p_current_buffer = (rxInfo.bufferIndex == 0) ? AD7616_CurrentBuffer_A : AD7616_CurrentBuffer_B;
+            p_iv_buffer = (rxInfo.bufferIndex == 0) ? AD7616_IVBuffer_A : AD7616_IVBuffer_B;
 
             for (uint32_t i = 0; i < rxInfo.validCount; i++)
             {
@@ -83,18 +77,17 @@ void App_WaveCollectionTask(void *argument)
 
                 if (i % 2 == 0) // 偶数索引 -> 填充到 voltage_buffer
                 {
-                    p_voltage_buffer[i / 2] = voltage;
+                    p_iv_buffer[i] = voltage;
                 }
                 else // 奇数索引 -> 填充到 current_buffer
                 {
                     // p_current_buffer[i / 2] = voltage;
-                    p_current_buffer[i / 2] = voltage*1000 / iv_gain / voltage_gain_stage1 / voltage_gain_stage2;
+                    p_iv_buffer[i] = voltage*1000 / iv_gain / voltage_gain_stage1 / voltage_gain_stage2;
                 }
             }
 
             IVData_t txData = {
-                .pVoltageBuffer = p_voltage_buffer,
-                .pCurrentBuffer = p_current_buffer,
+                .pIVBuffer = p_iv_buffer,
                 .validCount = rxInfo.validCount};
             xQueueSend(xIVDataQueue, &txData, 0);
 

@@ -30,6 +30,9 @@ void BSP_USART1_Init(void)
   GPIO_InitStruct.Alternate = LL_GPIO_AF_7;                    // 复用功能 7 (USART1)
   LL_GPIO_Init(GPIOA, &GPIO_InitStruct);                       // 初始化 GPIO
 
+  // NVIC_SetPriority(USART1_IRQn, NVIC_EncodePriority(NVIC_GetPriorityGrouping(),0, 0));
+  // NVIC_EnableIRQ(USART1_IRQn);
+
   USART_InitStruct.PrescalerValue = LL_USART_PRESCALER_DIV1;              // 预分频器设置为 1
   USART_InitStruct.BaudRate = 3000000;                                     // 波特率 115200
   USART_InitStruct.DataWidth = LL_USART_DATAWIDTH_8B;                     // 数据位 8 位
@@ -45,6 +48,8 @@ void BSP_USART1_Init(void)
   LL_USART_ConfigAsyncMode(USART1);                                       // 配置为异步模式
 
   LL_USART_Enable(USART1);                                                // 使能 USART1
+
+  // LL_USART_EnableIT_RXNE(USART1);
 
   /* Polling USART1 initialisation */
   while((!(LL_USART_IsActiveFlag_TEACK(USART1))) || (!(LL_USART_IsActiveFlag_REACK(USART1))))  // 轮询等待 USART1 发送和接收使能确认标志
