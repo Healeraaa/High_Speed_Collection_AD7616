@@ -149,7 +149,7 @@ void App_Tasks_Init(void)
   xTaskCreate(App_KeyTestTask, "App_KeyTestTask", 256, NULL, 2, &App_Key_Task_Handle);        
   xTaskCreate(App_WaveCollectionTask, "App_WaveCollectionTask", 256, NULL, 3, &App_AD7616_Task_Handle);     
   xTaskCreate(App_VofaDataUploadTask, "App_VofaDataUploadTask", 128*4, NULL, 1, &App_VOFA_DataUpload_Task_Handle);   
-  xTaskCreate(App_IncentiveSettingsTask, "App_IncentiveSettingsTask", 256, NULL, 2, &App_IncentiveSettingsTask_Handle); 
+  xTaskCreate(App_IncentiveSettingsTask, "App_IncentiveSettingsTask", 256, NULL, 4, &App_IncentiveSettingsTask_Handle); 
               
   xSemaphoreGive(xMutex);
 }

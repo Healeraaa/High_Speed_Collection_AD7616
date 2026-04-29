@@ -8,11 +8,14 @@
 
 static uint8_t usart1_rx_buffer[USART1_RX_BUFFER_SIZE] = {0};  // 接收缓冲区
 static uint16_t usart1_rx_index = 0;                            // 接收指针
+static uint8_t usart1_data_ready_flag = 0;                      // 接收完成标志位
 
 /**
  * @brief  USART1 接收单个字符 (在中断处理函数中调用)
  * @param  ch: 接收到的字节
  * @retval None
+ * 
+ * 说明：当接收到完整数据包（包含 "ceio:" 和 "\n"）时，自动置位 usart1_data_ready_flag
  */
 void Module_USART1_ReceiveChar(uint8_t ch)
 {
@@ -20,36 +23,43 @@ void Module_USART1_ReceiveChar(uint8_t ch)
   if (usart1_rx_index >= USART1_RX_BUFFER_SIZE - 1)
   {
     usart1_rx_index = 0;  // 缓冲区复位
+    usart1_data_ready_flag = 0;  // 清除标志位
   }
   
   usart1_rx_buffer[usart1_rx_index++] = ch;
   usart1_rx_buffer[usart1_rx_index] = '\0';  // 字符串终止符
+  
+  // 检测是否接收到完整数据包
+  if (ch == '\n' && usart1_rx_index > 1)
+  {
+    // 查找 "ceio:" 开头
+    if (strstr((const char *)usart1_rx_buffer, "ceio:") != NULL)
+    {
+      usart1_data_ready_flag = 1;  // 置位接收完成标志
+    }
+  }
 }
 
 /**
- * @brief  判断 USART1 接收缓冲区中是否有完整数据包
+ * @brief  判断 USART1 是否有完整数据包待处理（原子操作：读取并清除标志位）
  * @param  None
- * @retval 1 - 有完整数据包 (找到 "ceio:....\n"); 0 - 数据不完整或无数据
+ * @retval 1 - 有完整数据包需要处理; 0 - 无新数据或已处理
  * 
- * 使用场景：在中断或轮询中快速检查是否有数据
+ * 说明：读取标志位后自动清除，确保每个数据包仅处理一次
+ * 推荐在主循环中使用此函数快速判断是否需要处理数据
  */
 uint8_t Module_USART1_IsDataReady(void)
 {
-  // 查找 "ceio:" 开头
-  char *p_start = (char *)strstr((const char *)usart1_rx_buffer, "ceio:");
-  if (p_start == NULL)
+  // 读取标志位
+  uint8_t flag = usart1_data_ready_flag;
+  
+  // 如果有完整数据包，清除标志位（原子操作）
+  if (flag)
   {
-    return 0;  // 未找到起始标记
+    usart1_data_ready_flag = 0;
   }
   
-  // 查找 "\n" 结尾
-  char *p_end = (char *)strchr(p_start, '\n');
-  if (p_end == NULL)
-  {
-    return 0;  // 数据不完整
-  }
-  
-  return 1;  // 有完整数据包
+  return flag;
 }
 
 /**
@@ -166,6 +176,7 @@ BSP_Status_t Module_USART1_ParseData(USART1_RxData_t *pRxData)
   
   // 清空已处理的数据
   usart1_rx_index = 0;
+  usart1_data_ready_flag = 0;  // 清除标志位
   memset(usart1_rx_buffer, 0, USART1_RX_BUFFER_SIZE);
   
   return BSP_OK;

@@ -1,7 +1,7 @@
 .\project\module_lightcounting.o: ..\Modules\Module_LightCounting.c
 .\project\module_lightcounting.o: ..\Modules\Module_LightCounting.h
 .\project\module_lightcounting.o: D:\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
-.\project\module_lightcounting.o: ../BSP/GPIO/bsp_gpio.h
+.\project\module_lightcounting.o: ../BSP/bsp.h
 .\project\module_lightcounting.o: ../Core/Inc/main.h
 .\project\module_lightcounting.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h
 .\project\module_lightcounting.o: ../Core/Inc/stm32h7xx_hal_conf.h
@@ -55,3 +55,9 @@
 .\project\module_lightcounting.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_tim.h
 .\project\module_lightcounting.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_usart.h
 .\project\module_lightcounting.o: D:\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+.\project\module_lightcounting.o: ../BSP/GPIO/bsp_gpio.h
+.\project\module_lightcounting.o: ../BSP/TIMER/bsp_timer.h
+.\project\module_lightcounting.o: ../BSP/USART/bsp_usart.h
+.\project\module_lightcounting.o: ../BSP/DMA/bsp_dma.h
+.\project\module_lightcounting.o: ../BSP/FMC/bsp_fmc.h
+.\project\module_lightcounting.o: ../BSP/bsp.h

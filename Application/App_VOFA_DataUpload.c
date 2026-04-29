@@ -35,7 +35,7 @@ void App_VofaDataUploadTask(void *argument)
             uint32_t pairs = valid_count / 2;
             for (uint32_t i = 0; i < pairs; i++)
             {
-                printf("%4.3f,%4.3f,%d\r\n", p_iv_data[2*i], p_iv_data[2*i],1);
+                printf("%4.3f,%4.3f,%d\r\n", p_iv_data[2*i], p_iv_data[2*i+1],1);
                 // CDC_Transmit_HS((uint8_t *)p_voltage_data, pairs);
                 // CDC_Transmit_HS((uint8_t *)p_current_data, pairs);
                 vTaskDelay(1);

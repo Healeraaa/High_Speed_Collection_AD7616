@@ -97,6 +97,7 @@ void App_WaveCollectionTask(void *argument)
                 xQueueReset(xRawDataQueue);
             }
         }
+        
     }
 }
 

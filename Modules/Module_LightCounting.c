@@ -1,5 +1,5 @@
 #include "Module_LightCounting.h"
-#include "bsp_gpio.h"
+#include "bsp.h"
 #include "stdio.h"
 
 void Module_LightCounting_Init(void)
