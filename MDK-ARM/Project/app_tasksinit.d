@@ -80,6 +80,7 @@
 .\project\app_tasksinit.o: ../Modules/Module_Key.h
 .\project\app_tasksinit.o: ../Modules/Module_Serial411.h
 .\project\app_tasksinit.o: ../Modules/Module_ReceiveUpper.h
+.\project\app_tasksinit.o: ../Modules/Module_TransmitUpper.h
 .\project\app_tasksinit.o: ../Modules/Module_AD7616.h
 .\project\app_tasksinit.o: D:\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
 .\project\app_tasksinit.o: ..\Application\App_WaveCollectionTask.h

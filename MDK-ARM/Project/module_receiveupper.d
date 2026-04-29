@@ -57,6 +57,7 @@
 .\project\module_receiveupper.o: D:\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 .\project\module_receiveupper.o: ..\Modules\Module_Key.h
 .\project\module_receiveupper.o: ..\Modules\Module_Serial411.h
+.\project\module_receiveupper.o: ..\Modules\Module_TransmitUpper.h
 .\project\module_receiveupper.o: ../BSP/bsp.h
 .\project\module_receiveupper.o: ../BSP/GPIO/bsp_gpio.h
 .\project\module_receiveupper.o: ../BSP/TIMER/bsp_timer.h

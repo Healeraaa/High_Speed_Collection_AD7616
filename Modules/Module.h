@@ -7,6 +7,7 @@
 #include "Module_Key.h"
 #include "Module_Serial411.h"
 #include "Module_ReceiveUpper.h"
+#include "Module_TransmitUpper.h"
 
 #ifndef MODULE_STATUS_T_DEFINED
 #define MODULE_STATUS_T_DEFINED

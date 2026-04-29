@@ -1770,6 +1770,16 @@
               <FileType>5</FileType>
               <FilePath>..\Modules\Module_ReceiveUpper.h</FilePath>
             </File>
+            <File>
+              <FileName>Module_TransmitUpper.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Modules\Module_TransmitUpper.c</FilePath>
+            </File>
+            <File>
+              <FileName>Module_TransmitUpper.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Modules\Module_TransmitUpper.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

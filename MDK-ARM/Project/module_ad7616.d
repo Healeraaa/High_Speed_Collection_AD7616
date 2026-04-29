@@ -58,6 +58,7 @@
 .\project\module_ad7616.o: ..\Modules\Module_Key.h
 .\project\module_ad7616.o: ..\Modules\Module_Serial411.h
 .\project\module_ad7616.o: ..\Modules\Module_ReceiveUpper.h
+.\project\module_ad7616.o: ..\Modules\Module_TransmitUpper.h
 .\project\module_ad7616.o: D:\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
 .\project\module_ad7616.o: ../BSP/bsp.h
 .\project\module_ad7616.o: ../BSP/GPIO/bsp_gpio.h

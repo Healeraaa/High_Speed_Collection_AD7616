@@ -76,7 +76,7 @@ void App_IncentiveSettingsTask(void *argument)
         // vTaskDelay(500000);
         }
 
-        vTaskDelay(5);
+        vTaskDelay(100);
 
         // Serial_SendPacket(0x00, (double *)data_converter);
         // vTaskDelay(500000);

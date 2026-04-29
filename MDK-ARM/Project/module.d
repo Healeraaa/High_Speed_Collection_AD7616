@@ -57,6 +57,7 @@
 .\project\module.o: ..\Modules\Module_Key.h
 .\project\module.o: ..\Modules\Module_Serial411.h
 .\project\module.o: ..\Modules\Module_ReceiveUpper.h
+.\project\module.o: ..\Modules\Module_TransmitUpper.h
 .\project\module.o: ..\Modules\Module_AD7616.h
 .\project\module.o: D:\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
 .\project\module.o: ..\Modules\Module_LightCounting.h

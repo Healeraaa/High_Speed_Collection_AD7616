@@ -82,4 +82,5 @@
 .\project\app_wavecollectiontask.o: ../Modules/Module_Key.h
 .\project\app_wavecollectiontask.o: ../Modules/Module_Serial411.h
 .\project\app_wavecollectiontask.o: ../Modules/Module_ReceiveUpper.h
+.\project\app_wavecollectiontask.o: ../Modules/Module_TransmitUpper.h
 .\project\app_wavecollectiontask.o: D:\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
