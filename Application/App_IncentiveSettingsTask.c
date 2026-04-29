@@ -73,6 +73,7 @@ void App_IncentiveSettingsTask(void *argument)
                 Serial_SendPacket((uint8_t)rx_data.mode, (double *)data_converter);
             }
 
+        // vTaskDelay(500000);
         }
 
         vTaskDelay(5);

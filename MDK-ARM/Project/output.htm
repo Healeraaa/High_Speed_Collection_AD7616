@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Project\output.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Project\output.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060960: Last Updated: Wed Apr 29 13:45:48 2026
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060960: Last Updated: Wed Apr 29 14:11:09 2026
 <BR><P>
 <H3>Maximum Stack Usage =        836 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -1651,7 +1651,7 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> app_tasksinit.o(i.App_Tasks_Init)
 </UL>
-<P><STRONG><a name="[13a]"></a>App_Tasks_Init</STRONG> (Thumb, 158 bytes, Stack size 32 bytes, app_tasksinit.o(i.App_Tasks_Init))
+<P><STRONG><a name="[13a]"></a>App_Tasks_Init</STRONG> (Thumb, 156 bytes, Stack size 32 bytes, app_tasksinit.o(i.App_Tasks_Init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 168 + Unknown Stack Size
 <LI>Call Chain = App_Tasks_Init &rArr; xTaskCreate &rArr; pvPortMalloc &rArr; xTaskResumeAll &rArr; xTaskIncrementTick
 </UL>
@@ -1672,16 +1672,16 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> app_tasksinit.o(i.App_Tasks_Init)
 </UL>
-<P><STRONG><a name="[aa]"></a>App_WaveCollectionTask</STRONG> (Thumb, 324 bytes, Stack size 24 bytes, app_wavecollectiontask.o(i.App_WaveCollectionTask))
+<P><STRONG><a name="[aa]"></a>App_WaveCollectionTask</STRONG> (Thumb, 344 bytes, Stack size 24 bytes, app_wavecollectiontask.o(i.App_WaveCollectionTask))
 <BR><BR>[Stack]<UL><LI>Max Depth = 136<LI>Call Chain = App_WaveCollectionTask &rArr; xQueueReceive &rArr; xTaskResumeAll &rArr; xTaskIncrementTick
 </UL>
-<BR>[Calls]<UL><LI><a href="#[145]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BSP_GPIO_STM32F411_SYN_Init
+<BR>[Calls]<UL><LI><a href="#[146]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BSP_GPIO_STM32F411_SYN_Init
 <LI><a href="#[143]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueReceive
-<LI><a href="#[147]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericReset
+<LI><a href="#[145]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericReset
 <LI><a href="#[144]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericCreate
 <LI><a href="#[142]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericSend
 <LI><a href="#[135]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelay
-<LI><a href="#[146]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Module_AD7616_Set_SampleRate
+<LI><a href="#[147]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Module_AD7616_Set_SampleRate
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> app_tasksinit.o(i.App_Tasks_Init)
 </UL>
@@ -1787,7 +1787,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[15e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BSP_Init
 </UL>
 
-<P><STRONG><a name="[145]"></a>BSP_GPIO_STM32F411_SYN_Init</STRONG> (Thumb, 136 bytes, Stack size 32 bytes, bsp_gpio.o(i.BSP_GPIO_STM32F411_SYN_Init))
+<P><STRONG><a name="[146]"></a>BSP_GPIO_STM32F411_SYN_Init</STRONG> (Thumb, 136 bytes, Stack size 32 bytes, bsp_gpio.o(i.BSP_GPIO_STM32F411_SYN_Init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = BSP_GPIO_STM32F411_SYN_Init &rArr; LL_EXTI_Init
 </UL>
 <BR>[Calls]<UL><LI><a href="#[154]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LL_EXTI_Init
@@ -1811,7 +1811,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[1f1]"></a>BSP_Get_TIM3_Config</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, bsp_timer.o(i.BSP_Get_TIM3_Config))
-<BR><BR>[Called By]<UL><LI><a href="#[146]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Module_AD7616_Set_SampleRate
+<BR><BR>[Called By]<UL><LI><a href="#[147]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Module_AD7616_Set_SampleRate
 </UL>
 
 <P><STRONG><a name="[15e]"></a>BSP_Init</STRONG> (Thumb, 266 bytes, Stack size 24 bytes, bsp.o(i.BSP_Init))
@@ -1869,7 +1869,7 @@ Global Symbols
 <P><STRONG><a name="[1f3]"></a>BSP_TIM3_PWM0_SetParams</STRONG> (Thumb, 36 bytes, Stack size 8 bytes, bsp_timer.o(i.BSP_TIM3_PWM0_SetParams))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = BSP_TIM3_PWM0_SetParams
 </UL>
-<BR>[Called By]<UL><LI><a href="#[146]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Module_AD7616_Set_SampleRate
+<BR>[Called By]<UL><LI><a href="#[147]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Module_AD7616_Set_SampleRate
 </UL>
 
 <P><STRONG><a name="[d5]"></a>BSP_TIM3_PWM0_Start</STRONG> (Thumb, 34 bytes, Stack size 0 bytes, bsp_timer.o(i.BSP_TIM3_PWM0_Start))
@@ -2407,7 +2407,7 @@ Global Symbols
 <P><STRONG><a name="[154]"></a>LL_EXTI_Init</STRONG> (Thumb, 416 bytes, Stack size 8 bytes, stm32h7xx_ll_exti.o(i.LL_EXTI_Init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = LL_EXTI_Init
 </UL>
-<BR>[Called By]<UL><LI><a href="#[145]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BSP_GPIO_STM32F411_SYN_Init
+<BR>[Called By]<UL><LI><a href="#[146]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BSP_GPIO_STM32F411_SYN_Init
 <LI><a href="#[14f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BSP_GPIO_AD7616_BUSY_Init
 </UL>
 
@@ -2572,10 +2572,10 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[1ef]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Module_AD7616_WriteReg
 </UL>
-<BR>[Called By]<UL><LI><a href="#[146]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Module_AD7616_Set_SampleRate
+<BR>[Called By]<UL><LI><a href="#[147]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Module_AD7616_Set_SampleRate
 </UL>
 
-<P><STRONG><a name="[146]"></a>Module_AD7616_Set_SampleRate</STRONG> (Thumb, 404 bytes, Stack size 64 bytes, module_ad7616.o(i.Module_AD7616_Set_SampleRate))
+<P><STRONG><a name="[147]"></a>Module_AD7616_Set_SampleRate</STRONG> (Thumb, 404 bytes, Stack size 64 bytes, module_ad7616.o(i.Module_AD7616_Set_SampleRate))
 <BR><BR>[Stack]<UL><LI>Max Depth = 72<LI>Call Chain = Module_AD7616_Set_SampleRate &rArr; BSP_TIM3_PWM0_SetParams
 </UL>
 <BR>[Calls]<UL><LI><a href="#[1f3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BSP_TIM3_PWM0_SetParams
@@ -3166,7 +3166,7 @@ Global Symbols
 <P><STRONG><a name="[1f2]"></a>__hardfp_ceil</STRONG> (Thumb, 214 bytes, Stack size 8 bytes, ceil.o(i.__hardfp_ceil))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = __hardfp_ceil
 </UL>
-<BR>[Called By]<UL><LI><a href="#[146]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Module_AD7616_Set_SampleRate
+<BR>[Called By]<UL><LI><a href="#[147]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Module_AD7616_Set_SampleRate
 </UL>
 
 <P><STRONG><a name="[22c]"></a>__mathlib_dbl_overflow</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, dunder.o(i.__mathlib_dbl_overflow))
@@ -3310,7 +3310,7 @@ Global Symbols
 <P><STRONG><a name="[238]"></a>vListInitialise</STRONG> (Thumb, 22 bytes, Stack size 0 bytes, list.o(i.vListInitialise))
 <BR><BR>[Called By]<UL><LI><a href="#[237]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvCheckForValidListAndQueue
 <LI><a href="#[235]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvInitialiseTaskLists
-<LI><a href="#[147]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericReset
+<LI><a href="#[145]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericReset
 </UL>
 
 <P><STRONG><a name="[244]"></a>vListInitialiseItem</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, list.o(i.vListInitialiseItem))
@@ -3341,7 +3341,7 @@ Global Symbols
 <LI><a href="#[23b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvCheckTasksWaitingTermination
 <LI><a href="#[233]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvAddNewTaskToReadyList
 <LI><a href="#[143]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueReceive
-<LI><a href="#[147]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericReset
+<LI><a href="#[145]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericReset
 <LI><a href="#[142]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericSend
 <LI><a href="#[266]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskCheckForTimeOut
 <LI><a href="#[250]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vQueueWaitForMessageRestricted
@@ -3356,7 +3356,7 @@ Global Symbols
 <LI><a href="#[23b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvCheckTasksWaitingTermination
 <LI><a href="#[233]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvAddNewTaskToReadyList
 <LI><a href="#[143]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueReceive
-<LI><a href="#[147]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericReset
+<LI><a href="#[145]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericReset
 <LI><a href="#[142]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericSend
 <LI><a href="#[266]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskCheckForTimeOut
 <LI><a href="#[250]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vQueueWaitForMessageRestricted
@@ -3529,7 +3529,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[237]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvCheckForValidListAndQueue
 </UL>
 
-<P><STRONG><a name="[147]"></a>xQueueGenericReset</STRONG> (Thumb, 138 bytes, Stack size 16 bytes, queue.o(i.xQueueGenericReset))
+<P><STRONG><a name="[145]"></a>xQueueGenericReset</STRONG> (Thumb, 138 bytes, Stack size 16 bytes, queue.o(i.xQueueGenericReset))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = xQueueGenericReset &rArr; xTaskRemoveFromEventList
 </UL>
 <BR>[Calls]<UL><LI><a href="#[254]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskRemoveFromEventList
@@ -3670,7 +3670,7 @@ Global Symbols
 </UL>
 <BR>[Called By]<UL><LI><a href="#[143]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueReceive
 <LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericSendFromISR
-<LI><a href="#[147]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericReset
+<LI><a href="#[145]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericReset
 <LI><a href="#[142]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericSend
 <LI><a href="#[253]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvUnlockQueue
 </UL>
@@ -3924,7 +3924,7 @@ Local Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = LL_AHB4_GRP1_EnableClock
 </UL>
 <BR>[Called By]<UL><LI><a href="#[15d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BSP_GPIO_System_Clock_Init
-<LI><a href="#[145]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BSP_GPIO_STM32F411_SYN_Init
+<LI><a href="#[146]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BSP_GPIO_STM32F411_SYN_Init
 <LI><a href="#[15c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BSP_GPIO_LED_Init
 <LI><a href="#[15b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BSP_GPIO_KEY_Init
 <LI><a href="#[159]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BSP_GPIO_AD7616_RST_Init
@@ -3932,35 +3932,35 @@ Local Symbols
 </UL>
 
 <P><STRONG><a name="[d2]"></a>LL_EXTI_IsActiveFlag_0_31</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, bsp_gpio.o(i.LL_EXTI_IsActiveFlag_0_31))
-<BR><BR>[Called By]<UL><LI><a href="#[145]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BSP_GPIO_STM32F411_SYN_Init
+<BR><BR>[Called By]<UL><LI><a href="#[146]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BSP_GPIO_STM32F411_SYN_Init
 <LI><a href="#[14f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BSP_GPIO_AD7616_BUSY_Init
 <LI><a href="#[19]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EXTI0_IRQHandler
 </UL>
 
 <P><STRONG><a name="[152]"></a>LL_GPIO_SetPinMode</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, bsp_gpio.o(i.LL_GPIO_SetPinMode))
-<BR><BR>[Called By]<UL><LI><a href="#[145]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BSP_GPIO_STM32F411_SYN_Init
+<BR><BR>[Called By]<UL><LI><a href="#[146]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BSP_GPIO_STM32F411_SYN_Init
 <LI><a href="#[14f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BSP_GPIO_AD7616_BUSY_Init
 </UL>
 
 <P><STRONG><a name="[151]"></a>LL_GPIO_SetPinPull</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, bsp_gpio.o(i.LL_GPIO_SetPinPull))
-<BR><BR>[Called By]<UL><LI><a href="#[145]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BSP_GPIO_STM32F411_SYN_Init
+<BR><BR>[Called By]<UL><LI><a href="#[146]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BSP_GPIO_STM32F411_SYN_Init
 <LI><a href="#[14f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BSP_GPIO_AD7616_BUSY_Init
 </UL>
 
 <P><STRONG><a name="[153]"></a>LL_SYSCFG_SetEXTISource</STRONG> (Thumb, 42 bytes, Stack size 8 bytes, bsp_gpio.o(i.LL_SYSCFG_SetEXTISource))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = LL_SYSCFG_SetEXTISource
 </UL>
-<BR>[Called By]<UL><LI><a href="#[145]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BSP_GPIO_STM32F411_SYN_Init
+<BR>[Called By]<UL><LI><a href="#[146]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BSP_GPIO_STM32F411_SYN_Init
 <LI><a href="#[14f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BSP_GPIO_AD7616_BUSY_Init
 </UL>
 
 <P><STRONG><a name="[156]"></a>__NVIC_EnableIRQ</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, bsp_gpio.o(i.__NVIC_EnableIRQ))
-<BR><BR>[Called By]<UL><LI><a href="#[145]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BSP_GPIO_STM32F411_SYN_Init
+<BR><BR>[Called By]<UL><LI><a href="#[146]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BSP_GPIO_STM32F411_SYN_Init
 <LI><a href="#[14f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BSP_GPIO_AD7616_BUSY_Init
 </UL>
 
 <P><STRONG><a name="[155]"></a>__NVIC_SetPriority</STRONG> (Thumb, 34 bytes, Stack size 0 bytes, bsp_gpio.o(i.__NVIC_SetPriority))
-<BR><BR>[Called By]<UL><LI><a href="#[145]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BSP_GPIO_STM32F411_SYN_Init
+<BR><BR>[Called By]<UL><LI><a href="#[146]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BSP_GPIO_STM32F411_SYN_Init
 <LI><a href="#[14f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BSP_GPIO_AD7616_BUSY_Init
 </UL>
 
@@ -4079,7 +4079,7 @@ Local Symbols
 <P><STRONG><a name="[242]"></a>prvInitialiseNewQueue</STRONG> (Thumb, 34 bytes, Stack size 16 bytes, queue.o(i.prvInitialiseNewQueue))
 <BR><BR>[Stack]<UL><LI>Max Depth = 48<LI>Call Chain = prvInitialiseNewQueue &rArr; xQueueGenericReset &rArr; xTaskRemoveFromEventList
 </UL>
-<BR>[Calls]<UL><LI><a href="#[147]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericReset
+<BR>[Calls]<UL><LI><a href="#[145]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericReset
 </UL>
 <BR>[Called By]<UL><LI><a href="#[144]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericCreate
 <LI><a href="#[239]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericCreateStatic

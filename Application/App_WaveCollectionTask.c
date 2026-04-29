@@ -47,6 +47,9 @@ void App_WaveCollectionTask(void *argument)
     xRawDataQueue = xQueueCreate(4, sizeof(RawDataInfo_t));
     xIVDataQueue = xQueueCreate(2, sizeof(IVData_t));
 
+    xQueueReset(xRawDataQueue);
+    xQueueReset(xIVDataQueue);
+
     if (xRawDataQueue == NULL || xIVDataQueue == NULL)
     {
         while (1)
@@ -97,7 +100,7 @@ void App_WaveCollectionTask(void *argument)
                 xQueueReset(xRawDataQueue);
             }
         }
-        
+
     }
 }
 
