@@ -78,3 +78,4 @@
 .\project\app_vofa_dataupload.o: ../BSP/FMC/bsp_fmc.h
 .\project\app_vofa_dataupload.o: ../BSP/bsp.h
 .\project\app_vofa_dataupload.o: ../Modules/Module_LightCounting.h
+.\project\app_vofa_dataupload.o: ../Modules/Module_TransmitUpper.h

@@ -4,8 +4,22 @@
 #include "bsp.h"
 #include "stdio.h"
 #include "Module_LightCounting.h"
+#include "Module_TransmitUpper.h"
 // #include "usb_device.h"
 // #include "usbd_cdc_if.h"
+
+/* ==================== 采样配置 ==================== */
+/**
+ * 采样频率 (Hz) - 根据 AD7616 FMC 访问周期配置
+ * 默认 10kHz，如需调整请修改此宏
+ * 
+ * 计算方式：
+ * - FMC 时钟 = 200MHz (HCLK)
+ * - 假设每次 AD7616 读取耗时 ~100ns (20 个时钟周期)
+ * - 最大采样率 ≈ 10MHz，但实际受 FMC 总线仲裁影响
+ * - 建议保守设置为 10-100kHz
+ */
+#define AD7616_SAMPLE_FREQUENCY_HZ    10000  // 10 kHz
 
 /* 数据包结构体（与 App_WaveCollectionTask.c 一致） */
 typedef struct
@@ -20,7 +34,6 @@ extern QueueHandle_t xIVDataQueue;
 void App_VofaDataUploadTask(void *argument)
 {
     IVData_t rxData;  // 接收的数据包
-    // MX_USB_DEVICE_Init();
 
     while (1)
     {
@@ -28,25 +41,57 @@ void App_VofaDataUploadTask(void *argument)
         if (xQueueReceive(xIVDataQueue, &rxData, portMAX_DELAY) == pdTRUE)
         {
             float    *p_iv_data = rxData.pIVBuffer;
-            uint32_t  valid_count    = rxData.validCount;
+            uint32_t  valid_count = rxData.validCount;
 
-            /* ========== 发送数据到 VOFA+ ========== */
-            // 根据有效数据量发送（每次发送 2 个通道）
-            uint32_t pairs = valid_count / 2;
-            for (uint32_t i = 0; i < pairs; i++)
+            /* ========== 严格的数据验证 ========== */
+            if (p_iv_data == NULL)
             {
-                printf("%4.3f,%4.3f,%d\r\n", p_iv_data[2*i], p_iv_data[2*i+1],1);
-                // CDC_Transmit_HS((uint8_t *)p_voltage_data, pairs);
-                // CDC_Transmit_HS((uint8_t *)p_current_data, pairs);
-                vTaskDelay(1);
+                printf("ERROR: Null pointer in IVData\r\n");
+                continue;
             }
-            
-            // 如果有奇数个数据，单独发送最后一个
-            if (valid_count % 2 != 0)
+
+            if (valid_count == 0)
             {
-                printf("%4.3f\r\n", p_iv_data[valid_count - 1]);
-                vTaskDelay(10);
+                printf("ERROR: Empty data package\r\n");
+                continue;
             }
+
+            /* 防止超过单帧最大容量 (2048 浮点数 = 8192 字节) */
+            #define MAX_FRAME_DATA 2048
+            if (valid_count > MAX_FRAME_DATA)
+            {
+                printf("ERROR: Data count (%lu) exceeds max frame size (%d)\r\n", 
+                       valid_count, MAX_FRAME_DATA);
+                continue;
+            }
+
+            /* ========== 使用二进制协议发送数据 ========== */
+            /**
+             * 协议帧结构:
+             * 帧头(2) | 帧长(2) | 设备ID(1) | 采样频率(4) | 时间戳(4) | 
+             * 数据量(2) | 数据(4*N) | CRC16(2) | 帧尾(2)
+             * 
+             * 这样做的优势:
+             * 1. 一次性发送完整帧，避免逐行发送导致的丢包
+             * 2. 帧长度字段解决大包传输问题
+             * 3. CRC16 校验确保数据完整性
+             * 4. 时间戳用于数据同步和对齐
+             * 5. 采样频率用于上位机重建原始时间序列
+             */
+            int32_t ret = Module_TransmitUpper_SendVoltageData(
+                p_iv_data,
+                (uint16_t)valid_count,
+                AD7616_SAMPLE_FREQUENCY_HZ);
+
+            if (ret != 0)
+            {
+                /* 发送失败处理 - 可能是缓冲区溢出或其他错误 */
+                printf("ERROR: Failed to send frame (count=%lu, ret=%ld)\r\n", 
+                       valid_count, ret);
+            }
+
+            /* 发送延时 - 避免 CPU 饱和 */
+            vTaskDelay(pdMS_TO_TICKS(5));
         }
     }
 }

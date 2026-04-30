@@ -119,9 +119,8 @@ I (../Modules/Module.h)(0x69F1AC12)
 I (../Modules/Module_Key.h)(0x69382B0E)
 I (../Modules/Module_Serial411.h)(0x69F09A84)
 I (../Modules/Module_ReceiveUpper.h)(0x69F19AC0)
-I (../Modules/Module_TransmitUpper.h)(0x69F1AC00)
-I (../Application/App.h)(0x693925AC)
-I (D:\Keil\Packs\Keil\ARM_Compiler\1.6.3\Include\EventRecorder.h)(0x5B8F507E)
+I (../Modules/Module_TransmitUpper.h)(0x69F1AFBD)
+I (../Application/App.h)(0x69F1CC20)
 I (D:\Keil\Keil_v5\ARM\ARMCC\include\string.h)(0x6025237E)
 F (../Core/Src/gpio.c)(0x697A0D72)(--c99 --gnu -c --cpu Cortex-M7.fp.dp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc -I ../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I ../Drivers/CMSIS/Include -I ../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I ../SYSTEM -I ../BSP -I ../Application -I ../Modules -I ../BSP/GPIO -I ../BSP/TIMER -I ../BSP/FMC -I ../BSP/DMA -I ../BSP/USART -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc -I ..\Middlewares\ST\STM32_USB_Device_Library\Class\CDC\Inc -I ..\BSP\USB -I ..\Application\USB-I.\RTE\Compiler-I.\RTE\_Project-ID:\Keil\Packs\ARM\CMSIS\6.1.0\CMSIS\Core\Include-ID:\Keil\Packs\Keil\ARM_Compiler\1.6.3\Include-ID:\Keil\Packs\Keil\STM32H7xx_DFP\3.1.1\Drivers\CMSIS\Device\ST\STM32H7xx\Include-D__UVISION_VERSION="542" -DSTM32H743xx -D_RTE_ -DUSE_FULL_LL_DRIVER -DSTM32H743xx -DUSE_HAL_DRIVER-o .\project\gpio.o --depend .\project\gpio.d)
 I (../Core/Inc/gpio.h)(0x69378AC3)
@@ -1722,7 +1721,7 @@ I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_dmamux.h)(0x69378AA0)
 I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_gpio.h)(0x69378AA0)
 I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_tim.h)(0x69378AA0)
 I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_usart.h)(0x69F16208)
-F (..\BSP\bsp.c)(0x69F18DD2)(--c99 --gnu -c --cpu Cortex-M7.fp.dp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc -I ../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I ../Drivers/CMSIS/Include -I ../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I ../SYSTEM -I ../BSP -I ../Application -I ../Modules -I ../BSP/GPIO -I ../BSP/TIMER -I ../BSP/FMC -I ../BSP/DMA -I ../BSP/USART -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc -I ..\Middlewares\ST\STM32_USB_Device_Library\Class\CDC\Inc -I ..\BSP\USB -I ..\Application\USB-I.\RTE\Compiler-I.\RTE\_Project-ID:\Keil\Packs\ARM\CMSIS\6.1.0\CMSIS\Core\Include-ID:\Keil\Packs\Keil\ARM_Compiler\1.6.3\Include-ID:\Keil\Packs\Keil\STM32H7xx_DFP\3.1.1\Drivers\CMSIS\Device\ST\STM32H7xx\Include-D__UVISION_VERSION="542" -DSTM32H743xx -D_RTE_ -DUSE_FULL_LL_DRIVER -DSTM32H743xx -DUSE_HAL_DRIVER-o .\project\bsp.o --depend .\project\bsp.d)
+F (..\BSP\bsp.c)(0x69F1E8EC)(--c99 --gnu -c --cpu Cortex-M7.fp.dp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc -I ../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I ../Drivers/CMSIS/Include -I ../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I ../SYSTEM -I ../BSP -I ../Application -I ../Modules -I ../BSP/GPIO -I ../BSP/TIMER -I ../BSP/FMC -I ../BSP/DMA -I ../BSP/USART -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc -I ..\Middlewares\ST\STM32_USB_Device_Library\Class\CDC\Inc -I ..\BSP\USB -I ..\Application\USB-I.\RTE\Compiler-I.\RTE\_Project-ID:\Keil\Packs\ARM\CMSIS\6.1.0\CMSIS\Core\Include-ID:\Keil\Packs\Keil\ARM_Compiler\1.6.3\Include-ID:\Keil\Packs\Keil\STM32H7xx_DFP\3.1.1\Drivers\CMSIS\Device\ST\STM32H7xx\Include-D__UVISION_VERSION="542" -DSTM32H743xx -D_RTE_ -DUSE_FULL_LL_DRIVER -DSTM32H743xx -DUSE_HAL_DRIVER-o .\project\bsp.o --depend .\project\bsp.d)
 I (../Core/Inc/main.h)(0x697A0F6E)
 I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h)(0x69378AA0)
 I (../Core/Inc/stm32h7xx_hal_conf.h)(0x697A0F69)
@@ -1849,7 +1848,7 @@ I (../Modules/Module.h)(0x69F1AC12)
 I (../Modules/Module_Key.h)(0x69382B0E)
 I (../Modules/Module_Serial411.h)(0x69F09A84)
 I (../Modules/Module_ReceiveUpper.h)(0x69F19AC0)
-I (../Modules/Module_TransmitUpper.h)(0x69F1AC00)
+I (../Modules/Module_TransmitUpper.h)(0x69F1AFBD)
 F (..\BSP\FMC\bsp_fmc.c)(0x69DF3B50)(--c99 --gnu -c --cpu Cortex-M7.fp.dp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc -I ../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I ../Drivers/CMSIS/Include -I ../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I ../SYSTEM -I ../BSP -I ../Application -I ../Modules -I ../BSP/GPIO -I ../BSP/TIMER -I ../BSP/FMC -I ../BSP/DMA -I ../BSP/USART -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc -I ..\Middlewares\ST\STM32_USB_Device_Library\Class\CDC\Inc -I ..\BSP\USB -I ..\Application\USB-I.\RTE\Compiler-I.\RTE\_Project-ID:\Keil\Packs\ARM\CMSIS\6.1.0\CMSIS\Core\Include-ID:\Keil\Packs\Keil\ARM_Compiler\1.6.3\Include-ID:\Keil\Packs\Keil\STM32H7xx_DFP\3.1.1\Drivers\CMSIS\Device\ST\STM32H7xx\Include-D__UVISION_VERSION="542" -DSTM32H743xx -D_RTE_ -DUSE_FULL_LL_DRIVER -DSTM32H743xx -DUSE_HAL_DRIVER-o .\project\bsp_fmc.o --depend .\project\bsp_fmc.d)
 I (..\BSP\FMC\bsp_fmc.h)(0x694CF04A)
 I (../Core/Inc/main.h)(0x697A0F6E)
@@ -2136,7 +2135,7 @@ I (D:\Keil\Keil_v5\ARM\ARMCC\include\stdio.h)(0x60252374)
 I (..\Modules\Module_Key.h)(0x69382B0E)
 I (..\Modules\Module_Serial411.h)(0x69F09A84)
 I (..\Modules\Module_ReceiveUpper.h)(0x69F19AC0)
-I (..\Modules\Module_TransmitUpper.h)(0x69F1AC00)
+I (..\Modules\Module_TransmitUpper.h)(0x69F1AFBD)
 I (..\Modules\Module_AD7616.h)(0x695CE2F7)
 I (D:\Keil\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x6025237C)
 I (..\Modules\Module_LightCounting.h)(0x69E9C96A)
@@ -2201,7 +2200,7 @@ I (D:\Keil\Keil_v5\ARM\ARMCC\include\stdio.h)(0x60252374)
 I (..\Modules\Module_Key.h)(0x69382B0E)
 I (..\Modules\Module_Serial411.h)(0x69F09A84)
 I (..\Modules\Module_ReceiveUpper.h)(0x69F19AC0)
-I (..\Modules\Module_TransmitUpper.h)(0x69F1AC00)
+I (..\Modules\Module_TransmitUpper.h)(0x69F1AFBD)
 I (D:\Keil\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x6025237C)
 I (../BSP/bsp.h)(0x6960B376)
 I (../BSP/GPIO/bsp_gpio.h)(0x69DFA78A)
@@ -2268,7 +2267,7 @@ I (D:\Keil\Keil_v5\ARM\ARMCC\include\stdio.h)(0x60252374)
 I (..\Modules\Module_Key.h)(0x69382B0E)
 I (..\Modules\Module_Serial411.h)(0x69F09A84)
 I (..\Modules\Module_ReceiveUpper.h)(0x69F19AC0)
-I (..\Modules\Module_TransmitUpper.h)(0x69F1AC00)
+I (..\Modules\Module_TransmitUpper.h)(0x69F1AFBD)
 I (../BSP/bsp.h)(0x6960B376)
 I (../BSP/GPIO/bsp_gpio.h)(0x69DFA78A)
 I (../BSP/TIMER/bsp_timer.h)(0x69F068B4)
@@ -2396,7 +2395,7 @@ I (..\Modules\Module.h)(0x69F1AC12)
 I (D:\Keil\Keil_v5\ARM\ARMCC\include\stdio.h)(0x60252374)
 I (..\Modules\Module_Key.h)(0x69382B0E)
 I (..\Modules\Module_Serial411.h)(0x69F09A84)
-I (..\Modules\Module_TransmitUpper.h)(0x69F1AC00)
+I (..\Modules\Module_TransmitUpper.h)(0x69F1AFBD)
 I (../BSP/bsp.h)(0x6960B376)
 I (../BSP/GPIO/bsp_gpio.h)(0x69DFA78A)
 I (../BSP/TIMER/bsp_timer.h)(0x69F068B4)
@@ -2405,7 +2404,7 @@ I (../BSP/DMA/bsp_dma.h)(0x6960BB9B)
 I (../BSP/FMC/bsp_fmc.h)(0x694CF04A)
 I (D:\Keil\Keil_v5\ARM\ARMCC\include\string.h)(0x6025237E)
 F (..\Modules\Module_ReceiveUpper.h)(0x69F19AC0)()
-F (..\Modules\Module_TransmitUpper.c)(0x69F1AC22)(--c99 --gnu -c --cpu Cortex-M7.fp.dp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc -I ../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I ../Drivers/CMSIS/Include -I ../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I ../SYSTEM -I ../BSP -I ../Application -I ../Modules -I ../BSP/GPIO -I ../BSP/TIMER -I ../BSP/FMC -I ../BSP/DMA -I ../BSP/USART -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc -I ..\Middlewares\ST\STM32_USB_Device_Library\Class\CDC\Inc -I ..\BSP\USB -I ..\Application\USB-I.\RTE\Compiler-I.\RTE\_Project-ID:\Keil\Packs\ARM\CMSIS\6.1.0\CMSIS\Core\Include-ID:\Keil\Packs\Keil\ARM_Compiler\1.6.3\Include-ID:\Keil\Packs\Keil\STM32H7xx_DFP\3.1.1\Drivers\CMSIS\Device\ST\STM32H7xx\Include-D__UVISION_VERSION="542" -DSTM32H743xx -D_RTE_ -DUSE_FULL_LL_DRIVER -DSTM32H743xx -DUSE_HAL_DRIVER-o .\project\module_transmitupper.o --depend .\project\module_transmitupper.d)
+F (..\Modules\Module_TransmitUpper.c)(0x69F1CB2C)(--c99 --gnu -c --cpu Cortex-M7.fp.dp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc -I ../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I ../Drivers/CMSIS/Include -I ../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I ../SYSTEM -I ../BSP -I ../Application -I ../Modules -I ../BSP/GPIO -I ../BSP/TIMER -I ../BSP/FMC -I ../BSP/DMA -I ../BSP/USART -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc -I ..\Middlewares\ST\STM32_USB_Device_Library\Class\CDC\Inc -I ..\BSP\USB -I ..\Application\USB-I.\RTE\Compiler-I.\RTE\_Project-ID:\Keil\Packs\ARM\CMSIS\6.1.0\CMSIS\Core\Include-ID:\Keil\Packs\Keil\ARM_Compiler\1.6.3\Include-ID:\Keil\Packs\Keil\STM32H7xx_DFP\3.1.1\Drivers\CMSIS\Device\ST\STM32H7xx\Include-D__UVISION_VERSION="542" -DSTM32H743xx -D_RTE_ -DUSE_FULL_LL_DRIVER -DSTM32H743xx -DUSE_HAL_DRIVER-o .\project\module_transmitupper.o --depend .\project\module_transmitupper.d)
 I (..\Modules\Module.h)(0x69F1AC12)
 I (../Core/Inc/main.h)(0x697A0F6E)
 I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h)(0x69378AA0)
@@ -2463,7 +2462,7 @@ I (D:\Keil\Keil_v5\ARM\ARMCC\include\stdio.h)(0x60252374)
 I (..\Modules\Module_Key.h)(0x69382B0E)
 I (..\Modules\Module_Serial411.h)(0x69F09A84)
 I (..\Modules\Module_ReceiveUpper.h)(0x69F19AC0)
-I (..\Modules\Module_TransmitUpper.h)(0x69F1AC00)
+I (..\Modules\Module_TransmitUpper.h)(0x69F1AFBD)
 I (../BSP/bsp.h)(0x6960B376)
 I (../BSP/GPIO/bsp_gpio.h)(0x69DFA78A)
 I (../BSP/TIMER/bsp_timer.h)(0x69F068B4)
@@ -2471,7 +2470,18 @@ I (../BSP/USART/bsp_usart.h)(0x69F16ECE)
 I (../BSP/DMA/bsp_dma.h)(0x6960BB9B)
 I (../BSP/FMC/bsp_fmc.h)(0x694CF04A)
 I (D:\Keil\Keil_v5\ARM\ARMCC\include\string.h)(0x6025237E)
-F (..\Modules\Module_TransmitUpper.h)(0x69F1AC00)()
+I (../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h)(0x69378AA2)
+I (../Core/Inc/FreeRTOSConfig.h)(0x69378AC4)
+I (../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h)(0x69378AA2)
+I (../Middlewares/Third_Party/FreeRTOS/Source/include/portable.h)(0x69378AA2)
+I (../Middlewares/Third_Party/FreeRTOS/Source/include/deprecated_definitions.h)(0x69378AA2)
+I (../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F/portmacro.h)(0x69378AA2)
+I (../Middlewares/Third_Party/FreeRTOS/Source/include/mpu_wrappers.h)(0x69378AA2)
+I (../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os.h)(0x69378AA2)
+I (../Middlewares/Third_Party/FreeRTOS/Source/include/task.h)(0x69378AA2)
+I (../Middlewares/Third_Party/FreeRTOS/Source/include/list.h)(0x69378AA2)
+I (../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h)(0x69378AA2)
+F (..\Modules\Module_TransmitUpper.h)(0x69F1AFBD)()
 F (..\Application\App.c)(0x69F06B5D)(--c99 --gnu -c --cpu Cortex-M7.fp.dp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc -I ../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I ../Drivers/CMSIS/Include -I ../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I ../SYSTEM -I ../BSP -I ../Application -I ../Modules -I ../BSP/GPIO -I ../BSP/TIMER -I ../BSP/FMC -I ../BSP/DMA -I ../BSP/USART -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc -I ..\Middlewares\ST\STM32_USB_Device_Library\Class\CDC\Inc -I ..\BSP\USB -I ..\Application\USB-I.\RTE\Compiler-I.\RTE\_Project-ID:\Keil\Packs\ARM\CMSIS\6.1.0\CMSIS\Core\Include-ID:\Keil\Packs\Keil\ARM_Compiler\1.6.3\Include-ID:\Keil\Packs\Keil\STM32H7xx_DFP\3.1.1\Drivers\CMSIS\Device\ST\STM32H7xx\Include-D__UVISION_VERSION="542" -DSTM32H743xx -D_RTE_ -DUSE_FULL_LL_DRIVER -DSTM32H743xx -DUSE_HAL_DRIVER-o .\project\app.o --depend .\project\app.d)
 I (../Core/Inc/main.h)(0x697A0F6E)
 I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h)(0x69378AA0)
@@ -2537,15 +2547,14 @@ I (../Middlewares/Third_Party/FreeRTOS/Source/include/task.h)(0x69378AA2)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/list.h)(0x69378AA2)
 I (../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h)(0x69378AA2)
 I (../Core/Inc/memorymap.h)(0x69378AC5)
-I (..\Application\App.h)(0x693925AC)
-I (D:\Keil\Packs\Keil\ARM_Compiler\1.6.3\Include\EventRecorder.h)(0x5B8F507E)
+I (..\Application\App.h)(0x69F1CC20)
 I (..\Application\App_TasksInit.h)(0x6937FEE1)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h)(0x69378AA2)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/semphr.h)(0x69378AA2)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h)(0x69378AA2)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/timers.h)(0x69378AA2)
-F (..\Application\App.h)(0x693925AC)()
-F (..\Application\App_TasksInit.c)(0x69F1A0C7)(--c99 --gnu -c --cpu Cortex-M7.fp.dp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc -I ../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I ../Drivers/CMSIS/Include -I ../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I ../SYSTEM -I ../BSP -I ../Application -I ../Modules -I ../BSP/GPIO -I ../BSP/TIMER -I ../BSP/FMC -I ../BSP/DMA -I ../BSP/USART -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc -I ..\Middlewares\ST\STM32_USB_Device_Library\Class\CDC\Inc -I ..\BSP\USB -I ..\Application\USB-I.\RTE\Compiler-I.\RTE\_Project-ID:\Keil\Packs\ARM\CMSIS\6.1.0\CMSIS\Core\Include-ID:\Keil\Packs\Keil\ARM_Compiler\1.6.3\Include-ID:\Keil\Packs\Keil\STM32H7xx_DFP\3.1.1\Drivers\CMSIS\Device\ST\STM32H7xx\Include-D__UVISION_VERSION="542" -DSTM32H743xx -D_RTE_ -DUSE_FULL_LL_DRIVER -DSTM32H743xx -DUSE_HAL_DRIVER-o .\project\app_tasksinit.o --depend .\project\app_tasksinit.d)
+F (..\Application\App.h)(0x69F1CC20)()
+F (..\Application\App_TasksInit.c)(0x69F1CC65)(--c99 --gnu -c --cpu Cortex-M7.fp.dp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc -I ../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I ../Drivers/CMSIS/Include -I ../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I ../SYSTEM -I ../BSP -I ../Application -I ../Modules -I ../BSP/GPIO -I ../BSP/TIMER -I ../BSP/FMC -I ../BSP/DMA -I ../BSP/USART -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc -I ..\Middlewares\ST\STM32_USB_Device_Library\Class\CDC\Inc -I ..\BSP\USB -I ..\Application\USB-I.\RTE\Compiler-I.\RTE\_Project-ID:\Keil\Packs\ARM\CMSIS\6.1.0\CMSIS\Core\Include-ID:\Keil\Packs\Keil\ARM_Compiler\1.6.3\Include-ID:\Keil\Packs\Keil\STM32H7xx_DFP\3.1.1\Drivers\CMSIS\Device\ST\STM32H7xx\Include-D__UVISION_VERSION="542" -DSTM32H743xx -D_RTE_ -DUSE_FULL_LL_DRIVER -DSTM32H743xx -DUSE_HAL_DRIVER-o .\project\app_tasksinit.o --depend .\project\app_tasksinit.d)
 I (..\Application\App_TasksInit.h)(0x6937FEE1)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h)(0x69378AA2)
 I (D:\Keil\Keil_v5\ARM\ARMCC\include\stddef.h)(0x6025237E)
@@ -2625,7 +2634,7 @@ I (../Modules/Module.h)(0x69F1AC12)
 I (../Modules/Module_Key.h)(0x69382B0E)
 I (../Modules/Module_Serial411.h)(0x69F09A84)
 I (../Modules/Module_ReceiveUpper.h)(0x69F19AC0)
-I (../Modules/Module_TransmitUpper.h)(0x69F1AC00)
+I (../Modules/Module_TransmitUpper.h)(0x69F1AFBD)
 I (../Modules/Module_AD7616.h)(0x695CE2F7)
 I (D:\Keil\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x6025237C)
 I (..\Application\App_WaveCollectionTask.h)(0x695A4F72)
@@ -2714,10 +2723,10 @@ I (../Modules/Module.h)(0x69F1AC12)
 I (../Modules/Module_Key.h)(0x69382B0E)
 I (../Modules/Module_Serial411.h)(0x69F09A84)
 I (../Modules/Module_ReceiveUpper.h)(0x69F19AC0)
-I (../Modules/Module_TransmitUpper.h)(0x69F1AC00)
+I (../Modules/Module_TransmitUpper.h)(0x69F1AFBD)
 I (D:\Keil\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x6025237C)
 F (..\Application\App_WaveCollectionTask.h)(0x695A4F72)()
-F (..\Application\App_VOFA_DataUpload.c)(0x69F18297)(--c99 --gnu -c --cpu Cortex-M7.fp.dp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc -I ../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I ../Drivers/CMSIS/Include -I ../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I ../SYSTEM -I ../BSP -I ../Application -I ../Modules -I ../BSP/GPIO -I ../BSP/TIMER -I ../BSP/FMC -I ../BSP/DMA -I ../BSP/USART -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc -I ..\Middlewares\ST\STM32_USB_Device_Library\Class\CDC\Inc -I ..\BSP\USB -I ..\Application\USB-I.\RTE\Compiler-I.\RTE\_Project-ID:\Keil\Packs\ARM\CMSIS\6.1.0\CMSIS\Core\Include-ID:\Keil\Packs\Keil\ARM_Compiler\1.6.3\Include-ID:\Keil\Packs\Keil\STM32H7xx_DFP\3.1.1\Drivers\CMSIS\Device\ST\STM32H7xx\Include-D__UVISION_VERSION="542" -DSTM32H743xx -D_RTE_ -DUSE_FULL_LL_DRIVER -DSTM32H743xx -DUSE_HAL_DRIVER-o .\project\app_vofa_dataupload.o --depend .\project\app_vofa_dataupload.d)
+F (..\Application\App_VOFA_DataUpload.c)(0x69F1BC31)(--c99 --gnu -c --cpu Cortex-M7.fp.dp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc -I ../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I ../Drivers/CMSIS/Include -I ../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I ../SYSTEM -I ../BSP -I ../Application -I ../Modules -I ../BSP/GPIO -I ../BSP/TIMER -I ../BSP/FMC -I ../BSP/DMA -I ../BSP/USART -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc -I ..\Middlewares\ST\STM32_USB_Device_Library\Class\CDC\Inc -I ..\BSP\USB -I ..\Application\USB-I.\RTE\Compiler-I.\RTE\_Project-ID:\Keil\Packs\ARM\CMSIS\6.1.0\CMSIS\Core\Include-ID:\Keil\Packs\Keil\ARM_Compiler\1.6.3\Include-ID:\Keil\Packs\Keil\STM32H7xx_DFP\3.1.1\Drivers\CMSIS\Device\ST\STM32H7xx\Include-D__UVISION_VERSION="542" -DSTM32H743xx -D_RTE_ -DUSE_FULL_LL_DRIVER -DSTM32H743xx -DUSE_HAL_DRIVER-o .\project\app_vofa_dataupload.o --depend .\project\app_vofa_dataupload.d)
 I (..\Application\App_VOFA_DataUpload.h)(0x695E3116)
 I (..\Application\App_TasksInit.h)(0x6937FEE1)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h)(0x69378AA2)
@@ -2795,8 +2804,9 @@ I (../BSP/USART/bsp_usart.h)(0x69F16ECE)
 I (../BSP/DMA/bsp_dma.h)(0x6960BB9B)
 I (../BSP/FMC/bsp_fmc.h)(0x694CF04A)
 I (../Modules/Module_LightCounting.h)(0x69E9C96A)
+I (../Modules/Module_TransmitUpper.h)(0x69F1AFBD)
 F (..\Application\App_VOFA_DataUpload.h)(0x695E3116)()
-F (..\Application\App_IncentiveSettingsTask.c)(0x69F1A1D4)(--c99 --gnu -c --cpu Cortex-M7.fp.dp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc -I ../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I ../Drivers/CMSIS/Include -I ../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I ../SYSTEM -I ../BSP -I ../Application -I ../Modules -I ../BSP/GPIO -I ../BSP/TIMER -I ../BSP/FMC -I ../BSP/DMA -I ../BSP/USART -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc -I ..\Middlewares\ST\STM32_USB_Device_Library\Class\CDC\Inc -I ..\BSP\USB -I ..\Application\USB-I.\RTE\Compiler-I.\RTE\_Project-ID:\Keil\Packs\ARM\CMSIS\6.1.0\CMSIS\Core\Include-ID:\Keil\Packs\Keil\ARM_Compiler\1.6.3\Include-ID:\Keil\Packs\Keil\STM32H7xx_DFP\3.1.1\Drivers\CMSIS\Device\ST\STM32H7xx\Include-D__UVISION_VERSION="542" -DSTM32H743xx -D_RTE_ -DUSE_FULL_LL_DRIVER -DSTM32H743xx -DUSE_HAL_DRIVER-o .\project\app_incentivesettingstask.o --depend .\project\app_incentivesettingstask.d)
+F (..\Application\App_IncentiveSettingsTask.c)(0x69F1CCCB)(--c99 --gnu -c --cpu Cortex-M7.fp.dp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc -I ../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I ../Drivers/CMSIS/Include -I ../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I ../SYSTEM -I ../BSP -I ../Application -I ../Modules -I ../BSP/GPIO -I ../BSP/TIMER -I ../BSP/FMC -I ../BSP/DMA -I ../BSP/USART -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc -I ..\Middlewares\ST\STM32_USB_Device_Library\Class\CDC\Inc -I ..\BSP\USB -I ..\Application\USB-I.\RTE\Compiler-I.\RTE\_Project-ID:\Keil\Packs\ARM\CMSIS\6.1.0\CMSIS\Core\Include-ID:\Keil\Packs\Keil\ARM_Compiler\1.6.3\Include-ID:\Keil\Packs\Keil\STM32H7xx_DFP\3.1.1\Drivers\CMSIS\Device\ST\STM32H7xx\Include-D__UVISION_VERSION="542" -DSTM32H743xx -D_RTE_ -DUSE_FULL_LL_DRIVER -DSTM32H743xx -DUSE_HAL_DRIVER-o .\project\app_incentivesettingstask.o --depend .\project\app_incentivesettingstask.d)
 I (..\Application\App_IncentiveSettingsTask.h)(0x695F58C9)
 I (..\Application\App_TasksInit.h)(0x6937FEE1)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h)(0x69378AA2)
@@ -2871,7 +2881,7 @@ I (D:\Keil\Keil_v5\ARM\ARMCC\include\stdio.h)(0x60252374)
 I (../Modules/Module_Key.h)(0x69382B0E)
 I (../Modules/Module_Serial411.h)(0x69F09A84)
 I (../Modules/Module_ReceiveUpper.h)(0x69F19AC0)
-I (../Modules/Module_TransmitUpper.h)(0x69F1AC00)
+I (../Modules/Module_TransmitUpper.h)(0x69F1AFBD)
 I (../BSP/bsp.h)(0x6960B376)
 I (../BSP/GPIO/bsp_gpio.h)(0x69DFA78A)
 I (../BSP/TIMER/bsp_timer.h)(0x69F068B4)

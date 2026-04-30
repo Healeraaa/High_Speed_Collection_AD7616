@@ -14,6 +14,7 @@ void BSP_Init(void)
   SCB_EnableDCache();// 使能数据缓存 D-Cache
 	
 	HAL_Init();
+  for(volatile uint32_t i=0; i<0x1FFFFF; i++);
   SRAM_ClockEnable();// 使能SRAM时钟
   LL_APB4_GRP1_EnableClock(LL_APB4_GRP1_PERIPH_SYSCFG);// 使能SYSCFG时钟
   
@@ -29,11 +30,12 @@ void BSP_Init(void)
   BSP_GPIO_LED_Init();// 初始化LED相关的GPIO 
   BSP_USART1_Init();// 初始化USART1
   BSP_USART3_Init();// 初始化USART3
-  BSP_DWT_Delay_ms(1000);
+  
 
   BSP_TIM4_COUNT_Init();// 初始化 TIM4 计数定时器（中断模式）
   BSP_TIM4_COUNT_Start();// 启动 TIM4 计数器（每 10ms 产生一次中断）
 
+  BSP_DWT_Delay_ms(2000);
   
   
 
