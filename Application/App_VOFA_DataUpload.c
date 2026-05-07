@@ -31,6 +31,64 @@ typedef struct
 /* 外部队列句柄 */
 extern QueueHandle_t xIVDataQueue;
 
+
+// void App_VofaDataUploadTask(void *argument)
+// {
+//     /* ==================== 测试模式：填充16个float数据并发送 ==================== */
+//     float test_data[16];
+//     int32_t test_count = 0;
+//     static uint8_t test_initialized = 0;
+    
+//     /* 初始化测试提示 */
+//     if (!test_initialized)
+//     {
+//         printf("\r\n========== VOFA Data Upload Test Mode ==========\r\n");
+//         printf("Task: App_VofaDataUploadTask (Test)\r\n");
+//         printf("Data Count: 16 floats\r\n");
+//         printf("Sample Frequency: %u Hz\r\n", AD7616_SAMPLE_FREQUENCY_HZ);
+//         printf("Sending test frames every 1 second...\r\n");
+//         printf("================================================\r\n\r\n");
+//         test_initialized = 1;
+        
+//         /* 等待系统完全启动 */
+//         vTaskDelay(pdMS_TO_TICKS(3000));
+//     }
+    
+//     while (1)
+//     {
+//         /* 填充16个测试数据 - 生成不同的值进行测试 */
+//         for (int i = 0; i < 16; i++)
+//         {
+//             /* 生成递增的测试数据: 0.0, 1.0, 2.0, ..., 15.0 + 循环偏移 */
+//             test_data[i] = (float)(i) + (float)test_count * 0.1f;
+//         }
+        
+//         test_count++;
+        
+//         /* 发送测试数据 */
+//         int32_t ret = Module_TransmitUpper_SendVoltageData(
+//             (const float *)test_data,
+//             16,
+//             AD7616_SAMPLE_FREQUENCY_HZ);
+        
+//         if (ret == 0)
+//         {
+//             printf("[Test #%d] SUCCESS: Sent 16 floats, First=%.2f, Last=%.2f\r\n", 
+//                    test_count, test_data[0], test_data[15]);
+//         }
+//         else
+//         {
+//             printf("[Test #%d] FAILED: SendVoltageData returned %ld\r\n", test_count, ret);
+//         }
+        
+//         /* 每1秒发送一次测试数据 */
+//         vTaskDelay(pdMS_TO_TICKS(30000));
+//     }
+// }
+
+
+
+
 void App_VofaDataUploadTask(void *argument)
 {
     IVData_t rxData;  // 接收的数据包
@@ -43,27 +101,27 @@ void App_VofaDataUploadTask(void *argument)
             float    *p_iv_data = rxData.pIVBuffer;
             uint32_t  valid_count = rxData.validCount;
 
-            /* ========== 严格的数据验证 ========== */
-            if (p_iv_data == NULL)
-            {
-                printf("ERROR: Null pointer in IVData\r\n");
-                continue;
-            }
+            // /* ========== 严格的数据验证 ========== */
+            // if (p_iv_data == NULL)
+            // {
+            //     printf("ERROR: Null pointer in IVData\r\n");
+            //     continue;
+            // }
 
-            if (valid_count == 0)
-            {
-                printf("ERROR: Empty data package\r\n");
-                continue;
-            }
+            // if (valid_count == 0)
+            // {
+            //     printf("ERROR: Empty data package\r\n");
+            //     continue;
+            // }
 
-            /* 防止超过单帧最大容量 (2048 浮点数 = 8192 字节) */
-            #define MAX_FRAME_DATA 2048
-            if (valid_count > MAX_FRAME_DATA)
-            {
-                printf("ERROR: Data count (%lu) exceeds max frame size (%d)\r\n", 
-                       valid_count, MAX_FRAME_DATA);
-                continue;
-            }
+            // /* 防止超过单帧最大容量 (2048 浮点数 = 8192 字节) */
+            // #define MAX_FRAME_DATA 2048
+            // if (valid_count > MAX_FRAME_DATA)
+            // {
+            //     printf("ERROR: Data count (%lu) exceeds max frame size (%d)\r\n", 
+            //            valid_count, MAX_FRAME_DATA);
+            //     continue;
+            // }
 
             /* ========== 使用二进制协议发送数据 ========== */
             /**
@@ -83,12 +141,12 @@ void App_VofaDataUploadTask(void *argument)
                 (uint16_t)valid_count,
                 AD7616_SAMPLE_FREQUENCY_HZ);
 
-            if (ret != 0)
-            {
-                /* 发送失败处理 - 可能是缓冲区溢出或其他错误 */
-                printf("ERROR: Failed to send frame (count=%lu, ret=%ld)\r\n", 
-                       valid_count, ret);
-            }
+            // if (ret != 0)
+            // {
+            //     /* 发送失败处理 - 可能是缓冲区溢出或其他错误 */
+            //     printf("ERROR: Failed to send frame (count=%lu, ret=%ld)\r\n", 
+            //            valid_count, ret);
+            // }
 
             /* 发送延时 - 避免 CPU 饱和 */
             vTaskDelay(pdMS_TO_TICKS(5));

@@ -34,7 +34,7 @@ void BSP_USART1_Init(void)
   NVIC_EnableIRQ(USART1_IRQn);
 
   USART_InitStruct.PrescalerValue = LL_USART_PRESCALER_DIV1;              // 预分频器设置为 1
-  USART_InitStruct.BaudRate = 3000000;                                     // 波特率 115200
+  USART_InitStruct.BaudRate = 600000;                                     // 波特率 115200
   USART_InitStruct.DataWidth = LL_USART_DATAWIDTH_8B;                     // 数据位 8 位
   USART_InitStruct.StopBits = LL_USART_STOPBITS_1;                        // 停止位 1 位
   USART_InitStruct.Parity = LL_USART_PARITY_NONE;                         // 无校验位

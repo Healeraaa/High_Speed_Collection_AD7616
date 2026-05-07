@@ -102,9 +102,10 @@ static uint8_t *Module_TransmitUpper_PackFrame(
   tx_buffer[offset++] = PROTOCOL_HEADER_H;
   tx_buffer[offset++] = PROTOCOL_HEADER_L;
 
-  /* 帧长度占位（后续填充） */
+  /* 帧长度占位（先填充为 0x00，待后续回填） */
   uint16_t frame_len_pos = offset;
-  offset += 2;
+  tx_buffer[offset++] = 0x00;
+  tx_buffer[offset++] = 0x00;
 
   /* 设备ID */
   tx_buffer[offset++] = device_id;
@@ -130,27 +131,33 @@ static uint8_t *Module_TransmitUpper_PackFrame(
   uint8_t *p_float_bytes = (uint8_t *)p_data;
   uint16_t data_bytes = count * 4; // 每个 float 4 个字节
 
-
-  // memcpy(&tx_buffer[offset], p_float_bytes, data_bytes);
   for (uint16_t i = 0; i < data_bytes; i++)
   {
     tx_buffer[offset + i] = p_float_bytes[i];
   }
   offset += data_bytes;
 
-  /* 计算 CRC16 (从帧头到数据负载) */
+  /* ============ 关键改动：先计算帧长，再计算 CRC ============
+   * 帧结构: [帧头(2)] [帧长(2)] [设备ID(1)] [频率(4)] [时间戳(4)] [数据量(2)] [数据] [CRC(2)] [帧尾(2)]
+   */
+  
+  /* 1. 计算完整帧长度（从帧头到帧尾：2+2+1+4+4+2+数据+2+2） */
+  uint16_t total_len = offset + 2 + 2;  // offset 已包含到数据，加上 CRC(2) + 帧尾(2)
+  
+  /* 2. 填充帧长度 */
+  tx_buffer[frame_len_pos] = (uint8_t)(total_len & 0xFF);
+  tx_buffer[frame_len_pos + 1] = (uint8_t)((total_len >> 8) & 0xFF);
+
+  /* 3. 计算 CRC16 (从帧头到数据负载末尾，包括已填充的帧长) */
   uint16_t crc16 = CRC16_CCITT(tx_buffer, offset);
+  
+  /* 4. 填充 CRC16 */
   tx_buffer[offset++] = (uint8_t)(crc16 & 0xFF);
   tx_buffer[offset++] = (uint8_t)((crc16 >> 8) & 0xFF);
 
-  /* 帧尾 */
+  /* 5. 填充帧尾 */
   tx_buffer[offset++] = PROTOCOL_FOOTER_H;
   tx_buffer[offset++] = PROTOCOL_FOOTER_L;
-
-  /* 回填帧长度 (从帧头到帧尾) */
-  uint16_t total_len = offset;
-  tx_buffer[frame_len_pos] = (uint8_t)(total_len & 0xFF);
-  tx_buffer[frame_len_pos + 1] = (uint8_t)((total_len >> 8) & 0xFF);
 
   *p_frame_len = total_len;
   return tx_buffer;
