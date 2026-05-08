@@ -19,7 +19,7 @@
  * - 最大采样率 ≈ 10MHz，但实际受 FMC 总线仲裁影响
  * - 建议保守设置为 10-100kHz
  */
-#define AD7616_SAMPLE_FREQUENCY_HZ    10000  // 10 kHz
+#define AD7616_SAMPLE_FREQUENCY_HZ    100  // 100Hz
 
 /* 数据包结构体（与 App_WaveCollectionTask.c 一致） */
 typedef struct
@@ -136,7 +136,7 @@ void App_VofaDataUploadTask(void *argument)
              * 4. 时间戳用于数据同步和对齐
              * 5. 采样频率用于上位机重建原始时间序列
              */
-            int32_t ret = Module_TransmitUpper_SendVoltageData(
+            int32_t ret = Module_TransmitUpper_SendIVData(
                 p_iv_data,
                 (uint16_t)valid_count,
                 AD7616_SAMPLE_FREQUENCY_HZ);

@@ -3,7 +3,7 @@
 #include "main.h"
 #include "Module_LightCounting.h"
 
-uint32_t g_light_count = 0;// 全局变量用于存储光脉冲计数值
+uint32_t g_light_count = 0;// 全局变量用于·存储光脉冲计数值
 
 /**
  * @brief  TIM4 全局中断服务程序

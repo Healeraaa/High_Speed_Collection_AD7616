@@ -18,8 +18,8 @@
 #define PROTOCOL_FOOTER_H 0x0D
 #define PROTOCOL_FOOTER_L 0x0A
 
-#define DEVICE_TYPE_VOLTAGE 0x01
-#define DEVICE_TYPE_CURRENT 0x02
+#define DEVICE_TYPE_IV 0x01
+#define DEVICE_TYPE_LIGHT 0x02
 
 /* 最大单帧数据个数（防止超出缓冲） */
 #define MAX_DATA_PER_FRAME 2048
@@ -30,7 +30,7 @@ typedef struct
   uint8_t header_h;      // 0x55
   uint8_t header_l;      // 0xAA
   uint16_t frame_length; // 整个帧长度（从帧头到帧尾）
-  uint8_t device_id;     // 设备类型 (0x01: 电压, 0x02: 电流)
+  uint8_t device_id;     // 设备类型 (0x01: IV, 0x02: 光)
   uint32_t sample_freq;  // 采样频率 (Hz)
   uint32_t timestamp;    // 时间戳 (ms)
   uint16_t data_count;   // 数据个数
@@ -71,7 +71,7 @@ static uint16_t CRC16_CCITT(const uint8_t *data, uint16_t length)
 /**
  * 将原始数据打包成协议帧
  *
- * @param device_id     设备类型 (0x01: 电压, 0x02: 电流)
+ * @param device_id     设备类型 (0x01: IV, 0x02: 光)
  * @param sample_freq   采样频率 (Hz)
  * @param p_data        浮点数数组指针
  * @param count         数据个数
@@ -200,25 +200,25 @@ int32_t Module_TransmitUpper_SendFrame(
 }
 
 /**
- * 简化接口：发送电压数据
+ * 简化接口：发送 IV 数据
  */
-int32_t Module_TransmitUpper_SendVoltageData(
+int32_t Module_TransmitUpper_SendIVData(
     const float *p_data,
     uint16_t count,
     uint32_t sample_freq)
 {
   return Module_TransmitUpper_SendFrame(
-      DEVICE_TYPE_VOLTAGE, sample_freq, p_data, count);
+      DEVICE_TYPE_IV, sample_freq, p_data, count);
 }
 
 /**
- * 简化接口：发送电流数据
+ * 简化接口：发送光数据
  */
-int32_t Module_TransmitUpper_SendCurrentData(
+int32_t Module_TransmitUpper_SendLightData(
     const float *p_data,
     uint16_t count,
     uint32_t sample_freq)
 {
   return Module_TransmitUpper_SendFrame(
-      DEVICE_TYPE_CURRENT, sample_freq, p_data, count);
+      DEVICE_TYPE_LIGHT, sample_freq, p_data, count);
 }
