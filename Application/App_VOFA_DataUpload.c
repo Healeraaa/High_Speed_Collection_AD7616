@@ -20,7 +20,7 @@
  * - 建议保守设置为 10-100kHz
  */
 #define AD7616_SAMPLE_FREQUENCY_HZ 100 // 100Hz
-#define Light_SAMPLE_FREQUENCY_HZ 100 // 100Hz
+#define Light_SAMPLE_FREQUENCY_HZ 100  // 100Hz
 
 /* 数据包结构体（与 App_WaveCollectionTask.c 一致） */
 typedef struct
@@ -43,38 +43,25 @@ extern QueueHandle_t xLightDataQueue;
 void App_IVDataUploadTask(void *argument)
 {
     IVData_t rxData;            // 接收的数据包
-    uint16_t frame_len = 0;     // 打包后的帧长度
-    uint8_t *p_frame = NULL;    // 打包后的帧缓冲指针
     SemaphoreHandle_t tx_mutex; // USART1 发送互斥锁
 
     tx_mutex = App_GetUSART1_TxMutex();
 
     while (1)
     {
-        /* 等待接收电压数据包 (阻塞等待) */
+
         if (xQueueReceive(xIVDataQueue, &rxData, portMAX_DELAY) == pdTRUE)
         {
             float *p_iv_data = rxData.pIVBuffer;
             uint32_t valid_count = rxData.validCount;
 
-            /* 第一步：打包数据帧（不需要加锁，因为使用的是内部缓冲） */
-            frame_len = 0;
-            p_frame = Module_TransmitUpper_PackFrame(
-                DEVICE_TYPE_IV,
-                AD7616_SAMPLE_FREQUENCY_HZ,
+            xSemaphoreTake(tx_mutex, portMAX_DELAY);
+            int32_t ret = Module_TransmitUpper_SendIVData(
                 p_iv_data,
                 (uint16_t)valid_count,
-                &frame_len);
+                AD7616_SAMPLE_FREQUENCY_HZ);
+            xSemaphoreGive(tx_mutex);
 
-            if (p_frame != NULL && frame_len > 0)
-            {
-                /* 第二步：加互斥锁后发送数据 (死等) */
-                xSemaphoreTake(tx_mutex, portMAX_DELAY);
-                /* 临界区：发送缓冲数据 */
-                Module_TransmitUpper_SendBuffer(p_frame, frame_len);
-                /* 释放互斥锁 */
-                xSemaphoreGive(tx_mutex);
-            }
             vTaskDelay(pdMS_TO_TICKS(5));
         }
     }
@@ -82,9 +69,7 @@ void App_IVDataUploadTask(void *argument)
 
 void App_LightDataUploadTask(void *argument)
 {
-    LightData_t rxData;            // 接收的数据包
-    uint16_t frame_len = 0;     // 打包后的帧长度
-    uint8_t *p_frame = NULL;    // 打包后的帧缓冲指针
+    LightData_t rxData;         // 接收的数据包
     SemaphoreHandle_t tx_mutex; // USART1 发送互斥锁
 
     tx_mutex = App_GetUSART1_TxMutex();
@@ -97,24 +82,13 @@ void App_LightDataUploadTask(void *argument)
             float *p_iv_data = rxData.pLightBuffer;
             uint32_t valid_count = rxData.validCount;
 
-            /* 第一步：打包数据帧（不需要加锁，因为使用的是内部缓冲） */
-            frame_len = 0;
-            p_frame = Module_TransmitUpper_PackFrame(
-                DEVICE_TYPE_LIGHT,
-                Light_SAMPLE_FREQUENCY_HZ,
+            xSemaphoreTake(tx_mutex, portMAX_DELAY);
+            int32_t ret = Module_TransmitUpper_SendLightData(
                 p_iv_data,
                 (uint16_t)valid_count,
-                &frame_len);
-
-            if (p_frame != NULL && frame_len > 0)
-            {
-                /* 第二步：加互斥锁后发送数据 (死等) */
-                xSemaphoreTake(tx_mutex, portMAX_DELAY);
-                /* 临界区：发送缓冲数据 */
-                Module_TransmitUpper_SendBuffer(p_frame, frame_len);
-                /* 释放互斥锁 */
-                xSemaphoreGive(tx_mutex);
-            }
+                AD7616_SAMPLE_FREQUENCY_HZ);
+            xSemaphoreGive(tx_mutex);
+            
             vTaskDelay(pdMS_TO_TICKS(5));
         }
     }

@@ -27,7 +27,16 @@ Project File Date:  04/29/2026
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 7 (build 960)', folder: 'D:\Keil\Keil_v5\ARM\ARMCC\Bin'
 Build target 'Project'
-".\Project\output.axf" - 0 Error(s), 0 Warning(s).
+compiling App_VOFA_DataUpload.c...
+linking...
+.\Project.sct(155): warning: L6312W: Empty Execution region description for region RW_IRAM4
+.\Project.sct(180): warning: L6312W: Empty Execution region description for region RW_IRAM5
+.\Project.sct(201): warning: L6312W: Empty Execution region description for region RW_IRAM6
+.\Project.sct(114): warning: L6314W: No section matches pattern *(RAM_D2).
+Program Size: Code=40996 RO-data=1416 RW-data=28996 ZI-data=91108  
+Finished: 0 information, 4 warning and 0 error messages.
+FromELF: creating hex file...
+".\Project\output.axf" - 0 Error(s), 4 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -67,7 +76,7 @@ Package Vendor: Keil
 
    * Component: Keil::Compiler&ARM Compiler:I/O:STDOUT&EVR@1.2.0
       Source file:   Source/retarget_io.c
-Build Time Elapsed:  00:00:00
+Build Time Elapsed:  00:00:01
 </pre>
 </body>
 </html>
