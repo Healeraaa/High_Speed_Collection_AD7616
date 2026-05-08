@@ -1,6 +1,6 @@
 .\project\app_wavecollectiontask.o: ..\Application\App_WaveCollectionTask.c
 .\project\app_wavecollectiontask.o: ..\Application\App_WaveCollectionTask.h
-.\project\app_wavecollectiontask.o: ..\Application\App_TasksInit.h
+.\project\app_wavecollectiontask.o: ..\Application\App_LightCollectionTask.h
 .\project\app_wavecollectiontask.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h
 .\project\app_wavecollectiontask.o: D:\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
 .\project\app_wavecollectiontask.o: D:\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
@@ -10,11 +10,12 @@
 .\project\app_wavecollectiontask.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/deprecated_definitions.h
 .\project\app_wavecollectiontask.o: ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F/portmacro.h
 .\project\app_wavecollectiontask.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/mpu_wrappers.h
-.\project\app_wavecollectiontask.o: ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os.h
+.\project\app_wavecollectiontask.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h
 .\project\app_wavecollectiontask.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/task.h
 .\project\app_wavecollectiontask.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/list.h
+.\project\app_wavecollectiontask.o: ..\Application\App_TasksInit.h
+.\project\app_wavecollectiontask.o: ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os.h
 .\project\app_wavecollectiontask.o: ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h
-.\project\app_wavecollectiontask.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h
 .\project\app_wavecollectiontask.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/semphr.h
 .\project\app_wavecollectiontask.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h
 .\project\app_wavecollectiontask.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/timers.h

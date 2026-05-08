@@ -326,6 +326,7 @@ void BSP_TIM4_COUNT_Init(void)
   TIM_InitStruct.ClockDivision = LL_TIM_CLOCKDIVISION_DIV1;    // 时钟分频：1（无分频）
 
   LL_TIM_Init(TIM4, &TIM_InitStruct);
+  LL_TIM_ClearFlag_UPDATE(TIM4);// 清除更新中断标志
   LL_TIM_EnableARRPreload(TIM4);// 使能 ARR 预装载（修改在下一个更新事件生效
   LL_TIM_SetClockSource(TIM4, LL_TIM_CLOCKSOURCE_INTERNAL);// 设置时钟源为内部时钟
   LL_TIM_SetTriggerOutput(TIM4, LL_TIM_TRGO_RESET);// 配置主模式：触发输出为复位信号
@@ -354,6 +355,7 @@ void BSP_TIM4_COUNT_Start(void)
  */
 void BSP_TIM4_COUNT_Stop(void)
 {
+
   LL_TIM_DisableCounter(TIM4);// 禁用计数器（停止计数）
 }
 
@@ -413,4 +415,9 @@ BSP_Status_t BSP_TIM4_COUNT_SetParams(uint32_t psc, uint32_t arr)
   }
 
   return BSP_OK;
+}
+
+void BSP_TIM4_ClearCount(void)
+{
+  LL_TIM_SetCounter(TIM4, 0);
 }

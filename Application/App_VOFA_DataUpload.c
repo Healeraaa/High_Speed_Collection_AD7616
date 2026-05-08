@@ -12,14 +12,15 @@
 /**
  * 采样频率 (Hz) - 根据 AD7616 FMC 访问周期配置
  * 默认 10kHz，如需调整请修改此宏
- * 
+ *
  * 计算方式：
  * - FMC 时钟 = 200MHz (HCLK)
  * - 假设每次 AD7616 读取耗时 ~100ns (20 个时钟周期)
  * - 最大采样率 ≈ 10MHz，但实际受 FMC 总线仲裁影响
  * - 建议保守设置为 10-100kHz
  */
-#define AD7616_SAMPLE_FREQUENCY_HZ    100  // 100Hz
+#define AD7616_SAMPLE_FREQUENCY_HZ 100 // 100Hz
+#define Light_SAMPLE_FREQUENCY_HZ 100 // 100Hz
 
 /* 数据包结构体（与 App_WaveCollectionTask.c 一致） */
 typedef struct
@@ -31,124 +32,89 @@ typedef struct
 /* 外部队列句柄 */
 extern QueueHandle_t xIVDataQueue;
 
-
-// void App_VofaDataUploadTask(void *argument)
-// {
-//     /* ==================== 测试模式：填充16个float数据并发送 ==================== */
-//     float test_data[16];
-//     int32_t test_count = 0;
-//     static uint8_t test_initialized = 0;
-    
-//     /* 初始化测试提示 */
-//     if (!test_initialized)
-//     {
-//         printf("\r\n========== VOFA Data Upload Test Mode ==========\r\n");
-//         printf("Task: App_VofaDataUploadTask (Test)\r\n");
-//         printf("Data Count: 16 floats\r\n");
-//         printf("Sample Frequency: %u Hz\r\n", AD7616_SAMPLE_FREQUENCY_HZ);
-//         printf("Sending test frames every 1 second...\r\n");
-//         printf("================================================\r\n\r\n");
-//         test_initialized = 1;
-        
-//         /* 等待系统完全启动 */
-//         vTaskDelay(pdMS_TO_TICKS(3000));
-//     }
-    
-//     while (1)
-//     {
-//         /* 填充16个测试数据 - 生成不同的值进行测试 */
-//         for (int i = 0; i < 16; i++)
-//         {
-//             /* 生成递增的测试数据: 0.0, 1.0, 2.0, ..., 15.0 + 循环偏移 */
-//             test_data[i] = (float)(i) + (float)test_count * 0.1f;
-//         }
-        
-//         test_count++;
-        
-//         /* 发送测试数据 */
-//         int32_t ret = Module_TransmitUpper_SendVoltageData(
-//             (const float *)test_data,
-//             16,
-//             AD7616_SAMPLE_FREQUENCY_HZ);
-        
-//         if (ret == 0)
-//         {
-//             printf("[Test #%d] SUCCESS: Sent 16 floats, First=%.2f, Last=%.2f\r\n", 
-//                    test_count, test_data[0], test_data[15]);
-//         }
-//         else
-//         {
-//             printf("[Test #%d] FAILED: SendVoltageData returned %ld\r\n", test_count, ret);
-//         }
-        
-//         /* 每1秒发送一次测试数据 */
-//         vTaskDelay(pdMS_TO_TICKS(30000));
-//     }
-// }
-
-
-
-
-void App_VofaDataUploadTask(void *argument)
+typedef struct
 {
-    IVData_t rxData;  // 接收的数据包
+    float *pLightBuffer;
+    uint32_t validCount;
+} LightData_t;
+
+extern QueueHandle_t xLightDataQueue;
+
+void App_IVDataUploadTask(void *argument)
+{
+    IVData_t rxData;            // 接收的数据包
+    uint16_t frame_len = 0;     // 打包后的帧长度
+    uint8_t *p_frame = NULL;    // 打包后的帧缓冲指针
+    SemaphoreHandle_t tx_mutex; // USART1 发送互斥锁
+
+    tx_mutex = App_GetUSART1_TxMutex();
 
     while (1)
     {
         /* 等待接收电压数据包 (阻塞等待) */
         if (xQueueReceive(xIVDataQueue, &rxData, portMAX_DELAY) == pdTRUE)
         {
-            float    *p_iv_data = rxData.pIVBuffer;
-            uint32_t  valid_count = rxData.validCount;
+            float *p_iv_data = rxData.pIVBuffer;
+            uint32_t valid_count = rxData.validCount;
 
-            // /* ========== 严格的数据验证 ========== */
-            // if (p_iv_data == NULL)
-            // {
-            //     printf("ERROR: Null pointer in IVData\r\n");
-            //     continue;
-            // }
-
-            // if (valid_count == 0)
-            // {
-            //     printf("ERROR: Empty data package\r\n");
-            //     continue;
-            // }
-
-            // /* 防止超过单帧最大容量 (2048 浮点数 = 8192 字节) */
-            // #define MAX_FRAME_DATA 2048
-            // if (valid_count > MAX_FRAME_DATA)
-            // {
-            //     printf("ERROR: Data count (%lu) exceeds max frame size (%d)\r\n", 
-            //            valid_count, MAX_FRAME_DATA);
-            //     continue;
-            // }
-
-            /* ========== 使用二进制协议发送数据 ========== */
-            /**
-             * 协议帧结构:
-             * 帧头(2) | 帧长(2) | 设备ID(1) | 采样频率(4) | 时间戳(4) | 
-             * 数据量(2) | 数据(4*N) | CRC16(2) | 帧尾(2)
-             * 
-             * 这样做的优势:
-             * 1. 一次性发送完整帧，避免逐行发送导致的丢包
-             * 2. 帧长度字段解决大包传输问题
-             * 3. CRC16 校验确保数据完整性
-             * 4. 时间戳用于数据同步和对齐
-             * 5. 采样频率用于上位机重建原始时间序列
-             */
-            int32_t ret = Module_TransmitUpper_SendIVData(
+            /* 第一步：打包数据帧（不需要加锁，因为使用的是内部缓冲） */
+            frame_len = 0;
+            p_frame = Module_TransmitUpper_PackFrame(
+                DEVICE_TYPE_IV,
+                AD7616_SAMPLE_FREQUENCY_HZ,
                 p_iv_data,
                 (uint16_t)valid_count,
-                AD7616_SAMPLE_FREQUENCY_HZ);
+                &frame_len);
 
-            // if (ret != 0)
-            // {
-            //     /* 发送失败处理 - 可能是缓冲区溢出或其他错误 */
-            //     printf("ERROR: Failed to send frame (count=%lu, ret=%ld)\r\n", 
-            //            valid_count, ret);
-            // }
+            if (p_frame != NULL && frame_len > 0)
+            {
+                /* 第二步：加互斥锁后发送数据 (死等) */
+                xSemaphoreTake(tx_mutex, portMAX_DELAY);
+                /* 临界区：发送缓冲数据 */
+                Module_TransmitUpper_SendBuffer(p_frame, frame_len);
+                /* 释放互斥锁 */
+                xSemaphoreGive(tx_mutex);
+            }
+            vTaskDelay(pdMS_TO_TICKS(5));
+        }
+    }
+}
 
-            /* 发送延时 - 避免 CPU 饱和 */
+void App_LightDataUploadTask(void *argument)
+{
+    LightData_t rxData;            // 接收的数据包
+    uint16_t frame_len = 0;     // 打包后的帧长度
+    uint8_t *p_frame = NULL;    // 打包后的帧缓冲指针
+    SemaphoreHandle_t tx_mutex; // USART1 发送互斥锁
+
+    tx_mutex = App_GetUSART1_TxMutex();
+
+    while (1)
+    {
+        /* 等待接收光数据包 (阻塞等待) */
+        if (xQueueReceive(xLightDataQueue, &rxData, portMAX_DELAY) == pdTRUE)
+        {
+            float *p_iv_data = rxData.pLightBuffer;
+            uint32_t valid_count = rxData.validCount;
+
+            /* 第一步：打包数据帧（不需要加锁，因为使用的是内部缓冲） */
+            frame_len = 0;
+            p_frame = Module_TransmitUpper_PackFrame(
+                DEVICE_TYPE_LIGHT,
+                Light_SAMPLE_FREQUENCY_HZ,
+                p_iv_data,
+                (uint16_t)valid_count,
+                &frame_len);
+
+            if (p_frame != NULL && frame_len > 0)
+            {
+                /* 第二步：加互斥锁后发送数据 (死等) */
+                xSemaphoreTake(tx_mutex, portMAX_DELAY);
+                /* 临界区：发送缓冲数据 */
+                Module_TransmitUpper_SendBuffer(p_frame, frame_len);
+                /* 释放互斥锁 */
+                xSemaphoreGive(tx_mutex);
+            }
             vTaskDelay(pdMS_TO_TICKS(5));
         }
     }
@@ -174,18 +140,18 @@ void App_VofaDataUploadTask(void *argument)
 //     float delta_phase0, delta_phase1, delta_phase2, delta_phase3;
 //     char tx_buffer[128];
 //     uint16_t len;
-    
+
 //     MX_USB_DEVICE_Init();
-    
+
 //     /* 计算每个采样周期的相位增量 */
 //     delta_phase0 = (2.0f * PI * CH0_FREQ) / SAMPLE_RATE;
 //     delta_phase1 = (2.0f * PI * CH1_FREQ) / SAMPLE_RATE;
 //     delta_phase2 = (2.0f * PI * CH2_FREQ) / SAMPLE_RATE;
 //     delta_phase3 = (2.0f * PI * CH3_FREQ) / SAMPLE_RATE;
-    
+
 //     /* 等待 USB 枚举完成 */
 //     vTaskDelay(pdMS_TO_TICKS(1000));
-    
+
 //     while (1)
 //     {
 //         /* 计算四个通道的正弦波值 */
@@ -193,25 +159,25 @@ void App_VofaDataUploadTask(void *argument)
 //         ch1_value = SINE_AMPLITUDE * sinf(phase1) + SINE_OFFSET;
 //         ch2_value = SINE_AMPLITUDE * sinf(phase2) + SINE_OFFSET;
 //         ch3_value = SINE_AMPLITUDE * sinf(phase3) + SINE_OFFSET;
-        
+
 //         /* 更新各通道相位 */
 //         phase0 += delta_phase0;
 //         phase1 += delta_phase1;
 //         phase2 += delta_phase2;
 //         phase3 += delta_phase3;
-        
+
 //         /* 相位归一化 (防止溢出) */
 //         if (phase0 >= 2.0f * PI) phase0 -= 2.0f * PI;
 //         if (phase1 >= 2.0f * PI) phase1 -= 2.0f * PI;
 //         if (phase2 >= 2.0f * PI) phase2 -= 2.0f * PI;
 //         if (phase3 >= 2.0f * PI) phase3 -= 2.0f * PI;
-        
+
 //         /* 按照 FireWater 协议格式化: "ceio:ch0,ch1,ch2,ch3\n" */
-//         len = sprintf(tx_buffer, "ceio:%.3f,%.3f,%.3f,%.3f\n", 
+//         len = sprintf(tx_buffer, "ceio:%.3f,%.3f,%.3f,%.3f\n",
 //                       ch0_value, ch1_value, ch2_value, ch3_value);
-        
+
 //         CDC_Transmit_HS((uint8_t *)tx_buffer, len);
-        
+
 //         /* 控制发送频率 (10ms 一次，100Hz 采样率) */
 //         vTaskDelay(pdMS_TO_TICKS(10));
 //     }

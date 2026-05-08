@@ -14,8 +14,7 @@ void Module_Config(void)
   
   Module_KEY_Config();
   Module_AD7616_Config();
-  Module_LightCounting_Init();
-  Module_LightCounting_Start();
+
   
   
   

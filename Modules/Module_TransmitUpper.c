@@ -41,7 +41,8 @@ typedef struct
 } Protocol_Frame_t;
 
 /* 发送缓冲 - 足够容纳最大帧: 19 + 4*1024 + 4 = 4120 字节 */
-__attribute__((section("RAM_D3"))) __attribute__((aligned(32))) uint8_t tx_buffer[1024 * 8]; 
+__attribute__((section("RAM_D3"))) __attribute__((aligned(32))) uint8_t tx_buffer[1024 * 8];
+
 
 /* ==================== CRC16 计算 ==================== */
 /**
@@ -68,6 +69,26 @@ static uint16_t CRC16_CCITT(const uint8_t *data, uint16_t length)
 }
 
 /* ==================== 打包和发送函数 ==================== */
+
+/**
+ * 通过 USART1 逐字节发送缓冲数据
+ * 本函数不加锁，调用者应自行保护
+ *
+ * @param p_buffer  数据缓冲指针
+ * @param length    数据长度
+ * @return          无
+ */
+void Module_TransmitUpper_SendBuffer(const uint8_t *p_buffer, uint16_t length)
+{
+  if (!p_buffer || length == 0)
+    return;
+
+  for (uint16_t i = 0; i < length; i++)
+  {
+    BSP_USART1_SendByte(p_buffer[i]);
+  }
+}
+
 /**
  * 将原始数据打包成协议帧
  *
@@ -78,7 +99,7 @@ static uint16_t CRC16_CCITT(const uint8_t *data, uint16_t length)
  * @param p_frame_len   输出帧长度
  * @return              返回缓冲指针，长度在 p_frame_len 中
  */
-static uint8_t *Module_TransmitUpper_PackFrame(
+uint8_t *Module_TransmitUpper_PackFrame(
     uint8_t device_id,
     uint32_t sample_freq,
     const float *p_data,
@@ -185,16 +206,8 @@ int32_t Module_TransmitUpper_SendFrame(
   if (!p_frame || frame_len == 0)
     return -1;
 
-  /* 通过 USART1 发送 (通过 printf 重定向到 USART1) */
-  for (uint16_t i = 0; i < frame_len; i++)
-  {
-    /* 可选: 如果有底层发送接口，使用它 */
-    BSP_USART1_SendByte(p_frame[i]);
-  }
-
-  /* 使用 fwrite 发送到标准输出 (需要重定向) */
-  // fwrite(p_frame, 1, frame_len, stdout);
-  // fflush(stdout);
+  /* 通过 USART1 发送缓冲数据 */
+  Module_TransmitUpper_SendBuffer(p_frame, frame_len);
 
   return 0;
 }

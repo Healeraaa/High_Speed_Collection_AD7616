@@ -1,6 +1,5 @@
 .\project\app_lightcollectiontask.o: ..\Application\App_LightCollectionTask.c
 .\project\app_lightcollectiontask.o: ..\Application\App_LightCollectionTask.h
-.\project\app_lightcollectiontask.o: ..\Application\App_TasksInit.h
 .\project\app_lightcollectiontask.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h
 .\project\app_lightcollectiontask.o: D:\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
 .\project\app_lightcollectiontask.o: D:\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
@@ -10,11 +9,12 @@
 .\project\app_lightcollectiontask.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/deprecated_definitions.h
 .\project\app_lightcollectiontask.o: ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F/portmacro.h
 .\project\app_lightcollectiontask.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/mpu_wrappers.h
-.\project\app_lightcollectiontask.o: ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os.h
+.\project\app_lightcollectiontask.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h
 .\project\app_lightcollectiontask.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/task.h
 .\project\app_lightcollectiontask.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/list.h
+.\project\app_lightcollectiontask.o: ..\Application\App_TasksInit.h
+.\project\app_lightcollectiontask.o: ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os.h
 .\project\app_lightcollectiontask.o: ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h
-.\project\app_lightcollectiontask.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h
 .\project\app_lightcollectiontask.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/semphr.h
 .\project\app_lightcollectiontask.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h
 .\project\app_lightcollectiontask.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/timers.h
@@ -70,3 +70,5 @@
 .\project\app_lightcollectiontask.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_tim.h
 .\project\app_lightcollectiontask.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_usart.h
 .\project\app_lightcollectiontask.o: ../Modules/Module_LightCounting.h
+.\project\app_lightcollectiontask.o: ../Modules/Module_TransmitUpper.h
+.\project\app_lightcollectiontask.o: ../BSP/TIMER/bsp_timer.h

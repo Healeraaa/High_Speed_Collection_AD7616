@@ -1,4 +1,5 @@
 #include "App_WaveCollectionTask.h"
+#include "App_LightCollectionTask.h"
 #include "App_TasksInit.h"
 #include "main.h"
 #include "bsp_fmc.h"
@@ -140,19 +141,22 @@ __attribute__((section(".itcm"))) void EXTI1_IRQHandler(void)
 
         if (LL_GPIO_IsInputPinSet(GPIOE, LL_GPIO_PIN_1)) // 上升沿
         {
+            // 光部分
+            App_LightCollection_Start();
+
+            // IV部分
             u8_dma_buffer = 0;
             BSP_TIM3_PWM0_Start();
             BSP_DMA_AD7616_Start(AD7616_DataBuffer_A, DMA_BUFFER_SIZE);
+
         }
         else // 下降沿
         {
+            // IV部分
             BSP_TIM3_PWM0_Stop();
-
             uint32_t remaining = LL_DMA_GetDataLength(DMA1, LL_DMA_STREAM_0);
             uint32_t transferred = DMA_BUFFER_SIZE - remaining;
-
             LL_DMA_DisableStream(DMA1, LL_DMA_STREAM_0);
-
             if (transferred > 0)
             {
                 RawDataInfo_t info = {
@@ -162,8 +166,10 @@ __attribute__((section(".itcm"))) void EXTI1_IRQHandler(void)
                 };
                 xQueueSendFromISR(xRawDataQueue, &info, &xHigherPriorityTaskWoken);
             }
-
             portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
+
+            // 光部分
+            App_LightCollection_Stop();
         }
     }
 }

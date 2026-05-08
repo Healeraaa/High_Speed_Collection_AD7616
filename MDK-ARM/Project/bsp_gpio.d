@@ -1,5 +1,5 @@
 .\project\bsp_gpio.o: ..\BSP\GPIO\bsp_gpio.c
-.\project\bsp_gpio.o: ..\BSP\GPIO\bsp_gpio.h
+.\project\bsp_gpio.o: ../BSP/bsp.h
 .\project\bsp_gpio.o: ../Core/Inc/main.h
 .\project\bsp_gpio.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h
 .\project\bsp_gpio.o: ../Core/Inc/stm32h7xx_hal_conf.h
@@ -53,3 +53,10 @@
 .\project\bsp_gpio.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_gpio.h
 .\project\bsp_gpio.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_tim.h
 .\project\bsp_gpio.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_usart.h
+.\project\bsp_gpio.o: D:\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+.\project\bsp_gpio.o: ../BSP/GPIO/bsp_gpio.h
+.\project\bsp_gpio.o: ../BSP/TIMER/bsp_timer.h
+.\project\bsp_gpio.o: ../BSP/USART/bsp_usart.h
+.\project\bsp_gpio.o: ../BSP/DMA/bsp_dma.h
+.\project\bsp_gpio.o: ../BSP/FMC/bsp_fmc.h
+.\project\bsp_gpio.o: ../BSP/bsp.h

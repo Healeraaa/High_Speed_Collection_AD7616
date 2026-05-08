@@ -86,3 +86,4 @@
 .\project\app_tasksinit.o: ..\Application\App_WaveCollectionTask.h
 .\project\app_tasksinit.o: ..\Application\App_VOFA_DataUpload.h
 .\project\app_tasksinit.o: ..\Application\App_IncentiveSettingsTask.h
+.\project\app_tasksinit.o: ..\Application\App_LightCollectionTask.h
