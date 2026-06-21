@@ -6,8 +6,8 @@
  * @note  在 Serial_SendPacket 中自动更新
  */
 Serial411_GainConfig_t g_Serial411_GainConfig = {
-    .iv_gain = IV_GAIN_1K,
-    .voltage_gain_stage1 = VOLTAGE_GAIN_STAGE1_5X,
+    .iv_gain = IV_GAIN_33,
+    .voltage_gain_stage1 = VOLTAGE_GAIN_STAGE1_1X,
     .voltage_gain_stage2 = VOLTAGE_GAIN_STAGE2_1X,
     .feedback_select = FEEDBACK_GND,
     .we_channel = WE_CHANNEL_1};

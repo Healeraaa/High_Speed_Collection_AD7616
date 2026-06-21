@@ -28,27 +28,28 @@ typedef enum {
     WE_CHANNEL_2 = 0x03   // PB4=1, PB3=1
 } WE_Channel_TypeDef;
 
-/* IV转换倍数定义*/
+/* IV转换倍数定义 (PB5, PB6控制四选一模拟开关) */
 typedef enum {
-    IV_GAIN_1K   = 0x00,  // PB6=0, PB5=0, 1K
-    IV_GAIN_100K = 0x01,  // PB6=0, PB5=1, 100K
-    IV_GAIN_10M  = 0x02,  // PB6=1, PB5=0, 10M
-    IV_GAIN_100M = 0x03   // PB6=1, PB5=1, 100M
+    IV_GAIN_33   = 0x00,  // PB6=0, PB5=0, 33
+    IV_GAIN_1K   = 0x01,  // PB6=0, PB5=1, 1K
+    IV_GAIN_10K  = 0x02,  // PB6=1, PB5=0, 10K
+    IV_GAIN_100K = 0x03   // PB6=1, PB5=1, 100K
 } IV_Gain_TypeDef;
 
-/* 第一级电压放大倍数定义*/
+/* 第一级电压放大倍数定义 (PB7控制二选一模拟开关) */
 typedef enum {
-    VOLTAGE_GAIN_STAGE1_5X  = 0x00,  // PB7=0, 5倍
-    VOLTAGE_GAIN_STAGE1_20X = 0x01   // PB7=1, 20倍
+    VOLTAGE_GAIN_STAGE1_1X  = 0x00,  // PB7=0, 1倍
+    VOLTAGE_GAIN_STAGE1_10X = 0x01   // PB7=1, 10倍
 } Voltage_Gain_Stage1_TypeDef;
 
-/* 第二级电压放大倍数定义*/
+/* 第二级电压放大倍数定义 (PB8, PB9控制四选一模拟开关) */
 typedef enum {
-    VOLTAGE_GAIN_STAGE2_1X  = 0x00,  // PB9=0, PB8=0, 1倍
-    VOLTAGE_GAIN_STAGE2_5X  = 0x01,  // PB9=0, PB8=1, 5倍
-    VOLTAGE_GAIN_STAGE2_20X = 0x02,  // PB9=1, PB8=0, 20倍
-    VOLTAGE_GAIN_STAGE2_50X = 0x03   // PB9=1, PB8=1, 50倍
+    VOLTAGE_GAIN_STAGE2_1X   = 0x00,  // PB9=0, PB8=0, 1倍
+    VOLTAGE_GAIN_STAGE2_3_3X = 0x01,  // PB9=0, PB8=1, 3.3倍
+    VOLTAGE_GAIN_STAGE2_10X  = 0x02,  // PB9=1, PB8=0, 10倍
+    VOLTAGE_GAIN_STAGE2_33X  = 0x03   // PB9=1, PB8=1, 33倍
 } Voltage_Gain_Stage2_TypeDef;
+
 
 /* 反馈选择定义*/
 typedef enum {
@@ -84,9 +85,9 @@ typedef struct {
  * @note  用于存储 IV 转换和电压放大的所有配置参数
  */
 typedef struct {
-    IV_Gain_TypeDef iv_gain;                          // IV 转换倍数（1K/100K/10M/100M）
-    Voltage_Gain_Stage1_TypeDef voltage_gain_stage1;  // 第一级电压放大倍数（5X/20X）
-    Voltage_Gain_Stage2_TypeDef voltage_gain_stage2;  // 第二级电压放大倍数（1X/5X/20X/50X）
+    IV_Gain_TypeDef iv_gain;                          // IV 转换倍数（33/1K/10K/100K）
+    Voltage_Gain_Stage1_TypeDef voltage_gain_stage1;  // 第一级电压放大倍数（1X/10X）
+    Voltage_Gain_Stage2_TypeDef voltage_gain_stage2;  // 第二级电压放大倍数（1X/3.3X/10X/33X）
     Feedback_Select_TypeDef feedback_select;          // 反馈选择（GND/FB）
     WE_Channel_TypeDef we_channel;                    // WE 通道选择（1/2/3/4）
 } Serial411_GainConfig_t;
@@ -94,48 +95,48 @@ typedef struct {
 /**
  * @brief 获取 IV 增益对应的实际倍数
  * @param iv_gain IV 增益枚举值
- * @return uint32_t 实际的增益倍数（1000/100000/10000000/100000000）
+ * @return float 实际的增益倍数（33/1000/10000/100000）
  */
-static inline uint32_t Serial411_Get_IV_Gain_Value(IV_Gain_TypeDef iv_gain)
+static inline float Serial411_Get_IV_Gain_Value(IV_Gain_TypeDef iv_gain)
 {
     switch (iv_gain)
     {
-        case IV_GAIN_1K:    return 1000;           // 1K
-        case IV_GAIN_100K:  return 100000;         // 100K
-        case IV_GAIN_10M:   return 10000000;       // 10M
-        case IV_GAIN_100M:  return 100000000;      // 100M
-        default:            return 1000;
+        case IV_GAIN_33:    return 33;            // 33Ω
+        case IV_GAIN_1K:    return 1000;          // 1KΩ
+        case IV_GAIN_10K:   return 10000;         // 10KΩ
+        case IV_GAIN_100K:  return 100000;        // 100KΩ
+        default:            return 33;            // 默认33Ω
     }
 }
 
 /**
  * @brief 获取第一级电压增益对应的倍数
  * @param gain 第一级电压增益枚举值
- * @return uint32_t 实际的增益倍数（5 或 20）
+ * @return float 实际的增益倍数（1 或 10）
  */
-static inline uint32_t Serial411_Get_Voltage_Gain_Stage1_Value(Voltage_Gain_Stage1_TypeDef gain)
+static inline float Serial411_Get_Voltage_Gain_Stage1_Value(Voltage_Gain_Stage1_TypeDef gain)
 {
     switch (gain)
     {
-        case VOLTAGE_GAIN_STAGE1_5X:   return 5;
-        case VOLTAGE_GAIN_STAGE1_20X:  return 20;
-        default:                        return 5;
+        case VOLTAGE_GAIN_STAGE1_1X:   return 1;   // 1倍
+        case VOLTAGE_GAIN_STAGE1_10X:  return 10;  // 10倍
+        default:                        return 1;
     }
 }
 
 /**
  * @brief 获取第二级电压增益对应的倍数
  * @param gain 第二级电压增益枚举值
- * @return uint32_t 实际的增益倍数（1/5/20/50）
+ * @return float 实际的增益倍数（1/3.3/10/33）
  */
-static inline uint32_t Serial411_Get_Voltage_Gain_Stage2_Value(Voltage_Gain_Stage2_TypeDef gain)
+static inline float Serial411_Get_Voltage_Gain_Stage2_Value(Voltage_Gain_Stage2_TypeDef gain)
 {
     switch (gain)
     {
-        case VOLTAGE_GAIN_STAGE2_1X:   return 1;
-        case VOLTAGE_GAIN_STAGE2_5X:   return 5;
-        case VOLTAGE_GAIN_STAGE2_20X:  return 20;
-        case VOLTAGE_GAIN_STAGE2_50X:  return 50;
+        case VOLTAGE_GAIN_STAGE2_1X:   return 1;   // 1倍
+        case VOLTAGE_GAIN_STAGE2_3_3X: return 3.3;   // 3.3倍
+        case VOLTAGE_GAIN_STAGE2_10X:  return 10;  // 10倍
+        case VOLTAGE_GAIN_STAGE2_33X:  return 33;  // 33倍
         default:                        return 1;
     }
 }

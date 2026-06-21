@@ -73,7 +73,7 @@ void App_WaveCollectionTask(void *argument)
             for (uint32_t i = 0; i < rxInfo.validCount; i++)
             {
                 int16_t raw_data = (int16_t)p_processing_buffer[i];
-                float voltage = (raw_data / 32768.0f) * 5.0f;
+                float voltage = (0.153362f * (float)raw_data) + 0.593916f;
 
                 double iv_gain = (double)Serial411_Get_IV_Gain_Value(g_Serial411_GainConfig.iv_gain);
                 double voltage_gain_stage1 = (double)Serial411_Get_Voltage_Gain_Stage1_Value(g_Serial411_GainConfig.voltage_gain_stage1);
@@ -81,12 +81,12 @@ void App_WaveCollectionTask(void *argument)
 
                 if (i % 2 == 0) // 偶数索引 -> 填充到 voltage_buffer
                 {
-                    p_iv_buffer[i] = voltage;
+                    p_iv_buffer[i] = voltage/1000;
                 }
                 else // 奇数索引 -> 填充到 current_buffer
                 {
                     // p_current_buffer[i / 2] = voltage;
-                    p_iv_buffer[i] = voltage*1000 / iv_gain / voltage_gain_stage1 / voltage_gain_stage2;
+                    p_iv_buffer[i] = voltage / iv_gain / voltage_gain_stage1 / voltage_gain_stage2;
                 }
             }
 

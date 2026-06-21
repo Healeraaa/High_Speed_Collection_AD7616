@@ -44,8 +44,8 @@ void App_IncentiveSettingsTask(void *argument)
     data_converter[4].double_val = 30.0;
     data_converter[5].double_val = 3.0;
     data_converter[6].u8_array[0] = WE_CHANNEL_1;
-    data_converter[6].u8_array[1] = IV_GAIN_1K;
-    data_converter[6].u8_array[2] = VOLTAGE_GAIN_STAGE1_5X;
+    data_converter[6].u8_array[1] = IV_GAIN_33;
+    data_converter[6].u8_array[2] = VOLTAGE_GAIN_STAGE1_1X;
     data_converter[6].u8_array[3] = VOLTAGE_GAIN_STAGE2_1X;
     data_converter[6].u8_array[4] = FEEDBACK_GND;
     data_converter[6].u8_array[5] = FEEDBACK_GND;
