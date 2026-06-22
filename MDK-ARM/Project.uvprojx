@@ -1845,6 +1845,16 @@
               <FileType>5</FileType>
               <FilePath>..\Application\App_LightCollectionTask.h</FilePath>
             </File>
+            <File>
+              <FileName>App_CurveFit.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Application\App_CurveFit.c</FilePath>
+            </File>
+            <File>
+              <FileName>App_CurveFit.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Application\App_CurveFit.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

@@ -18,6 +18,7 @@
 .\project\app_incentivesettingstask.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/semphr.h
 .\project\app_incentivesettingstask.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h
 .\project\app_incentivesettingstask.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/timers.h
+.\project\app_incentivesettingstask.o: ..\Application\App_CurveFit.h
 .\project\app_incentivesettingstask.o: ../Modules/Module.h
 .\project\app_incentivesettingstask.o: ../Core/Inc/main.h
 .\project\app_incentivesettingstask.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h

@@ -1,10 +1,10 @@
 #include "App_WaveCollectionTask.h"
 #include "App_LightCollectionTask.h"
 #include "App_TasksInit.h"
+#include "App_CurveFit.h"
 #include "main.h"
 #include "bsp_fmc.h"
 #include "Module_AD7616.h"
-#include "Module_Serial411.h"
 #include "bsp_dma.h"
 #include "bsp_gpio.h"
 
@@ -16,8 +16,6 @@ __attribute__((section("RAM_D3"))) __attribute__((aligned(32))) uint16_t AD7616_
 __attribute__((section("RAM_D3"))) __attribute__((aligned(32))) float AD7616_IVBuffer_A[DMA_BUFFER_SIZE] = {0.0f};
 __attribute__((section("RAM_D3"))) __attribute__((aligned(32))) float AD7616_IVBuffer_B[DMA_BUFFER_SIZE] = {0.0f};
 
-
-extern Serial411_GainConfig_t g_Serial411_GainConfig;
 
 /* 原始数据信息（ISR → 处理任务）*/
 typedef struct
@@ -38,6 +36,7 @@ QueueHandle_t xRawDataQueue = NULL;
 QueueHandle_t xIVDataQueue = NULL;
 
 static volatile uint8_t u8_dma_buffer = 0;
+
 
 void App_WaveCollectionTask(void *argument)
 {
@@ -75,18 +74,14 @@ void App_WaveCollectionTask(void *argument)
                 int16_t raw_data = (int16_t)p_processing_buffer[i];
                 float voltage = (0.153362f * (float)raw_data) + 0.593916f;
 
-                double iv_gain = (double)Serial411_Get_IV_Gain_Value(g_Serial411_GainConfig.iv_gain);
-                double voltage_gain_stage1 = (double)Serial411_Get_Voltage_Gain_Stage1_Value(g_Serial411_GainConfig.voltage_gain_stage1);
-                double voltage_gain_stage2 = (double)Serial411_Get_Voltage_Gain_Stage2_Value(g_Serial411_GainConfig.voltage_gain_stage2);
-
                 if (i % 2 == 0) // 偶数索引 -> 填充到 voltage_buffer
                 {
-                    p_iv_buffer[i] = voltage/1000;
+                    p_iv_buffer[i] = voltage / 1000.0f;
                 }
-                else // 奇数索引 -> 填充到 current_buffer
+                else // 奇数索引 -> 通过拟合曲线回调计算电流值
                 {
-                    // p_current_buffer[i / 2] = voltage;
-                    p_iv_buffer[i] = voltage / iv_gain / voltage_gain_stage1 / voltage_gain_stage2;
+                    p_iv_buffer[i] = App_CurveFit_Process(voltage);
+                    // p_iv_buffer[i] = voltage / 1000.0f;
                 }
             }
 

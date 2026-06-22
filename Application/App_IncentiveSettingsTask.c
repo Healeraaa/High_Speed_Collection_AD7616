@@ -1,5 +1,6 @@
 #include "App_IncentiveSettingsTask.h"
 #include "App_TasksInit.h"
+#include "App_CurveFit.h"
 #include "Module.h"
 #include "Module_ReceiveUpper.h"
 #include "main.h"
@@ -55,6 +56,9 @@ void App_IncentiveSettingsTask(void *argument)
     data_converter[8].double_val = 0.0;
     data_converter[9].double_val = 0.0;
 
+    /* 根据初始增益配置注册对应的拟合曲线 */
+    App_CurveFit_RegisterCallback(CurveFit_Range1_33_1_1);
+
     USART1_RxData_t rx_data = {0};
 
     while (1)
@@ -89,6 +93,71 @@ void App_IncentiveSettingsTask(void *argument)
                     {
                         data_converter[6].u8_array[i] = (uint8_t)rx_data.int_data[i];
                     }
+
+                    // ===== 根据配置挡位选择相应的拟合曲线 =====
+                    IV_Gain_TypeDef iv_gain = (IV_Gain_TypeDef)data_converter[6].u8_array[1];
+                    Voltage_Gain_Stage1_TypeDef stage1 = (Voltage_Gain_Stage1_TypeDef)data_converter[6].u8_array[2];
+                    Voltage_Gain_Stage2_TypeDef stage2 = (Voltage_Gain_Stage2_TypeDef)data_converter[6].u8_array[3];
+
+                    CurveFit_Callback_t callback = NULL;
+
+                    // 根据配置组合选择拟合曲线
+                    if (iv_gain == IV_GAIN_33 && stage1 == VOLTAGE_GAIN_STAGE1_1X && stage2 == VOLTAGE_GAIN_STAGE2_1X)//100mA
+                    {
+                        callback = CurveFit_Range1_33_1_1;
+                    }
+                    else if (iv_gain == IV_GAIN_33 && stage1 == VOLTAGE_GAIN_STAGE1_1X && stage2 == VOLTAGE_GAIN_STAGE2_3_3X)//30.3mA
+                    {
+                        callback = CurveFit_Range2_33_1_3_3;
+                    }
+                    else if (iv_gain == IV_GAIN_33 && stage1 == VOLTAGE_GAIN_STAGE1_1X && stage2 == VOLTAGE_GAIN_STAGE2_10X)//10mA
+                    {
+                        callback = CurveFit_Range3_33_1_10;
+                    }
+                    else if (iv_gain == IV_GAIN_1K && stage1 == VOLTAGE_GAIN_STAGE1_1X && stage2 == VOLTAGE_GAIN_STAGE2_1X)//3.3mA
+                    {
+                        callback = CurveFit_Range4_1K_1_1;
+                    }
+                    else if (iv_gain == IV_GAIN_1K && stage1 == VOLTAGE_GAIN_STAGE1_1X && stage2 == VOLTAGE_GAIN_STAGE2_3_3X)//1mA
+                    {
+                        callback = CurveFit_Range5_1K_1_3_3;
+                    }
+                    else if (iv_gain == IV_GAIN_10K && stage1 == VOLTAGE_GAIN_STAGE1_1X && stage2 == VOLTAGE_GAIN_STAGE2_1X)//330uA
+                    {
+                        callback = CurveFit_Range6_10K_1_1;
+                    }
+                    else if (iv_gain == IV_GAIN_10K && stage1 == VOLTAGE_GAIN_STAGE1_10X && stage2 == VOLTAGE_GAIN_STAGE2_3_3X)//100uA
+                    {
+                        callback = CurveFit_Range7_10K_10_3_3;
+                    }
+                    else if (iv_gain == IV_GAIN_100K && stage1 == VOLTAGE_GAIN_STAGE1_1X && stage2 == VOLTAGE_GAIN_STAGE2_1X)//33uA
+                    {
+                        callback = CurveFit_Range8_100K_1_1;
+                    }
+                    else if (iv_gain == IV_GAIN_100K && stage1 == VOLTAGE_GAIN_STAGE1_1X && stage2 == VOLTAGE_GAIN_STAGE2_3_3X)//10uA
+                    {
+                        callback = CurveFit_Range9_100K_1_3_3;
+                    }
+                    else if (iv_gain == IV_GAIN_100K && stage1 == VOLTAGE_GAIN_STAGE1_1X && stage2 == VOLTAGE_GAIN_STAGE2_10X)//3.3uA
+                    {
+                        callback = CurveFit_Range10_100K_1_10;
+                    }
+                    else if (iv_gain == IV_GAIN_100K && stage1 == VOLTAGE_GAIN_STAGE1_10X && stage2 == VOLTAGE_GAIN_STAGE2_3_3X)//1uA
+                    {
+                        callback = CurveFit_Range11_100K_10_3_3;
+                    }
+                    else if (iv_gain == IV_GAIN_100K && stage1 == VOLTAGE_GAIN_STAGE1_10X && stage2 == VOLTAGE_GAIN_STAGE2_10X)//330nA
+                    {
+                        callback = CurveFit_Range12_100K_10_10;
+                    }
+                    else if (iv_gain == IV_GAIN_100K && stage1 == VOLTAGE_GAIN_STAGE1_10X && stage2 == VOLTAGE_GAIN_STAGE2_33X)//100nA
+                    {
+                        callback = CurveFit_Range13_100K_10_33;
+                    }
+                    
+
+                    // 注册选中的拟合曲线回调函数
+                    App_CurveFit_RegisterCallback(callback);
 
                     // 发送数据包（使用 ceiod 中的第一个整数作为模式）
                     Serial_SendPacket((uint8_t)rx_data.mode, (double *)data_converter);

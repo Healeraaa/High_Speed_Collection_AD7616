@@ -58,6 +58,7 @@
 ".\project\app_vofa_dataupload.o"
 ".\project\app_incentivesettingstask.o"
 ".\project\app_lightcollectiontask.o"
+".\project\app_curvefit.o"
 ".\project\sys.o"
 ".\project\croutine.o"
 ".\project\event_groups.o"
