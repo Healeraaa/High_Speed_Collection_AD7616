@@ -80,7 +80,7 @@ void App_WaveCollectionTask(void *argument)
                 }
                 else // 奇数索引 -> 通过拟合曲线回调计算电流值
                 {
-                    p_iv_buffer[i] = App_CurveFit_Process(voltage);
+                    p_iv_buffer[i] = App_CurveFit_Process(voltage/ 1000.0f);
                     // p_iv_buffer[i] = voltage / 1000.0f;
                 }
             }

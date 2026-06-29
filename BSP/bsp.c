@@ -33,7 +33,7 @@ void BSP_Init(void)
   
 
   BSP_TIM4_COUNT_Init();// 初始化 TIM4 计数定时器（中断模式）
-  // BSP_TIM4_COUNT_Start();// 启动 TIM4 计数器（每 10ms 产生一次中断）
+
 
   BSP_DWT_Delay_ms(2000);
   
