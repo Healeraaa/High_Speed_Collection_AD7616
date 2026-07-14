@@ -87,14 +87,14 @@ void BSP_GPIO_AD7616_BUSY_Init(void)
   NVIC_EnableIRQ(EXTI0_IRQn);
 }
 
-__attribute__((section(".itcm")))
-void EXTI0_IRQHandler(void)
-{
-    if (LL_EXTI_IsActiveFlag_0_31(LL_EXTI_LINE_0))
-    {
-        LL_EXTI_ClearFlag_0_31(LL_EXTI_LINE_0);
-    }
-}
+// __attribute__((section(".itcm")))
+// void EXTI0_IRQHandler(void)
+// {
+//     if (LL_EXTI_IsActiveFlag_0_31(LL_EXTI_LINE_0))
+//     {
+//         LL_EXTI_ClearFlag_0_31(LL_EXTI_LINE_0);
+//     }
+// }
 
 
 // ==================== AD7616_RST ====================

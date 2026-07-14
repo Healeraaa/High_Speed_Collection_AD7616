@@ -85,6 +85,7 @@ void App_WaveCollectionTask(void *argument)
                 }
             }
 
+
             IVData_t txData = {
                 .pIVBuffer = p_iv_buffer,
                 .validCount = rxInfo.validCount};

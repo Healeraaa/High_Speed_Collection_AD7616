@@ -59,7 +59,6 @@ void App_LightCollectionTask(void *argument)
   /* 初始化光计数模块 */
   Module_LightCounting_Init();
 
-
   while (1)
   {
     if (xQueueReceive(xRawLightDataQueue, &rxInfo, portMAX_DELAY) == pdTRUE)
@@ -86,18 +85,13 @@ void App_LightCollectionTask(void *argument)
   }
 }
 
-/**
- * @brief  TIM4 中断服务程序 - 光计数收集
- * @note   周期性收集光计数值，填充到缓冲区
- * @retval None
- */
-__attribute__((section(".itcm"))) void TIM4_IRQHandler(void)
+__attribute__((section(".itcm"))) void EXTI0_IRQHandler(void)
 {
-  BaseType_t xHigherPriorityTaskWoken = pdFALSE;
-
-  if (LL_TIM_IsActiveFlag_UPDATE(TIM4))
+  if (LL_EXTI_IsActiveFlag_0_31(LL_EXTI_LINE_0))
   {
-    LL_TIM_ClearFlag_UPDATE(TIM4);
+    LL_EXTI_ClearFlag_0_31(LL_EXTI_LINE_0);
+
+    BaseType_t xHigherPriorityTaskWoken = pdFALSE;
 
     /* 读取光计数值并转换为浮点数 */
     uint32_t light_count = Module_LightCounting_GetAndClearCount();
@@ -135,6 +129,55 @@ __attribute__((section(".itcm"))) void TIM4_IRQHandler(void)
   }
 }
 
+// /**
+//  * @brief  TIM4 中断服务程序 - 光计数收集
+//  * @note   周期性收集光计数值，填充到缓冲区
+//  * @retval None
+//  */
+// __attribute__((section(".itcm"))) void TIM4_IRQHandler(void)
+// {
+//   BaseType_t xHigherPriorityTaskWoken = pdFALSE;
+
+//   if (LL_TIM_IsActiveFlag_UPDATE(TIM4))
+//   {
+//     LL_TIM_ClearFlag_UPDATE(TIM4);
+
+//     /* 读取光计数值并转换为浮点数 */
+//     uint32_t light_count = Module_LightCounting_GetAndClearCount();
+//     float *p_current_buffer = (u8_light_buffer == 0) ? Light_DataBuffer_A : Light_DataBuffer_B;
+
+//     if (u32_light_count < LIGHT_BUFFER_SIZE)
+//     {
+//       p_current_buffer[u32_light_count] = (float)light_count;
+//       u32_light_count++;
+//     }
+
+//     /* 缓冲区满，发送数据到处理队列 */
+//     if (u32_light_count >= LIGHT_BUFFER_SIZE)
+//     {
+//       if (xRawLightDataQueue != NULL)
+//       {
+//         RawLightDataInfo_t info = {
+//             .bufferIndex = u8_light_buffer,
+//             .validCount = LIGHT_BUFFER_SIZE,
+//             .isLastPacket = 0};
+//         xQueueSendFromISR(xRawLightDataQueue, &info, &xHigherPriorityTaskWoken);
+
+//         /* 切换缓冲区 */
+//         u8_light_buffer = 1 - u8_light_buffer;
+//         u32_light_count = 0;
+
+//         portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
+//       }
+//       else
+//       {
+//         /* 队列未创建，重置计数 */
+//         u32_light_count = 0;
+//       }
+//     }
+//   }
+// }
+
 void App_LightCollection_Start(void)
 {
   u8_light_buffer = 0;
@@ -143,14 +186,13 @@ void App_LightCollection_Start(void)
   Module_LightCounting_Start();
   Module_LightCounting_ClearCount(); /* 清除计数器值 */
 
-  BSP_TIM4_ClearCount(); /* 清除定时器计数值 */
-  BSP_TIM4_COUNT_Start();
-
+  // BSP_TIM4_ClearCount(); /* 清除定时器计数值 */
+  // BSP_TIM4_COUNT_Start();
 }
 
 void App_LightCollection_Stop(void)
 {
-  if(u32_light_count > 0)
+  if (u32_light_count > 0)
   {
     /* 发送最后一包数据 */
     if (xRawLightDataQueue != NULL)
@@ -164,8 +206,8 @@ void App_LightCollection_Stop(void)
       portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
     }
   }
-  BSP_TIM4_COUNT_Stop(); /* 停止定时器中断 */
-  BSP_TIM4_ClearCount(); /* 清除定时器计数值 */
+  // BSP_TIM4_COUNT_Stop(); /* 停止定时器中断 */
+  // BSP_TIM4_ClearCount(); /* 清除定时器计数值 */
   /* 停止计数器 */
   Module_LightCounting_Stop();
   Module_LightCounting_ClearCount(); /* 清除计数器值 */
@@ -173,4 +215,3 @@ void App_LightCollection_Stop(void)
   u8_light_buffer = 0;
   u32_light_count = 0;
 }
-
