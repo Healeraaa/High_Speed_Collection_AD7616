@@ -4,9 +4,11 @@
 #include "App.h"
 #include "string.h"
 
+
 int main(void)
 {
   BSP_Init();
+  // MX_USB_DEVICE_Init();
   Module_Config();
   App_Init();
   while (1)

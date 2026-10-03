@@ -62,3 +62,14 @@
 .\project\bsp.o: ../BSP/DMA/bsp_dma.h
 .\project\bsp.o: ../BSP/FMC/bsp_fmc.h
 .\project\bsp.o: ../BSP/bsp.h
+.\project\bsp.o: ..\Application\USB\usb_device.h
+.\project\bsp.o: ..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\usbd_def.h
+.\project\bsp.o: ..\BSP\USB\usbd_conf.h
+.\project\bsp.o: D:\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
+.\project\bsp.o: D:\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+.\project\bsp.o: ..\Application\USB\usbd_cdc_if.h
+.\project\bsp.o: ..\Middlewares\ST\STM32_USB_Device_Library\Class\CDC\Inc\usbd_cdc.h
+.\project\bsp.o: ..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\usbd_ioreq.h
+.\project\bsp.o: ..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\usbd_core.h
+.\project\bsp.o: ..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\usbd_ioreq.h
+.\project\bsp.o: ..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\usbd_ctlreq.h

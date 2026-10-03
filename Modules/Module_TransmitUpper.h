@@ -55,6 +55,18 @@ int32_t Module_TransmitUpper_SendFrame(
     uint16_t count);
 
 /**
+ * 通过USB CDC发送数据帧（非阻塞）
+ *
+ * @return 0: 已提交发送, -1: 打包失败, -2: USB未配置,
+ *         -3: USB忙, -4: USB发送失败
+ */
+int32_t Module_USB_TransmitUpper_SendFrame(
+    uint8_t device_id,
+    uint32_t sample_freq,
+    const float *p_data,
+    uint16_t count);
+
+/**
  * 发送 IV 数据 (简化接口)
  * 
  * @param p_data        IV 数据指针 (float 数组)

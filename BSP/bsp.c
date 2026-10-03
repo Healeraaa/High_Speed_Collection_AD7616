@@ -2,6 +2,8 @@
 #include "memorymap.h"
 #include "sys.h"
 #include "bsp.h"
+#include "usb_device.h"
+#include "usbd_cdc_if.h"
 
 
 
@@ -37,7 +39,7 @@ void BSP_Init(void)
 
   BSP_DWT_Delay_ms(2000);
   
-  
+  MX_USB_DEVICE_Init();
 
   
 

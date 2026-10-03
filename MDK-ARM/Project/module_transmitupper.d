@@ -77,3 +77,13 @@
 .\project\module_transmitupper.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/task.h
 .\project\module_transmitupper.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/list.h
 .\project\module_transmitupper.o: ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h
+.\project\module_transmitupper.o: ..\Application\USB\usb_device.h
+.\project\module_transmitupper.o: ..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\usbd_def.h
+.\project\module_transmitupper.o: ..\BSP\USB\usbd_conf.h
+.\project\module_transmitupper.o: D:\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
+.\project\module_transmitupper.o: ..\Application\USB\usbd_cdc_if.h
+.\project\module_transmitupper.o: ..\Middlewares\ST\STM32_USB_Device_Library\Class\CDC\Inc\usbd_cdc.h
+.\project\module_transmitupper.o: ..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\usbd_ioreq.h
+.\project\module_transmitupper.o: ..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\usbd_core.h
+.\project\module_transmitupper.o: ..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\usbd_ioreq.h
+.\project\module_transmitupper.o: ..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\usbd_ctlreq.h

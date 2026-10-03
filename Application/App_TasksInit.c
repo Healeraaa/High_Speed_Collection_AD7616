@@ -12,6 +12,7 @@
 #include "semphr.h"
 
 
+
 /* Private typedef -----------------------------------------------------------*/
 
 /* Private define ------------------------------------------------------------*/
@@ -97,6 +98,7 @@ void App_Run10ms_Task(void *argument)
 
 void App_KeyTestTask(void *argument)
 {
+  float f_data[8] = {0.0f, 1.0f, 2.0f, 3.0f, 4.0f, 5.0f, 6.0f, 7.0f};
   while (1)
   {
     uint8_t ucKeyCode = Moudle_Key_GetFifoBuffer();	/* 读取键值, 无键按下时返回 KEY_NONE = 0 */
@@ -106,13 +108,17 @@ void App_KeyTestTask(void *argument)
 			{
 				case KEY_1_DOWN:			/* K1键按下 */
 					printf("K1_Dowm\r\n");
+          // CDC_Transmit_HS("K1_Dowm\r\n", sizeof("K1_Dowm\r\n") - 1);
+          Module_USB_TransmitUpper_SendFrame(DEVICE_TYPE_IV, 100, f_data, 8);
 					break;
 
 				case KEY_1_UP:				/* K1键弹起 */
 					printf("K1_Up\r\n");
+          // CDC_Transmit_HS("K1_Up\r\n", sizeof("K1_Up\r\n") - 1);
 					break;
 				case KEY_1_LONG:				/* K1键弹起 */
 					printf("K1_Long\r\n");
+          // CDC_Transmit_HS("K1_Long\r\n", sizeof("K1_Long\r\n") - 1);
 					break;
 				default:
 					/* 其它的键值不处理 */
@@ -163,6 +169,7 @@ void App_Tasks_Init(void)
 {
   /* 创建 USART1 发送互斥锁 */
   usart1_tx_mutex = xSemaphoreCreateMutex();
+  // MX_USB_DEVICE_Init();
 
   xTaskCreate(App_LEDToggle_Task, "App_LEDToggle_Task", 128, NULL, 1, &App_LEDToggle_Task_Handle);
   xTaskCreate(App_Run10ms_Task, "App_Run10ms_Task", 256, NULL, 2, &App_Run10ms_Task_Handle);    

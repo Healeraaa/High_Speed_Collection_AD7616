@@ -4,6 +4,10 @@
 #include "string.h"
 #include "FreeRTOS.h"
 #include "cmsis_os.h"
+#include "usb_device.h"
+#include "usbd_cdc_if.h"
+
+extern USBD_HandleTypeDef hUsbDeviceHS;
 
 /* ==================== 通信协议定义 ==================== */
 
@@ -23,6 +27,8 @@
 
 /* 最大单帧数据个数（防止超出缓冲） */
 #define MAX_DATA_PER_FRAME 2048
+#define PROTOCOL_FRAME_OVERHEAD 19U
+#define TX_BUFFER_SIZE ((MAX_DATA_PER_FRAME * 4U) + PROTOCOL_FRAME_OVERHEAD)
 
 /* 协议帧结构 */
 typedef struct
@@ -40,8 +46,8 @@ typedef struct
   uint8_t footer_l;      // 0x0A
 } Protocol_Frame_t;
 
-/* 发送缓冲 - 足够容纳最大帧: 19 + 4*1024 + 4 = 4120 字节 */
-__attribute__((section("RAM_D3"))) __attribute__((aligned(32))) uint8_t tx_buffer[1024 * 8];
+/* 发送缓冲：固定字段19字节 + 最多2048个float数据。 */
+__attribute__((section("RAM_D3"))) __attribute__((aligned(32))) uint8_t tx_buffer[TX_BUFFER_SIZE];
 
 
 /* ==================== CRC16 计算 ==================== */
@@ -210,6 +216,58 @@ int32_t Module_TransmitUpper_SendFrame(
   Module_TransmitUpper_SendBuffer(p_frame, frame_len);
 
   return 0;
+}
+
+int32_t Module_USB_TransmitUpper_SendFrame(
+    uint8_t device_id,
+    uint32_t sample_freq,
+    const float *p_data,
+    uint16_t count)
+{
+  uint16_t frame_len = 0;
+  uint8_t usb_status;
+  uint8_t *p_frame;
+  USBD_CDC_HandleTypeDef *hcdc;
+
+  /* USB CDC必须在主机完成枚举后才能发送。 */
+  if ((hUsbDeviceHS.dev_state != USBD_STATE_CONFIGURED) ||
+      (hUsbDeviceHS.pClassData == NULL))
+  {
+    return -2;
+  }
+
+  hcdc = (USBD_CDC_HandleTypeDef *)hUsbDeviceHS.pClassData;
+
+  /*
+   * PackFrame使用内部静态tx_buffer，因此必须在打包前检查上一帧状态，
+   * 防止USB仍在读取缓冲区时被下一帧覆盖。
+   */
+  if (hcdc->TxState != 0U)
+  {
+    return -3;
+  }
+
+  p_frame = Module_TransmitUpper_PackFrame(
+      device_id, sample_freq, p_data, count, &frame_len);
+
+  if ((p_frame == NULL) || (frame_len == 0U))
+  {
+    return -1;
+  }
+
+  usb_status = CDC_Transmit_HS(p_frame, frame_len);
+
+  if (usb_status == USBD_OK)
+  {
+    return 0;
+  }
+
+  if (usb_status == USBD_BUSY)
+  {
+    return -3;
+  }
+
+  return -4;
 }
 
 /**
