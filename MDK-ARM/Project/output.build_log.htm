@@ -30,19 +30,6 @@ Rebuild target 'Project'
 assembling startup_stm32h743xx.s...
 compiling fmc.c...
 compiling main.c...
-../BSP/USART/bsp_boot_usart.h(20): warning:  #1-D: last line of file ends without a newline
-  #endif
-..\Bootloader\boot_protocol.h(130): warning:  #1-D: last line of file ends without a newline
-  #endif
-..\Bootloader\boot_upgrade.h(22): warning:  #1-D: last line of file ends without a newline
-  #endif
-..\Bootloader\boot_image_info.h(105): warning:  #1-D: last line of file ends without a newline
-  #endif
-..\Bootloader\boot_crc32.h(17): warning:  #1-D: last line of file ends without a newline
-  #endif
-../Core/Src/main.c(490): warning:  #1-D: last line of file ends without a newline
-  }
-../Core/Src/main.c: 6 warnings, 0 errors
 compiling gpio.c...
 compiling freertos.c...
 compiling memorymap.c...
@@ -81,43 +68,11 @@ compiling stm32h7xx_hal_tim.c...
 compiling stm32h7xx_hal_tim_ex.c...
 compiling system_stm32h7xx.c...
 compiling boot_crc32.c...
-..\Bootloader\boot_crc32.h(17): warning:  #1-D: last line of file ends without a newline
-  #endif
-..\Bootloader\boot_crc32.c(69): warning:  #1-D: last line of file ends without a newline
-  }
-..\Bootloader\boot_crc32.c: 2 warnings, 0 errors
 compiling boot_protocol.c...
-..\Bootloader\boot_protocol.h(130): warning:  #1-D: last line of file ends without a newline
-  #endif
-..\Bootloader\boot_crc32.h(17): warning:  #1-D: last line of file ends without a newline
-  #endif
-../BSP/USART/bsp_boot_usart.h(20): warning:  #1-D: last line of file ends without a newline
-  #endif
-..\Bootloader\boot_protocol.c(382): warning:  #1-D: last line of file ends without a newline
-  }
-..\Bootloader\boot_protocol.c: 4 warnings, 0 errors
 compiling boot_upgrade.c...
-..\Bootloader\boot_protocol.h(130): warning:  #1-D: last line of file ends without a newline
-  #endif
-..\Bootloader\boot_upgrade.h(22): warning:  #1-D: last line of file ends without a newline
-  #endif
-..\Bootloader\boot_crc32.h(17): warning:  #1-D: last line of file ends without a newline
-  #endif
-..\Bootloader\boot_image_info.h(105): warning:  #1-D: last line of file ends without a newline
-  #endif
-..\Bootloader\boot_upgrade.c(646): warning:  #1-D: last line of file ends without a newline
-  }
-..\Bootloader\boot_upgrade.c: 5 warnings, 0 errors
 compiling boot_image_info.c...
-..\Bootloader\boot_protocol.h(130): warning:  #1-D: last line of file ends without a newline
-  #endif
-..\Bootloader\boot_image_info.h(105): warning:  #1-D: last line of file ends without a newline
-  #endif
-..\Bootloader\boot_crc32.h(17): warning:  #1-D: last line of file ends without a newline
-  #endif
-..\Bootloader\boot_image_info.c(331): warning:  #1-D: last line of file ends without a newline
-  }
-..\Bootloader\boot_image_info.c: 4 warnings, 0 errors
+compiling boot_app.c...
+compiling boot_service.c...
 compiling bsp_gpio.c...
 compiling bsp.c...
 compiling bsp_timer.c...
@@ -125,42 +80,20 @@ compiling bsp_fmc.c...
 compiling bsp_dma.c...
 compiling bsp_usart.c...
 compiling bsp_boot_usart.c...
-..\BSP\USART\bsp_boot_usart.h(20): warning:  #1-D: last line of file ends without a newline
-  #endif
-..\BSP\USART\bsp_boot_usart.c(173): warning:  #1-D: last line of file ends without a newline
-  }
-..\BSP\USART\bsp_boot_usart.c: 2 warnings, 0 errors
 compiling Module_Key.c...
 compiling Module.c...
 compiling Module_AD7616.c...
 compiling Module_Serial411.c...
 compiling Module_LightCounting.c...
 compiling Module_ReceiveUpper.c...
-..\Modules\Module_ReceiveUpper.c(288): warning:  #1-D: last line of file ends without a newline
-  }
-..\Modules\Module_ReceiveUpper.c: 1 warning, 0 errors
 compiling Module_TransmitUpper.c...
 compiling App.c...
 compiling App_TasksInit.c...
 compiling App_WaveCollectionTask.c...
-..\Application\App_WaveCollectionTask.c(171): warning:  #1-D: last line of file ends without a newline
-  }
-..\Application\App_WaveCollectionTask.c: 1 warning, 0 errors
 compiling App_VOFA_DataUpload.c...
 compiling App_IncentiveSettingsTask.c...
 compiling App_LightCollectionTask.c...
 compiling App_CurveFit.c...
-..\Application\App_CurveFit.c(39): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-      return 28.041577 * voltage - -0.008448; // 33Ω * 1 * 1 的线性拟合（100mA档位�?
-..\Application\App_CurveFit.c(44): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-      return 8.486546 * voltage -0.000072;
-..\Application\App_CurveFit.c(57): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-      return 1.007985 * voltage +0.000294;
-..\Application\App_CurveFit.c(70): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-      return 0.098804 * voltage -0.000100;
-..\Application\App_CurveFit.c(83): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-      return 0.009988 * voltage -0.000077;
-..\Application\App_CurveFit.c: 5 warnings, 0 errors
 compiling sys.c...
 compiling croutine.c...
 compiling event_groups.c...
@@ -193,10 +126,10 @@ linking...
 .\Project.sct(89): warning: L6329W: Pattern Module_Key.o(RW) only matches removed unused sections.
 .\Project.sct(89): warning: L6329W: Pattern Module_Key.o(ZI) only matches removed unused sections.
 .\Project.sct(114): warning: L6314W: No section matches pattern *(RAM_D2).
-Program Size: Code=19216 RO-data=880 RW-data=20608 ZI-data=24232  
+Program Size: Code=19236 RO-data=880 RW-data=20608 ZI-data=24232  
 Finished: 0 information, 10 warning and 0 error messages.
 FromELF: creating hex file...
-".\Project\output.axf" - 0 Error(s), 40 Warning(s).
+".\Project\output.axf" - 0 Error(s), 10 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -230,13 +163,13 @@ Package Vendor: Keil
    * Component: ARM::CMSIS:CORE@6.1.0
 
    * Component: Keil::Compiler&ARM Compiler:Event Recorder&DAP@1.4.0
-      Include file:  Include/EventRecorder.h
       Include file:  Config/EventRecorderConf.h
+      Include file:  Include/EventRecorder.h
       Source file:   Source/EventRecorder.c
 
    * Component: Keil::Compiler&ARM Compiler:I/O:STDOUT&EVR@1.2.0
       Source file:   Source/retarget_io.c
-Build Time Elapsed:  00:00:40
+Build Time Elapsed:  00:00:35
 </pre>
 </body>
 </html>

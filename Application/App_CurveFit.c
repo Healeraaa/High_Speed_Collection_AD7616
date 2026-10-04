@@ -36,12 +36,12 @@ float App_CurveFit_Process(float voltage)
 
 float CurveFit_Range1_33_1_1(float voltage)//（100mA档位）
 {
-    return 28.041577 * voltage - -0.008448; // 33Ω * 1 * 1 的线性拟合（100mA档位）
+    return 28.041577f * voltage - -0.008448f; // 33Ω * 1 * 1 的线性拟合（100mA档位）
 }
 
 float CurveFit_Range2_33_1_3_3(float voltage)//（30，3mA档位）
 {
-    return 8.486546 * voltage -0.000072;
+    return 8.486546f * voltage - 0.000072f;
 }
 
 float CurveFit_Range3_33_1_10(float voltage)//（10mA档位）
@@ -54,7 +54,7 @@ float CurveFit_Range4_1K_1_1(float voltage)//（3.3mA）
 {
     // float a = 1.0f / 1000.0f;       // 1KΩ * 1 * 1
     // return a * voltage*1000.0f;
-    return 1.007985 * voltage +0.000294;
+    return 1.007985f * voltage + 0.000294f;
 }
 
 float CurveFit_Range5_1K_1_3_3(float voltage)//（1mA档位）
@@ -67,7 +67,7 @@ float CurveFit_Range6_10K_1_1(float voltage)//（330uA档位）
 {
     // float a = 1.0f / 10000.0f;      // 10KΩ * 1 * 1
     // return a * voltage*1000.0f;
-    return 0.098804 * voltage -0.000100;
+    return 0.098804f * voltage - 0.000100f;
 }
 
 float CurveFit_Range7_10K_10_3_3(float voltage)//（100uA档位）
@@ -80,7 +80,7 @@ float CurveFit_Range8_100K_1_1(float voltage)//（33uA档位）
 {
     // float a = 1.0f / 100000.0f;     // 100KΩ * 1 * 1
     // return a * voltage*1000.0f;
-    return 0.009988 * voltage -0.000077;
+    return 0.009988f * voltage - 0.000077f;
 }
 
 float CurveFit_Range9_100K_1_3_3(float voltage)//（10uA档位）

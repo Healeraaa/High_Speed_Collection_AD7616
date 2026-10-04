@@ -545,7 +545,7 @@ BootError_t Boot_Upgrade_HandleEnd(
     /*
      * 校验失败时不写向量表。
      * 0x08100000仍保持擦除状态，
-     * Boot_IsAppValid()将拒绝启动这个App。
+     * Boot_App_IsValid()将拒绝启动这个App。
      */
     if (calculated_crc32 !=
         s_upgrade_context.expected_crc32)

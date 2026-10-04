@@ -130,6 +130,7 @@ static uint8_t Boot_ImageInfo_IsInfoValid(
 }
 
 
+
 BootError_t Boot_ImageInfo_WriteInfo(
     uint32_t image_size,
     uint32_t image_crc32,

@@ -60,8 +60,5 @@
 .\project\main.o: ../BSP/DMA/bsp_dma.h
 .\project\main.o: ../BSP/FMC/bsp_fmc.h
 .\project\main.o: ../BSP/bsp.h
-.\project\main.o: ../BSP/USART/bsp_boot_usart.h
-.\project\main.o: ..\Bootloader\boot_protocol.h
-.\project\main.o: ..\Bootloader\boot_upgrade.h
-.\project\main.o: ..\Bootloader\boot_image_info.h
-.\project\main.o: ..\Bootloader\boot_crc32.h
+.\project\main.o: ..\Bootloader\boot_app.h
+.\project\main.o: ..\Bootloader\boot_service.h

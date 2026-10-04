@@ -1695,6 +1695,16 @@
               <FileType>1</FileType>
               <FilePath>..\Bootloader\boot_image_info.c</FilePath>
             </File>
+            <File>
+              <FileName>boot_app.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Bootloader\boot_app.c</FilePath>
+            </File>
+            <File>
+              <FileName>boot_service.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Bootloader\boot_service.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
