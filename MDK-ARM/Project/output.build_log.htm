@@ -32,13 +32,17 @@ compiling fmc.c...
 compiling main.c...
 ../BSP/USART/bsp_boot_usart.h(20): warning:  #1-D: last line of file ends without a newline
   #endif
-..\Bootloader\boot_protocol.h(118): warning:  #1-D: last line of file ends without a newline
+..\Bootloader\boot_protocol.h(130): warning:  #1-D: last line of file ends without a newline
   #endif
 ..\Bootloader\boot_upgrade.h(22): warning:  #1-D: last line of file ends without a newline
   #endif
-../Core/Src/main.c(307): warning:  #1-D: last line of file ends without a newline
+..\Bootloader\boot_image_info.h(105): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\Bootloader\boot_crc32.h(17): warning:  #1-D: last line of file ends without a newline
+  #endif
+../Core/Src/main.c(490): warning:  #1-D: last line of file ends without a newline
   }
-../Core/Src/main.c: 4 warnings, 0 errors
+../Core/Src/main.c: 6 warnings, 0 errors
 compiling gpio.c...
 compiling freertos.c...
 compiling memorymap.c...
@@ -83,7 +87,7 @@ compiling boot_crc32.c...
   }
 ..\Bootloader\boot_crc32.c: 2 warnings, 0 errors
 compiling boot_protocol.c...
-..\Bootloader\boot_protocol.h(118): warning:  #1-D: last line of file ends without a newline
+..\Bootloader\boot_protocol.h(130): warning:  #1-D: last line of file ends without a newline
   #endif
 ..\Bootloader\boot_crc32.h(17): warning:  #1-D: last line of file ends without a newline
   #endif
@@ -93,15 +97,27 @@ compiling boot_protocol.c...
   }
 ..\Bootloader\boot_protocol.c: 4 warnings, 0 errors
 compiling boot_upgrade.c...
-..\Bootloader\boot_protocol.h(118): warning:  #1-D: last line of file ends without a newline
+..\Bootloader\boot_protocol.h(130): warning:  #1-D: last line of file ends without a newline
   #endif
 ..\Bootloader\boot_upgrade.h(22): warning:  #1-D: last line of file ends without a newline
   #endif
 ..\Bootloader\boot_crc32.h(17): warning:  #1-D: last line of file ends without a newline
   #endif
-..\Bootloader\boot_upgrade.c(415): warning:  #1-D: last line of file ends without a newline
+..\Bootloader\boot_image_info.h(105): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\Bootloader\boot_upgrade.c(646): warning:  #1-D: last line of file ends without a newline
   }
-..\Bootloader\boot_upgrade.c: 4 warnings, 0 errors
+..\Bootloader\boot_upgrade.c: 5 warnings, 0 errors
+compiling boot_image_info.c...
+..\Bootloader\boot_protocol.h(130): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\Bootloader\boot_image_info.h(105): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\Bootloader\boot_crc32.h(17): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\Bootloader\boot_image_info.c(331): warning:  #1-D: last line of file ends without a newline
+  }
+..\Bootloader\boot_image_info.c: 4 warnings, 0 errors
 compiling bsp_gpio.c...
 compiling bsp.c...
 compiling bsp_timer.c...
@@ -177,10 +193,10 @@ linking...
 .\Project.sct(89): warning: L6329W: Pattern Module_Key.o(RW) only matches removed unused sections.
 .\Project.sct(89): warning: L6329W: Pattern Module_Key.o(ZI) only matches removed unused sections.
 .\Project.sct(114): warning: L6314W: No section matches pattern *(RAM_D2).
-Program Size: Code=17480 RO-data=880 RW-data=20608 ZI-data=24232  
+Program Size: Code=19216 RO-data=880 RW-data=20608 ZI-data=24232  
 Finished: 0 information, 10 warning and 0 error messages.
 FromELF: creating hex file...
-".\Project\output.axf" - 0 Error(s), 33 Warning(s).
+".\Project\output.axf" - 0 Error(s), 40 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -215,12 +231,12 @@ Package Vendor: Keil
 
    * Component: Keil::Compiler&ARM Compiler:Event Recorder&DAP@1.4.0
       Include file:  Include/EventRecorder.h
-      Source file:   Source/EventRecorder.c
       Include file:  Config/EventRecorderConf.h
+      Source file:   Source/EventRecorder.c
 
    * Component: Keil::Compiler&ARM Compiler:I/O:STDOUT&EVR@1.2.0
       Source file:   Source/retarget_io.c
-Build Time Elapsed:  00:00:33
+Build Time Elapsed:  00:00:40
 </pre>
 </body>
 </html>

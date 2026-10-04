@@ -63,3 +63,5 @@
 .\project\main.o: ../BSP/USART/bsp_boot_usart.h
 .\project\main.o: ..\Bootloader\boot_protocol.h
 .\project\main.o: ..\Bootloader\boot_upgrade.h
+.\project\main.o: ..\Bootloader\boot_image_info.h
+.\project\main.o: ..\Bootloader\boot_crc32.h

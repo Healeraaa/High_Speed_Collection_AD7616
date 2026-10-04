@@ -29,7 +29,19 @@
 
 #define BOOT_APP_BASE_ADDRESS        0x08100000UL
 #define BOOT_APP_END_ADDRESS         0x08200000UL
-#define BOOT_APP_MAX_SIZE            0x00100000UL
+
+/*
+ * Bank2最后两个Flash Word保留给固件有效信息。
+ *
+ * 0x081FFFC0～0x081FFFDF：固件信息
+ * 0x081FFFE0～0x081FFFFF：最终提交标记
+ */
+#define BOOT_IMAGE_INFO_ADDRESS      0x081FFFC0UL
+#define BOOT_IMAGE_COMMIT_ADDRESS    0x081FFFE0UL
+
+#define BOOT_APP_MAX_SIZE            \
+    (BOOT_IMAGE_INFO_ADDRESS -       \
+     BOOT_APP_BASE_ADDRESS)
 
 
 typedef enum

@@ -1690,6 +1690,11 @@
               <FileType>1</FileType>
               <FilePath>..\Bootloader\boot_upgrade.c</FilePath>
             </File>
+            <File>
+              <FileName>boot_image_info.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Bootloader\boot_image_info.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

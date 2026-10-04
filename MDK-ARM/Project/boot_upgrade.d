@@ -3,6 +3,7 @@
 .\project\boot_upgrade.o: ..\Bootloader\boot_protocol.h
 .\project\boot_upgrade.o: D:\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 .\project\boot_upgrade.o: ..\Bootloader\boot_crc32.h
+.\project\boot_upgrade.o: ..\Bootloader\boot_image_info.h
 .\project\boot_upgrade.o: ../Core/Inc/main.h
 .\project\boot_upgrade.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h
 .\project\boot_upgrade.o: ../Core/Inc/stm32h7xx_hal_conf.h

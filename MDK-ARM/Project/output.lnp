@@ -42,6 +42,7 @@
 ".\project\boot_crc32.o"
 ".\project\boot_protocol.o"
 ".\project\boot_upgrade.o"
+".\project\boot_image_info.o"
 ".\project\bsp_gpio.o"
 ".\project\bsp.o"
 ".\project\bsp_timer.o"
