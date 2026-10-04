@@ -277,7 +277,7 @@
               <OCR_RVCT4>
                 <Type>1</Type>
                 <StartAddress>0x8000000</StartAddress>
-                <Size>0x200000</Size>
+                <Size>0x20000</Size>
               </OCR_RVCT4>
               <OCR_RVCT5>
                 <Type>1</Type>
@@ -340,7 +340,7 @@
               <MiscControls></MiscControls>
               <Define>USE_FULL_LL_DRIVER,STM32H743xx,USE_HAL_DRIVER</Define>
               <Undefine></Undefine>
-              <IncludePath>../Core/Inc;../Drivers/STM32H7xx_HAL_Driver/Inc;../Drivers/CMSIS/Device/ST/STM32H7xx/Include;../Drivers/CMSIS/Include;../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy;../SYSTEM;../BSP;../Application;../Modules;../BSP/GPIO;../BSP/TIMER;../BSP/FMC;../BSP/DMA;../BSP/USART;../Middlewares/Third_Party/FreeRTOS/Source/include;../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2;../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F;..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc;..\Middlewares\ST\STM32_USB_Device_Library\Class\CDC\Inc;..\BSP\USB;..\Application\USB</IncludePath>
+              <IncludePath>../Core/Inc;../Drivers/STM32H7xx_HAL_Driver/Inc;../Drivers/CMSIS/Device/ST/STM32H7xx/Include;../Drivers/CMSIS/Include;../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy;../SYSTEM;../BSP;../Application;../Modules;../BSP/GPIO;../BSP/TIMER;../BSP/FMC;../BSP/DMA;../BSP/USART;../Middlewares/Third_Party/FreeRTOS/Source/include;../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2;../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F;..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc;..\Middlewares\ST\STM32_USB_Device_Library\Class\CDC\Inc;..\BSP\USB;..\Application\USB;..\Bootloader</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -1673,6 +1673,26 @@
           </Files>
         </Group>
         <Group>
+          <GroupName>Bootloader</GroupName>
+          <Files>
+            <File>
+              <FileName>boot_crc32.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Bootloader\boot_crc32.c</FilePath>
+            </File>
+            <File>
+              <FileName>boot_protocol.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Bootloader\boot_protocol.c</FilePath>
+            </File>
+            <File>
+              <FileName>boot_upgrade.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Bootloader\boot_upgrade.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
           <GroupName>BSP</GroupName>
           <Files>
             <File>
@@ -1704,6 +1724,11 @@
               <FileName>bsp_usart.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\BSP\USART\bsp_usart.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_boot_usart.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\BSP\USART\bsp_boot_usart.c</FilePath>
             </File>
           </Files>
         </Group>

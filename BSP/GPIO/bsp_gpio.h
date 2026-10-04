@@ -9,6 +9,10 @@ void BSP_GPIO_System_Clock_Init(void);
 // ==================== LED ====================
 void BSP_GPIO_LED_Init(void);
 // ==================== KEY ====================
+void BSP_GPIO_BOOT_KEY_Init(void);
+uint8_t BSP_GPIO_BOOT_KEY_IsPressed(void);
+
+
 #define HARD_KEY_NUM  1 //按键数量
 typedef struct
 {

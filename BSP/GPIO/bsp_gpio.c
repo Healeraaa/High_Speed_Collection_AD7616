@@ -24,6 +24,47 @@ void BSP_GPIO_LED_Init(void)
 }
 
 // ==================== KEY ====================
+/**
+ * @brief 初始化 Boot 选择按键
+ * @note  PA0，上拉输入，低电平表示按下
+ */
+void BSP_GPIO_BOOT_KEY_Init(void)
+{
+    LL_GPIO_InitTypeDef GPIO_InitStruct = {0};
+
+    LL_AHB4_GRP1_EnableClock(LL_AHB4_GRP1_PERIPH_GPIOA);
+
+    GPIO_InitStruct.Pin   = LL_GPIO_PIN_0;
+    GPIO_InitStruct.Mode  = LL_GPIO_MODE_INPUT;
+    GPIO_InitStruct.Pull  = LL_GPIO_PULL_UP;
+    GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_LOW;
+
+    LL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+}
+
+/**
+ * @brief 检测上电时 K1 是否持续按下
+ * @retval 1：按下；0：未按下
+ */
+uint8_t BSP_GPIO_BOOT_KEY_IsPressed(void)
+{
+    uint8_t sample;
+
+    for (sample = 0; sample < 5U; sample++)
+    {
+        /* PA0 为高电平，说明按键没有按下 */
+        if (LL_GPIO_IsInputPinSet(GPIOA, LL_GPIO_PIN_0))
+        {
+            return 0U;
+        }
+
+        BSP_DWT_Delay_ms(10U);
+    }
+
+    /* 连续约 50ms 都是低电平，确认按键按下 */
+    return 1U;
+}
+
 #define ALL_KEY_GPIO_CLK_ENABLE() {	\
 		LL_AHB4_GRP1_EnableClock(LL_AHB4_GRP1_PERIPH_GPIOA);	\
 	};

@@ -60,10 +60,6 @@
 .\project\main.o: ../BSP/DMA/bsp_dma.h
 .\project\main.o: ../BSP/FMC/bsp_fmc.h
 .\project\main.o: ../BSP/bsp.h
-.\project\main.o: ../Modules/Module.h
-.\project\main.o: ../Modules/Module_Key.h
-.\project\main.o: ../Modules/Module_Serial411.h
-.\project\main.o: ../Modules/Module_ReceiveUpper.h
-.\project\main.o: ../Modules/Module_TransmitUpper.h
-.\project\main.o: ../Application/App.h
-.\project\main.o: D:\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+.\project\main.o: ../BSP/USART/bsp_boot_usart.h
+.\project\main.o: ..\Bootloader\boot_protocol.h
+.\project\main.o: ..\Bootloader\boot_upgrade.h
