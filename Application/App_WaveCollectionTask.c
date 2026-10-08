@@ -5,6 +5,7 @@
 #include "main.h"
 #include "bsp_fmc.h"
 #include "Module_AD7616.h"
+#include "Module_IncentiveConfig.h"
 #include "bsp_dma.h"
 #include "bsp_gpio.h"
 
@@ -142,8 +143,13 @@ __attribute__((section(".itcm"))) void EXTI1_IRQHandler(void)
 
             // IV部分
             u8_dma_buffer = 0;
-            BSP_TIM3_PWM0_Start();
+
+            /*
+             * 先准备DMA，使其能够接收第一次AD7616 BUSY下降沿。
+             * 随后TIM3先等待一个完整采样周期，再输出第一个CONVST。
+             */
             BSP_DMA_AD7616_Start(AD7616_DataBuffer_A, DMA_BUFFER_SIZE);
+            BSP_TIM3_PWM0_StartAfterOnePeriod();
 
         }
         else // 下降沿
@@ -162,10 +168,17 @@ __attribute__((section(".itcm"))) void EXTI1_IRQHandler(void)
                 };
                 xQueueSendFromISR(xRawDataQueue, &info, &xHigherPriorityTaskWoken);
             }
-            portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
-
             // 光部分
             App_LightCollection_Stop();
+
+            /*
+             * PE1下降沿表示底层已经完成一次激励。
+             * 这里只唤醒配置任务；下一次CA会在任务环境中发送。
+             */
+            Module_IncentiveConfig_NotifyCAFinishedFromISR(
+                &xHigherPriorityTaskWoken);
+
+            portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
         }
     }
 }

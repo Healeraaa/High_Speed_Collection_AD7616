@@ -112,6 +112,15 @@ void BSP_TIM3_PWM0_Init(void)
   GPIO_InitStruct.Pull = LL_GPIO_PULL_NO;               // 上下拉：无
   GPIO_InitStruct.Alternate = LL_GPIO_AF_2;             // 复用功能 2：TIM3_CH1
   LL_GPIO_Init(GPIOA, &GPIO_InitStruct);                // 应用配置到 PA6
+
+  /*
+   * TIM3更新中断用于实现“先等待一个完整周期，再输出第一个CONVST”。
+   * 这里只打开NVIC；真正的TIM3更新中断在延迟启动函数中按需开启。
+   */
+  NVIC_SetPriority(
+      TIM3_IRQn,
+      NVIC_EncodePriority(NVIC_GetPriorityGrouping(), 5, 0));
+  NVIC_EnableIRQ(TIM3_IRQn);
 }
 
 /**
@@ -130,15 +139,66 @@ void BSP_TIM3_PWM0_Start(void)
 }
 
 /**
+ * @brief  启动TIM3，但先等待一个完整周期再输出第一个PWM脉冲
+ * @note   启动后的第一个周期只计时，不使能CH1，因此PA6不会输出CONVST。
+ *         第一个更新事件到来后，TIM3_IRQHandler使能CH1并重新从0计数。
+ * @retval None
+ */
+void BSP_TIM3_PWM0_StartAfterOnePeriod(void)
+{
+  /* 清除上一次运行可能留下的计数、中断和输出状态。 */
+  LL_TIM_DisableIT_UPDATE(TIM3);
+  LL_TIM_CC_DisableChannel(TIM3, LL_TIM_CHANNEL_CH1);
+  LL_TIM_DisableCounter(TIM3);
+
+  /*
+   * 将预装载的PSC、ARR和CCR1装入实际寄存器，并从CNT=0开始。
+   * 此时CH1保持关闭，所以软件更新事件不会产生CONVST脉冲。
+   */
+  LL_TIM_GenerateEvent_UPDATE(TIM3);
+  LL_TIM_ClearFlag_UPDATE(TIM3);
+  LL_TIM_SetCounter(TIM3, 0U);
+
+  /* 只启动计数器和一次更新中断，暂不启动PWM输出通道。 */
+  LL_TIM_EnableIT_UPDATE(TIM3);
+  LL_TIM_EnableCounter(TIM3);
+}
+
+/**
  * @brief  停止 TIM3 PWM 输出
  * @note   停止后可通过 BSP_TIM3_PWM0_Start() 重新启动
  * @retval None
  */
 void BSP_TIM3_PWM0_Stop(void)
 {
+  LL_TIM_DisableIT_UPDATE(TIM3);                         // 取消首周期等待中断
   LL_TIM_CC_DisableChannel(TIM3, LL_TIM_CHANNEL_CH1); // 禁用通道 1 输出（停止 PWM 波形）
   LL_TIM_DisableCounter(TIM3);                        // 禁用定时器计数器（停止计数）
   LL_TIM_ClearFlag_UPDATE(TIM3);
+  LL_TIM_SetCounter(TIM3, 0U);                        // 下次从一个完整周期重新开始
+}
+
+/**
+ * @brief TIM3更新中断：首个完整等待周期结束后开始输出CONVST
+ * @note  该中断每次延迟启动只执行一次，随后关闭更新中断。
+ */
+void TIM3_IRQHandler(void)
+{
+  if (LL_TIM_IsActiveFlag_UPDATE(TIM3) &&
+      LL_TIM_IsEnabledIT_UPDATE(TIM3))
+  {
+    LL_TIM_ClearFlag_UPDATE(TIM3);
+    LL_TIM_DisableIT_UPDATE(TIM3);
+
+    /*
+     * 中断响应期间CNT可能已经继续增加。
+     * 重新从0开始可保证使能CH1时CNT<CCR1，第一个短脉冲不会丢失。
+     */
+    LL_TIM_DisableCounter(TIM3);
+    LL_TIM_SetCounter(TIM3, 0U);
+    LL_TIM_CC_EnableChannel(TIM3, LL_TIM_CHANNEL_CH1);
+    LL_TIM_EnableCounter(TIM3);
+  }
 }
 
 /**
