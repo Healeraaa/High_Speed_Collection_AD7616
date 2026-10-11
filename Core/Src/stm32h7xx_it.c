@@ -22,6 +22,7 @@
 #include "stm32h7xx_it.h"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include "bsp_usart.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -159,6 +160,16 @@ void DebugMon_Handler(void)
 /* For the available peripheral interrupt handler names,                      */
 /* please refer to the startup file (startup_stm32h7xx.s).                    */
 /******************************************************************************/
+
+/**
+  * @brief USART1接收中断
+  * @note  具体的收字节和环形缓冲区操作放在BSP层；此处只保留标准的
+  *        中断向量入口，防止协议解析代码进入中断上下文。
+  */
+void USART1_IRQHandler(void)
+{
+  BSP_USART1_IRQHandler();
+}
 
 /**
   * @brief This function handles TIM6 global interrupt, DAC1_CH1 and DAC1_CH2 underrun error interrupts.

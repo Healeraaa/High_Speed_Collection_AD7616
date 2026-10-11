@@ -65,5 +65,6 @@
 .\project\main.o: ../Modules/Module_Serial411.h
 .\project\main.o: ../Modules/Module_ReceiveUpper.h
 .\project\main.o: ../Modules/Module_TransmitUpper.h
+.\project\main.o: ../Modules/Module_SystemCommand.h
 .\project\main.o: ../Application/App.h
 .\project\main.o: D:\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\string.h

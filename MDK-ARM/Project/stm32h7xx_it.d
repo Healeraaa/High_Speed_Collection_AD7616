@@ -53,3 +53,4 @@
 .\project\stm32h7xx_it.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_tim.h
 .\project\stm32h7xx_it.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_usart.h
 .\project\stm32h7xx_it.o: ../Core/Inc/stm32h7xx_it.h
+.\project\stm32h7xx_it.o: ../BSP/USART/bsp_usart.h

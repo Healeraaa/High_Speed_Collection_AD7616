@@ -1,5 +1,97 @@
 #include "main.h"
 
+/*
+ * “BOOT”四个ASCII字符组成的32位魔数。
+ * BKP0R保存魔数，BKP1R保存它的按位取反值。只有两个寄存器同时匹配，
+ * 才把它当成有效请求，可以降低随机残留数据被误判的可能性。
+ */
+#define SYSTEM_BOOT_REQUEST_MAGIC  0x424F4F54UL
+
+/**
+  * @brief 允许CPU写RTC备份寄存器
+  * @note  不需要启动RTC计时功能，只需打开RTCAPB接口时钟和DBP写权限。
+  */
+static void System_BootRequest_EnableWriteAccess(void)
+{
+  /* STM32H743的RTC备份寄存器通过APB4接口访问。 */
+  LL_APB4_GRP1_EnableClock(LL_APB4_GRP1_PERIPH_RTCAPB);
+
+  /* DBP=1后，软件才能修改备份域寄存器。 */
+  LL_PWR_EnableBkUpAccess();
+  while (LL_PWR_IsEnabledBkUpAccess() == 0U)
+  {
+  }
+}
+
+void System_BootRequest_Set(void)
+{
+  System_BootRequest_EnableWriteAccess();
+
+  /*
+   * 先写反码，最后写主魔数。若写入过程意外中断，两个值不会同时有效。
+   */
+  RTC->BKP1R = ~SYSTEM_BOOT_REQUEST_MAGIC;
+  __DMB();
+  RTC->BKP0R = SYSTEM_BOOT_REQUEST_MAGIC;
+
+  /* 确保两次寄存器写入在随后触发系统复位前已经真正完成。 */
+  __DSB();
+
+  /* 写完重新保护备份域，防止其他代码意外改写。 */
+  LL_PWR_DisableBkUpAccess();
+}
+
+void System_BootRequest_Clear(void)
+{
+  System_BootRequest_EnableWriteAccess();
+
+  /* 先破坏主魔数，再清除反码，任何中间状态都不会被判定为有效。 */
+  RTC->BKP0R = 0U;
+  __DMB();
+  RTC->BKP1R = 0U;
+  __DSB();
+
+  LL_PWR_DisableBkUpAccess();
+}
+
+uint8_t System_BootRequest_Take(void)
+{
+  uint8_t request_is_valid;
+  uint8_t reset_is_software;
+
+  System_BootRequest_EnableWriteAccess();
+
+  /*
+   * 软件进入Boot必须同时满足：
+   * 1. 两个备份寄存器中的魔数互相匹配；
+   * 2. 本次确实是CPU触发的软件复位。
+   * 这样即使备份域中出现残留值，普通上电也不会误进Bootloader。
+   */
+  request_is_valid =
+      ((RTC->BKP0R == SYSTEM_BOOT_REQUEST_MAGIC) &&
+       (RTC->BKP1R == ~SYSTEM_BOOT_REQUEST_MAGIC)) ? 1U : 0U;
+
+  reset_is_software =
+      (LL_RCC_IsActiveFlag_SFTRST() != 0U) ? 1U : 0U;
+
+  /*
+   * 请求只允许使用一次。无论本次内容是否有效，都立即清除两个寄存器，
+   * 避免后续复位再次进入Bootloader。
+   */
+  RTC->BKP0R = 0U;
+  __DMB();
+  RTC->BKP1R = 0U;
+  __DSB();
+
+  LL_PWR_DisableBkUpAccess();
+
+  /* 复位原因已经完成采样，清除旧标志，避免影响下一次启动判断。 */
+  LL_RCC_ClearResetFlags();
+
+  return ((request_is_valid != 0U) &&
+          (reset_is_software != 0U)) ? 1U : 0U;
+}
+
 /**
   * @brief  使能所有 SRAM 区域的时钟
   * @note   必须在使用 SRAM1/2/3/4 之前调用

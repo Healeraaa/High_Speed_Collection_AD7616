@@ -58,6 +58,7 @@
 .\project\module_receiveupper.o: ..\Modules\Module_Key.h
 .\project\module_receiveupper.o: ..\Modules\Module_Serial411.h
 .\project\module_receiveupper.o: ..\Modules\Module_TransmitUpper.h
+.\project\module_receiveupper.o: ..\Modules\Module_SystemCommand.h
 .\project\module_receiveupper.o: ../BSP/bsp.h
 .\project\module_receiveupper.o: ../BSP/GPIO/bsp_gpio.h
 .\project\module_receiveupper.o: ../BSP/TIMER/bsp_timer.h

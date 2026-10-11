@@ -8,6 +8,7 @@
 #include "Module_Serial411.h"
 #include "Module_ReceiveUpper.h"
 #include "Module_TransmitUpper.h"
+#include "Module_SystemCommand.h"
 
 #ifndef MODULE_STATUS_T_DEFINED
 #define MODULE_STATUS_T_DEFINED

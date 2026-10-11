@@ -3,6 +3,7 @@
 #include "Module_Key.h"
 #include "Module_AD7616.h"
 #include "Module_LightCounting.h"
+#include "Module_SystemCommand.h"
 #include "bsp_timer.h"
 
 
@@ -14,6 +15,7 @@ void Module_Config(void)
   
   Module_KEY_Config();
   Module_AD7616_Config();
+  Module_SystemCommand_Config();
 
   
   
@@ -24,4 +26,5 @@ void Module_Config(void)
 void Module_RunPer10ms(void)
 {
   Moudle_Key_Scan10ms();
+  Module_SystemCommand_RunPer10ms();
 }

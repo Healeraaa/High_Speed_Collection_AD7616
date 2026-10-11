@@ -58,6 +58,7 @@
 .\project\module_transmitupper.o: ..\Modules\Module_Serial411.h
 .\project\module_transmitupper.o: ..\Modules\Module_ReceiveUpper.h
 .\project\module_transmitupper.o: ..\Modules\Module_TransmitUpper.h
+.\project\module_transmitupper.o: ..\Modules\Module_SystemCommand.h
 .\project\module_transmitupper.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h
 .\project\module_transmitupper.o: ../Core/Inc/FreeRTOSConfig.h
 .\project\module_transmitupper.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h

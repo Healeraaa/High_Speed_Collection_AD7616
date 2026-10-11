@@ -1790,6 +1790,16 @@
               <FileType>5</FileType>
               <FilePath>..\Modules\Module_IncentiveConfig.h</FilePath>
             </File>
+            <File>
+              <FileName>Module_SystemCommand.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Modules\Module_SystemCommand.c</FilePath>
+            </File>
+            <File>
+              <FileName>Module_SystemCommand.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Modules\Module_SystemCommand.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
