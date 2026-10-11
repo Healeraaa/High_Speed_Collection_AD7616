@@ -2,6 +2,7 @@
 #include "bsp.h"
 #include "boot_app.h"
 #include "boot_service.h"
+#include "sys.h"
 
 /*
  * Boot 的顶层启动流程
@@ -22,6 +23,8 @@
  */
 int main(void)
 {
+    uint8_t software_boot_requested;
+
     /*
      * 初始化 HAL、系统时钟、DWT 延时和状态 LED。
      * 这些资源既用于检测 K1，也用于 Boot 模式下的串口超时和状态指示。
@@ -32,10 +35,16 @@ int main(void)
     BSP_GPIO_BOOT_KEY_Init();
 
     /*
+     * 读取APP在RTC备份寄存器中留下的一次性请求。函数内部会立即清除
+     * 标志，所以同一个reboot loader命令只对本次启动有效。
+     */
+    software_boot_requested = System_BootRequest_Take();
+
+    /*
      * K1 连续约 50 ms 都为低电平才认为真正按下，避免机械抖动误触发。
      * Boot_Service_Run() 内部是永久循环，正常情况下不会返回 main()。
      */
-    if (BSP_GPIO_BOOT_KEY_IsPressed())
+    if ((software_boot_requested != 0U) || BSP_GPIO_BOOT_KEY_IsPressed())
     {
         Boot_Service_Run();
     }

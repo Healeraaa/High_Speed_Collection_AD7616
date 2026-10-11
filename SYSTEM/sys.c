@@ -1,5 +1,79 @@
 #include "main.h"
 
+/*
+ * APP和BOOT必须使用完全相同的魔数：ASCII字符串“BOOT”。
+ * BKP0R保存魔数，BKP1R保存其反码，两个值同时正确才算有效请求。
+ */
+#define SYSTEM_BOOT_REQUEST_MAGIC  0x424F4F54UL
+
+/**
+  * @brief 允许CPU写RTC备份寄存器
+  * @note  这里只访问备份寄存器，不需要启动RTC计时功能。
+  */
+static void System_BootRequest_EnableWriteAccess(void)
+{
+  LL_APB4_GRP1_EnableClock(LL_APB4_GRP1_PERIPH_RTCAPB);
+
+  LL_PWR_EnableBkUpAccess();
+  while (LL_PWR_IsEnabledBkUpAccess() == 0U)
+  {
+  }
+}
+
+void System_BootRequest_Set(void)
+{
+  System_BootRequest_EnableWriteAccess();
+
+  RTC->BKP1R = ~SYSTEM_BOOT_REQUEST_MAGIC;
+  __DMB();
+  RTC->BKP0R = SYSTEM_BOOT_REQUEST_MAGIC;
+  __DSB();
+
+  LL_PWR_DisableBkUpAccess();
+}
+
+void System_BootRequest_Clear(void)
+{
+  System_BootRequest_EnableWriteAccess();
+
+  RTC->BKP0R = 0U;
+  __DMB();
+  RTC->BKP1R = 0U;
+  __DSB();
+
+  LL_PWR_DisableBkUpAccess();
+}
+
+uint8_t System_BootRequest_Take(void)
+{
+  uint8_t request_is_valid;
+  uint8_t reset_is_software;
+
+  System_BootRequest_EnableWriteAccess();
+
+  request_is_valid =
+      ((RTC->BKP0R == SYSTEM_BOOT_REQUEST_MAGIC) &&
+       (RTC->BKP1R == ~SYSTEM_BOOT_REQUEST_MAGIC)) ? 1U : 0U;
+
+  reset_is_software =
+      (LL_RCC_IsActiveFlag_SFTRST() != 0U) ? 1U : 0U;
+
+  /*
+   * 先清除主魔数，再清除反码。请求在这里被“取走”，因此即使稍后
+   * Bootloader再次复位，也不会因同一请求再次进入升级模式。
+   */
+  RTC->BKP0R = 0U;
+  __DMB();
+  RTC->BKP1R = 0U;
+  __DSB();
+
+  LL_PWR_DisableBkUpAccess();
+  LL_RCC_ClearResetFlags();
+
+  return ((request_is_valid != 0U) &&
+          (reset_is_software != 0U)) ? 1U : 0U;
+}
+
 /**
   * @brief  使能所有 SRAM 区域的时钟
   * @note   必须在使用 SRAM1/2/3/4 之前调用
