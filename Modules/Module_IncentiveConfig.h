@@ -66,7 +66,7 @@ Module_Status_t Module_IncentiveConfig_ConvertGPCIToCA(
 /**
  * @brief 检查、整理并发送一组上位机配置。
  *
- * @param rx_data Module_USART1_ParseData() 解析成功的数据。
+ * @param rx_data Module_UpperRx_ParseData() 解析成功的数据。
  *
  * @retval Module_OK    配置合法，并且已经通过 USART3 发送。
  * @retval Module_ERROR 配置不完整、模式无效、挡位无效或发送失败。
@@ -75,7 +75,7 @@ Module_Status_t Module_IncentiveConfig_ConvertGPCIToCA(
  *   ceiod:模式,通道,IV增益,电压增益1,电压增益2
  *   ceiof:参数1,参数2,参数3,参数4,参数5,参数6
  */
-Module_Status_t Module_IncentiveConfig_Handle(const USART1_RxData_t *rx_data);
+Module_Status_t Module_IncentiveConfig_Handle(const Upper_RxData_t *rx_data);
 
 /**
  * @brief 在PE1下降沿中通知配置任务：本次CA已经执行完成。

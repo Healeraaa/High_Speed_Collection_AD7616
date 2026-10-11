@@ -63,3 +63,5 @@
 .\project\usbd_cdc_if.o: ..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\usbd_core.h
 .\project\usbd_cdc_if.o: ..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\usbd_ioreq.h
 .\project\usbd_cdc_if.o: ..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\usbd_ctlreq.h
+.\project\usbd_cdc_if.o: ../Modules/Module_ReceiveUpper.h
+.\project\usbd_cdc_if.o: ../Modules/Module_TransmitUpper.h

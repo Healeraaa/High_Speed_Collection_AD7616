@@ -22,7 +22,8 @@
 #include "usbd_cdc_if.h"
 
 /* USER CODE BEGIN INCLUDE */
-
+#include "Module_ReceiveUpper.h"
+#include "Module_TransmitUpper.h"
 /* USER CODE END INCLUDE */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -264,9 +265,16 @@ static int8_t CDC_Control_HS(uint8_t cmd, uint8_t* pbuf, uint16_t length)
 static int8_t CDC_Receive_HS(uint8_t* Buf, uint32_t *Len)
 {
   /* USER CODE BEGIN 11 */
-  USBD_CDC_SetRxBuffer(&hUsbDeviceHS, &Buf[0]);
-  USBD_CDC_ReceivePacket(&hUsbDeviceHS);
-  return (USBD_OK);
+  uint8_t result;
+
+  if ((Buf != NULL) && (Len != NULL) && (*Len > 0U))
+  {
+    Module_UpperRx_ReceiveBytes(Buf, *Len);
+  }
+
+  USBD_CDC_SetRxBuffer(&hUsbDeviceHS, UserRxBufferHS);
+  result = USBD_CDC_ReceivePacket(&hUsbDeviceHS);
+  return (int8_t)result;
   /* USER CODE END 11 */
 }
 
@@ -282,7 +290,15 @@ uint8_t CDC_Transmit_HS(uint8_t* Buf, uint16_t Len)
   uint8_t result = USBD_OK;
   /* USER CODE BEGIN 12 */
   USBD_CDC_HandleTypeDef *hcdc = (USBD_CDC_HandleTypeDef*)hUsbDeviceHS.pClassData;
-  if (hcdc->TxState != 0){
+
+  if ((Buf == NULL) || (Len == 0U) ||
+      (hUsbDeviceHS.dev_state != USBD_STATE_CONFIGURED) ||
+      (hcdc == NULL))
+  {
+    return USBD_FAIL;
+  }
+
+  if (hcdc->TxState != 0U){
     return USBD_BUSY;
   }
   USBD_CDC_SetTxBuffer(&hUsbDeviceHS, Buf, Len);
@@ -310,6 +326,7 @@ static int8_t CDC_TransmitCplt_HS(uint8_t *Buf, uint32_t *Len, uint8_t epnum)
   UNUSED(Buf);
   UNUSED(Len);
   UNUSED(epnum);
+  Module_TransmitUpper_NotifyUSBCompleteFromISR();
   /* USER CODE END 14 */
   return result;
 }

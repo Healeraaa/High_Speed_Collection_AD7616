@@ -4,86 +4,103 @@
 #include "stdio.h"
 #include "string.h"
 
-// ========================================================================== USART1 接收缓冲区 ==========================================================================
+// ========================================================================== 上位机 USB CDC 接收缓冲区 ==========================================================================
 
-static uint8_t usart1_rx_buffer[USART1_RX_BUFFER_SIZE] = {0};  // 接收缓冲区
-static uint16_t usart1_rx_index = 0;                            // 接收指针
-static uint8_t usart1_data_ready_flag = 0;                      // 接收完成标志位
+static uint8_t upper_rx_buffer[UPPER_RX_BUFFER_SIZE] = {0};
+static uint8_t upper_parse_buffer[UPPER_RX_BUFFER_SIZE] = {0};
+static volatile uint16_t upper_rx_index = 0U;
+static volatile uint8_t upper_data_ready_flag = 0U;
+static volatile uint32_t upper_rx_drop_count = 0U;
 
 /**
- * @brief  USART1 接收单个字符 (在中断处理函数中调用)
+ * @brief  将单个USB CDC接收字节写入上位机缓冲区
  * @param  ch: 接收到的字节
  * @retval None
  * 
- * 说明：当同时接收到完整的 "ceiod:...\\n" 和 "ceiof:...\\n" 两条命令时，自动置位 usart1_data_ready_flag
+ * 说明：收齐完整的 "ceiod:...\\n" 和 "ceiof:...\\n" 后置位数据就绪标志
  */
-void Module_USART1_ReceiveChar(uint8_t ch)
+static void Module_UpperRx_ReceiveChar(uint8_t ch)
 {
   // 缓冲区满检查
-  if (usart1_rx_index >= USART1_RX_BUFFER_SIZE - 1)
+  if (upper_rx_index >= UPPER_RX_BUFFER_SIZE - 1U)
   {
-    usart1_rx_index = 0;  // 缓冲区复位
-    usart1_data_ready_flag = 0;  // 清除标志位
+    upper_rx_index = 0U;
+    upper_rx_buffer[0] = '\0';
+    upper_rx_drop_count++;
   }
   
-  usart1_rx_buffer[usart1_rx_index++] = ch;
-  usart1_rx_buffer[usart1_rx_index] = '\0';  // 字符串终止符
+  upper_rx_buffer[upper_rx_index++] = ch;
+  upper_rx_buffer[upper_rx_index] = '\0';  // 字符串终止符
   
   // 检测是否接收到完整数据包（两条完整命令）
-  if (ch == '\n' && usart1_rx_index > 1)
+  if (ch == '\n' && upper_rx_index > 1U)
   {
     // 需要同时找到 "ceiod:" 和 "ceiof:"，以及至少两个 "\n"
-    char *p_ceiod = (char *)strstr((const char *)usart1_rx_buffer, "ceiod:");
-    char *p_ceiof = (char *)strstr((const char *)usart1_rx_buffer, "ceiof:");
+    char *p_ceiod = (char *)strstr((const char *)upper_rx_buffer, "ceiod:");
+    char *p_ceiof = (char *)strstr((const char *)upper_rx_buffer, "ceiof:");
     
     if (p_ceiod != NULL && p_ceiof != NULL)
     {
       // 检查是否同时有两个 "\n"（每条命令一个）
-      char *p_first_newline = (char *)strchr((const char *)usart1_rx_buffer, '\n');
+      char *p_first_newline = (char *)strchr((const char *)upper_rx_buffer, '\n');
       if (p_first_newline != NULL)
       {
         char *p_second_newline = (char *)strchr(p_first_newline + 1, '\n');
         if (p_second_newline != NULL)
         {
-          usart1_data_ready_flag = 1;  // 置位接收完成标志
+          upper_data_ready_flag = 1U;  // 置位接收完成标志
         }
       }
     }
   }
 }
 
-/**
- * @brief  判断 USART1 是否有完整数据包待处理（原子操作：读取并清除标志位）
- * @param  None
- * @retval 1 - 有完整数据包需要处理; 0 - 无新数据或已处理
- * 
- * 说明：读取标志位后自动清除，确保每个数据包仅处理一次
- * 推荐在主循环中使用此函数快速判断是否需要处理数据
- */
-uint8_t Module_USART1_IsDataReady(void)
+void Module_UpperRx_ReceiveBytes(const uint8_t *p_data, uint32_t length)
 {
-  // 读取标志位
-  uint8_t flag = usart1_data_ready_flag;
-  
-  // 如果有完整数据包，清除标志位（原子操作）
-  if (flag)
+  uint32_t i;
+
+  if ((p_data == NULL) || (length == 0U))
   {
-    usart1_data_ready_flag = 0;
+    return;
   }
-  
-  return flag;
+
+  for (i = 0U; i < length; i++)
+  {
+    /* 上一组配置尚未被任务取走时，不覆盖这组完整数据。 */
+    if (upper_data_ready_flag != 0U)
+    {
+      upper_rx_drop_count++;
+      continue;
+    }
+
+    Module_UpperRx_ReceiveChar(p_data[i]);
+  }
 }
 
 /**
- * @brief  解析 USART1 接收缓冲区中的两条完整命令数据
+ * @brief  判断USB CDC是否收到完整的一组上位机配置
+ * @param  None
+ * @retval 1 - 有完整数据包需要处理; 0 - 无新数据或已处理
+ * 
+ * 说明：本函数只读取标志，解析函数原子取走数据后才清除
+ */
+uint8_t Module_UpperRx_IsDataReady(void)
+{
+  return upper_data_ready_flag;
+}
+
+/**
+ * @brief  解析USB CDC接收缓冲区中的两条完整命令数据
  * 协议格式: "ceiod:%d,%d,...\nceiof:%f,%f,...\n"
  * ceiod的第1个%d为模式(mode)，后续%d对应u8_array[0-...]
  * ceiof的%f直接对应data_converter[0-...]
  * @param  pRxData: 指向接收数据结构体的指针
  * @retval Module_OK - 两条命令都解析成功; Module_ERROR - 解析失败; Module_BUSY - 数据不完整
  */
-Module_Status_t Module_USART1_ParseData(USART1_RxData_t *pRxData)
+Module_Status_t Module_UpperRx_ParseData(Upper_RxData_t *pRxData)
 {
+  uint16_t snapshot_length;
+  uint32_t primask;
   char *p_ceiod_start = NULL;
   char *p_ceiof_start = NULL;
   char *p_end = NULL;
@@ -100,6 +117,32 @@ Module_Status_t Module_USART1_ParseData(USART1_RxData_t *pRxData)
   {
     return Module_ERROR;
   }
+
+  /* USB接收在中断中发生，先原子取走完整数据，再在任务环境解析。 */
+  primask = __get_PRIMASK();
+  __disable_irq();
+
+  if (upper_data_ready_flag == 0U)
+  {
+    if (primask == 0U)
+    {
+      __enable_irq();
+    }
+    return Module_BUSY;
+  }
+
+  snapshot_length = upper_rx_index;
+  memcpy(upper_parse_buffer, upper_rx_buffer, snapshot_length);
+  upper_parse_buffer[snapshot_length] = '\0';
+
+  upper_rx_index = 0U;
+  upper_rx_buffer[0] = '\0';
+  upper_data_ready_flag = 0U;
+
+  if (primask == 0U)
+  {
+    __enable_irq();
+  }
   
   // 初始化结构体
   pRxData->is_valid = 0;
@@ -110,7 +153,7 @@ Module_Status_t Module_USART1_ParseData(USART1_RxData_t *pRxData)
   memset(pRxData->float_data, 0, sizeof(pRxData->float_data));
   
   // ========== 第一步：解析 "ceiod:" 格式的整数数据 ==========
-  p_ceiod_start = (char *)strstr((const char *)usart1_rx_buffer, "ceiod:");
+  p_ceiod_start = (char *)strstr((const char *)upper_parse_buffer, "ceiod:");
   if (p_ceiod_start == NULL)
   {
     return Module_ERROR;  // 缺少 ceiod 命令
@@ -152,7 +195,7 @@ Module_Status_t Module_USART1_ParseData(USART1_RxData_t *pRxData)
   pRxData->mode = (uint32_t)int_val;
   
   // 循环提取后续整数数据到 int_data[]（不定长）
-  while (int_count < USART1_MAX_INT_DATA)
+  while (int_count < UPPER_RX_MAX_INT_DATA)
   {
     p_token = strtok_r(NULL, ",", &p_saveptr);
     if (p_token == NULL)
@@ -186,7 +229,7 @@ Module_Status_t Module_USART1_ParseData(USART1_RxData_t *pRxData)
   pRxData->int_count = int_count;
   
   // ========== 第二步：解析 "ceiof:" 格式的浮点数数据 ==========
-  p_ceiof_start = (char *)strstr((const char *)usart1_rx_buffer, "ceiof:");
+  p_ceiof_start = (char *)strstr((const char *)upper_parse_buffer, "ceiof:");
   if (p_ceiof_start == NULL)
   {
     return Module_ERROR;  // 缺少 ceiof 命令
@@ -217,7 +260,7 @@ Module_Status_t Module_USART1_ParseData(USART1_RxData_t *pRxData)
   }
   
   // 循环提取所有浮点数数据到 float_data[]（不定长）
-  while (float_count < USART1_MAX_FLOAT_DATA)
+  while (float_count < UPPER_RX_MAX_FLOAT_DATA)
   {
     p_token = strtok_r(NULL, ",", &p_saveptr);
     if (p_token == NULL)
@@ -257,32 +300,13 @@ Module_Status_t Module_USART1_ParseData(USART1_RxData_t *pRxData)
   pRxData->float_count = float_count;
   pRxData->is_valid = 1;
   
-  // 清空已处理的数据
-  usart1_rx_index = 0;
-  usart1_data_ready_flag = 0;
-  memset(usart1_rx_buffer, 0, USART1_RX_BUFFER_SIZE);
-  
   return Module_OK;
 }
 
 
 
 
-/**
- * @brief  串口接收中断处理函数
- */
-void USART1_IRQ_Task(void)
+uint32_t Module_UpperRx_GetDropCount(void)
 {
-    if (LL_USART_IsActiveFlag_RXNE_RXFNE(USART1) == SET) {
-        uint8_t rx_data = LL_USART_ReceiveData8(USART1);
-        Module_USART1_ReceiveChar(rx_data);  // 将接收的字符存入缓冲区
-    }
-}
-
-/**
-  * @brief This function handles USART1 global interrupt.
-  */
-void USART1_IRQHandler(void)
-{
-    USART1_IRQ_Task();
+    return upper_rx_drop_count;
 }

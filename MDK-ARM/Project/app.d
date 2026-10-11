@@ -67,6 +67,5 @@
 .\project\app.o: ..\Application\App.h
 .\project\app.o: ..\Application\App_TasksInit.h
 .\project\app.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h
-.\project\app.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/semphr.h
 .\project\app.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h
 .\project\app.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/timers.h

@@ -16,7 +16,6 @@
 .\project\app_wavecollectiontask.o: ..\Application\App_TasksInit.h
 .\project\app_wavecollectiontask.o: ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os.h
 .\project\app_wavecollectiontask.o: ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h
-.\project\app_wavecollectiontask.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/semphr.h
 .\project\app_wavecollectiontask.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h
 .\project\app_wavecollectiontask.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/timers.h
 .\project\app_wavecollectiontask.o: ..\Application\App_CurveFit.h

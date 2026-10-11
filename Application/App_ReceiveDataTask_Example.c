@@ -20,7 +20,7 @@
  */
 void App_ReceiveData_Simple_Task(void *argument)
 {
-    USART1_RxData_t rx_data = {0};
+    Upper_RxData_t rx_data = {0};
     float *p_data = (float *)rx_data.data;
     
     printf("[ReceiveData] 任务启动，等待数据...\r\n");
@@ -28,7 +28,7 @@ void App_ReceiveData_Simple_Task(void *argument)
     while (1)
     {
         // 尝试解析接收缓冲区中的数据
-        BSP_Status_t status = Module_USART1_ParseData(&rx_data);
+        BSP_Status_t status = Module_UpperRx_ParseData(&rx_data);
         
         if (status == BSP_OK)
         {
@@ -72,7 +72,7 @@ QueueHandle_t xReceiveDataQueue = NULL;
  */
 void App_ReceiveDataQueue_Create(void)
 {
-    xReceiveDataQueue = xQueueCreate(10, sizeof(USART1_RxData_t));
+    xReceiveDataQueue = xQueueCreate(10, sizeof(Upper_RxData_t));
     if (xReceiveDataQueue == NULL)
     {
         printf("[ERROR] 接收数据队列创建失败\r\n");
@@ -89,14 +89,14 @@ void App_ReceiveDataQueue_Create(void)
  */
 void App_ReceiveData_Detect_Task(void *argument)
 {
-    USART1_RxData_t rx_data = {0};
+    Upper_RxData_t rx_data = {0};
     
     printf("[ReceiveDetect] 任务启动\r\n");
     
     while (1)
     {
         // 尝试解析接收缓冲区中的数据
-        if (Module_USART1_ParseData(&rx_data) == BSP_OK)
+        if (Module_UpperRx_ParseData(&rx_data) == BSP_OK)
         {
             // 将完整的数据包发送到队列
             if (xQueueSend(xReceiveDataQueue, &rx_data, 0) != pdTRUE)
@@ -115,7 +115,7 @@ void App_ReceiveData_Detect_Task(void *argument)
  */
 void App_ReceiveData_Process_Task(void *argument)
 {
-    USART1_RxData_t rx_data = {0};
+    Upper_RxData_t rx_data = {0};
     float *p_data = (float *)rx_data.data;
     uint32_t process_count = 0;
     
@@ -180,11 +180,11 @@ void App_ReceiveData_EventGroup_Init(void)
  */
 void App_ReceiveData_Detect_EventGroup_Task(void *argument)
 {
-    USART1_RxData_t rx_data = {0};
+    Upper_RxData_t rx_data = {0};
     
     while (1)
     {
-        if (Module_USART1_ParseData(&rx_data) == BSP_OK)
+        if (Module_UpperRx_ParseData(&rx_data) == BSP_OK)
         {
             // 保存数据到全局变量（需要互斥锁保护）
             // g_rx_data = rx_data;
@@ -344,10 +344,10 @@ void App_Test_ParseData(void)
     extern uint8_t usart1_rx_buffer[];
     strcpy((char *)usart1_rx_buffer, "ceio:1.0,2.0,3.0,4.0,5.0,6.0\n");
     
-    USART1_RxData_t rx_data = {0};
+    Upper_RxData_t rx_data = {0};
     float *p_data = (float *)rx_data.data;
     
-    if (Module_USART1_ParseData(&rx_data) == BSP_OK)
+    if (Module_UpperRx_ParseData(&rx_data) == BSP_OK)
     {
         printf("[TEST] 解析成功:\r\n");
         for (int i = 0; i < 6; i++)

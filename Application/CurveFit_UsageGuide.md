@@ -101,7 +101,7 @@ ceiod:%d1,%d2,%d3,%d4,%d5\n
 
 ```c
 // 在 App_IncentiveSettingsTask 中
-if (Module_USART1_ParseData(&rx_data) == Module_OK)
+if (Module_UpperRx_ParseData(&rx_data) == Module_OK)
 {
     // 提取配置参数
     IV_Gain_TypeDef iv_gain = (IV_Gain_TypeDef)data_converter[6].u8_array[1];

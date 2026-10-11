@@ -4,8 +4,8 @@
 // ========================================================================== USART1 ==========================================================================
 
 /**
- * @brief  初始化 USART1 (115200-8-N-1)
- * @note   时钟源: PCLK2 (120MHz), GPIO: PA9(TX), PA10(RX)
+ * @brief  初始化 USART1 调试输出口 (600000-8-N-1)
+ * @note   时钟源: PCLK2 (120MHz), GPIO: PA9(TX)
  * @param  None
  * @retval None
  */
@@ -20,9 +20,8 @@ void BSP_USART1_Init(void)
   
   /**USART1 GPIO Configuration
   PA9   ------> USART1_TX
-  PA10   ------> USART1_RX
   */
-  GPIO_InitStruct.Pin = LL_GPIO_PIN_9|LL_GPIO_PIN_10;          // 配置 PA9 和 PA10 引脚
+  GPIO_InitStruct.Pin = LL_GPIO_PIN_9;                          // 仅配置调试输出TX
   GPIO_InitStruct.Mode = LL_GPIO_MODE_ALTERNATE;               // 设置为复用功能模式
   GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_VERY_HIGH;              // 设置低速输出
   GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_PUSHPULL;        // 设置推挽输出
@@ -30,29 +29,23 @@ void BSP_USART1_Init(void)
   GPIO_InitStruct.Alternate = LL_GPIO_AF_7;                    // 复用功能 7 (USART1)
   LL_GPIO_Init(GPIOA, &GPIO_InitStruct);                       // 初始化 GPIO
 
-  NVIC_SetPriority(USART1_IRQn, NVIC_EncodePriority(NVIC_GetPriorityGrouping(),0, 0));
-  NVIC_EnableIRQ(USART1_IRQn);
-
   USART_InitStruct.PrescalerValue = LL_USART_PRESCALER_DIV1;              // 预分频器设置为 1
-  USART_InitStruct.BaudRate = 600000;                                     // 波特率 115200
+  USART_InitStruct.BaudRate = 600000;                                     // 波特率 600000
   USART_InitStruct.DataWidth = LL_USART_DATAWIDTH_8B;                     // 数据位 8 位
   USART_InitStruct.StopBits = LL_USART_STOPBITS_1;                        // 停止位 1 位
   USART_InitStruct.Parity = LL_USART_PARITY_NONE;                         // 无校验位
-  USART_InitStruct.TransferDirection = LL_USART_DIRECTION_TX_RX;          // 收发模式
+  USART_InitStruct.TransferDirection = LL_USART_DIRECTION_TX;             // 仅用于printf调试输出
   USART_InitStruct.HardwareFlowControl = LL_USART_HWCONTROL_NONE;         // 无硬件流控
   USART_InitStruct.OverSampling = LL_USART_OVERSAMPLING_16;               // 16 倍过采样
   LL_USART_Init(USART1, &USART_InitStruct);                               // 初始化 USART1
   LL_USART_SetTXFIFOThreshold(USART1, LL_USART_FIFOTHRESHOLD_1_8);        // 设置发送 FIFO 阈值为 1/8
-  LL_USART_SetRXFIFOThreshold(USART1, LL_USART_FIFOTHRESHOLD_1_8);        // 设置接收 FIFO 阈值为 1/8
   LL_USART_DisableFIFO(USART1);                                           // 禁用 FIFO
   LL_USART_ConfigAsyncMode(USART1);                                       // 配置为异步模式
 
   LL_USART_Enable(USART1);                                                // 使能 USART1
 
-  LL_USART_EnableIT_RXNE(USART1);
-
   /* Polling USART1 initialisation */
-  while((!(LL_USART_IsActiveFlag_TEACK(USART1))) || (!(LL_USART_IsActiveFlag_REACK(USART1))))  // 轮询等待 USART1 发送和接收使能确认标志
+  while(!(LL_USART_IsActiveFlag_TEACK(USART1)))  // 轮询等待 USART1 发送使能确认标志
   {
   }
 }
@@ -84,33 +77,12 @@ int fputc(int ch, FILE *f)
   return ch;
 }
 
-/**
- * @brief  重定向 fgetc 函数到 USART1 (scanf 输入)
- * @param  f: 文件指针
- * @retval 接收的字符
- */
-int fgetc(FILE *f)
-{
-  while(!LL_USART_IsActiveFlag_RXNE_RXFNE(USART1));  // 等待接收数据
-  return (int)LL_USART_ReceiveData8(USART1);         // 返回接收数据
-}
-
 #elif defined(__GNUC__)  // GCC 编译器 (STM32CubeIDE)
 int _write(int file, char *ptr, int len)
 {
   for(int i = 0; i < len; i++)
   {
     BSP_USART1_SendByte((uint8_t)ptr[i]);
-  }
-  return len;
-}
-
-int _read(int file, char *ptr, int len)
-{
-  for(int i = 0; i < len; i++)
-  {
-    while(!LL_USART_IsActiveFlag_RXNE_RXFNE(USART1));
-    ptr[i] = (char)LL_USART_ReceiveData8(USART1);
   }
   return len;
 }

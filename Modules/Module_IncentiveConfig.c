@@ -63,14 +63,14 @@ static const Incentive_CurveFitMap_t s_curvefit_map[] =
  * @brief 检查上位机发送的数据结构是否完整、枚举值是否合法。
  */
 static Module_Status_t Module_IncentiveConfig_Validate(
-    const USART1_RxData_t *rx_data)
+    const Upper_RxData_t *rx_data)
 {
     if (rx_data == NULL)
     {
         return Module_ERROR;
     }
 
-    /* 必须是 Module_USART1_ParseData() 成功解析出来的数据。 */
+    /* 必须是 Module_UpperRx_ParseData() 成功解析出来的数据。 */
     if (rx_data->is_valid == 0U)
     {
         return Module_ERROR;
@@ -206,7 +206,7 @@ static void Module_IncentiveConfig_FillModeParameters(
  * @brief 填写所有模式共用的通道、增益和保留字段。
  */
 static void Module_IncentiveConfig_FillCommonParameters(
-    const USART1_RxData_t *rx_data,
+    const Upper_RxData_t *rx_data,
     Serial411_DoubleConverter_t packet[SERIAL411_DATA_LENGTH])
 {
     /*
@@ -271,7 +271,7 @@ static Module_Status_t Module_IncentiveConfig_SendNative(
  * 后续CA不能在这里连续发送，必须等待PE1下降沿确认前一次已经结束。
  */
 static Module_Status_t Module_IncentiveConfig_StartGPCIByCA(
-    const USART1_RxData_t *rx_data,
+    const Upper_RxData_t *rx_data,
     CurveFit_Callback_t callback,
     Serial411_DoubleConverter_t packet[SERIAL411_DATA_LENGTH])
 {
@@ -403,7 +403,7 @@ Module_Status_t Module_IncentiveConfig_ConvertGPCIToCA(
     return Module_OK;
 }
 
-Module_Status_t Module_IncentiveConfig_Handle(const USART1_RxData_t *rx_data)
+Module_Status_t Module_IncentiveConfig_Handle(const Upper_RxData_t *rx_data)
 {
     Serial411_DoubleConverter_t packet[SERIAL411_DATA_LENGTH];
     Incentive_Mode_TypeDef mode;

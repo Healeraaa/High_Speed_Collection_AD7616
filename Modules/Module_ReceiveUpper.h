@@ -12,10 +12,10 @@ typedef enum {
 } Module_Status_t;
 #endif
 
-/* USART1 接收缓冲区定义 */
-#define USART1_RX_BUFFER_SIZE  256
-#define USART1_MAX_FLOAT_DATA  16   // 最多支持 16 个浮点数（可扩展）
-#define USART1_MAX_INT_DATA    16   // 最多支持 16 个整数（可扩展）
+/* 上位机接收缓冲区定义（当前传输介质为 USB CDC） */
+#define UPPER_RX_BUFFER_SIZE  256
+#define UPPER_RX_MAX_FLOAT_DATA  16   // 最多支持 16 个浮点数（可扩展）
+#define UPPER_RX_MAX_INT_DATA    16   // 最多支持 16 个整数（可扩展）
 
 /**
  * @brief  接收数据结构体 (支持可变长度浮点数和整数)
@@ -31,33 +31,34 @@ typedef enum {
  */
 typedef struct {
     uint32_t mode;                           // 模式标识符（对应 Serial_SendPacket 的第一个参数）
-    float    float_data[USART1_MAX_FLOAT_DATA];  // 浮点数数据数组
+    float    float_data[UPPER_RX_MAX_FLOAT_DATA];  // 浮点数数据数组
     uint32_t float_count;                    // 实际接收的浮点数个数
-    uint32_t int_data[USART1_MAX_INT_DATA];  // 整数数据数组
+    uint32_t int_data[UPPER_RX_MAX_INT_DATA];  // 整数数据数组
     uint32_t int_count;                      // 实际接收的整数个数
     uint8_t  is_valid;                       // 数据是否有效
-} USART1_RxData_t;
+} Upper_RxData_t;
 
 /**
- * @brief  USART1 接收单个字符 (在中断处理函数中调用)
- * @param  ch: 接收到的字节
+ * @brief  接收一段来自上位机的字节流（可在 USB CDC 接收回调中调用）
+ * @param  p_data: 接收到的数据
+ * @param  length: 数据长度
  * @retval None
  * 
  * @note   当同时接收到完整的 "ceiod:...\\n" 和 "ceiof:...\\n" 时，置位接收完成标志
  */
-void Module_USART1_ReceiveChar(uint8_t ch);
+void Module_UpperRx_ReceiveBytes(const uint8_t *p_data, uint32_t length);
 
 /**
- * @brief  判断 USART1 接收缓冲区中是否有完整数据包
+ * @brief  判断上位机接收缓冲区中是否有完整数据包
  * @param  None
  * @retval 1 - 同时接收到两条完整命令; 0 - 数据不完整或无数据
  * 
  * @note   必须同时包含 "ceiod:...\\n" 和 "ceiof:...\\n" 才返回1
  */
-uint8_t Module_USART1_IsDataReady(void);
+uint8_t Module_UpperRx_IsDataReady(void);
 
 /**
- * @brief  解析 USART1 接收缓冲区中的数据 
+ * @brief  解析上位机接收缓冲区中的数据
  * 同时支持两种格式（必须同时存在）:
  *   "ceiod:%d,%d,...\\n" - 整数数据（个数不定）
  *   "ceiof:%f,%f,...\\n" - 浮点数数据（个数不定）
@@ -72,7 +73,12 @@ uint8_t Module_USART1_IsDataReady(void);
  * 
  * @note   必须同时解析到两条完整命令才返回 Module_OK
  */
-Module_Status_t Module_USART1_ParseData(USART1_RxData_t *pRxData);
+Module_Status_t Module_UpperRx_ParseData(Upper_RxData_t *pRxData);
+
+/**
+ * @brief  获取接收缓冲区溢出或数据未处理时的新数据丢弃次数。
+ */
+uint32_t Module_UpperRx_GetDropCount(void);
 
 #endif 
 

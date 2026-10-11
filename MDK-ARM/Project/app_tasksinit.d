@@ -14,7 +14,6 @@
 .\project\app_tasksinit.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/list.h
 .\project\app_tasksinit.o: ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h
 .\project\app_tasksinit.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h
-.\project\app_tasksinit.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/semphr.h
 .\project\app_tasksinit.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h
 .\project\app_tasksinit.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/timers.h
 .\project\app_tasksinit.o: ../BSP/bsp.h

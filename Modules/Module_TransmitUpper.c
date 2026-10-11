@@ -1,9 +1,8 @@
 #include "Module.h"
-#include "bsp.h"
-#include "stdio.h"
-#include "string.h"
 #include "FreeRTOS.h"
 #include "cmsis_os.h"
+#include "task.h"
+#include "semphr.h"
 #include "usb_device.h"
 #include "usbd_cdc_if.h"
 
@@ -29,6 +28,7 @@ extern USBD_HandleTypeDef hUsbDeviceHS;
 #define MAX_DATA_PER_FRAME 2048
 #define PROTOCOL_FRAME_OVERHEAD 19U
 #define TX_BUFFER_SIZE ((MAX_DATA_PER_FRAME * 4U) + PROTOCOL_FRAME_OVERHEAD)
+#define USB_TX_COMPLETE_TIMEOUT_MS 100U
 
 /* 协议帧结构 */
 typedef struct
@@ -48,6 +48,49 @@ typedef struct
 
 /* 发送缓冲：固定字段19字节 + 最多2048个float数据。 */
 __attribute__((section("RAM_D3"))) __attribute__((aligned(32))) uint8_t tx_buffer[TX_BUFFER_SIZE];
+
+static SemaphoreHandle_t usb_tx_mutex = NULL;
+static SemaphoreHandle_t usb_tx_complete = NULL;
+static UpperTx_Stats_t upper_tx_stats = {0};
+
+int32_t Module_TransmitUpper_Init(void)
+{
+  if (usb_tx_mutex == NULL)
+  {
+    usb_tx_mutex = xSemaphoreCreateMutex();
+  }
+
+  if (usb_tx_complete == NULL)
+  {
+    usb_tx_complete = xSemaphoreCreateBinary();
+  }
+
+  if ((usb_tx_mutex == NULL) || (usb_tx_complete == NULL))
+  {
+    return -1;
+  }
+
+  return 0;
+}
+
+void Module_TransmitUpper_NotifyUSBCompleteFromISR(void)
+{
+  BaseType_t higher_priority_task_woken = pdFALSE;
+
+  if (usb_tx_complete != NULL)
+  {
+    (void)xSemaphoreGiveFromISR(usb_tx_complete, &higher_priority_task_woken);
+    portYIELD_FROM_ISR(higher_priority_task_woken);
+  }
+}
+
+void Module_TransmitUpper_GetStats(UpperTx_Stats_t *p_stats)
+{
+  if (p_stats != NULL)
+  {
+    *p_stats = upper_tx_stats;
+  }
+}
 
 
 /* ==================== CRC16 计算 ==================== */
@@ -75,25 +118,6 @@ static uint16_t CRC16_CCITT(const uint8_t *data, uint16_t length)
 }
 
 /* ==================== 打包和发送函数 ==================== */
-
-/**
- * 通过 USART1 逐字节发送缓冲数据
- * 本函数不加锁，调用者应自行保护
- *
- * @param p_buffer  数据缓冲指针
- * @param length    数据长度
- * @return          无
- */
-void Module_TransmitUpper_SendBuffer(const uint8_t *p_buffer, uint16_t length)
-{
-  if (!p_buffer || length == 0)
-    return;
-
-  for (uint16_t i = 0; i < length; i++)
-  {
-    BSP_USART1_SendByte(p_buffer[i]);
-  }
-}
 
 /**
  * 将原始数据打包成协议帧
@@ -191,7 +215,7 @@ uint8_t *Module_TransmitUpper_PackFrame(
 }
 
 /**
- * 通过 USART 发送打包好的帧
+ * 发送打包好的帧（兼容旧接口，实际传输介质为USB CDC）
  *
  * @param device_id     设备类型
  * @param sample_freq   采样频率
@@ -205,17 +229,8 @@ int32_t Module_TransmitUpper_SendFrame(
     const float *p_data,
     uint16_t count)
 {
-  uint16_t frame_len = 0;
-  uint8_t *p_frame = Module_TransmitUpper_PackFrame(
-      device_id, sample_freq, p_data, count, &frame_len);
-
-  if (!p_frame || frame_len == 0)
-    return -1;
-
-  /* 通过 USART1 发送缓冲数据 */
-  Module_TransmitUpper_SendBuffer(p_frame, frame_len);
-
-  return 0;
+  return Module_USB_TransmitUpper_SendFrame(
+      device_id, sample_freq, p_data, count);
 }
 
 int32_t Module_USB_TransmitUpper_SendFrame(
@@ -228,46 +243,102 @@ int32_t Module_USB_TransmitUpper_SendFrame(
   uint8_t usb_status;
   uint8_t *p_frame;
   USBD_CDC_HandleTypeDef *hcdc;
+  int32_t result;
+
+  if ((usb_tx_mutex == NULL) || (usb_tx_complete == NULL))
+  {
+    return -6;
+  }
+
+  /* IV、光数据和测试发送共用此锁，锁覆盖整个USB异步发送周期。 */
+  if (xSemaphoreTake(usb_tx_mutex, portMAX_DELAY) != pdTRUE)
+  {
+    return -6;
+  }
+
+  result = -4;
+
+  /* 清除上一次超时后可能残留的完成通知。 */
+  (void)xSemaphoreTake(usb_tx_complete, 0U);
 
   /* USB CDC必须在主机完成枚举后才能发送。 */
   if ((hUsbDeviceHS.dev_state != USBD_STATE_CONFIGURED) ||
       (hUsbDeviceHS.pClassData == NULL))
   {
-    return -2;
+    upper_tx_stats.not_configured_drops++;
+    result = -2;
+    goto exit;
   }
 
   hcdc = (USBD_CDC_HandleTypeDef *)hUsbDeviceHS.pClassData;
 
-  /*
-   * PackFrame使用内部静态tx_buffer，因此必须在打包前检查上一帧状态，
-   * 防止USB仍在读取缓冲区时被下一帧覆盖。
-   */
+  /* 正常情况下锁已保证空闲；超时后的迟到完成在这里等待一次。 */
   if (hcdc->TxState != 0U)
   {
-    return -3;
+    if (xSemaphoreTake(
+            usb_tx_complete,
+            pdMS_TO_TICKS(USB_TX_COMPLETE_TIMEOUT_MS)) != pdTRUE)
+    {
+      upper_tx_stats.busy_failures++;
+      result = -3;
+      goto exit;
+    }
+
+    if ((hUsbDeviceHS.dev_state != USBD_STATE_CONFIGURED) ||
+        (hUsbDeviceHS.pClassData == NULL))
+    {
+      upper_tx_stats.not_configured_drops++;
+      result = -2;
+      goto exit;
+    }
   }
+
+  /* 不允许旧发送完成信号被下一帧误消费。 */
+  (void)xSemaphoreTake(usb_tx_complete, 0U);
 
   p_frame = Module_TransmitUpper_PackFrame(
       device_id, sample_freq, p_data, count, &frame_len);
 
   if ((p_frame == NULL) || (frame_len == 0U))
   {
-    return -1;
+    upper_tx_stats.pack_failures++;
+    result = -1;
+    goto exit;
   }
 
   usb_status = CDC_Transmit_HS(p_frame, frame_len);
 
   if (usb_status == USBD_OK)
   {
-    return 0;
+    if (xSemaphoreTake(
+            usb_tx_complete,
+            pdMS_TO_TICKS(USB_TX_COMPLETE_TIMEOUT_MS)) == pdTRUE)
+    {
+      upper_tx_stats.sent_frames++;
+      result = 0;
+    }
+    else
+    {
+      upper_tx_stats.completion_timeouts++;
+      result = -5;
+    }
+
+    goto exit;
   }
 
   if (usb_status == USBD_BUSY)
   {
-    return -3;
+    upper_tx_stats.busy_failures++;
+    result = -3;
+    goto exit;
   }
 
-  return -4;
+  upper_tx_stats.submit_failures++;
+  result = -4;
+
+exit:
+  (void)xSemaphoreGive(usb_tx_mutex);
+  return result;
 }
 
 /**
@@ -278,7 +349,7 @@ int32_t Module_TransmitUpper_SendIVData(
     uint16_t count,
     uint32_t sample_freq)
 {
-  return Module_TransmitUpper_SendFrame(
+  return Module_USB_TransmitUpper_SendFrame(
       DEVICE_TYPE_IV, sample_freq, p_data, count);
 }
 
@@ -290,6 +361,6 @@ int32_t Module_TransmitUpper_SendLightData(
     uint16_t count,
     uint32_t sample_freq)
 {
-  return Module_TransmitUpper_SendFrame(
+  return Module_USB_TransmitUpper_SendFrame(
       DEVICE_TYPE_LIGHT, sample_freq, p_data, count);
 }

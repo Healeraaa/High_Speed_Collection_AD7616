@@ -43,10 +43,6 @@ extern QueueHandle_t xLightDataQueue;
 void App_IVDataUploadTask(void *argument)
 {
     IVData_t rxData;            // 接收的数据包
-    SemaphoreHandle_t tx_mutex; // USART1 发送互斥锁
-
-    tx_mutex = App_GetUSART1_TxMutex();
-
     while (1)
     {
 
@@ -55,12 +51,10 @@ void App_IVDataUploadTask(void *argument)
             float *p_iv_data = rxData.pIVBuffer;
             uint32_t valid_count = rxData.validCount;
 
-            xSemaphoreTake(tx_mutex, portMAX_DELAY);
-            int32_t ret = Module_TransmitUpper_SendIVData(
+            (void)Module_TransmitUpper_SendIVData(
                 p_iv_data,
                 (uint16_t)valid_count,
                 AD7616_SAMPLE_FREQUENCY_HZ);
-            xSemaphoreGive(tx_mutex);
 
             vTaskDelay(pdMS_TO_TICKS(5));
         }
@@ -70,10 +64,6 @@ void App_IVDataUploadTask(void *argument)
 void App_LightDataUploadTask(void *argument)
 {
     LightData_t rxData;         // 接收的数据包
-    SemaphoreHandle_t tx_mutex; // USART1 发送互斥锁
-
-    tx_mutex = App_GetUSART1_TxMutex();
-
     while (1)
     {
         /* 等待接收光数据包 (阻塞等待) */
@@ -82,12 +72,10 @@ void App_LightDataUploadTask(void *argument)
             float *p_iv_data = rxData.pLightBuffer;
             uint32_t valid_count = rxData.validCount;
 
-            xSemaphoreTake(tx_mutex, portMAX_DELAY);
-            int32_t ret = Module_TransmitUpper_SendLightData(
+            (void)Module_TransmitUpper_SendLightData(
                 p_iv_data,
                 (uint16_t)valid_count,
-                AD7616_SAMPLE_FREQUENCY_HZ);
-            xSemaphoreGive(tx_mutex);
+                Light_SAMPLE_FREQUENCY_HZ);
             
             vTaskDelay(pdMS_TO_TICKS(5));
         }

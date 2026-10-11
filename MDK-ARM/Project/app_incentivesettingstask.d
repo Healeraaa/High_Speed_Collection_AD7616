@@ -15,7 +15,6 @@
 .\project\app_incentivesettingstask.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/list.h
 .\project\app_incentivesettingstask.o: ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h
 .\project\app_incentivesettingstask.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h
-.\project\app_incentivesettingstask.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/semphr.h
 .\project\app_incentivesettingstask.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h
 .\project\app_incentivesettingstask.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/timers.h
 .\project\app_incentivesettingstask.o: ..\Application\App_CurveFit.h

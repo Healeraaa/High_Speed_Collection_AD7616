@@ -10,7 +10,7 @@
 
 void App_IncentiveSettingsTask(void *argument)
 {
-    USART1_RxData_t rx_data = {0};
+    Upper_RxData_t rx_data = {0};
 
     /* 当前任务不使用传入参数，防止产生未使用参数警告。 */
     (void)argument;
@@ -26,9 +26,9 @@ void App_IncentiveSettingsTask(void *argument)
     {
         /*
          * 上位机连续发送完整的 ceiod 和 ceiof 后，
-         * Module_USART1_IsDataReady() 才会返回非零。
+         * Module_UpperRx_IsDataReady() 才会返回非零。
          */
-        if (Module_USART1_IsDataReady())
+        if (Module_UpperRx_IsDataReady())
         {
             /*
              * 将两行文本解析到 rx_data：
@@ -37,7 +37,7 @@ void App_IncentiveSettingsTask(void *argument)
              * rx_data.int_data[]  = 通道和三级增益
              * rx_data.float_data[]= 六个模式参数
              */
-            if (Module_USART1_ParseData(&rx_data) == Module_OK)
+            if (Module_UpperRx_ParseData(&rx_data) == Module_OK)
             {
                 /*
                  * 新模块会完成：

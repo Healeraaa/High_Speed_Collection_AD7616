@@ -9,7 +9,6 @@
 #include "App_VOFA_DataUpload.h"
 #include "App_IncentiveSettingsTask.h"
 #include "App_LightCollectionTask.h"
-#include "semphr.h"
 
 
 
@@ -34,24 +33,6 @@ TaskHandle_t App_LightCollectionTask_Handle;
 /* Queues --------------------------------------------------------------------*/
 
 /* Events --------------------------------------------------------------------*/
-/* ==================== USART1 发送互斥锁定义 ==================== */
-/**
- * USART1 发送互斥锁 - 保护 Module_TransmitUpper 的发送缓冲和传输
- */
-static SemaphoreHandle_t usart1_tx_mutex = NULL;
-
-/**
- * 获取 USART1 发送互斥锁句柄
- * 用于 Module_TransmitUpper 中的同步操作
- *
- * @return 互斥锁句柄
- */
-SemaphoreHandle_t App_GetUSART1_TxMutex(void)
-{
-  return usart1_tx_mutex;
-}
-// USART1 发送互斥锁
-SemaphoreHandle_t xUSART1_TX_Mutex;
 
 
 /**
@@ -167,10 +148,8 @@ void App_KeyTestTask(void *argument)
  */
 void App_Tasks_Init(void)
 {
-  /* 创建 USART1 发送互斥锁 */
-  usart1_tx_mutex = xSemaphoreCreateMutex();
-  // MX_USB_DEVICE_Init();
-
+  /* 创建USB上传互斥锁和发送完成信号量。 */
+  configASSERT(Module_TransmitUpper_Init() == 0);
   xTaskCreate(App_LEDToggle_Task, "App_LEDToggle_Task", 128, NULL, 1, &App_LEDToggle_Task_Handle);
   xTaskCreate(App_Run10ms_Task, "App_Run10ms_Task", 256, NULL, 2, &App_Run10ms_Task_Handle);    
   xTaskCreate(App_KeyTestTask, "App_KeyTestTask", 256, NULL, 2, &App_Key_Task_Handle);        

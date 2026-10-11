@@ -30,7 +30,7 @@
  * 特点：
  * - 第一个 %d 是模式标识符（对应 Serial_SendPacket 的第一个参数）
  * - 后续 %f 个数不固定，自动检测
- * - 支持 1~16 个浮点数（USART1_MAX_FLOAT_DATA）
+ * - 支持 1~16 个浮点数（UPPER_RX_MAX_FLOAT_DATA）
  * - 未来可轻松增加浮点数个数，无需修改解析函数
  */
 
@@ -41,7 +41,7 @@
  */
 void App_ReceiveUpper_Simple_Task(void *argument)
 {
-    USART1_RxData_t rx_data = {0};
+    Upper_RxData_t rx_data = {0};
     
     printf("[ReceiveUpper] 任务启动，等待数据...\r\n");
     printf("[ReceiveUpper] 期望格式: ceio:MODE,f1,f2,f3,...\r\n");
@@ -49,7 +49,7 @@ void App_ReceiveUpper_Simple_Task(void *argument)
     while (1)
     {
         // 尝试解析接收缓冲区中的数据
-        BSP_Status_t status = Module_USART1_ParseData(&rx_data);
+        BSP_Status_t status = Module_UpperRx_ParseData(&rx_data);
         
         if (status == BSP_OK)
         {
@@ -115,7 +115,7 @@ QueueHandle_t xReceiveUpperQueue = NULL;
  */
 void App_ReceiveUpper_Queue_Create(void)
 {
-    xReceiveUpperQueue = xQueueCreate(10, sizeof(USART1_RxData_t));
+    xReceiveUpperQueue = xQueueCreate(10, sizeof(Upper_RxData_t));
     if (xReceiveUpperQueue == NULL)
     {
         printf("[ERROR] 接收数据队列创建失败\r\n");
@@ -131,14 +131,14 @@ void App_ReceiveUpper_Queue_Create(void)
  */
 void App_ReceiveUpper_Detect_Task(void *argument)
 {
-    USART1_RxData_t rx_data = {0};
+    Upper_RxData_t rx_data = {0};
     
     printf("[ReceiveDetect] 任务启动\r\n");
     
     while (1)
     {
         // 尝试解析接收缓冲区中的数据
-        if (Module_USART1_ParseData(&rx_data) == BSP_OK)
+        if (Module_UpperRx_ParseData(&rx_data) == BSP_OK)
         {
             // 将完整的数据包发送到队列
             if (xQueueSend(xReceiveUpperQueue, &rx_data, 0) != pdTRUE)
@@ -156,7 +156,7 @@ void App_ReceiveUpper_Detect_Task(void *argument)
  */
 void App_ReceiveUpper_Process_Task(void *argument)
 {
-    USART1_RxData_t rx_data = {0};
+    Upper_RxData_t rx_data = {0};
     uint32_t process_count = 0;
     
     if (xReceiveUpperQueue == NULL)
@@ -285,9 +285,9 @@ void App_Test_ParseData(void)
     
     // 测试 1：Mode 0 + 6 个浮点数
     strcpy((char *)usart1_rx_buffer, "ceio:0,1.5,2.5,3.5,4.5,5.5,6.5\n");
-    USART1_RxData_t rx_data = {0};
+    Upper_RxData_t rx_data = {0};
     
-    if (Module_USART1_ParseData(&rx_data) == BSP_OK)
+    if (Module_UpperRx_ParseData(&rx_data) == BSP_OK)
     {
         printf("[TEST 1] Mode 0 + 6 floats - 解析成功:\r\n");
         printf("  Mode: %lu, Count: %lu\r\n", rx_data.mode, rx_data.float_count);
@@ -305,7 +305,7 @@ void App_Test_ParseData(void)
     strcpy((char *)usart1_rx_buffer, "ceio:1,10.0,20.0,30.0\n");
     memset(&rx_data, 0, sizeof(rx_data));
     
-    if (Module_USART1_ParseData(&rx_data) == BSP_OK)
+    if (Module_UpperRx_ParseData(&rx_data) == BSP_OK)
     {
         printf("[TEST 2] Mode 1 + 3 floats - 解析成功:\r\n");
         printf("  Mode: %lu, Count: %lu\r\n", rx_data.mode, rx_data.float_count);
@@ -323,7 +323,7 @@ void App_Test_ParseData(void)
     strcpy((char *)usart1_rx_buffer, "ceio:2,1.1,2.2,3.3,4.4,5.5,6.6,7.7,8.8\n");
     memset(&rx_data, 0, sizeof(rx_data));
     
-    if (Module_USART1_ParseData(&rx_data) == BSP_OK)
+    if (Module_UpperRx_ParseData(&rx_data) == BSP_OK)
     {
         printf("[TEST 3] Mode 2 + 8 floats - 解析成功:\r\n");
         printf("  Mode: %lu, Count: %lu\r\n", rx_data.mode, rx_data.float_count);
