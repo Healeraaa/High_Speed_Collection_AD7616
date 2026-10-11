@@ -26,7 +26,10 @@ void BSP_GPIO_LED_Init(void)
 // ==================== KEY ====================
 /**
  * @brief 初始化 Boot 选择按键
- * @note  PA0，上拉输入，低电平表示按下
+ * @note PA0，上拉输入，低电平表示按下
+ *
+ * 内部上拉保证按键松开时PA0有确定的高电平；按键按下后由硬件把PA0
+ * 拉到GND。这里只配置普通输入，不使用EXTI，因为Boot只在上电时读取一次。
  */
 void BSP_GPIO_BOOT_KEY_Init(void)
 {
@@ -45,6 +48,9 @@ void BSP_GPIO_BOOT_KEY_Init(void)
 /**
  * @brief 检测上电时 K1 是否持续按下
  * @retval 1：按下；0：未按下
+ *
+ * 机械按键闭合时可能在高低电平之间快速抖动。这里每隔10ms采样一次，
+ * 只有连续5次都是低电平才进入Boot，避免上电噪声导致误进入升级模式。
  */
 uint8_t BSP_GPIO_BOOT_KEY_IsPressed(void)
 {
@@ -52,16 +58,17 @@ uint8_t BSP_GPIO_BOOT_KEY_IsPressed(void)
 
     for (sample = 0; sample < 5U; sample++)
     {
-        /* PA0 为高电平，说明按键没有按下 */
+        /* 任意一次读到高电平，就认为没有持续按住K1。 */
         if (LL_GPIO_IsInputPinSet(GPIOA, LL_GPIO_PIN_0))
         {
             return 0U;
         }
 
+        /* DWT忙等待，不依赖RTOS任务或软件定时器。 */
         BSP_DWT_Delay_ms(10U);
     }
 
-    /* 连续约 50ms 都是低电平，确认按键按下 */
+    /* 连续约50ms都是低电平，确认用户确实按住K1。 */
     return 1U;
 }
 
